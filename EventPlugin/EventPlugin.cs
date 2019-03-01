@@ -137,6 +137,12 @@ namespace ATTG3
                 AddConfig(new ConfigSetting("taze_tag_time", 2f, SettingType.FLOAT, true, "Time after tagging someone with overcharge to detonation."));
                 AddConfig(new ConfigSetting("taze_tag_glitches", 15, SettingType.NUMERIC, true, "Additional glitch effects to play when an overcharge device detonates on the tagged player."));
             } // Custom Items
+            TAZEHandler = new CustomWeaponHandler<Taze>(200)
+            {
+                AmmoName = "Heavy Masses",
+                DroppedAmmoCount = 5,
+                DefaultType = ItemType.COM15
+            };
             Handler2 = new CustomItemHandler<LAR>(207)
             {
                 DefaultType = ItemType.MEDKIT
@@ -201,7 +207,9 @@ namespace ATTG3
             {
                 DefaultType = ItemType.COIN
             };
+            
             ReloadConfig();
+            TAZEHandler.Register();
             Handler2.Register();
             Handler3.Register();
             Handler4.Register();
