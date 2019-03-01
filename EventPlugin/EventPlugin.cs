@@ -23,7 +23,7 @@ namespace ATTG3
         SmodMajor = 3,
         SmodMinor = 3,
         SmodRevision = 0,
-        version = "1.1.0"
+        version = "1.2.0"
         )]
     public class ATTG3Plugin : Smod2.Plugin
     {
@@ -51,6 +51,7 @@ namespace ATTG3
         public string[] Customitemrank { get; private set; }
 
         public string[] Voterank { get; private set; }
+        public string[] SCPrank { get; private set; }
         public bool Voteopen {get;set;}
         public static bool
            enabled = false,
@@ -71,25 +72,29 @@ namespace ATTG3
         {
             Instance = this;
             Timing.Init(this);
-            //List<int>;
+            // Configs
             AddConfig(new ConfigSetting("attg_ranks", new[]
             {
                 "owner",
 				"coowner"
-            }, SettingType.LIST, true, "Valid ranks for the tl Command"));
+            }, SettingType.LIST, true, ""));
+            AddConfig(new ConfigSetting("attg_scp_ranks", new[]
+            {
+                "owner",
+                "coowner"
+            }, SettingType.LIST, true, "Ranks for all SCP Commands"));
             AddConfig(new ConfigSetting("attg_vote_ranks", new[]
             {
                 "owner",
                 "coowner",
                 "admin"
-            }, SettingType.LIST, true, "Valid ranks for the tl Command"));
-
-
+            }, SettingType.LIST, true, "Valid ranks for all voteing Commands"));
             AddConfig(new ConfigSetting("attg_item_ranks", new[]
             {
                 "owner"
             }, SettingType.LIST, true, "Valid ranks to Actavate custom items "));
 
+            // Custom Items
             Handler2 = new CustomItemHandler<LAR>(207)
             {
                 DefaultType = ItemType.MEDKIT
@@ -201,16 +206,17 @@ namespace ATTG3
 			ValidLightsOutRanks = GetConfigList("attg_ranks");
             Customitemrank = GetConfigList("attg_item_ranks");
             Voterank = GetConfigList("attg_vote_ranks");
+            SCPrank = GetConfigList("attg_scp_ranks");
         }
 
         public override void OnEnable()
         {
-            Info("ATTG3 enabled.");
+            Info("Event Plugin enabled.");
         }
 
         public override void OnDisable()
         {
-            Info("ATTG3 disabled.");
+            Info("Event Plugin disabled.");
         }
 
         public static void EnableGamemodeCIMTF()
