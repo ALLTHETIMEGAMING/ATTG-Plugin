@@ -91,7 +91,7 @@ namespace ATTG3
                 "(AGE079) Ejects all tablets from generators",
                 "(AGL079) Levels up 079 and gives AP",
                 "-------------VOTE COMMANDS-------------",
-                "(VOTET) Toggles Voteing",
+                "(VOTET) Toggles Voting",
                 "(VOTEC) Clears Vote",
                 "(VOTES) Displays Vote",
                 "(VOTEBC) Displays how to vote",
