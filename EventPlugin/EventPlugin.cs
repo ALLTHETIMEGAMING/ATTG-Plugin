@@ -36,9 +36,8 @@ namespace ATTG3
         public CustomItemHandler<SHY> Handler6 { get; private set; }
         public CustomItemHandler<ZOM> Handler7 { get; private set; }
         public CustomItemHandler<COM> Handler8 { get; private set; }
-        public CustomItemHandler<NUKE> Handler11 { get; private set; }
         public CustomItemHandler<RECALL> Handler16 { get; private set; }
-        public CustomWeaponHandler<Taze> TAZEHandler { get; private set; }
+        public CustomWeaponHandler<Taze> Handler { get; private set; }
         public static float TAZEBodyDamage { get; private set; }
         public static float TAZEHeadDamage { get; private set; }
         public static float TAZELegDamage { get; private set; }
@@ -130,7 +129,7 @@ namespace ATTG3
                 AddConfig(new ConfigSetting("taze_tag_time", 2f, SettingType.FLOAT, true, "Time after tagging someone with overcharge to detonation."));
                 AddConfig(new ConfigSetting("taze_tag_glitches", 15, SettingType.NUMERIC, true, "Additional glitch effects to play when an overcharge device detonates on the tagged player."));
             } // Custom Items
-            TAZEHandler = new CustomWeaponHandler<Taze>(200)
+            Handler = new CustomWeaponHandler<Taze>(200)
             {
                 AmmoName = "Heavy Masses",
                 DroppedAmmoCount = 5,
@@ -171,7 +170,7 @@ namespace ATTG3
 
             
             ReloadConfig();
-            TAZEHandler.Register();
+            Handler.Register();
             Handler2.Register();
             Handler3.Register();
             Handler4.Register();
@@ -179,7 +178,6 @@ namespace ATTG3
             Handler6.Register();
             Handler7.Register();
             Handler8.Register();
-            Handler11.Register();
             Handler16.Register();
             this.AddCommand("AGTL", new Tleslad(this));
             this.AddCommand("AGEL", new ELEL(this));
@@ -221,7 +219,7 @@ namespace ATTG3
             TAZETagDamage = GetConfigFloat("taze_tag_damage");
             TAZEFireRate = GetConfigFloat("taze_fire_rate");
             TAZEMagazine = GetConfigInt("taze_magazine");
-            TAZEHandler.DefaultReserveAmmo = GetConfigInt("taze_reserve_ammo");
+            Handler.DefaultReserveAmmo = GetConfigInt("taze_reserve_ammo");
             TAZEKrakatoa = GetConfigInt("taze_krakatoa");
             TAZESuppressedKrakatoa = GetConfigInt("taze_suppressed_krakatoa");
 
@@ -248,7 +246,7 @@ namespace ATTG3
             if (!roundstarted)
             {
                 plugin.pluginManager.Server.Map.ClearBroadcasts();
-                plugin.pluginManager.Server.Map.Broadcast(25, "<color=#00ffff> Gangwar Gamemode is starting..</color>", false);
+                plugin.pluginManager.Server.Map.Broadcast(25, "<color=#00ffff> CI VS MTF Gamemode is starting..</color>", false);
             }
         }
 

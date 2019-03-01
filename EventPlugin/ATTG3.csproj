@@ -94,7 +94,6 @@
     <Compile Include="Vote Stuff\Votehand.cs" />
     <Compile Include="Items\COM.cs" />
     <Compile Include="Items\N39.cs" />
-    <Compile Include="Items\NUKE.cs" />
     <Compile Include="Items\NUT.cs" />
     <Compile Include="Items\O49.cs" />
     <Compile Include="EventPlugin.cs" />
