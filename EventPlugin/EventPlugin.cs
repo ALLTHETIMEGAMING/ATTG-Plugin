@@ -36,15 +36,8 @@ namespace ATTG3
         public CustomItemHandler<SHY> Handler6 { get; private set; }
         public CustomItemHandler<ZOM> Handler7 { get; private set; }
         public CustomItemHandler<COM> Handler8 { get; private set; }
-        public CustomItemHandler<MTFL> Handler9 { get; private set; }
-        public CustomItemHandler<tptop> Handler10 { get; private set; }
         public CustomItemHandler<NUKE> Handler11 { get; private set; }
-        public CustomItemHandler<CITP> Handler12 { get; private set; }
-        public CustomItemHandler<CD> Handler13 { get; private set; }
-        public CustomItemHandler<ELE> Handler14 { get; private set; }
-        public CustomItemHandler<LD> Handler15 { get; private set; }
         public CustomItemHandler<RECALL> Handler16 { get; private set; }
-        public CustomItemHandler<O79> Handler17 { get; private set; }
         public CustomWeaponHandler<Taze> TAZEHandler { get; private set; }
         public static float TAZEBodyDamage { get; private set; }
         public static float TAZEHeadDamage { get; private set; }
@@ -171,42 +164,11 @@ namespace ATTG3
             {
                 DefaultType = ItemType.MEDKIT
             };
-            Handler9 = new CustomItemHandler<MTFL>(214)
-            {
-                DefaultType = ItemType.MEDKIT
-            };
-            Handler10 = new CustomItemHandler<tptop>(215)
-            {
-                DefaultType = ItemType.MEDKIT
-            };
-            Handler11 = new CustomItemHandler<NUKE>(216)
-            {
-                DefaultType = ItemType.MEDKIT
-            };
-            Handler12 = new CustomItemHandler<CITP>(217)
-            {
-                DefaultType = ItemType.MEDKIT
-            };
-            Handler13 = new CustomItemHandler<CD>(218)
-            {
-                DefaultType = ItemType.MEDKIT
-            };
-            Handler14 = new CustomItemHandler<ELE>(219)
-            {
-                DefaultType = ItemType.MEDKIT
-            };
-            Handler15 = new CustomItemHandler<LD>(220)
-            {
-                DefaultType = ItemType.MEDKIT
-            };
-            Handler16 = new CustomItemHandler<RECALL>(221)
+            Handler16 = new CustomItemHandler<RECALL>(214)
             {
                 DefaultType = ItemType.COIN
             };
-            Handler17 = new CustomItemHandler<O79>(222)
-            {
-                DefaultType = ItemType.COIN
-            };
+
             
             ReloadConfig();
             TAZEHandler.Register();
@@ -217,15 +179,8 @@ namespace ATTG3
             Handler6.Register();
             Handler7.Register();
             Handler8.Register();
-            Handler9.Register();
-            Handler10.Register();
             Handler11.Register();
-            Handler12.Register();
-            Handler13.Register();
-            Handler14.Register();
-            Handler15.Register();
             Handler16.Register();
-            Handler17.Register();
             this.AddCommand("AGTL", new Tleslad(this));
             this.AddCommand("AGEL", new ELEL(this));
             this.AddCommand("AG106D", new C106(this));

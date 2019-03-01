@@ -92,19 +92,13 @@
     <Compile Include="Vote Stuff\VoteC.cs" />
     <Compile Include="Vote Stuff\Votehand.cs" />
     <Compile Include="Events\Events.cs" />
-    <Compile Include="Items\CITP.cs" />
     <Compile Include="Items\COM.cs" />
-    <Compile Include="Items\CD.cs" />
-    <Compile Include="Items\ELE.cs" />
-    <Compile Include="Items\LD.cs" />
-    <Compile Include="Items\MTFL.cs" />
     <Compile Include="Items\N39.cs" />
     <Compile Include="Items\NUKE.cs" />
     <Compile Include="Items\NUT.cs" />
     <Compile Include="Items\O49.cs" />
     <Compile Include="EventPlugin.cs" />
     <Compile Include="Items\LAR.cs" />
-    <Compile Include="Items\O79.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Items\RECALL.cs" />
     <Compile Include="Items\SHY.cs" />
@@ -112,7 +106,6 @@
     <Compile Include="Commands\ELEL.cs" />
     <Compile Include="Commands\Tleslad.cs" />
     <Compile Include="Commands\Tlesla.cs" />
-    <Compile Include="Items\tptop.cs" />
     <Compile Include="Items\ZOM.cs" />
   </ItemGroup>
   <ItemGroup>
