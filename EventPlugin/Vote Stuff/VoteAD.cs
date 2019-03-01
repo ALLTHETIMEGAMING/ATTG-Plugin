@@ -36,7 +36,7 @@ namespace ATTG3
         {
             if (!(sender is Server) &&
                 sender is Player player &&
-                !plugin.ValidLightsOutRanks.Contains(player.GetRankName()))
+                !plugin.Voterank.Contains(player.GetRankName()))
             {
                 return new[]
                 {

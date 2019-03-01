@@ -49,6 +49,8 @@ namespace ATTG3
         public string[] ValidLightsOutRanks { get; private set; }
 
         public string[] Customitemrank { get; private set; }
+
+        public string[] Voterank { get; private set; }
         public bool Voteopen {get;set;}
         public static bool
            enabled = false,
@@ -75,6 +77,13 @@ namespace ATTG3
                 "owner",
 				"coowner"
             }, SettingType.LIST, true, "Valid ranks for the tl Command"));
+            AddConfig(new ConfigSetting("attg_vote_ranks", new[]
+            {
+                "owner",
+                "coowner",
+                "admin"
+            }, SettingType.LIST, true, "Valid ranks for the tl Command"));
+
 
             AddConfig(new ConfigSetting("attg_item_ranks", new[]
             {
@@ -191,6 +200,7 @@ namespace ATTG3
 
 			ValidLightsOutRanks = GetConfigList("attg_ranks");
             Customitemrank = GetConfigList("attg_item_ranks");
+            Voterank = GetConfigList("attg_vote_ranks");
         }
 
         public override void OnEnable()
