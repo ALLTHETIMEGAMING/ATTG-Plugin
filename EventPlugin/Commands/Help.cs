@@ -99,9 +99,9 @@ namespace ATTG3
                 "(AGCIMTF) Turns on CI VS MTF next round",
                 "-------------OTHER COMMANDS-------------",
                 "(AGHELP) This command",
-                "(AMMO) (Players name)",
-                "(UP) (Players name)",
-                "(Citem) Enables custom items",
+                "(AGAMMO) (Players name)",
+                "(AGUP) (Players name)",
+                "(AGCitem) Enables custom items",
                 "----------------------------------------",
                 "Plugin created by All The Time Gaming"
         };

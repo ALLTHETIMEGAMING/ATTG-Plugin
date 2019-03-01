@@ -175,11 +175,11 @@ namespace ATTG3
             this.AddCommand("VoteS", new VoteA(this));
 			this.AddCommand("AGAmmo", new Ammo(this));
 			this.AddCommand("VoteBC", new VoteBC(this));
-			this.AddCommand("CIMTF", new CIMTFC(this));
+			this.AddCommand("AGCIMTF", new CIMTFC(this));
             this.AddCommand("AGUP", new Up(this));
             this.AddCommand("AGL079", new L079(this));
             this.AddCommand("AGE079", new E079(this));
-            this.AddCommand("Citem", new Citem(this));
+            this.AddCommand("AGCitem", new Citem(this));
             this.AddEventHandlers(new Events(this), Priority.Normal);
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new No(this));
