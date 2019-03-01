@@ -5,6 +5,12 @@ An Smod plugin that adds Admin commands and a Event Command to SCP:SL
 **[Smod2](https://github.com/Grover-c13/Smod2) and [ItemManager](https://github.com/probe4aiur/ItemManager) must be installed for this to work.**
 
 Place the "ATTG3.dll" file in your sm_plugins folder.
+# Request Forms
+
+[Command Request] (https://goo.gl/forms/GW8Ic4UplluDDP592) 
+[Item Request] (https://goo.gl/forms/yMY8dRiiafXGqW3y2)
+
+
 # Items
 | Item ID       | Discription |
 | :-------------: | :---------: | 
