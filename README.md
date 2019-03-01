@@ -10,5 +10,5 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_ranks | List | owner, coowner | Roles that can do all commands|
-| attg_item_ranks | List | owner | Roles that can actavate the custom items |
+| attg_item_ranks | List | owner | Roles that can activate the custom items |
 
