@@ -227,7 +227,7 @@ namespace ATTG3
 
             TAZEOverChargeRadius = GetConfigFloat("taze_overcharge_radius");
             TAZEOverChargeDamage = GetConfigFloat("taze_overcharge_damage");
-            TAZEOverCharageNukeEffect = GetConfigBool("tazeovercharge_glitch");
+            TAZEOverCharageNukeEffect = GetConfigBool("taze_overcharge_glitch");
             TAZETagTime = GetConfigFloat("taze_tag_time");
             TAZETagGlitches = GetConfigInt("taze_tag_glitches");
         }

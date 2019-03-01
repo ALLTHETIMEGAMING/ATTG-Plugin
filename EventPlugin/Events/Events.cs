@@ -25,7 +25,7 @@ namespace ATTG3
                 {
                     Server server = plugin.pluginManager.Server;
                     server.Map.ClearBroadcasts();
-                    server.Map.Broadcast(25, "<color=00FFFF> Gangwar Gamemode</color> is starting..", false);
+                    server.Map.Broadcast(25, "<color=00FFFF> CI VS MTF Gamemode</color> is starting..", false);
                 }
             }
         }

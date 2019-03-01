@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Commands\Citem.cs" />
     <Compile Include="Custom Guns\tazer.cs" />
+    <Compile Include="Events\Events.cs" />
     <Compile Include="SCP COMMANDS\E079.cs" />
     <Compile Include="Commands\Up.cs" />
     <Compile Include="Commands\Help.cs" />
@@ -91,7 +92,6 @@
     <Compile Include="Vote Stuff\VoteAD.cs" />
     <Compile Include="Vote Stuff\VoteC.cs" />
     <Compile Include="Vote Stuff\Votehand.cs" />
-    <Compile Include="Events\Events.cs" />
     <Compile Include="Items\COM.cs" />
     <Compile Include="Items\N39.cs" />
     <Compile Include="Items\NUKE.cs" />
