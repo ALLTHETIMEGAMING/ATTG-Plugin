@@ -126,11 +126,11 @@ namespace ATTG3
                 AddConfig(new ConfigSetting("attg_taze_tag_time", 2f, SettingType.FLOAT, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_tag_glitches", 15, SettingType.NUMERIC, true, ""));
 				// Grenade
-				AddConfig(new ConfigSetting("attg_Grenade_fire_rate", 3F, SettingType.FLOAT, true, ""));
-				AddConfig(new ConfigSetting("attg_Grenade_magazine", 1, SettingType.NUMERIC, true, ""));
-				AddConfig(new ConfigSetting("attg_Grenade_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
-				AddConfig(new ConfigSetting("attg_Grenade_krakatoa", 10, SettingType.NUMERIC, true, ""));
-				AddConfig(new ConfigSetting("attg_Grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, "."));
+				AddConfig(new ConfigSetting("attg_grenade_fire_rate", 3F, SettingType.FLOAT, true, ""));
+				AddConfig(new ConfigSetting("attg_grenade_magazine", 1, SettingType.NUMERIC, true, ""));
+				AddConfig(new ConfigSetting("attg_grenade_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
+				AddConfig(new ConfigSetting("attg_grenade_krakatoa", 10, SettingType.NUMERIC, true, ""));
+				AddConfig(new ConfigSetting("attg_grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, "."));
 			 // Custom Items
             Handler = new CustomWeaponHandler<Taze>(200)
             {
@@ -226,11 +226,11 @@ namespace ATTG3
             TAZETagTime = GetConfigFloat("attg_taze_tag_time");
             TAZETagGlitches = GetConfigInt("attg_taze_tag_glitches");
 			// Grenade
-			GrenadeFireRate = GetConfigFloat("attg_Grenade_fire_rate");
-			GrenadeMagazine = GetConfigInt("attg_Grenade_magazine");
-			Handler10.DefaultReserveAmmo = GetConfigInt("attg_Grenade_reserve_ammo");
-			GrenadeKrakatoa = GetConfigInt("attg_Grenade_krakatoa");
-			GrenadeSuppressedKrakatoa = GetConfigInt("attg_Grenade_suppressed_krakatoa");
+			GrenadeFireRate = GetConfigFloat("attg_grenade_fire_rate");
+			GrenadeMagazine = GetConfigInt("attg_grenade_magazine");
+			Handler10.DefaultReserveAmmo = GetConfigInt("attg_grenade_reserve_ammo");
+			GrenadeKrakatoa = GetConfigInt("attg_grenade_krakatoa");
+			GrenadeSuppressedKrakatoa = GetConfigInt("attg_grenade_suppressed_krakatoa");
 		}
         public override void OnEnable()
         {
