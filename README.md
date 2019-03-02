@@ -11,7 +11,11 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 
 [Item Request](https://goo.gl/forms/yMY8dRiiafXGqW3y2)
 
+# Support
 
+[The support discord for the Event Plugin](https://discord.gg/8bjsvST)
+
+[Smod Discord](https://discord.gg/nJRA2CT)
 # Items
 | Item ID       | Discription |
 | :-------------: | :---------: | 
@@ -34,4 +38,5 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | attg_ranks | List | owner, coowner | Roles that can do all commands|
 | attg_item_ranks | List | owner | Roles that can actavate the custom items |
 | attg_vote_ranks | List | owner, coowner, admin | Roles that do all voting commands |
+| attg_disable_ranks | List | owner | Roles that can disable the plugin |
 
