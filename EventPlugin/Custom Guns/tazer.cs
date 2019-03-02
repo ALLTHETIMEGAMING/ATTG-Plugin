@@ -9,20 +9,27 @@ using UnityEngine.Networking;
 
 namespace ATTG3
 {
-    public class Taze : CustomWeapon
-    {
+    public class Taze : CustomWeapon, IDoubleDroppable
+	{
         private const int WorldMask = 1207976449;
         private const int PlayerMask = 1208246273;
         private const float GlitchLength = 1.9f;
 
-        private bool overCharged = false;
+		private bool overCharged;
 
-        public override int MagazineCapacity => ATTG3Plugin.TAZEMagazine;
-        public override float FireRate => ATTG3Plugin.TAZEFireRate;
+		public override int MagazineCapacity => ATTG3Plugin.GrenadeMagazine;
+		public override float FireRate => ATTG3Plugin.GrenadeFireRate;
+
+		public float DoubleDropWindow => ATTG3Plugin.GrenadeOverChargeable ? ATTG3Plugin.DoubleDropTime : 0;
+		public bool OnDoubleDrop()
+		{
+			overCharged = !overCharged;
 
 
 
-        public override void OnInitialize()
+			return false;
+		}
+		public override void OnInitialize()
         {
             base.OnInitialize();
 
@@ -68,7 +75,7 @@ namespace ATTG3
             Physics.Raycast(cam.position + cam.forward, cam.forward, out RaycastHit playerHit, PlayerMask);
             HitboxIdentity hitbox = playerHit.collider?.GetComponent<HitboxIdentity>();
 
-            if (overCharged == false)
+            if (!overCharged)
             {
 
 

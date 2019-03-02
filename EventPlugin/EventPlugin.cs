@@ -57,6 +57,7 @@ namespace ATTG3
 
         public static float TAZETagTime { get; private set; }
         public static int TAZETagGlitches { get; private set; }
+		public static float DoubleDropTime { get; private set; }
 
 		public static float GrenadeBodyDamage { get; private set; }
 		public static float GrenadeHeadDamage { get; private set; }
@@ -127,8 +128,9 @@ namespace ATTG3
             {
                 "owner"
             }, SettingType.LIST, true, "Valid ranks to Actavate custom items "));
-            //TAZER Configs
-            {
+			AddConfig(new ConfigSetting("attg_doubledrop_time", 0.25f, SettingType.FLOAT, true, "Time that a player must double right click in order to toggle overcharge."));
+			//TAZER Configs
+			{
                 AddConfig(new ConfigSetting("taze_body_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on bodies."));
                 AddConfig(new ConfigSetting("taze_head_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on heads."));
                 AddConfig(new ConfigSetting("taze_leg_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on legs."));
@@ -250,7 +252,8 @@ namespace ATTG3
 
         public void ReloadConfig()
         {
-            // Command Perms
+			DoubleDropTime = GetConfigFloat("attg_doubledrop_time");
+			// Command Perms
 			ValidLightsOutRanks = GetConfigList("attg_ranks");
             Customitemrank = GetConfigList("attg_item_ranks");
             Voterank = GetConfigList("attg_vote_ranks");
