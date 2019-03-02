@@ -208,7 +208,7 @@ namespace ATTG3
             this.AddCommand("AGS079", new ST079(this));
             this.AddCommand("AGTLR", new TleslR(this));
             this.AddCommand("AGP079", new P079(this));
-            this.AddCommand("AGELR", new ELELS(this));
+            this.AddCommand("AGELS", new ELELS(this));
             this.AddCommand("AGHELP", new Help(this));
             this.AddCommand("VoteT", new VoteAD(this));
             this.AddCommand("VoteC", new VoteC(this));

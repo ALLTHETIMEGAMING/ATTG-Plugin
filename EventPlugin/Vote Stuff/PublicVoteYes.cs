@@ -22,7 +22,7 @@ namespace ATTG3
             string command = ev.Command.ToLower();
 			if (command.StartsWith("yes"))
 			{
-				if (plugin.Voteopen == true)
+				if (plugin.Voteopen)
 				{
 					plugin.Yes++;
 					ev.ReturnMessage = "Vote Submitted";

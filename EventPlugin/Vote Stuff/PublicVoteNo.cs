@@ -19,7 +19,7 @@ namespace ATTG3
         {
             string command = ev.Command.ToLower();
             if (command.StartsWith("no")) {
-				if (plugin.Voteopen == true)
+				if (plugin.Voteopen)
 				{
 					plugin.No++;
 					ev.ReturnMessage = "Vote Submitted";

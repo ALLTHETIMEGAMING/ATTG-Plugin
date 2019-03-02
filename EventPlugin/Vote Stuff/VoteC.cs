@@ -22,13 +22,13 @@ namespace ATTG3
         public string GetCommandDescription()
         {
             // This prints when someone types HELP HELLO
-            return "tlesla";
+            return "Clears Vote";
         }
 
         public string GetUsage()
         {
             // This prints when someone types HELP HELLO
-            return "tlesla";
+            return "AGVOTEC";
         }
 
         public string[] OnCall(ICommandSender sender, string[] args)
@@ -42,14 +42,8 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-
-           
-            
-           
                 plugin.Yes = 0;
                 plugin.No = 0;
-
-            
             return new[]
             {
                 $"Votes are cleared."

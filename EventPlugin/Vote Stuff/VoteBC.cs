@@ -26,13 +26,13 @@ namespace ATTG3
         public string GetCommandDescription()
         {
             // This prints when someone types HELP HELLO
-            return "tlesla";
+            return "Displays how to vote";
         }
 
         public string GetUsage()
         {
             // This prints when someone types HELP HELLO
-            return "tlesla";
+            return "AGVOTEBC";
         }
 
         public string[] OnCall(ICommandSender sender, string[] args)
