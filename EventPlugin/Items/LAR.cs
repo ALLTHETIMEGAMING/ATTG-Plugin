@@ -25,15 +25,15 @@ namespace ATTG3
                 SmodPlayer smodPlayer = new SmodPlayer(PlayerObject);
                 smodPlayer.ChangeRole(Smod2.API.Role.SCP_106, false, false);
                 smodPlayer.SetHealth(500);
-                return true;
+                
             }
             else
             {
                 SmodPlayer = new SmodPlayer(PlayerObject);
                 SmodPlayer.PersonalBroadcast(10, "Item is not actavated", false);
-                return true;
+                
             }
-            
+			return true;
 		}
 
 		public override bool OnDeathDrop(GameObject attacker, DamageType damage)

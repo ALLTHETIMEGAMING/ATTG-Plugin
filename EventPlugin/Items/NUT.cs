@@ -30,7 +30,7 @@ namespace ATTG3
             {
                 SmodPlayer = new SmodPlayer(PlayerObject);
                 SmodPlayer.PersonalBroadcast(10, "Item is not actavated", false);
-                return true;
+                
             }
             return true;
 		}

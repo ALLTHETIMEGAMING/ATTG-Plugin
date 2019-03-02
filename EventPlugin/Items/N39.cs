@@ -23,15 +23,16 @@ namespace ATTG3
                 SmodPlayer smodPlayer = new SmodPlayer(PlayerObject);
                 smodPlayer.PersonalBroadcast(10, "USE THIS ITEM TO TURN INTO A SCP", false);
                 smodPlayer.SetHealth(50);
-                return true;
+                
             }
             else
             {
                 SmodPlayer = new SmodPlayer(PlayerObject);
                 SmodPlayer.PersonalBroadcast(10, "Item is not actavated", false);
-                return true;
+                
             }
-        }
+			return true;
+		}
         public override void OnMedkitUse()
         {
             if (plugin.Citems)

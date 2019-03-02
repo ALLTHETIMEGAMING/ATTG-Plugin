@@ -33,15 +33,16 @@ namespace ATTG3
                 SmodPlayer = new SmodPlayer(PlayerObject);
                 SmodPlayer.PersonalBroadcast(10, "RECALLED ACTIVATING IN 1 MIN ", false);
                 Timing.Run(TimingDelay(delay));
-                return true;
+                
             }
             else
             {
                 SmodPlayer = new SmodPlayer(PlayerObject);
                 SmodPlayer.PersonalBroadcast(10, "Item is not actavated", false);
-                return true;
+                
             }
-        }
+			return true;
+		}
 
 
         public override bool OnDeathDrop(GameObject attacker, DamageType damage)
