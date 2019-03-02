@@ -68,7 +68,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 # Grenade Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
-| attg_grenade_fire_rate | Float | 3 | Firerate for grenade launcher. |
+| attg_grenade_fire_rate | Float | 3f | Firerate for grenade launcher. |
 | attg_grenade_magazine | Integer | 1 | Number of grenades per magazine. |
 | attg_grenade_reserve_ammo | Integer | 10 | How much grenade launcher ammo each player gets. |
 | attg_grenade_krakatoa | Integer | 10 | Number of shoot sounds to play when shot. |
