@@ -27,13 +27,13 @@ namespace ATTG3
 		public string GetCommandDescription()
 		{
 			// This prints when someone types HELP HELLO
-			return "tlesla";
+			return "Disables 106 Containment";
 		}
 
 		public string GetUsage()
 		{
 			// This prints when someone types HELP HELLO
-			return "tlesla";
+			return "Disables 106 Containment";
 		}
 
 		public string[] OnCall(ICommandSender sender, string[] args)

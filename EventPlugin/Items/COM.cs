@@ -19,7 +19,7 @@ namespace ATTG3
         public static SmodPlayer SmodPlayer { get; private set; }
         public override bool OnPickup()
 		{
-            if (plugin.Citems == true)
+            if (plugin.Citems)
             {
                 PluginManager.Manager.Server.Map.Broadcast(10, "A SCP HAS SPAWNED", false);
                 SmodPlayer smodPlayer = new SmodPlayer(PlayerObject);

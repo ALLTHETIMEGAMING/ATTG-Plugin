@@ -22,13 +22,13 @@ namespace ATTG3
 
         public Up(ATTG3Plugin plugin) => this.plugin = plugin;
         public string GetCommandDescription() => "";
-        public string GetUsage() => "";
+        public string GetUsage() => "Forces player up";
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server) &&
                 sender is Player player &&
-                !plugin.ValidLightsOutRanks.Contains(player.GetRankName()))
+                !plugin.AdminRanks.Contains(player.GetRankName()))
             {
                 return new[]
                 {

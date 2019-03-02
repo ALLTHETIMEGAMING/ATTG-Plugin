@@ -22,13 +22,13 @@ namespace ATTG3
 		public string GetCommandDescription()
 		{
 			// This prints when someone types HELP HELLO
-			return "tlesla";
+			return "Enables or Disables custom items";
 		}
 
 		public string GetUsage()
 		{
 			// This prints when someone types HELP HELLO
-			return "tlesla";
+			return "AGCITEM";
 		}
 
 		public string[] OnCall(ICommandSender sender, string[] args)
@@ -43,11 +43,11 @@ namespace ATTG3
 				};
 			}
 			running = !running;
-			if (plugin.Citems == true)
+			if (plugin.Citems)
 			{
                 plugin.Citems = false;
             }
-            else if (plugin.Citems == false)
+            else if (!plugin.Citems)
             {
                 plugin.Citems = true;
             }

@@ -3,16 +3,22 @@ using Smod2;
 using Smod2.API;
 using System.Linq;
 using System.Collections.Generic;
-
+using UnityEngine.Networking;
+using UnityEngine;
+using ItemManager;
+using ItemManager.Events;
+using RemoteAdmin;
+using scp4aiur;
 namespace ATTG3
 {
-    class Ammo : ICommandHandler
+    class Speed : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
 
-        public Ammo(ATTG3Plugin plugin) => this.plugin = plugin;
+
+        public Speed(ATTG3Plugin plugin) => this.plugin = plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
 
@@ -20,7 +26,7 @@ namespace ATTG3
         {
             if (!(sender is Server) &&
                 sender is Player player &&
-                !plugin.AdminRanks.Contains(player.GetRankName()))
+                !plugin.ValidLightsOutRanks.Contains(player.GetRankName()))
             {
                 return new[]
                 {
@@ -36,26 +42,18 @@ namespace ATTG3
 
             if (args.Length > 0)
             {
-                if (args[0].ToLower() == "all" || args[0].StartsWith("*"))
-                {
-
-                    foreach (Player p in Server.GetPlayers())
-                    {
-                        p.SetAmmo(AmmoType.DROPPED_5, 100000);
-                        p.SetAmmo(AmmoType.DROPPED_7, 100000);
-                        p.SetAmmo(AmmoType.DROPPED_9, 100000);
-
-                    }
-
-                }
+                
                 Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
-                if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
-                if (myPlayer.TeamRole.Role != Role.SPECTATOR)
+
+				if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
+                if (myPlayer.TeamRole.Role == Role.SCP_939_53 || myPlayer.TeamRole.Role == Role.SCP_939_89)
                 {
-                    myPlayer.SetAmmo(AmmoType.DROPPED_5, 100000);
-                    myPlayer.SetAmmo(AmmoType.DROPPED_7, 100000);
-                    myPlayer.SetAmmo(AmmoType.DROPPED_9, 100000);
-                    return new string[] { myPlayer.Name + " has been given ammo!" };
+
+					foreach (GameObject myPlayer in PlayerManager.singleton.players.Except(new[] { PlayerObject })
+					{
+						), player);
+
+						return new string[] { myPlayer.Name + " has been given ammo!" };
                 }
                 else
                     return new string[] { myPlayer.Name + " is dead!" };

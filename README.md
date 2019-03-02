@@ -40,3 +40,11 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | attg_vote_ranks | List | owner, coowner, admin | Roles that do all voting commands |
 | attg_disable_ranks | List | owner | Roles that can disable the plugin |
 
+# Thanks
+Some of the code that I am using was made by 
+
+[Androx](https://github.com/probe4aiur)
+
+[Joker119](https://github.com/galaxy119)
+
+[Evan}(https://github.com/Rnen)

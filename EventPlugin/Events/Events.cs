@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ATTG3
 {
-    internal class Events : IEventHandlerTeamRespawn, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerPlayerJoin, IEventHandlerWaitingForPlayers
+    internal class Events : IEventHandlerTeamRespawn, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerPlayerJoin
     {
         private readonly ATTG3Plugin plugin;
 
@@ -19,7 +19,7 @@ namespace ATTG3
 
         public void OnPlayerJoin(PlayerJoinEvent ev)
         {
-            if (plugin.CIMTF == true)
+            if (plugin.CIMTF)
             {
                 if (!ATTG3Plugin.roundstarted)
                 {
@@ -31,7 +31,7 @@ namespace ATTG3
         }
         public void OnSetRole(PlayerSetRoleEvent ev)
         {
-            if (plugin.CIMTF == true)
+            if (plugin.CIMTF)
             {
                 if (ev.Player.TeamRole.Role == Role.CLASSD || ev.Player.TeamRole.Role == Role.SCP_079 ||
                     ev.Player.TeamRole.Role == Role.SCP_939_53 || ev.Player.TeamRole.Role == Role.SCP_939_89)
@@ -48,14 +48,9 @@ namespace ATTG3
 
         }
 
-        public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
-        {
-         
-        }
-
         public void OnRoundStart(RoundStartEvent ev)
         {
-            if (plugin.CIMTF == true)
+            if (plugin.CIMTF)
             {
                 ATTG3Plugin.roundstarted = true;
                 plugin.Server.Map.DetonateWarhead();
@@ -80,7 +75,7 @@ namespace ATTG3
 
         public void OnRoundEnd(RoundEndEvent ev)
         {
-            if (plugin.CIMTF == true)
+            if (plugin.CIMTF)
             {
                 plugin.Info("Round Ended!");
                 EndGamemodeRound();
@@ -89,7 +84,7 @@ namespace ATTG3
 // I HATE EVERYTHIG
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
         {
-            if (plugin.CIMTF == true)
+            if (plugin.CIMTF)
             {
                 bool ciAlive = false;
                 bool ntfAlive = false;
@@ -127,7 +122,7 @@ namespace ATTG3
 
         public void OnTeamRespawn(TeamRespawnEvent ev)
         {
-            if (plugin.CIMTF == true)
+            if (plugin.CIMTF)
             {
                 if (plugin.Round.Stats.CiAlive >= plugin.Round.Stats.NTFAlive)
                 {
@@ -142,7 +137,7 @@ namespace ATTG3
 
         public void EndGamemodeRound()
         {
-            if (plugin.CIMTF == true)
+            if (plugin.CIMTF)
             {
                 plugin.Info("EndgameRound Function.");
                 ATTG3Plugin.roundstarted = false;

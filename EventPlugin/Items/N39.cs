@@ -18,7 +18,7 @@ namespace ATTG3
         public static SmodPlayer SmodPlayer { get; private set; }
         public override bool OnPickup()
 		{
-            if (plugin.Citems == true)
+            if (plugin.Citems)
             {
                 SmodPlayer smodPlayer = new SmodPlayer(PlayerObject);
                 smodPlayer.PersonalBroadcast(10, "USE THIS ITEM TO TURN INTO A SCP", false);
@@ -34,7 +34,7 @@ namespace ATTG3
         }
         public override void OnMedkitUse()
         {
-            if (plugin.Citems == true)
+            if (plugin.Citems)
             {
                 PluginManager.Manager.Server.Map.Broadcast(10, "A SCP HAS SPAWNED", false);
                 SmodPlayer smodPlayer = new SmodPlayer(PlayerObject);

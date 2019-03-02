@@ -73,7 +73,7 @@ namespace ATTG3
 		public static int GrenadeTagGlitches { get; private set; }
 
 
-		public string[] ValidLightsOutRanks { get; private set; }
+		public string[] AdminRanks { get; private set; }
 
         public string[] Customitemrank { get; private set; }
 		public string[] Disablerank { get; private set; }
@@ -127,31 +127,26 @@ namespace ATTG3
             }, SettingType.LIST, true, "Valid ranks to Actavate custom items "));
 			AddConfig(new ConfigSetting("attg_doubledrop_time", 0.25f, SettingType.FLOAT, true, ""));
 			//TAZER Configs
-			{
+			
 
                 AddConfig(new ConfigSetting("attg_taze_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_magazine", 1, SettingType.NUMERIC, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
-
                 AddConfig(new ConfigSetting("attg_taze_krakatoa", 15, SettingType.NUMERIC, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_suppressed_krakatoa", 7, SettingType.NUMERIC, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_overcharge_glitch", true, SettingType.BOOL, true, ""));
-
                 AddConfig(new ConfigSetting("attg_taze_tag_time", 2f, SettingType.FLOAT, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_tag_glitches", 15, SettingType.NUMERIC, true, ""));
 				// Grenade
 				AddConfig(new ConfigSetting("attg_Grenade_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
 				AddConfig(new ConfigSetting("attg_Grenade_magazine", 5, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_Grenade_reserve_ammo", 1000, SettingType.NUMERIC, true, ""));
-
 				AddConfig(new ConfigSetting("attg_Grenade_krakatoa", 15, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_Grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, "."));
 				AddConfig(new ConfigSetting("attg_Grenade_overcharge_radius", 0f, SettingType.FLOAT, true, ""));
 				AddConfig(new ConfigSetting("attg_Grenade__damage", 0f, SettingType.FLOAT, true, ""));
 				AddConfig(new ConfigSetting("attg_Grenade_overcharge_glitch", true, SettingType.BOOL, true, ""));
-
-
-			} // Custom Items
+			 // Custom Items
             Handler = new CustomWeaponHandler<Taze>(200)
             {
                 AmmoName = "Heavy Masses",
@@ -196,8 +191,6 @@ namespace ATTG3
             {
                 DefaultType = ItemType.COIN
             };
-
-            
             ReloadConfig();
             Handler.Register();
 			Handler10.Register();
@@ -233,16 +226,14 @@ namespace ATTG3
             this.AddEventHandlers(new No(this));
 			this.AddEventHandlers(new Yes(this));
 		}
-
         public void ReloadConfig()
         {
 			DoubleDropTime = GetConfigFloat("attg_doubledrop_time");
 			// Command Perms
-			ValidLightsOutRanks = GetConfigList("attg_ranks");
+			AdminRanks = GetConfigList("attg_ranks");
             Customitemrank = GetConfigList("attg_item_ranks");
             Voterank = GetConfigList("attg_vote_ranks");
             SCPrank = GetConfigList("attg_scp_ranks");
-
             // Tazer
             TAZETagDamage = GetConfigFloat("attg_taze_tag_damage");
             TAZEFireRate = GetConfigFloat("attg_taze_fire_rate");
@@ -254,30 +245,24 @@ namespace ATTG3
             TAZETagTime = GetConfigFloat("attg_taze_tag_time");
             TAZETagGlitches = GetConfigInt("attg_taze_tag_glitches");
 			// Grenade
-
 			GrenadeFireRate = GetConfigFloat("attg_Grenade_fire_rate");
 			GrenadeMagazine = GetConfigInt("attg_Grenade_magazine");
 			Handler10.DefaultReserveAmmo = GetConfigInt("attg_Grenade_reserve_ammo");
-
 			GrenadeKrakatoa = GetConfigInt("attg_Grenade_krakatoa");
 			GrenadeSuppressedKrakatoa = GetConfigInt("attg_Grenade_suppressed_krakatoa");
-
 			GrenadeOverChargeable = GetConfigBool("attg_Grenade_overchargeable");
 			GrenadeOverChargeRadius = GetConfigFloat("attg_Grenade_overcharge_radius");
 			GrenadeOverChargeDamage = GetConfigFloat("attg_Grenade_overcharge_damage");
 			GrenadeOverCharageNukeEffect = GetConfigBool("attg_Grenade_overcharge_glitch");
 		}
-
         public override void OnEnable()
         {
             Info("Event Plugin enabled.");
         }
-
         public override void OnDisable()
         {
             Info("Event Plugin disabled.");
         }
-
         public static void EnableGamemodeCIMTF()
         {
             enabled = true;
@@ -293,8 +278,6 @@ namespace ATTG3
             enabled = false;
             plugin.pluginManager.Server.Map.ClearBroadcasts();
         }
-
-
     }
 }
 

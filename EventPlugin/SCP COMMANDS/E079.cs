@@ -26,13 +26,13 @@ namespace ATTG3
 		public string GetCommandDescription()
 		{
 			// This prints when someone types HELP HELLO
-			return "tlesla";
+			return "Ejects all Tablets";
 		}
 
 		public string GetUsage()
 		{
 			// This prints when someone types HELP HELLO
-			return "tlesla";
+			return "Ejects all Tablets";
 		}
 
 		public string[] OnCall(ICommandSender sender, string[] args)
@@ -57,7 +57,7 @@ namespace ATTG3
 			}
 			return new[]
 			{
-				$"Generator tablest ejected"
+				$"Generator tablets ejected"
 			};
 
 		}

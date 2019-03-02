@@ -46,7 +46,7 @@ namespace ATTG3
 
 
 			//IF VOTE IS OPEN
-			if (plugin.Voteopen == true)
+			if (plugin.Voteopen)
             {
                 running = false;
 				//SET TO VOTE IS CLOSED
@@ -56,7 +56,7 @@ namespace ATTG3
 			}
 
 			//IF VOTE IS CLOSED
-			else if (plugin.Voteopen == false)
+			else if (!plugin.Voteopen)
             {
                 running = true;
 				//SET TO VOTE IS OPEN

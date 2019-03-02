@@ -71,6 +71,11 @@
     <Compile Include="Custom Guns\tazer.cs" />
     <Compile Include="Events\Events.cs" />
     <Compile Include="Custom Guns\Grenadec.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SCP COMMANDS\E079.cs" />
     <Compile Include="Commands\Up.cs" />
     <Compile Include="Commands\Help.cs" />
@@ -109,6 +114,14 @@
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Items\ZOM.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

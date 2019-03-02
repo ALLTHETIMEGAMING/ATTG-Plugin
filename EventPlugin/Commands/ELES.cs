@@ -22,13 +22,13 @@ namespace ATTG3
 		public string GetCommandDescription()
 		{
 			// This prints when someone types HELP HELLO
-			return "tlesla";
+			return "Sets Elevators Speed";
 		}
 
 		public string GetUsage()
 		{
 			// This prints when someone types HELP HELLO
-			return "tlesla";
+			return "AGELS";
 		}
 
 		public string[] OnCall(ICommandSender sender, String[] args)
@@ -39,7 +39,7 @@ namespace ATTG3
 
 			if (!(sender is Server) &&
 				sender is Player player &&
-				!plugin.ValidLightsOutRanks.Contains(player.GetRankName()))
+				!plugin.AdminRanks.Contains(player.GetRankName()))
 			{
 				return new[]
 				{
