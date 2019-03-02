@@ -47,12 +47,8 @@ namespace ATTG3
                 .Where(y => Vector3.Distance(y.GetComponent<PlyMovementSync>().position, hit) < ATTG3Plugin.TAZEOverChargeRadius &&
                             weps.GetShootPermission(y.GetComponent<CharacterClassManager>())))
             {
-
-
-                if (ATTG3Plugin.TAZEOverCharageNukeEffect)
-                {
-                    TargetShake(player);
-                }
+				TargetShake(player);
+               
             }
         }
 
@@ -86,16 +82,6 @@ namespace ATTG3
                 }
 
             }
-
-
-
-            int shots = Barrel == 1 ? ATTG3Plugin.TAZESuppressedKrakatoa : ATTG3Plugin.TAZEKrakatoa;
-            for (int i = 0; i < shots; i++)
-            {
-                weps.CallRpcConfirmShot(false, weps.curWeapon);
-            }
         }
-
-
     }
 }

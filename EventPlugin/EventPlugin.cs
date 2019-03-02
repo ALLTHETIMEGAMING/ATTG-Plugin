@@ -53,7 +53,6 @@ namespace ATTG3
 
         public static float TAZEOverChargeRadius { get; private set; }
         public static float TAZEOverChargeDamage { get; private set; }
-        public static bool TAZEOverCharageNukeEffect { get; private set; }
 
         public static float TAZETagTime { get; private set; }
         public static int TAZETagGlitches { get; private set; }
@@ -123,16 +122,14 @@ namespace ATTG3
                 AddConfig(new ConfigSetting("attg_taze_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_magazine", 1, SettingType.NUMERIC, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
-                AddConfig(new ConfigSetting("attg_taze_krakatoa", 15, SettingType.NUMERIC, true, ""));
-                AddConfig(new ConfigSetting("attg_taze_suppressed_krakatoa", 7, SettingType.NUMERIC, true, ""));
-                AddConfig(new ConfigSetting("attg_taze_glitch", true, SettingType.BOOL, true, ""));
+                AddConfig(new ConfigSetting("attg_taze_krakatoa", 4, SettingType.NUMERIC, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_tag_time", 2f, SettingType.FLOAT, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_tag_glitches", 15, SettingType.NUMERIC, true, ""));
 				// Grenade
-				AddConfig(new ConfigSetting("attg_Grenade_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
-				AddConfig(new ConfigSetting("attg_Grenade_magazine", 5, SettingType.NUMERIC, true, ""));
-				AddConfig(new ConfigSetting("attg_Grenade_reserve_ammo", 1000, SettingType.NUMERIC, true, ""));
-				AddConfig(new ConfigSetting("attg_Grenade_krakatoa", 15, SettingType.NUMERIC, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_fire_rate", 3, SettingType.FLOAT, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_magazine", 1, SettingType.NUMERIC, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_krakatoa", 10, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_Grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, "."));
 			 // Custom Items
             Handler = new CustomWeaponHandler<Taze>(200)
@@ -222,13 +219,10 @@ namespace ATTG3
             Voterank = GetConfigList("attg_vote_ranks");
             SCPrank = GetConfigList("attg_scp_ranks");
             // Tazer
-            TAZETagDamage = GetConfigFloat("attg_taze_tag_damage");
             TAZEFireRate = GetConfigFloat("attg_taze_fire_rate");
             TAZEMagazine = GetConfigInt("attg_taze_magazine");
             Handler.DefaultReserveAmmo = GetConfigInt("attg_taze_reserve_ammo");
             TAZEKrakatoa = GetConfigInt("attg_taze_krakatoa");
-            TAZESuppressedKrakatoa = GetConfigInt("attg_taze_suppressed_krakatoa");
-            TAZEOverCharageNukeEffect = GetConfigBool("attg_taze_glitch");
             TAZETagTime = GetConfigFloat("attg_taze_tag_time");
             TAZETagGlitches = GetConfigInt("attg_taze_tag_glitches");
 			// Grenade
