@@ -126,7 +126,7 @@ namespace ATTG3
                 AddConfig(new ConfigSetting("attg_taze_tag_time", 2f, SettingType.FLOAT, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_tag_glitches", 15, SettingType.NUMERIC, true, ""));
 				// Grenade
-				AddConfig(new ConfigSetting("attg_Grenade_fire_rate", 3, SettingType.FLOAT, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_fire_rate", 3F, SettingType.FLOAT, true, ""));
 				AddConfig(new ConfigSetting("attg_Grenade_magazine", 1, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_Grenade_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_Grenade_krakatoa", 10, SettingType.NUMERIC, true, ""));
