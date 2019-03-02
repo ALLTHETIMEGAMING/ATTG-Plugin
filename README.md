@@ -92,14 +92,14 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 # Thanks
 Some of the code that I am using was made by 
 
-[Androx](https://github.com/probe4aiur)
+* [Androx](https://github.com/probe4aiur)
 
-https://github.com/probe4aiur/HS8
+  * https://github.com/probe4aiur/HS8
 
-[Joker119](https://github.com/galaxy119)
+* [Joker119](https://github.com/galaxy119)
 
-https://github.com/galaxy119/JokerAnnouncements
+  * https://github.com/galaxy119/JokerAnnouncements
 
-[Evan](https://github.com/Rnen)
+* [Evan](https://github.com/Rnen)
 
-https://github.com/Rnen/AdminToolbox
+  * https://github.com/Rnen/AdminToolbox
