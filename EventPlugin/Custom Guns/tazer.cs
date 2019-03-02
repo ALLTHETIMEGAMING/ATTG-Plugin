@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 namespace ATTG3
 {
-    public class Taze : CustomWeapon, IDoubleDroppable
+    public class Taze : CustomWeapon
 	{
         private const int WorldMask = 1207976449;
         private const int PlayerMask = 1208246273;
@@ -19,16 +19,6 @@ namespace ATTG3
 
 		public override int MagazineCapacity => ATTG3Plugin.GrenadeMagazine;
 		public override float FireRate => ATTG3Plugin.GrenadeFireRate;
-
-		public float DoubleDropWindow => ATTG3Plugin.GrenadeOverChargeable ? ATTG3Plugin.DoubleDropTime : 0;
-		public bool OnDoubleDrop()
-		{
-			overCharged = !overCharged;
-
-
-
-			return false;
-		}
 		public override void OnInitialize()
         {
             base.OnInitialize();

@@ -42,28 +42,6 @@ namespace ATTG3
             writer.FinishMessage();
             target.GetComponent<CharacterClassManager>().connectionToClient.SendWriter(writer, 0);
         }
-
-        private void OverchargeDetonate(WeaponManager weps, Vector3 hit)
-        {
-            foreach (GameObject player in PlayerManager.singleton.players.Except(new[] { PlayerObject })
-                .Where(y => Vector3.Distance(y.GetComponent<PlyMovementSync>().position, hit) < ATTG3Plugin.GrenadeOverChargeRadius &&
-                            weps.GetShootPermission(y.GetComponent<CharacterClassManager>())))
-            {
-                player.GetComponent<PlayerStats>().HurtPlayer(new PlayerStats.HitInfo(
-					ATTG3Plugin.GrenadeOverChargeDamage,
-                    PlayerObject.GetComponent<NicknameSync>().myNick + " (" +
-                    PlayerObject.GetComponent<CharacterClassManager>().SteamId + ")",
-                    DamageTypes.Tesla,
-                    PlayerObject.GetComponent<QueryProcessor>().PlayerId
-                ), player);
-
-                if (ATTG3Plugin.GrenadeOverCharageNukeEffect)
-                {
-                    TargetShake(player);
-                }
-            }
-        }
-
         protected override void OnValidShoot(GameObject target, ref float damage)
         {
             WeaponManager weps = PlayerObject.GetComponent<WeaponManager>();
@@ -80,7 +58,6 @@ namespace ATTG3
                 {
                     Timing2.In(x =>
                     {
-                        OverchargeDetonate(weps, hit.point);
                     }, Detonateg(hit.point));
                 }
             }
