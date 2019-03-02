@@ -66,8 +66,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Disable.cs" />
     <Compile Include="Commands\Citem.cs" />
+    <Compile Include="Commands\Disable.cs" />
+    <Compile Include="Commands\ELEL.cs" />
+    <Compile Include="Commands\ELES.cs" />
+    <Compile Include="Commands\Help.cs" />
+    <Compile Include="Commands\Tlesla.cs" />
+    <Compile Include="Commands\Tleslad.cs" />
+    <Compile Include="Commands\Up.cs" />
     <Compile Include="Custom Guns\tazer.cs" />
     <Compile Include="Events\Events.cs" />
     <Compile Include="Custom Guns\Grenadec.cs" />
@@ -77,10 +83,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SCP COMMANDS\E079.cs" />
-    <Compile Include="Commands\Up.cs" />
-    <Compile Include="Commands\Help.cs" />
     <Compile Include="SCP COMMANDS\P079.cs" />
-    <Compile Include="Commands\ELES.cs" />
     <Compile Include="SCP COMMANDS\ST079.cs" />
     <Compile Include="SCP COMMANDS\C106.cs" />
     <Compile Include="EventHandler.cs" />
@@ -109,9 +112,6 @@
     <Compile Include="Items\RECALL.cs" />
     <Compile Include="Items\SHY.cs" />
     <Compile Include="Timing.cs" />
-    <Compile Include="Commands\ELEL.cs" />
-    <Compile Include="Commands\Tleslad.cs" />
-    <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Items\ZOM.cs" />
   </ItemGroup>
   <ItemGroup>

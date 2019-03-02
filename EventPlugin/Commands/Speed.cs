@@ -48,10 +48,8 @@ namespace ATTG3
 				if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
                 if (myPlayer.TeamRole.Role == Role.SCP_939_53 || myPlayer.TeamRole.Role == Role.SCP_939_89)
                 {
-
-					foreach (GameObject myPlayer in PlayerManager.singleton.players.Except(new[] { PlayerObject })
-					{
-						), player);
+					Scp939PlayerScript.speedMultiplier = 100;
+					(PlayerObject.GetComponent<Scp049PlayerScript>());
 
 						return new string[] { myPlayer.Name + " has been given ammo!" };
                 }

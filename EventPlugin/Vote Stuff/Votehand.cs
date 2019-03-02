@@ -20,27 +20,21 @@ namespace ATTG3
 
 		public void OnCallCommand(PlayerCallCommandEvent ev)
 		{
-			// -- Check for SCPSWAP/SCPLIST command
 			string command = ev.Command.ToLower();
 			if (!command.StartsWith("no") && !command.StartsWith("yes")) return;
-
-			// -- Validate player is an SCP
 			if (plugin.Voteopen != true)
 			{
 				ev.ReturnMessage = "Voteing is not open";
 				return;
 			}
-			
-
-			// -- Execute respective commands
-			string[] cmdSplit = command.Split(' ');
-			if (cmdSplit[0] == "no")
+			string[] s = command.Split(' ');
+			if (s[0] == "no")
 			{
 					plugin.No++;
 					ev.ReturnMessage = "Vote Submitted";
 				return;
 			}
-			else if (cmdSplit[0] == "yes")
+			else if (s[0] == "yes")
 			{
 					plugin.Yes++;
 				ev.ReturnMessage = "Vote Submitted";
