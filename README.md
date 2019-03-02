@@ -18,6 +18,9 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 [Smod Discord](https://discord.gg/nJRA2CT)
 
 [SCP: Secret Laboratory Discord](https://discord.gg/scpsl )
+
+[Trello Page](https://trello.com/b/YpKW1b8p/event-plugin)
+
 # Items
 | Item ID       | Description |
 | :-------------: | :---------: | 
@@ -51,14 +54,14 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGCIMTF | enable / disable |Turns on CI VS MTF next round |
 | AGAMMO | Players name |Gives player 100000 ammo|
 | AGUP | Players name | TPs player up from there position |
-| AGCITEM | NONE | Enables custom items |
+| ~~AGCITEM~~ | NONE | Enables custom items |
 | AGDISABLE | NONE | Disables Event Plugin |
 
 
+# Config
 
 
-
-# Admin Config
+## Admin Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_ranks | List | owner, coowner | Roles that can do all commands. |
@@ -67,7 +70,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | attg_disable_ranks | List | owner | Roles that can disable the plugin. |
 
 
-# Grenade Config
+## Grenade Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_grenade_fire_rate | Float | 3f | Firerate for grenade launcher. |
@@ -76,7 +79,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | attg_grenade_krakatoa | Integer | 10 | Number of shoot sounds to play when shot. |
 | attg_grenade_suppressed_krakatoa | Integer | 7 | Number of shoot sounds to play when shot with a suppressor. |
 
-# Taser Config
+## Taser Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_taze_fire_rate | Float | 0.5f | Firerate for taser |
