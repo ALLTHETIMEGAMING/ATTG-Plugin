@@ -71,6 +71,7 @@
     <Compile Include="Commands\ELEL.cs" />
     <Compile Include="Commands\ELES.cs" />
     <Compile Include="Commands\Help.cs" />
+    <Compile Include="Commands\Speed.cs" />
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Commands\Tleslad.cs" />
     <Compile Include="Commands\Up.cs" />

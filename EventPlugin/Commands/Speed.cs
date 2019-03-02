@@ -14,11 +14,16 @@ namespace ATTG3
     class Speed : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        Server Server => PluginManager.Manager.Server;
+		private object player2;
+		public Player myPlayer;
+		private bool running;
+
+		Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
 
+		public Scp939PlayerScript PlayerScript { get; private set; }
 
-        public Speed(ATTG3Plugin plugin) => this.plugin = plugin;
+		public Speed(ATTG3Plugin plugin) => this.plugin = plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
 
@@ -26,7 +31,7 @@ namespace ATTG3
         {
             if (!(sender is Server) &&
                 sender is Player player &&
-                !plugin.ValidLightsOutRanks.Contains(player.GetRankName()))
+                !plugin.AdminRanks.Contains(player.GetRankName()))
             {
                 return new[]
                 {
@@ -43,23 +48,39 @@ namespace ATTG3
             if (args.Length > 0)
             {
                 
-                Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
+                myPlayer = GetPlayerFromString.GetPlayer(args[0]);
 
 				if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
                 if (myPlayer.TeamRole.Role == Role.SCP_939_53 || myPlayer.TeamRole.Role == Role.SCP_939_89)
                 {
-					Scp939PlayerScript.speedMultiplier = 100;
-					(PlayerObject.GetComponent<Scp049PlayerScript>());
+					running = !running;
+					if (running)
+					{
+						Timing.Run(TimingDelay(0.1f));
+					}
+					
 
-						return new string[] { myPlayer.Name + " has been given ammo!" };
+						return new string[] { myPlayer.Name + " has been given Super speed!" };
                 }
                 else
-                    return new string[] { myPlayer.Name + " is dead!" };
+                    return new string[] { myPlayer.Name + " is not scp 939" };
             }
             else
             {
                 return new string[] { GetUsage() };
             }
-        }
-    }
+			
+		}
+		private IEnumerable<float> TimingDelay(float time)
+		{
+			while (running)
+			{
+				GameObject playerObj = (GameObject)myPlayer.GetGameObject();
+				PlayerScript = playerObj.GetComponent<Scp939PlayerScript>();
+				PlayerScript.NetworkspeedMultiplier = 5;
+
+				yield return 0.5f;
+			}
+		}
+	}
 }
