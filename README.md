@@ -94,6 +94,12 @@ Some of the code that I am using was made by
 
 [Androx](https://github.com/probe4aiur)
 
+https://github.com/probe4aiur/HS8
+
 [Joker119](https://github.com/galaxy119)
 
+https://github.com/galaxy119/JokerAnnouncements
+
 [Evan](https://github.com/Rnen)
+
+https://github.com/Rnen/AdminToolbox
