@@ -12,7 +12,6 @@ namespace ATTG3
 	class Citem : ICommandHandler
 	{
 		private readonly ATTG3Plugin plugin;
-		private bool running;
 		public Citem(ATTG3Plugin plugin)
 		{
 			//Constructor passing plugin refrence to this class
@@ -33,7 +32,7 @@ namespace ATTG3
 
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
-			if (!(sender is Server) &&
+			/*if (!(sender is Server) &&
 				sender is Player player &&
 				!plugin.Customitemrank.Contains(player.GetRankName()))
 			{
@@ -42,18 +41,17 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-			running = !running;
 			if (plugin.Citems)
 			{
                 plugin.Citems = false;
             }
-            else if (!plugin.Citems)
+            else 
             {
                 plugin.Citems = true;
-            }
+            }*/
             return new[]
 			{
-				$"all custom items are now {(plugin.Citems)}."
+				$"COMMAND DISABLED"
 			};
 
 		}

@@ -28,19 +28,10 @@ namespace ATTG3
 
         public override bool OnPickup()
         {
-            if (plugin.Citems)
-            {
+
                 SmodPlayer = new SmodPlayer(PlayerObject);
                 SmodPlayer.PersonalBroadcast(10, "RECALLED ACTIVATING IN 1 MIN ", false);
                 Timing.Run(TimingDelay(delay));
-                
-            }
-            else
-            {
-                SmodPlayer = new SmodPlayer(PlayerObject);
-                SmodPlayer.PersonalBroadcast(10, "Item is not actavated", false);
-                
-            }
 			return true;
 		}
 
