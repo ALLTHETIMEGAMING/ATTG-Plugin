@@ -83,8 +83,8 @@ namespace ATTG3
 		public string[] ValidLightsOutRanks { get; private set; }
 
         public string[] Customitemrank { get; private set; }
-
-        public string[] Voterank { get; private set; }
+		public string[] Disablerank { get; private set; }
+		public string[] Voterank { get; private set; }
         public string[] SCPrank { get; private set; }
         public bool Voteopen {get;set;}
         public static bool
@@ -113,7 +113,11 @@ namespace ATTG3
                 "owner",
 				"coowner"
             }, SettingType.LIST, true, ""));
-            AddConfig(new ConfigSetting("attg_scp_ranks", new[]
+			AddConfig(new ConfigSetting("attg_disable_ranks", new[]
+			{
+				"owner"
+			}, SettingType.LIST, true, "Valid ranks to disable the Event Plugin"));
+			AddConfig(new ConfigSetting("attg_scp_ranks", new[]
             {
                 "owner",
                 "coowner"
@@ -128,46 +132,33 @@ namespace ATTG3
             {
                 "owner"
             }, SettingType.LIST, true, "Valid ranks to Actavate custom items "));
-			AddConfig(new ConfigSetting("attg_doubledrop_time", 0.25f, SettingType.FLOAT, true, "Time that a player must double right click in order to toggle overcharge."));
+			AddConfig(new ConfigSetting("attg_doubledrop_time", 0.25f, SettingType.FLOAT, true, ""));
 			//TAZER Configs
 			{
-                AddConfig(new ConfigSetting("taze_body_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on bodies."));
-                AddConfig(new ConfigSetting("taze_head_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on heads."));
-                AddConfig(new ConfigSetting("taze_leg_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on legs."));
-                AddConfig(new ConfigSetting("taze_106_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on SCP-106."));
-                AddConfig(new ConfigSetting("taze_tag_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle when overcharged."));
 
-                AddConfig(new ConfigSetting("taze_fire_rate", 0.5f, SettingType.FLOAT, true, "Time (in seconds) between each shot."));
-                AddConfig(new ConfigSetting("taze_magazine", 5, SettingType.NUMERIC, true, "Amount of shots per magazine."));
-                AddConfig(new ConfigSetting("taze_reserve_ammo", 1000, SettingType.NUMERIC, true, "Amount of HMD masses in reserve. Refreshed on server restart."));
+                AddConfig(new ConfigSetting("attg_taze_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
+                AddConfig(new ConfigSetting("attg_taze_magazine", 5, SettingType.NUMERIC, true, ""));
+                AddConfig(new ConfigSetting("attg_taze_reserve_ammo", 1000, SettingType.NUMERIC, true, ""));
 
-                AddConfig(new ConfigSetting("taze_krakatoa", 15, SettingType.NUMERIC, true, "Additional shot sounds per HMD shot."));
-                AddConfig(new ConfigSetting("taze_suppressed_krakatoa", 7, SettingType.NUMERIC, true, "Additional shot sounds pre suppressed HMD shot."));
-                AddConfig(new ConfigSetting("taze_overcharge_radius", 0f, SettingType.FLOAT, true, "Radius of the overcharge device's bodyDamage."));
-                AddConfig(new ConfigSetting("taze_overcharge_damage", 0f, SettingType.FLOAT, true, "Damage of the overcharge device per person."));
-                AddConfig(new ConfigSetting("taze_overcharge_glitch", true, SettingType.BOOL, true, "Whether or not to apply the glitchy (nuke) effect to players hit by the overcharge device."));
+                AddConfig(new ConfigSetting("attg_taze_krakatoa", 15, SettingType.NUMERIC, true, ""));
+                AddConfig(new ConfigSetting("attg_taze_suppressed_krakatoa", 7, SettingType.NUMERIC, true, ""));
+                AddConfig(new ConfigSetting("attg_taze_overcharge_glitch", true, SettingType.BOOL, true, ""));
 
-                AddConfig(new ConfigSetting("taze_tag_time", 2f, SettingType.FLOAT, true, "Time after tagging someone with overcharge to detonation."));
-                AddConfig(new ConfigSetting("taze_tag_glitches", 15, SettingType.NUMERIC, true, "Additional glitch effects to play when an overcharge device detonates on the tagged player."));
+                AddConfig(new ConfigSetting("attg_taze_tag_time", 2f, SettingType.FLOAT, true, ""));
+                AddConfig(new ConfigSetting("attg_taze_tag_glitches", 15, SettingType.NUMERIC, true, ""));
 				// Grenade
-				AddConfig(new ConfigSetting("Grenade_body_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on bodies."));
-				AddConfig(new ConfigSetting("Grenade_head_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on heads."));
-				AddConfig(new ConfigSetting("Grenade_leg_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on legs."));
-				AddConfig(new ConfigSetting("Grenade_106_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle on SCP-106."));
-				AddConfig(new ConfigSetting("Grenade_tag_damage", 0f, SettingType.FLOAT, true, "Damage per shot of the rifle when overcharged."));
+				AddConfig(new ConfigSetting("attg_Grenade_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_magazine", 5, SettingType.NUMERIC, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_reserve_ammo", 1000, SettingType.NUMERIC, true, ""));
 
-				AddConfig(new ConfigSetting("Grenade_fire_rate", 0.5f, SettingType.FLOAT, true, "Time (in seconds) between each shot."));
-				AddConfig(new ConfigSetting("Grenade_magazine", 5, SettingType.NUMERIC, true, "Amount of shots per magazine."));
-				AddConfig(new ConfigSetting("Grenade_reserve_ammo", 1000, SettingType.NUMERIC, true, "Amount of HMD masses in reserve. Refreshed on server restart."));
+				AddConfig(new ConfigSetting("attg_Grenade_krakatoa", 15, SettingType.NUMERIC, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, "."));
+				AddConfig(new ConfigSetting("attg_Grenade_overcharge_radius", 0f, SettingType.FLOAT, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade__damage", 0f, SettingType.FLOAT, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_overcharge_glitch", true, SettingType.BOOL, true, ""));
 
-				AddConfig(new ConfigSetting("Grenade_krakatoa", 15, SettingType.NUMERIC, true, "Additional shot sounds per HMD shot."));
-				AddConfig(new ConfigSetting("Grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, "Additional shot sounds pre suppressed HMD shot."));
-				AddConfig(new ConfigSetting("Grenade_overcharge_radius", 0f, SettingType.FLOAT, true, "Radius of the overcharge device's bodyDamage."));
-				AddConfig(new ConfigSetting("Grenade_overcharge_damage", 0f, SettingType.FLOAT, true, "Damage of the overcharge device per person."));
-				AddConfig(new ConfigSetting("Grenade_overcharge_glitch", true, SettingType.BOOL, true, "Whether or not to apply the glitchy (nuke) effect to players hit by the overcharge device."));
-
-				AddConfig(new ConfigSetting("Grenade_tag_time", 2f, SettingType.FLOAT, true, "Time after tagging someone with overcharge to detonation."));
-				AddConfig(new ConfigSetting("Grenade_tag_glitches", 15, SettingType.NUMERIC, true, "Additional glitch effects to play when an overcharge device detonates on the tagged player."));
+				AddConfig(new ConfigSetting("attg_Grenade_tag_time", 2f, SettingType.FLOAT, true, ""));
+				AddConfig(new ConfigSetting("attg_Grenade_tag_glitches", 15, SettingType.NUMERIC, true, ""));
 			} // Custom Items
             Handler = new CustomWeaponHandler<Taze>(200)
             {
@@ -260,44 +251,28 @@ namespace ATTG3
             SCPrank = GetConfigList("attg_scp_ranks");
 
             // Tazer
-            TAZEBodyDamage = GetConfigFloat("taze_body_damage");
-            TAZEHeadDamage = GetConfigFloat("taze_head_damage");
-            TAZELegDamage = GetConfigFloat("taze_leg_damage");
-            TAZEScp106Damage = GetConfigFloat("taze_106_damage");
-            TAZETagDamage = GetConfigFloat("taze_tag_damage");
-            TAZEFireRate = GetConfigFloat("taze_fire_rate");
-            TAZEMagazine = GetConfigInt("taze_magazine");
-            Handler.DefaultReserveAmmo = GetConfigInt("taze_reserve_ammo");
-            TAZEKrakatoa = GetConfigInt("taze_krakatoa");
-            TAZESuppressedKrakatoa = GetConfigInt("taze_suppressed_krakatoa");
-
-            TAZEOverChargeRadius = GetConfigFloat("taze_overcharge_radius");
-            TAZEOverChargeDamage = GetConfigFloat("taze_overcharge_damage");
-            TAZEOverCharageNukeEffect = GetConfigBool("taze_overcharge_glitch");
-            TAZETagTime = GetConfigFloat("taze_tag_time");
-            TAZETagGlitches = GetConfigInt("taze_tag_glitches");
+            TAZETagDamage = GetConfigFloat("attg_taze_tag_damage");
+            TAZEFireRate = GetConfigFloat("attg_taze_fire_rate");
+            TAZEMagazine = GetConfigInt("attg_taze_magazine");
+            Handler.DefaultReserveAmmo = GetConfigInt("attg_taze_reserve_ammo");
+            TAZEKrakatoa = GetConfigInt("attg_taze_krakatoa");
+            TAZESuppressedKrakatoa = GetConfigInt("attg_taze_suppressed_krakatoa");
+            TAZEOverCharageNukeEffect = GetConfigBool("attg_taze_overcharge_glitch");
+            TAZETagTime = GetConfigFloat("attg_taze_tag_time");
+            TAZETagGlitches = GetConfigInt("attg_taze_tag_glitches");
 			// Grenade
 
-			GrenadeBodyDamage = GetConfigFloat("Grenade_body_damage");
-			GrenadeHeadDamage = GetConfigFloat("Grenade_head_damage");
-			GrenadeLegDamage = GetConfigFloat("Grenade_leg_damage");
-			GrenadeScp106Damage = GetConfigFloat("Grenade_106_damage");
-			GrenadeTagDamage = GetConfigFloat("Grenade_tag_damage");
+			GrenadeFireRate = GetConfigFloat("attg_Grenade_fire_rate");
+			GrenadeMagazine = GetConfigInt("attg_Grenade_magazine");
+			Handler10.DefaultReserveAmmo = GetConfigInt("attg_Grenade_reserve_ammo");
 
-			GrenadeFireRate = GetConfigFloat("Grenade_fire_rate");
-			GrenadeMagazine = GetConfigInt("Grenade_magazine");
-			Handler10.DefaultReserveAmmo = GetConfigInt("Grenade_reserve_ammo");
+			GrenadeKrakatoa = GetConfigInt("attg_Grenade_krakatoa");
+			GrenadeSuppressedKrakatoa = GetConfigInt("attg_Grenade_suppressed_krakatoa");
 
-			GrenadeKrakatoa = GetConfigInt("Grenade_krakatoa");
-			GrenadeSuppressedKrakatoa = GetConfigInt("Grenade_suppressed_krakatoa");
-
-			GrenadeOverChargeable = GetConfigBool("Grenade_overchargeable");
-			GrenadeOverChargeRadius = GetConfigFloat("Grenade_overcharge_radius");
-			GrenadeOverChargeDamage = GetConfigFloat("Grenade_overcharge_damage");
-			GrenadeOverCharageNukeEffect = GetConfigBool("Grenade_overcharge_glitch");
-
-			GrenadeTagTime = GetConfigFloat("Grenade_tag_time");
-			GrenadeTagGlitches = GetConfigInt("Grenade_tag_glitches");
+			GrenadeOverChargeable = GetConfigBool("attg_Grenade_overchargeable");
+			GrenadeOverChargeRadius = GetConfigFloat("attg_Grenade_overcharge_radius");
+			GrenadeOverChargeDamage = GetConfigFloat("attg_Grenade_overcharge_damage");
+			GrenadeOverCharageNukeEffect = GetConfigBool("attg_Grenade_overcharge_glitch");
 		}
 
         public override void OnEnable()

@@ -75,50 +75,13 @@ namespace ATTG3
 
             if (!overCharged)
             {
-                damage = ATTG3Plugin.GrenadeTagDamage;
 
-                if (hitbox != null)
-                {
-                    Timing2.In(x =>
-                    {
-                        OverchargeDetonate(weps, target.GetComponent<PlyMovementSync>().position);
-                        if (weps.GetShootPermission(target.GetComponent<CharacterClassManager>()))
-                        {
-                            float glitchTime = x;
-                            for (int i = 0; i < ATTG3Plugin.GrenadeTagGlitches; i++)
-                            {
-                                Timing2.In(y => TargetShake(target), glitchTime += GlitchLength);
-                            }
-                        }
-                    }, ATTG3Plugin.GrenadeTagTime);
-                }
-                else if (Physics.Raycast(ray, out RaycastHit hit, 500f, WorldMask))
+                if (Physics.Raycast(ray, out RaycastHit hit, 500f, WorldMask))
                 {
                     Timing2.In(x =>
                     {
                         OverchargeDetonate(weps, hit.point);
-                    }, DetonateFlash(hit.point));
-                }
-            }
-            else
-            {
-                switch (hitbox?.id.ToUpper())
-                {
-                    case "HEAD":
-                        damage = ATTG3Plugin.GrenadeHeadDamage;
-                        break;
-
-                    case "LEG":
-                        damage = ATTG3Plugin.GrenadeLegDamage;
-                        break;
-
-                    case "SCP106":
-                        damage = ATTG3Plugin.GrenadeScp106Damage;
-                        break;
-
-                    default:
-                        damage = ATTG3Plugin.GrenadeBodyDamage;
-                        break;
+                    }, Detonateg(hit.point));
                 }
             }
 
@@ -130,7 +93,7 @@ namespace ATTG3
             }
         }
 
-        private float DetonateFlash(Vector3 pos)
+        private float Detonateg(Vector3 pos)
         {
             const int id = 0;
             Vector3 dir = Vector3.zero;

@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Disable.cs" />
     <Compile Include="Commands\Citem.cs" />
     <Compile Include="Custom Guns\tazer.cs" />
     <Compile Include="Events\Events.cs" />
@@ -108,8 +109,6 @@
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Items\ZOM.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Meme Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
