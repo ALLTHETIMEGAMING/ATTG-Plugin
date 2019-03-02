@@ -47,4 +47,4 @@ Some of the code that I am using was made by
 
 [Joker119](https://github.com/galaxy119)
 
-[Evan}(https://github.com/Rnen)
+[Evan](https://github.com/Rnen)
