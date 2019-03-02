@@ -75,7 +75,7 @@ namespace ATTG3
             Physics.Raycast(cam.position + cam.forward, cam.forward, out RaycastHit playerHit, PlayerMask);
             HitboxIdentity hitbox = playerHit.collider?.GetComponent<HitboxIdentity>();
 
-            if (!overCharged)
+            if (overCharged)
             {
 
 
