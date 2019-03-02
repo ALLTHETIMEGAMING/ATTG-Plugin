@@ -23,7 +23,7 @@ namespace ATTG3
         SmodMajor = 3,
         SmodMinor = 3,
         SmodRevision = 0,
-        version = "1.2.0"
+        version = "1.4.0"
         )]
     public class ATTG3Plugin : Smod2.Plugin
     {
@@ -90,8 +90,8 @@ namespace ATTG3
         public static bool
            enabled = false,
            roundstarted = false;
-           
-        public bool Citems { get; set; }
+
+		public bool Citems { get; set; } = false;
 
         public bool CIMTF {get;set;}
 

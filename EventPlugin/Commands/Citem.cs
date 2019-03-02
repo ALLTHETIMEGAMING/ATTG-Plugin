@@ -53,7 +53,7 @@ namespace ATTG3
             }
             return new[]
 			{
-				$"all Tleslas are now {(running ? "on" : "off")}."
+				$"all custom items are now {(plugin.Citems)}."
 			};
 
 		}
