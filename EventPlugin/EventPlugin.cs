@@ -57,7 +57,6 @@ namespace ATTG3
 
         public static float TAZETagTime { get; private set; }
         public static int TAZETagGlitches { get; private set; }
-		public static float DoubleDropTime { get; private set; }
 		public static float GrenadeFireRate { get; private set; }
 		public static int GrenadeMagazine { get; private set; }
 
@@ -120,10 +119,7 @@ namespace ATTG3
             {
                 "owner"
             }, SettingType.LIST, true, "Valid ranks to Actavate custom items "));
-			AddConfig(new ConfigSetting("attg_doubledrop_time", 0.25f, SettingType.FLOAT, true, ""));
 			//TAZER Configs
-			
-
                 AddConfig(new ConfigSetting("attg_taze_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_magazine", 1, SettingType.NUMERIC, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
@@ -220,7 +216,6 @@ namespace ATTG3
 		}
         public void ReloadConfig()
         {
-			DoubleDropTime = GetConfigFloat("attg_doubledrop_time");
 			// Command Perms
 			AdminRanks = GetConfigList("attg_ranks");
             Customitemrank = GetConfigList("attg_item_ranks");
