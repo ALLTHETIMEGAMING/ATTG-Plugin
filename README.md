@@ -13,7 +13,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 
 # Support
 
-[The support discord for the Event Plugin](https://discord.gg/8bjsvST)
+[Event Plugin Discord](https://discord.gg/8bjsvST)
 
 [Smod Discord](https://discord.gg/nJRA2CT)
 # Items
