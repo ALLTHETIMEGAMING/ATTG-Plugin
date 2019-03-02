@@ -16,6 +16,8 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 [Event Plugin Discord](https://discord.gg/8bjsvST)
 
 [Smod Discord](https://discord.gg/nJRA2CT)
+
+[SCP: Secret Laboratory Discord](https://discord.gg/scpsl )
 # Items
 | Item ID       | Description |
 | :-------------: | :---------: | 
