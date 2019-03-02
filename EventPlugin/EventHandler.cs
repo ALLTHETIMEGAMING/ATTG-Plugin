@@ -24,6 +24,10 @@ namespace ATTG3
         public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
         public void OnRoundStart(RoundStartEvent ev)
         {
+			if (plugin.Disable)
+			{
+				this.plugin.pluginManager.DisablePlugin(this.plugin);
+			}
             plugin.Voteopen = false;
             plugin.Yes = 0;
             plugin.No = 0;

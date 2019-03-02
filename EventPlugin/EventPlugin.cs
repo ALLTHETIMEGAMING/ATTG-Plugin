@@ -77,6 +77,8 @@ namespace ATTG3
            enabled = false,
            roundstarted = false;
 
+		public bool Disable { get; set; } = false;
+
 		public bool Citems { get; set; } = false;
 
         public bool CIMTF {get;set;}
@@ -130,9 +132,11 @@ namespace ATTG3
 				AddConfig(new ConfigSetting("attg_grenade_magazine", 1, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_grenade_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_grenade_krakatoa", 10, SettingType.NUMERIC, true, ""));
-				AddConfig(new ConfigSetting("attg_grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, "."));
-			 // Custom Items
-            Handler = new CustomWeaponHandler<Taze>(200)
+				AddConfig(new ConfigSetting("attg_grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, ""));
+
+			AddConfig(new ConfigSetting("attg_disable", 7, SettingType.BOOL, false, "Disables Event Plugin"));
+			// Custom Items
+			Handler = new CustomWeaponHandler<Taze>(200)
             {
                 AmmoName = "Heavy Masses",
                 DroppedAmmoCount = 5,
@@ -207,6 +211,7 @@ namespace ATTG3
             this.AddCommand("AGCitem", new Citem(this));
 			this.AddCommand("AGDISABLE", new Disable(this));
 			this.AddCommand("AGSPEED", new Speed(this));
+			this.AddCommand("AGSHAKE", new Shake(this));
 			this.AddEventHandlers(new Events(this), Priority.Normal);
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new No(this));
@@ -219,6 +224,7 @@ namespace ATTG3
             Customitemrank = GetConfigList("attg_item_ranks");
             Voterank = GetConfigList("attg_vote_ranks");
             SCPrank = GetConfigList("attg_scp_ranks");
+			
             // Tazer
             TAZEFireRate = GetConfigFloat("attg_taze_fire_rate");
             TAZEMagazine = GetConfigInt("attg_taze_magazine");
@@ -232,6 +238,8 @@ namespace ATTG3
 			Handler10.DefaultReserveAmmo = GetConfigInt("attg_grenade_reserve_ammo");
 			GrenadeKrakatoa = GetConfigInt("attg_grenade_krakatoa");
 			GrenadeSuppressedKrakatoa = GetConfigInt("attg_grenade_suppressed_krakatoa");
+			//Dissable Config
+			Disable = GetConfigBool("attg_disable");
 		}
         public override void OnEnable()
         {
