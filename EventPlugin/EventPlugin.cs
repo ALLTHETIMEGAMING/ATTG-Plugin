@@ -23,7 +23,7 @@ namespace ATTG3
         SmodMajor = 3,
         SmodMinor = 3,
         SmodRevision = 0,
-        version = "1.4.0"
+        version = "1.5.0"
         )]
     public class ATTG3Plugin : Smod2.Plugin
     {
@@ -227,7 +227,8 @@ namespace ATTG3
             this.AddCommand("AGL079", new L079(this));
             this.AddCommand("AGE079", new E079(this));
             this.AddCommand("AGCitem", new Citem(this));
-            this.AddEventHandlers(new Events(this), Priority.Normal);
+			this.AddCommand("AGDISABLE", new Disable(this));
+			this.AddEventHandlers(new Events(this), Priority.Normal);
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new No(this));
 			this.AddEventHandlers(new Yes(this));
