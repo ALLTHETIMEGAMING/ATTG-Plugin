@@ -16,7 +16,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | Item ID       | Discription |
 | :-------------: | :---------: | 
 | 200 | Taser |
-| 201 | Grenade Luncher |
+| 201 | Grenade Launcher |
 | 207 | Medkit that changes player into SCP-106 |
 | 208 | Medkit that changes player into SCP-049 |
 | 209 | Medkit that changes player into SCP-939 |
