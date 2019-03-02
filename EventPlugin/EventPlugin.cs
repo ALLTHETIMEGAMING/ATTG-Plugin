@@ -23,7 +23,7 @@ namespace ATTG3
         SmodMajor = 3,
         SmodMinor = 3,
         SmodRevision = 0,
-        version = "1.7.0"
+        version = "1.8.0"
         )]
     public class ATTG3Plugin : Smod2.Plugin
     {
@@ -134,7 +134,7 @@ namespace ATTG3
 				AddConfig(new ConfigSetting("attg_grenade_krakatoa", 10, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, ""));
 
-			AddConfig(new ConfigSetting("attg_disable", 7, SettingType.BOOL, false, "Disables Event Plugin"));
+			AddConfig(new ConfigSetting("attg_disable", false, SettingType.BOOL, true, "Disables Event Plugin"));
 			// Custom Items
 			Handler = new CustomWeaponHandler<Taze>(200)
             {
