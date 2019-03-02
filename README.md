@@ -31,7 +31,6 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | 214 | Medkit that teleports player back to where he picked up the item after 1 min |
 
 # Commands
-### ****MAP COMMANDS****
 | Command      | Parameters| Description |
 | :-------------: | :---------: | :---------: | 
 | AGTL | NONE | Turns on all Tesla |
@@ -69,11 +68,11 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 # Grenade Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
-| attg_Grenade_fire_rate | Float | 3 | Firerate for grenade launcher. |
-| attg_Grenade_magazine | Integer | 1 | Number of grenades per magazine. |
-| attg_Grenade_reserve_ammo | Integer | 10 | How much grenade launcher ammo each player gets. |
-| attg_Grenade_krakatoa | Integer | 10 | Number of shoot sounds to play when shot. |
-| attg_Grenade_suppressed_krakatoa | Integer | 7 | Number of shoot sounds to play when shot with a suppressor. |
+| attg_grenade_fire_rate | Float | 3 | Firerate for grenade launcher. |
+| attg_grenade_magazine | Integer | 1 | Number of grenades per magazine. |
+| attg_grenade_reserve_ammo | Integer | 10 | How much grenade launcher ammo each player gets. |
+| attg_grenade_krakatoa | Integer | 10 | Number of shoot sounds to play when shot. |
+| attg_grenade_suppressed_krakatoa | Integer | 7 | Number of shoot sounds to play when shot with a suppressor. |
 
 # Taser Config
 | Config        | Value Type | Default | Description |
