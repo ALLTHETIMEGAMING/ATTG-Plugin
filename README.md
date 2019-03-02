@@ -89,6 +89,11 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | attg_taze_tag_time | Float | 2f | How log after player is hit to be tazed. |
 | attg_taze_tag_glitches | Integer | 15 | Number of screen effects to play when player is hit |
 
+### Other Config
+| Config        | Value Type | Default | Description |
+| :-------------: | :---------: | :---------: |:------ |
+| attg_disable | Bool | false | Disables Event Plugin |
+
 # Thanks
 Some of the code that I am using was made by 
 
