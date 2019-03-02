@@ -56,7 +56,6 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGUP | Players name | TPs player up from there position |
 | ~~AGCITEM~~ | NONE | Enables custom items |
 | AGDISABLE | NONE | Disables Event Plugin |
-| AGSPEED | Players name | Sets 939s speed to 5 |
 | AGSHAKE | NONE | Shakes screens of all players |
 
 
