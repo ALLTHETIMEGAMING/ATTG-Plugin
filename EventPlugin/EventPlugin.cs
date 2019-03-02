@@ -38,7 +38,7 @@ namespace ATTG3
         public CustomItemHandler<COM> Handler8 { get; private set; }
         public CustomItemHandler<RECALL> Handler16 { get; private set; }
         public CustomWeaponHandler<Taze> Handler { get; private set; }
-		public CustomWeaponHandler<Taze> Handlergrenade { get; private set; }
+		public CustomWeaponHandler<Grenadec> Handler10 { get; private set; }
 		public static float TAZEBodyDamage { get; private set; }
         public static float TAZEHeadDamage { get; private set; }
         public static float TAZELegDamage { get; private set; }
@@ -173,7 +173,13 @@ namespace ATTG3
                 DroppedAmmoCount = 5,
                 DefaultType = ItemType.COM15
             };
-            Handler2 = new CustomItemHandler<LAR>(207)
+			Handler10 = new CustomWeaponHandler<Grenadec>(201)
+			{
+				AmmoName = "Heavy Masses",
+				DroppedAmmoCount = 5,
+				DefaultType = ItemType.COM15
+			};
+			Handler2 = new CustomItemHandler<LAR>(207)
             {
                 DefaultType = ItemType.MEDKIT
             };
@@ -209,7 +215,8 @@ namespace ATTG3
             
             ReloadConfig();
             Handler.Register();
-            Handler2.Register();
+			Handler10.Register();
+			Handler2.Register();
             Handler3.Register();
             Handler4.Register();
             Handler5.Register();
@@ -276,7 +283,7 @@ namespace ATTG3
 
 			GrenadeFireRate = GetConfigFloat("Grenade_fire_rate");
 			GrenadeMagazine = GetConfigInt("Grenade_magazine");
-			Handlergrenade.DefaultReserveAmmo = GetConfigInt("Grenade_reserve_ammo");
+			Handler10.DefaultReserveAmmo = GetConfigInt("Grenade_reserve_ammo");
 
 			GrenadeKrakatoa = GetConfigInt("Grenade_krakatoa");
 			GrenadeSuppressedKrakatoa = GetConfigInt("Grenade_suppressed_krakatoa");

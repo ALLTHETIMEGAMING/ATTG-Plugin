@@ -69,7 +69,7 @@
     <Compile Include="Commands\Citem.cs" />
     <Compile Include="Custom Guns\tazer.cs" />
     <Compile Include="Events\Events.cs" />
-    <Compile Include="Custom Guns\Grenade.cs" />
+    <Compile Include="Custom Guns\Grenadec.cs" />
     <Compile Include="SCP COMMANDS\E079.cs" />
     <Compile Include="Commands\Up.cs" />
     <Compile Include="Commands\Help.cs" />

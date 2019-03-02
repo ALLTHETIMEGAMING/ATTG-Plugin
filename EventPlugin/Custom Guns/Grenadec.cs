@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 
 namespace ATTG3
 {
-    public class ATTG3 : CustomWeapon
+    public class Grenadec : CustomWeapon
     {
         private const int WorldMask = 1207976449;
         private const int PlayerMask = 1208246273;

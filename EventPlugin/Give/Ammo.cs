@@ -48,7 +48,7 @@ namespace ATTG3
                     }
 
                 }
-                Player myPlayer = ATTG3.GetPlayerFromString.GetPlayer(args[0]);
+                Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
                 if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
                 if (myPlayer.TeamRole.Role != Role.SPECTATOR)
                 {
