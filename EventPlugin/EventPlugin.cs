@@ -37,7 +37,7 @@ namespace ATTG3
         public CustomItemHandler<ZOM> Handler7 { get; private set; }
         public CustomItemHandler<COM> Handler8 { get; private set; }
         public CustomItemHandler<RECALL> Handler16 { get; private set; }
-        public CustomWeaponHandler<Taze> Handler { get; private set; }
+        //public CustomWeaponHandler<Taze> Handler { get; private set; }
 		public CustomWeaponHandler<Grenadec> Handler10 { get; private set; }
 		public static float TAZEBodyDamage { get; private set; }
         public static float TAZEHeadDamage { get; private set; }
@@ -121,12 +121,12 @@ namespace ATTG3
                 "owner"
             }, SettingType.LIST, true, "Valid ranks to Actavate custom items "));
 			//TAZER Configs
-                AddConfig(new ConfigSetting("attg_taze_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
+               /* AddConfig(new ConfigSetting("attg_taze_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_magazine", 1, SettingType.NUMERIC, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_krakatoa", 4, SettingType.NUMERIC, true, ""));
                 AddConfig(new ConfigSetting("attg_taze_tag_time", 2f, SettingType.FLOAT, true, ""));
-                AddConfig(new ConfigSetting("attg_taze_tag_glitches", 15, SettingType.NUMERIC, true, ""));
+                AddConfig(new ConfigSetting("attg_taze_tag_glitches", 15, SettingType.NUMERIC, true, "")); */
 				// Grenade
 				AddConfig(new ConfigSetting("attg_grenade_fire_rate", 3F, SettingType.FLOAT, true, ""));
 				AddConfig(new ConfigSetting("attg_grenade_magazine", 1, SettingType.NUMERIC, true, ""));
@@ -136,12 +136,12 @@ namespace ATTG3
 
 			AddConfig(new ConfigSetting("attg_disable", false, SettingType.BOOL, true, "Disables Event Plugin"));
 			// Custom Items
-			Handler = new CustomWeaponHandler<Taze>(200)
+			/*Handler = new CustomWeaponHandler<Taze>(200)
             {
                 AmmoName = "Heavy Masses",
                 DroppedAmmoCount = 5,
                 DefaultType = ItemType.COM15
-            };
+            };*/
 			Handler10 = new CustomWeaponHandler<Grenadec>(201)
 			{
 				AmmoName = "Heavy Masses",
@@ -181,7 +181,7 @@ namespace ATTG3
                 DefaultType = ItemType.COIN
             };
             ReloadConfig();
-            Handler.Register();
+            //Handler.Register();
 			Handler10.Register();
 			Handler2.Register();
             Handler3.Register();
@@ -226,12 +226,12 @@ namespace ATTG3
             SCPrank = GetConfigList("attg_scp_ranks");
 			
             // Tazer
-            TAZEFireRate = GetConfigFloat("attg_taze_fire_rate");
-            TAZEMagazine = GetConfigInt("attg_taze_magazine");
-            Handler.DefaultReserveAmmo = GetConfigInt("attg_taze_reserve_ammo");
-            TAZEKrakatoa = GetConfigInt("attg_taze_krakatoa");
-            TAZETagTime = GetConfigFloat("attg_taze_tag_time");
-            TAZETagGlitches = GetConfigInt("attg_taze_tag_glitches");
+            //TAZEFireRate = GetConfigFloat("attg_taze_fire_rate");
+            //TAZEMagazine = GetConfigInt("attg_taze_magazine");
+            //Handler.DefaultReserveAmmo = GetConfigInt("attg_taze_reserve_ammo");
+            //TAZEKrakatoa = GetConfigInt("attg_taze_krakatoa");
+            //TAZETagTime = GetConfigFloat("attg_taze_tag_time");
+            //TAZETagGlitches = GetConfigInt("attg_taze_tag_glitches");
 			// Grenade
 			GrenadeFireRate = GetConfigFloat("attg_grenade_fire_rate");
 			GrenadeMagazine = GetConfigInt("attg_grenade_magazine");

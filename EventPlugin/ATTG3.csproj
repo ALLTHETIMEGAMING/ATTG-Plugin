@@ -76,7 +76,6 @@
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Commands\Tleslad.cs" />
     <Compile Include="Commands\Up.cs" />
-    <Compile Include="Custom Guns\tazer.cs" />
     <Compile Include="Events\Events.cs" />
     <Compile Include="Custom Guns\Grenadec.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
