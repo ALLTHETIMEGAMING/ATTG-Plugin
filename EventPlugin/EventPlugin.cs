@@ -212,7 +212,6 @@ namespace ATTG3
 			this.AddCommand("AGDISABLE", new Disable(this));
 			this.AddCommand("AGSPEED", new Speed(this));
 			this.AddCommand("AGSHAKE", new Shake(this));
-			this.AddCommand("AGENRAGE", new Shake(this));
 			this.AddEventHandlers(new Events(this), Priority.Normal);
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new No(this));
