@@ -98,7 +98,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 # Thanks
 Some of the code that I am using was made by 
 
-* [Androx](https://github.com/probe4aiur)
+* [Androx](https://github.com/probe4aiur) 
 
   * https://github.com/probe4aiur/HS8
 
@@ -109,3 +109,7 @@ Some of the code that I am using was made by
 * [Evan](https://github.com/Rnen)
 
   * https://github.com/Rnen/AdminToolbox
+  
+  # Changes
+  
+  Changed [Androx](https://github.com/probe4aiur) HMD into a Taser and grenade launcher
