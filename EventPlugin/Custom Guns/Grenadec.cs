@@ -19,9 +19,9 @@ namespace ATTG3
         
         public override int MagazineCapacity => ATTG3Plugin.GrenadeMagazine;
         public override float FireRate => ATTG3Plugin.GrenadeFireRate;
+		// MOST CODE IN THIS FILE WAS MADE BY Androx
 
-
-        public override void OnInitialize()
+		public override void OnInitialize()
         {
             base.OnInitialize();
 
