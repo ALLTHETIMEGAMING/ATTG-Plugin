@@ -64,6 +64,7 @@ namespace ATTG3
                 "(AGUP) (Players name)",
                 "(AGCitem) Enables custom items",
 				"(AGDISABLE) Disables Event Plugin",
+				"(AGSHAKE) Shakes all players screens",
                 "----------------------------------------",
                 "Plugin created by All The Time Gaming"
         };
