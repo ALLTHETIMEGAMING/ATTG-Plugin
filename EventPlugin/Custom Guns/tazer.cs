@@ -15,7 +15,6 @@ namespace ATTG3
         private const int PlayerMask = 1208246273;
         private const float GlitchLength = 1.9f;
 
-		private bool overCharged;
 
 		public override int MagazineCapacity => ATTG3Plugin.GrenadeMagazine;
 		public override float FireRate => ATTG3Plugin.GrenadeFireRate;
@@ -61,8 +60,7 @@ namespace ATTG3
             Physics.Raycast(cam.position + cam.forward, cam.forward, out RaycastHit playerHit, PlayerMask);
             HitboxIdentity hitbox = playerHit.collider?.GetComponent<HitboxIdentity>();
 
-            if (overCharged)
-            {
+           
 
 
                 if (hitbox != null)
@@ -84,4 +82,4 @@ namespace ATTG3
             }
         }
     }
-}
+
