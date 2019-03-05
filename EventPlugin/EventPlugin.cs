@@ -212,8 +212,7 @@ namespace ATTG3
             this.AddCommand("AGE079", new E079(this));
             this.AddCommand("AGCitem", new Citem(this));
 			this.AddCommand("AGDISABLE", new Disable(this));
-            this.AddCommand("AGT079", new O79T(this));
-            //this.AddCommand("AGSPEED", new Speed(this));
+            this.AddCommand("AGSPEED", new Speed(this));
             this.AddCommand("AGSHAKE", new Shake(this));
 			this.AddEventHandlers(new Events(this), Priority.Normal);
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
