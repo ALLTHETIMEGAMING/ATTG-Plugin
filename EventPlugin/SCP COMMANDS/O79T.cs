@@ -16,14 +16,14 @@ using System.Collections;
 
 namespace ATTG3
 {
-    class O79 : ICommandHandler
+    class O79T : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
 
-        private readonly Generator079 generator;
-        public O79(ATTG3Plugin plugin) => this.plugin = plugin;
+        public static List<Generator079> generators;
+        public O79T(ATTG3Plugin plugin) => this.plugin = plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
 
@@ -39,12 +39,15 @@ namespace ATTG3
                 };
             }
 
+            foreach (Generator079 Gen in generators)
+            Gen.NetworkremainingPowerup = 10f;
 
-            generator.startDuration = 10;
 
+            return new[]
+            {
+                $"Timer Set to 10 sec"
+            };
 
-            return new string[] { GetUsage() };
-            
         }
     }
 }
