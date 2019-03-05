@@ -75,6 +75,7 @@
     <Compile Include="Commands\Speed.cs" />
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Commands\Tleslad.cs" />
+    <Compile Include="SCP COMMANDS\O79T.cs" />
     <Compile Include="Commands\Up.cs" />
     <Compile Include="Events\Events.cs" />
     <Compile Include="Custom Guns\Grenadec.cs" />
