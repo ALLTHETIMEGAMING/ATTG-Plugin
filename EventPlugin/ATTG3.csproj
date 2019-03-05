@@ -92,9 +92,7 @@
     <Compile Include="GetPlayerFromString.cs" />
     <Compile Include="Give\Ammo.cs" />
     <Compile Include="LevenshteinDistance.cs" />
-    <Compile Include="Testing commands\test.cs" />
     <Compile Include="SCP COMMANDS\L079.cs" />
-    <Compile Include="Text.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVoteNo.cs" />
     <Compile Include="Vote Stuff\PublicVoteYes.cs" />
@@ -123,6 +121,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Testing commands\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
