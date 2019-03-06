@@ -15,6 +15,7 @@ namespace ATTG3
     {
         private readonly ATTG3Plugin plugin;
 		private bool running;
+		private float Desplay2 = 5f;
 
 		Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
@@ -38,16 +39,17 @@ namespace ATTG3
             }
 
 
+			float converted = float.Parse(args[0]);
+			Desplay2 = converted;
 
-           
-					running = !running;
+			running = !running;
 					if (running)
 					{
 						Timing.Run(TimingDelay(0.1f));
 					}
 					
 
-						return new string[] { " All 939s have been given Super speed!" };
+						return new string[] { " All 939s have been given Super speed! at " + Desplay2 + "Speed" };
                 
             
 			
@@ -62,7 +64,7 @@ namespace ATTG3
 					{
 						GameObject playerObj = (GameObject)myPlayer.GetGameObject();
 						PlayerScript = playerObj.GetComponent<Scp939PlayerScript>();
-						PlayerScript.NetworkspeedMultiplier = 5;
+						PlayerScript.NetworkspeedMultiplier = Desplay2;
 					}
 				}
 				yield return 0.5f;
