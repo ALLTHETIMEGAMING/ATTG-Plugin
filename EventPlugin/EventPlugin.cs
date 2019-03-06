@@ -65,8 +65,8 @@ namespace ATTG3
 		public static float GrenadeTagTime { get; private set; }
 		public static int GrenadeTagGlitches { get; private set; }
 
-
-		public string[] AdminRanks { get; private set; }
+        public bool running939 { get; set; }
+        public string[] AdminRanks { get; private set; }
 
         public string[] Customitemrank { get; private set; }
 		public string[] Disablerank { get; private set; }
@@ -75,7 +75,8 @@ namespace ATTG3
         public bool Voteopen {get;set;}
         public static bool
            enabled = false,
-           roundstarted = false;
+           roundstarted = false,
+           enabled2 = false;
 
 		public bool Disable { get; set; } = false;
 
@@ -83,12 +84,22 @@ namespace ATTG3
 
         public bool CIMTF {get;set;}
 
+        public bool Jug { get; set; }
+
         public int ci_health = 100;
 
         public int ntf_health = 100;
 
         public int Yes { get;  set; }
         public int No { get;  set; }
+
+        public static bool Jugg_NTF_Disarmer;
+        public static int Jugg_base;
+        public static int Jugg_increase;
+        public static int Jugg_grenade;
+        public static int Jugg_NTF_ammo;
+        public static int Jugg_NTF_Health;
+        public static bool Jugg_infinite_nades;
 
         public override void Register()
         {
@@ -215,7 +226,8 @@ namespace ATTG3
 			this.AddCommand("AGSPEEDA", new Speed2(this));
 			this.AddCommand("AGSPEED", new Speed(this));
             this.AddCommand("AGSHAKE", new Shake(this));
-			this.AddEventHandlers(new Events(this), Priority.Normal);
+            this.AddCommand("Test", new POSDoor(this));
+            this.AddEventHandlers(new Events(this), Priority.Normal);
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new No(this));
 			this.AddEventHandlers(new Yes(this));
@@ -265,6 +277,22 @@ namespace ATTG3
         public static void DisableGamemodeCIMTF()
         {
             enabled = false;
+            plugin.pluginManager.Server.Map.ClearBroadcasts();
+        }
+
+        public static void JugEnableGamemode()
+        {
+            enabled2 = true;
+            if (!roundstarted)
+            {
+                plugin.pluginManager.Server.Map.ClearBroadcasts();
+                plugin.pluginManager.Server.Map.Broadcast(25, "<color=#228B22>Juggernaut Gamemode</color> is starting...", false);
+            }
+        }
+
+        public static void JugDisableGamemode()
+        {
+            enabled2 = false;
             plugin.pluginManager.Server.Map.ClearBroadcasts();
         }
     }

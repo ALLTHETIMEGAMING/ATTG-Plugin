@@ -11,18 +11,20 @@ using RemoteAdmin;
 using scp4aiur;
 namespace ATTG3
 {
-    class Speed2 : ICommandHandler
+    class POSDoor : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
 		
 		private float Desplay2 = 5f;
-
-		Server Server => PluginManager.Manager.Server;
+        public Door door;
+        public Door doorid;
+        public GameObject door2;
+        Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
 
 		public Scp939PlayerScript PlayerScript { get; private set; }
 
-		public Speed2(ATTG3Plugin plugin) => this.plugin = plugin;
+		public POSDoor(ATTG3Plugin plugin) => this.plugin = plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
 
@@ -42,37 +44,18 @@ namespace ATTG3
 			float converted = float.Parse(args[0]);
 			Desplay2 = converted;
 
-			plugin.running939 = !plugin.running939;
-					if (plugin.running939)
-					{
-						Timing.Run(TimingDelay(0.1f));
-                return new string[] { " All 939s have been given Super speed! at " + Desplay2 + "Speed" };
-            }
-					
+			
+                door2 = door.GetComponent<NetworkIdentity>();
+            
+                door2.SetLocalPos =
+            
 
-			else
-            {
-                return new string[] { "939 speed reset" };
-            }
+
+                return new string[] { "Door Moved" };
+            
                 
             
 			
-		}
-		private IEnumerable<float> TimingDelay(float time)
-		{
-			while (plugin.running939)
-			{
-				foreach (Smod2.API.Player myPlayer in Server.GetPlayers())
-				{
-					if (myPlayer.TeamRole.Role == Role.SCP_939_53 || myPlayer.TeamRole.Role == Role.SCP_939_89)
-					{
-						GameObject playerObj = (GameObject)myPlayer.GetGameObject();
-						PlayerScript = playerObj.GetComponent<Scp939PlayerScript>();
-						PlayerScript.NetworkspeedMultiplier = Desplay2;
-					}
-				}
-				yield return 0.5f;
-			}
 		}
 	}
 }

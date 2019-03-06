@@ -77,8 +77,10 @@
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Commands\Tleslad.cs" />
     <Compile Include="Commands\Up.cs" />
-    <Compile Include="Events\Events.cs" />
+    <Compile Include="Events\CIMTF.cs" />
     <Compile Include="Custom Guns\Grenadec.cs" />
+    <Compile Include="Events\Jug.cs" />
+    <Compile Include="Events\jugcommand.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
