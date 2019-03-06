@@ -74,8 +74,8 @@ namespace ATTG3
         public string[] SCPrank { get; private set; }
         public bool Voteopen {get;set;}
         public static bool
-           enabled = false,
-           roundstarted = false,
+           enabledcimtf = false,
+           roundstartedcimtf = false,
            enabled2 = false;
 
 		public bool Disable { get; set; } = false;
@@ -86,9 +86,9 @@ namespace ATTG3
 
         public bool Jug { get; set; }
 
-        public int ci_health = 100;
+        public int CIMTFci_health = 100;
 
-        public int ntf_health = 100;
+        public int CIMTFntf_health = 100;
 
         public int Yes { get;  set; }
         public int No { get;  set; }
@@ -226,8 +226,7 @@ namespace ATTG3
 			this.AddCommand("AGSPEEDA", new Speed2(this));
 			this.AddCommand("AGSPEED", new Speed(this));
             this.AddCommand("AGSHAKE", new Shake(this));
-            this.AddCommand("Test", new POSDoor(this));
-            this.AddEventHandlers(new Events(this), Priority.Normal);
+            this.AddEventHandlers(new CIMTF(this), Priority.Normal);
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new No(this));
 			this.AddEventHandlers(new Yes(this));
@@ -264,37 +263,71 @@ namespace ATTG3
         {
             Info("Event Plugin disabled.");
         }
-        public static void EnableGamemodeCIMTF()
-        {
-            enabled = true;
-            if (!roundstarted)
-            {
-                plugin.pluginManager.Server.Map.ClearBroadcasts();
-                plugin.pluginManager.Server.Map.Broadcast(25, "<color=#00ffff> CI VS MTF Gamemode is starting..</color>", false);
-            }
-        }
 
-        public static void DisableGamemodeCIMTF()
-        {
-            enabled = false;
-            plugin.pluginManager.Server.Map.ClearBroadcasts();
-        }
+		public class Functions
+		{
+			public static void EnableGamemode()
+			{
+				ATTG3Plugin.enabledcimtf = true;
+				if (!ATTG3Plugin.roundstartedcimtf)
+				{
+					ATTG3Plugin.plugin.pluginManager.Server.Map.ClearBroadcasts();
+					ATTG3Plugin.plugin.pluginManager.Server.Map.Broadcast(25, "<color=#00ffff> CI VS MTF Gamemode is starting..</color>", false);
+				}
+			}
 
-        public static void JugEnableGamemode()
-        {
-            enabled2 = true;
-            if (!roundstarted)
-            {
-                plugin.pluginManager.Server.Map.ClearBroadcasts();
-                plugin.pluginManager.Server.Map.Broadcast(25, "<color=#228B22>Juggernaut Gamemode</color> is starting...", false);
-            }
-        }
+			public static void DisableGamemodecimtf()
+			{
+				ATTG3Plugin.enabledcimtf = false;
+				ATTG3Plugin.plugin.pluginManager.Server.Map.ClearBroadcasts();
+			}
+			public static void EndGamemodeRound()
+			{
+				ATTG3Plugin.plugin.Info("EndgameRound Function.");
+				ATTG3Plugin.roundstartedcimtf = false;
+				ATTG3Plugin.plugin.Server.Round.EndRound();
+			}
+			public static IEnumerable<float> SpawnChaos(Player player, float delay)
+			{
+				yield return delay;
+				player.ChangeRole(Role.CHAOS_INSURGENCY, false, true, false, true);
+				yield return 2;
+				foreach (Smod2.API.Item item in player.GetInventory())
+				{
+					item.Remove();
+				}
+				player.GiveItem(ItemType.E11_STANDARD_RIFLE);
+				player.GiveItem(ItemType.COM15);
+				player.GiveItem(ItemType.FRAG_GRENADE);
+				player.GiveItem(ItemType.MEDKIT);
+				player.GiveItem(ItemType.FLASHBANG);
 
-        public static void JugDisableGamemode()
-        {
-            enabled2 = false;
-            plugin.pluginManager.Server.Map.ClearBroadcasts();
-        }
+				player.SetAmmo(AmmoType.DROPPED_5, 500);
+				player.SetAmmo(AmmoType.DROPPED_7, 500);
+				player.SetAmmo(AmmoType.DROPPED_9, 500);
+				player.SetHealth(plugin.CIMTFci_health);
+			}
+			public static IEnumerable<float> SpawnNTF(Player player, float delay)
+			{
+				yield return delay;
+				player.ChangeRole(Role.NTF_COMMANDER, false, true, false, false);
+				yield return 2;
+				foreach (Smod2.API.Item item in player.GetInventory())
+				{
+					item.Remove();
+				}
+				player.GiveItem(ItemType.E11_STANDARD_RIFLE);
+				player.GiveItem(ItemType.COM15);
+				player.GiveItem(ItemType.FRAG_GRENADE);
+				player.GiveItem(ItemType.MEDKIT);
+				player.GiveItem(ItemType.FLASHBANG);
+
+				player.SetAmmo(AmmoType.DROPPED_5, 500);
+				player.SetAmmo(AmmoType.DROPPED_7, 500);
+				player.SetAmmo(AmmoType.DROPPED_9, 500);
+				player.SetHealth(plugin.CIMTFntf_health);
+			}
+		}
     }
 }
 
