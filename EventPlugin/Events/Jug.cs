@@ -10,18 +10,18 @@ using UnityEngine;
 
 namespace ATTG3
 {
-	internal class EventsHandler : IEventHandlerReload, IEventHandlerSetSCPConfig, IEventHandlerTeamRespawn, IEventHandlerCheckRoundEnd, IEventHandlerRoundStart, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerRoundEnd, IEventHandlerPlayerHurt, IEventHandlerSetRoleMaxHP, IEventHandlerSetRole,
+	internal class Jug : IEventHandlerReload, IEventHandlerSetSCPConfig, IEventHandlerTeamRespawn, IEventHandlerCheckRoundEnd, IEventHandlerRoundStart, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerRoundEnd, IEventHandlerPlayerHurt, IEventHandlerSetRoleMaxHP, IEventHandlerSetRole,
 		IEventHandlerLure, IEventHandlerContain106, IEventHandlerThrowGrenade
 	{
 		private readonly ATTG3Plugin plugin;
 
-		public EventsHandler(ATTG3Plugin plugin) => this.plugin = plugin;
+		public Jug(ATTG3Plugin plugin) => this.plugin = plugin;
 
 		public static Timer timer;
 
 		public void OnPlayerJoin(PlayerJoinEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug)
+			if (plugin.Jug)
 			{
 				if (!ATTG3Plugin.roundstartedjug)
 				{
@@ -34,7 +34,7 @@ namespace ATTG3
 
 		public void OnSetRoleMaxHP(SetRoleMaxHPEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				if (ev.Role == Role.CHAOS_INSURGENCY)
 					ev.MaxHP = ATTG3Plugin.juggernaut_healh;
@@ -43,7 +43,7 @@ namespace ATTG3
 
 		public void OnSetRole(PlayerSetRoleEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				if (ATTG3Plugin.IsJuggernaut(ev.Player))
 				{
@@ -95,7 +95,7 @@ namespace ATTG3
 
 		public void OnReload(PlayerReloadEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				if (ev.Player.Name == ATTG3Plugin.juggernaut.Name || ev.Player.SteamId == ATTG3Plugin.juggernaut.SteamId)
 				{
@@ -106,7 +106,7 @@ namespace ATTG3
 
 		public void OnThrowGrenade(PlayerThrowGrenadeEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				if (ev.Player == ATTG3Plugin.juggernaut)
 				{
@@ -120,7 +120,7 @@ namespace ATTG3
 
 		public void OnRoundStart(RoundStartEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug)
+			if (plugin.Jug)
 			{
 				ATTG3Plugin.roundstartedjug = true;
 				plugin.pluginManager.Server.Map.ClearBroadcasts();
@@ -183,14 +183,14 @@ namespace ATTG3
 
 		public void OnRoundEnd(RoundEndEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 				plugin.Info("Round Ended!");
 			ATTG3Plugin.EndGamemodeRound();
 		}
 
 		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				bool juggernautAlive = false;
 				bool mtfAllive = false;
@@ -227,7 +227,7 @@ namespace ATTG3
 
 		public void OnPlayerDie(PlayerDeathEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				if (ATTG3Plugin.IsJuggernaut(ev.Player))
 				{
@@ -246,7 +246,7 @@ namespace ATTG3
 
 		public void OnPlayerHurt(PlayerHurtEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				if (ATTG3Plugin.IsJuggernaut(ev.Player))
 				{
@@ -259,7 +259,7 @@ namespace ATTG3
 
 		public void OnLure(PlayerLureEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug && ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				ATTG3Plugin.activator = ev.Player;
 			}
@@ -268,7 +268,7 @@ namespace ATTG3
 
 		public void OnContain106(PlayerContain106Event ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				if (ATTG3Plugin.juggernaut != null)
 				{
@@ -283,7 +283,7 @@ namespace ATTG3
 
 		public void OnTimedEvent(System.Object source, ElapsedEventArgs e)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				Player juggernautPlayer = ATTG3Plugin.GetJuggernautPlayer();
 				if (juggernautPlayer != null && ATTG3Plugin.activator != null)
@@ -295,7 +295,7 @@ namespace ATTG3
 
 		public void OnSetSCPConfig(SetSCPConfigEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 			{
 				ev.Ban049 = true;
 				ev.Ban079 = true;
@@ -309,7 +309,7 @@ namespace ATTG3
 
 		public void OnTeamRespawn(TeamRespawnEvent ev)
 		{
-			if (ATTG3Plugin.enabledjug || ATTG3Plugin.roundstartedjug)
+			if (plugin.Jug)
 				ev.SpawnChaos = false;
 		}
 	}

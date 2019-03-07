@@ -38,42 +38,45 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-			if (args.Length > 0)
+			else
 			{
-				switch (args[0].ToLower())
+				if (args.Length > 0)
 				{
-					case "help":
-						return new string[]
-						{
+					switch (args[0].ToLower())
+					{
+						case "help":
+							return new string[]
+							{
 							"AGCIMTF Command List \n"+
 							"AGCIMTF enable - Enables the CI VS MTF gamemode. \n"+
 							"AGCIMTF disable - Disables the CI VS MTF gamemode. \n"
-						};
-					case "enable":
-						ATTG3Plugin.EnableGamemodecimtf();
-						return new string[]
-						{
+							};
+						case "enable":
+							plugin.CIMTF = true;
+							return new string[]
+							{
 							"CIMTF will be enabled for the next round!"
-						};
-					case "disable":
-						ATTG3Plugin.DisableGamemodecimtf();
-						return new string[]
-						{
+							};
+						case "disable":
+							plugin.CIMTF = false;
+							return new string[]
+							{
 							"CIMTF gamemode now disabled."
-						};
-					default:
-						return new string[]
-						{
+							};
+						default:
+							return new string[]
+							{
 							GetUsage()
-						};
+							};
+					}
 				}
-			}
-			else
-			{
-				return new string[]
+				else
 				{
+					return new string[]
+					{
 					GetUsage()
-				};
+					};
+				}
 			}
 		}
 	}

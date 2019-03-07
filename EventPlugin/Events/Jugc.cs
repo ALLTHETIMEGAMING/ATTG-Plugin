@@ -24,24 +24,16 @@ namespace ATTG3
 
 		public string GetUsage()
 		{
-			return "Juggernaut Enabled : " + ATTG3Plugin.enabledjug + "\n" +
-				"[JUGGERNAUT / JUGG / JUG] HELP \n" +
-				"JUGGERNAUT ENABLE \n" +
-				"JUGGERNAUT DISABLE \n" +
-				"JUGGERNAUT SELECT [PlayerName]";
+			return "AGJUG Enabled : " + plugin.Jug + "\n" +
+				"[AGJUG / JUGG / JUG] HELP \n" +
+				"AGJUG ENABLE \n" +
+				"AGJUG DISABLE \n" +
+				"AGJUG SELECT [PlayerName]";
 		}
 
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
-			if (!(sender is Server) &&
-				sender is Player player &&
-				!plugin.AdminRanks.Contains(player.GetRankName()))
-			{
-				return new[]
-				{
-					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
-				};
-			}
+
 
 			if (args.Length > 0)
 			{
@@ -50,25 +42,25 @@ namespace ATTG3
 					case "help":
 						return new string[]
 						{
-						"Juggernaut Command List \n"+
-						"Juggernaut enable - Enables the Juggernaut gamemode. \n"+
-						"Juggernaut disable - Disables the Juggernaut gamemode. \n"+
-						"Juggernaut select [PlayerName] - Selects the player to be the Juggernaut"
+						"AGJUG Command List \n"+
+						"AGJUG enable - Enables the Juggernaut gamemode. \n"+
+						"AGJUG disable - Disables the Juggernaut gamemode. \n"+
+						"AGJUG select [PlayerName] - Selects the player to be the Juggernaut"
 						};
 					case "enable":
-						ATTG3Plugin.EnableGamemodejug();
+						plugin.Jug = true;
 						return new string[]
 						{
 							"Juggernaut will be enabled for the next round!"
 						};
 					case "disable":
-						ATTG3Plugin.DisableGamemodejug();
+						plugin.Jug = false;
 						return new string[]
 						{
 							"Juggernaut will be disabled for the next round!"
 						};
 					case "select":
-						if (ATTG3Plugin.enabledjug && args.Length > 1)
+						if (plugin.Jug && args.Length > 1)
 						{
 							Player myplayer = GetPlayerFromString.GetPlayer(args[1]);
 							if (myplayer == null)

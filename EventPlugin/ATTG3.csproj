@@ -77,10 +77,7 @@
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Commands\Tleslad.cs" />
     <Compile Include="Commands\Up.cs" />
-    <Compile Include="Events\CIMTF.cs" />
     <Compile Include="Custom Guns\Grenadec.cs" />
-    <Compile Include="Events\Jug.cs" />
-    <Compile Include="Events\Jugc.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -91,7 +88,6 @@
     <Compile Include="SCP COMMANDS\ST079.cs" />
     <Compile Include="SCP COMMANDS\C106.cs" />
     <Compile Include="EventHandler.cs" />
-    <Compile Include="Events\CIMTFC.cs" />
     <Compile Include="GetPlayerFromString.cs" />
     <Compile Include="Give\Ammo.cs" />
     <Compile Include="LevenshteinDistance.cs" />
@@ -126,6 +122,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Events\" />
     <Folder Include="Testing commands\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

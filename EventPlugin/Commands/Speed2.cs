@@ -42,8 +42,8 @@ namespace ATTG3
 			float converted = float.Parse(args[0]);
 			Desplay2 = converted;
 
-			plugin.running939 = !plugin.running939;
-					if (plugin.running939)
+			plugin.Running939 = !plugin.Running939;
+					if (plugin.Running939)
 					{
 						Timing.Run(TimingDelay(0.1f));
                 return new string[] { " All 939s have been given Super speed! at " + Desplay2 + "Speed" };
@@ -60,7 +60,7 @@ namespace ATTG3
 		}
 		private IEnumerable<float> TimingDelay(float time)
 		{
-			while (plugin.running939)
+			while (plugin.Running939)
 			{
 				foreach (Smod2.API.Player myPlayer in Server.GetPlayers())
 				{

@@ -28,7 +28,7 @@ namespace ATTG3
 			{
 				this.plugin.pluginManager.DisablePlugin(this.plugin);
 			}
-            plugin.running939 = false;
+            plugin.Running939 = false;
             plugin.Voteopen = false;
             plugin.Yes = 0;
             plugin.No = 0;

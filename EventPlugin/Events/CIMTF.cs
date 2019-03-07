@@ -16,7 +16,7 @@ namespace ATTG3
 
 		public void OnPlayerJoin(PlayerJoinEvent ev)
 		{
-			if (ATTG3Plugin.enabledcimtf)
+			if (plugin.CIMTF)
 			{
 				if (!ATTG3Plugin.roundstartedcimtf)
 				{
@@ -28,7 +28,7 @@ namespace ATTG3
 		}
 		public void OnSetRole(PlayerSetRoleEvent ev)
 		{
-			if (ATTG3Plugin.enabledcimtf || ATTG3Plugin.roundstartedcimtf)
+			if (plugin.CIMTF)
 			{
 				if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP || ev.Player.TeamRole.Team == Smod2.API.Team.CLASSD)
 				{
@@ -52,7 +52,7 @@ namespace ATTG3
 
 		public void OnRoundStart(RoundStartEvent ev)
 		{
-			if (ATTG3Plugin.enabledcimtf)
+			if (plugin.CIMTF)
 			{
 				ATTG3Plugin.roundstartedcimtf = true;
 				plugin.Server.Map.StartWarhead();
@@ -76,7 +76,7 @@ namespace ATTG3
 
 		public void OnRoundEnd(RoundEndEvent ev)
 		{
-			if (ATTG3Plugin.enabledcimtf || ATTG3Plugin.roundstartedcimtf)
+			if (plugin.CIMTF)
 			{
 				plugin.Info("Round Ended!");
 				ATTG3Plugin.EndGamemodeRound();
@@ -85,7 +85,7 @@ namespace ATTG3
 
 		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
 		{
-			if (ATTG3Plugin.enabledcimtf || ATTG3Plugin.roundstartedcimtf)
+			if (plugin.CIMTF)
 			{
 				bool ciAlive = false;
 				bool ntfAlive = false;
@@ -123,7 +123,7 @@ namespace ATTG3
 
 		public void OnTeamRespawn(TeamRespawnEvent ev)
 		{
-			if (ATTG3Plugin.enabledcimtf || ATTG3Plugin.roundstartedcimtf)
+			if (plugin.CIMTF)
 			{
 				if (plugin.Round.Stats.CiAlive >= plugin.Round.Stats.NTFAlive)
 				{
