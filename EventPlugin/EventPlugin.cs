@@ -33,7 +33,8 @@ namespace ATTG3
 		public string[] AdminRanks { get; private set; }
 		public string[] Disablerank { get; private set; }
 		public string[] Voterank { get; private set; }
-		public string[] SCPrank { get; private set; }
+        public string[] allrank { get; private set; }
+        public string[] SCPrank { get; private set; }
 		public bool Voteopen { get; set; }
 		public bool Disable { get; set; } = false;
 		public int Yes { get; set; }
@@ -65,6 +66,12 @@ namespace ATTG3
 				"coowner",
 				"admin"
 			}, SettingType.LIST, true, "Valid ranks for all voteing Commands"));
+            AddConfig(new ConfigSetting("attg_all_ranks", new[]
+            {
+                "owner"
+                
+            }, SettingType.LIST, true, "Valid ranks for all Commands"));
+            ReloadConfig();
 			this.AddCommand("AGTL", new Tleslad(this));
 			this.AddCommand("AGEL", new ELEL(this));
 			this.AddCommand("AG106D", new C106(this));
@@ -97,9 +104,10 @@ namespace ATTG3
 			AdminRanks = GetConfigList("attg_ranks");
 			Voterank = GetConfigList("attg_vote_ranks");
 			SCPrank = GetConfigList("attg_scp_ranks");
+            allrank = GetConfigList("attg_all_ranks");
 
-			//Dissable Config
-			Disable = GetConfigBool("attg_disable");
+            //Dissable Config
+            Disable = GetConfigBool("attg_disable");
 
 		}
 		public override void OnEnable()
