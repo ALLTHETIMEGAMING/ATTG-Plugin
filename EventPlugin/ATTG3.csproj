@@ -77,7 +77,6 @@
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Commands\Tleslad.cs" />
     <Compile Include="Commands\Up.cs" />
-    <Compile Include="Custom Guns\Grenadec.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -100,17 +99,9 @@
     <Compile Include="Vote Stuff\VoteAD.cs" />
     <Compile Include="Vote Stuff\VoteC.cs" />
     <Compile Include="Vote Stuff\Votehand.cs" />
-    <Compile Include="Items\COM.cs" />
-    <Compile Include="Items\N39.cs" />
-    <Compile Include="Items\NUT.cs" />
-    <Compile Include="Items\O49.cs" />
     <Compile Include="EventPlugin.cs" />
-    <Compile Include="Items\LAR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Items\RECALL.cs" />
-    <Compile Include="Items\SHY.cs" />
     <Compile Include="Timing.cs" />
-    <Compile Include="Items\ZOM.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -122,7 +113,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Events\" />
     <Folder Include="Testing commands\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

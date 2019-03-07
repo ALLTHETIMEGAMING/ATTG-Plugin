@@ -18,103 +18,26 @@ namespace ATTG3
 	[PluginDetails(
 		author = "All The Time Gaming",
 		description = "Event Mod",
-		id = "ATTG.custom.Event",
+		id = "ATTG.ADMIN.Event",
 		name = "",
 		SmodMajor = 3,
 		SmodMinor = 3,
 		SmodRevision = 0,
-		version = "1.8.1"
+		version = "1.9.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
 	{
 		internal static ATTG3Plugin plugin;
-
-		// ITEMS
 		public static ATTG3Plugin Instance { get; private set; }
-		public CustomItemHandler<LAR> Handler2 { get; private set; }
-		public CustomItemHandler<O49> Handler3 { get; private set; }
-		public CustomItemHandler<N39> Handler4 { get; private set; }
-		public CustomItemHandler<NUT> Handler5 { get; private set; }
-		public CustomItemHandler<SHY> Handler6 { get; private set; }
-		public CustomItemHandler<ZOM> Handler7 { get; private set; }
-		public CustomItemHandler<COM> Handler8 { get; private set; }
-		public CustomItemHandler<RECALL> Handler16 { get; private set; }
-		//public CustomWeaponHandler<Taze> Handler { get; private set; }
-		public CustomWeaponHandler<Grenadec> Handler10 { get; private set; }
-
-		//TASER
-		public static float TAZEBodyDamage { get; private set; }
-		public static float TAZEHeadDamage { get; private set; }
-		public static float TAZELegDamage { get; private set; }
-		public static float TAZEScp106Damage { get; private set; }
-		public static float TAZETagDamage { get; private set; }
-
-		public static float TAZEFireRate { get; private set; }
-		public static int TAZEMagazine { get; private set; }
-
-		public static int TAZEKrakatoa { get; private set; }
-		public static int TAZESuppressedKrakatoa { get; private set; }
-
-		public static float TAZEOverChargeRadius { get; private set; }
-		public static float TAZEOverChargeDamage { get; private set; }
-
-		public static float TAZETagTime { get; private set; }
-		public static int TAZETagGlitches { get; private set; }
-
-		//GRENADE
-		public static float GrenadeFireRate { get; private set; }
-		public static int GrenadeMagazine { get; private set; }
-
-		public static int GrenadeKrakatoa { get; private set; }
-		public static int GrenadeSuppressedKrakatoa { get; private set; }
-
-		public static float GrenadeTagTime { get; private set; }
-		public static int GrenadeTagGlitches { get; private set; }
-
 		public bool Running939 { get; set; }
 		public string[] AdminRanks { get; private set; }
-
-		public string[] Customitemrank { get; private set; }
 		public string[] Disablerank { get; private set; }
 		public string[] Voterank { get; private set; }
 		public string[] SCPrank { get; private set; }
 		public bool Voteopen { get; set; }
-		public static bool
-		   enabledcimtf = false,
-		   roundstartedcimtf = false,
-		   enabledjug = false,
-		   roundstartedjug = false;
-
 		public bool Disable { get; set; } = false;
-
-		public bool Citems { get; set; } = false;
-
-		public bool CIMTF { get; set; }
-
-		public bool Jug { get; set; }
-
-		public int CIMTFci_health;
-
-		public int CIMTFntf_health;
-
 		public int Yes { get; set; }
 		public int No { get; set; }
-		// Jug Gamemode
-		public static bool JugNTF_Disarmer;
-		public static int Jugg_base;
-		public static int Jugg_increase;
-		public static int Jugg_grenade;
-		public static int jugNTF_ammo;
-		public static int jugNTF_Health;
-		public static bool jugg_infinite_nades;
-		public static Player juggernaut;
-		public static Player activator = null;
-		public static int juggernaut_healh;
-		public static int jugntf_health;
-		public static string[] juggernaut_prevRank = new string[2];
-		public static Player selectedJuggernaut = null;
-		public static float jugcritical_damage;
-		public static Player jugg_killer = null;
 
 		public override void Register()
 		{
@@ -142,95 +65,6 @@ namespace ATTG3
 				"coowner",
 				"admin"
 			}, SettingType.LIST, true, "Valid ranks for all voteing Commands"));
-			AddConfig(new ConfigSetting("attg_item_ranks", new[]
-			{
-				"owner"
-			}, SettingType.LIST, true, "Valid ranks to Actavate custom items "));
-			//TAZER Configs
-			/* AddConfig(new ConfigSetting("attg_taze_fire_rate", 0.5f, SettingType.FLOAT, true, ""));
-			 AddConfig(new ConfigSetting("attg_taze_magazine", 1, SettingType.NUMERIC, true, ""));
-			 AddConfig(new ConfigSetting("attg_taze_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
-			 AddConfig(new ConfigSetting("attg_taze_krakatoa", 4, SettingType.NUMERIC, true, ""));
-			 AddConfig(new ConfigSetting("attg_taze_tag_time", 2f, SettingType.FLOAT, true, ""));
-			 AddConfig(new ConfigSetting("attg_taze_tag_glitches", 15, SettingType.NUMERIC, true, "")); */
-			// Grenade
-			AddConfig(new ConfigSetting("attg_grenade_fire_rate", 3F, SettingType.FLOAT, true, ""));
-			AddConfig(new ConfigSetting("attg_grenade_magazine", 1, SettingType.NUMERIC, true, ""));
-			AddConfig(new ConfigSetting("attg_grenade_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
-			AddConfig(new ConfigSetting("attg_grenade_krakatoa", 10, SettingType.NUMERIC, true, ""));
-			AddConfig(new ConfigSetting("attg_grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, ""));
-
-			// Event Configs
-			AddConfig(new ConfigSetting("attg_cimtf__ntf_health", 100, SettingType.NUMERIC, true, ""));
-			AddConfig(new ConfigSetting("attg_cimtf__ci_health", 100, SettingType.NUMERIC, true, ""));
-			AddConfig(new ConfigSetting("attg_juggernaut_base_health", 500, SettingType.NUMERIC, true, ""));
-			AddConfig(new ConfigSetting("attg_juggernaut_increase_amount", 500, SettingType.NUMERIC, true, ""));
-			AddConfig(new ConfigSetting("attg_ juggernaut_jugg_grenades", 6, SettingType.NUMERIC, true, ""));
-			AddConfig(new ConfigSetting("attg_juggernaut_ntf_disarmer", false, SettingType.BOOL, true, ""));
-			AddConfig(new ConfigSetting("attg_juggernaut_ntf_health", 150, SettingType.NUMERIC, true, ""));
-			AddConfig(new ConfigSetting("attg_juggernaut_critical_damage", 0.15f, SettingType.FLOAT, true, ""));
-			AddConfig(new ConfigSetting("attg_juggernaut_jugg_infinite_nades", true, SettingType.BOOL, true, ""));
-
-
-			AddConfig(new ConfigSetting("attg_disable", false, SettingType.BOOL, true, "Disables Event Plugin"));
-			// Custom Items
-			/*Handler = new CustomWeaponHandler<Taze>(200)
-            {
-                AmmoName = "Heavy Masses",
-                DroppedAmmoCount = 5,
-                DefaultType = ItemType.COM15
-            };*/
-			Handler10 = new CustomWeaponHandler<Grenadec>(201)
-			{
-				AmmoName = "Heavy Masses",
-				DroppedAmmoCount = 5,
-				DefaultType = ItemType.COM15
-			};
-			Handler2 = new CustomItemHandler<LAR>(207)
-			{
-				DefaultType = ItemType.MEDKIT
-			};
-			Handler3 = new CustomItemHandler<O49>(208)
-			{
-				DefaultType = ItemType.MEDKIT
-			};
-			Handler4 = new CustomItemHandler<N39>(209)
-			{
-				DefaultType = ItemType.MEDKIT
-			};
-			Handler5 = new CustomItemHandler<NUT>(210)
-			{
-				DefaultType = ItemType.MEDKIT
-			};
-			Handler6 = new CustomItemHandler<SHY>(211)
-			{
-				DefaultType = ItemType.MEDKIT
-			};
-			Handler7 = new CustomItemHandler<ZOM>(212)
-			{
-				DefaultType = ItemType.MEDKIT
-			};
-			Handler8 = new CustomItemHandler<COM>(213)
-			{
-				DefaultType = ItemType.MEDKIT
-			};
-			Handler16 = new CustomItemHandler<RECALL>(214)
-			{
-				DefaultType = ItemType.COIN
-			};
-
-
-			ReloadConfig();
-			//Handler.Register();
-			Handler10.Register();
-			Handler2.Register();
-			Handler3.Register();
-			Handler4.Register();
-			Handler5.Register();
-			Handler6.Register();
-			Handler7.Register();
-			Handler8.Register();
-			Handler16.Register();
 			this.AddCommand("AGTL", new Tleslad(this));
 			this.AddCommand("AGEL", new ELEL(this));
 			this.AddCommand("AG106D", new C106(this));
@@ -260,23 +94,9 @@ namespace ATTG3
 		{
 			// Command Perms
 			AdminRanks = GetConfigList("attg_ranks");
-			Customitemrank = GetConfigList("attg_item_ranks");
 			Voterank = GetConfigList("attg_vote_ranks");
 			SCPrank = GetConfigList("attg_scp_ranks");
 
-			// Tazer
-			//TAZEFireRate = GetConfigFloat("attg_taze_fire_rate");
-			//TAZEMagazine = GetConfigInt("attg_taze_magazine");
-			//Handler.DefaultReserveAmmo = GetConfigInt("attg_taze_reserve_ammo");
-			//TAZEKrakatoa = GetConfigInt("attg_taze_krakatoa");
-			//TAZETagTime = GetConfigFloat("attg_taze_tag_time");
-			//TAZETagGlitches = GetConfigInt("attg_taze_tag_glitches");
-			// Grenade
-			GrenadeFireRate = GetConfigFloat("attg_grenade_fire_rate");
-			GrenadeMagazine = GetConfigInt("attg_grenade_magazine");
-			Handler10.DefaultReserveAmmo = GetConfigInt("attg_grenade_reserve_ammo");
-			GrenadeKrakatoa = GetConfigInt("attg_grenade_krakatoa");
-			GrenadeSuppressedKrakatoa = GetConfigInt("attg_grenade_suppressed_krakatoa");
 			//Dissable Config
 			Disable = GetConfigBool("attg_disable");
 
