@@ -27,16 +27,16 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 # Items
 | Item ID       | Description |
 | :-------------: | :---------: | 
-| 200 | Taser |
-| 201 | Grenade Launcher |
-| 207 | Medkit that changes player into SCP-106 |
-| 208 | Medkit that changes player into SCP-049 |
-| 209 | Medkit that changes player into SCP-939 |
-| 210 | Medkit that changes player into SCP-173 |
-| 211 | Medkit that changes player into SCP-096 |
-| 212 | Medkit that changes player into SCP-049-2 |
-| 213 | Medkit that changes player into SCP-079 |
-| 214 | Medkit that teleports player back to where he picked up the item after 1 min |
+| ~~200~~ | ~~Taser~~ |
+| ~~201~~ | ~~Grenade Launcher~~ |
+| ~~207~~ | ~~Medkit that changes player into SCP-106~~ |
+| ~~208~~ | ~~Medkit that changes player into SCP-049~~ |
+| ~~209~~ | ~~Medkit that changes player into SCP-939~~ |
+| ~~210~~ | ~~Medkit that changes player into SCP-173~~ |
+| ~~211~~ | ~~Medkit that changes player into SCP-096~~ |
+| ~~212~~ | ~~Medkit that changes player into SCP-049-2~~ |
+| ~~213~~ | ~~Medkit that changes player into SCP-079~~ |
+| ~~214~~ | ~~Medkit that teleports player back to where he picked up the item after 1 min~~ |
 
 # Commands
 | Command      | Parameters| Description |
@@ -69,7 +69,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_ranks | List | owner, coowner | Roles that can do all commands. |
-| attg_item_ranks | List | owner | Roles that can actavate the custom items. |
+| ~~attg_item_ranks~~ | ~~List~~ | ~~owner~~ | ~~Roles that can actavate the custom items.~~ |
 | attg_vote_ranks | List | owner, coowner, admin | Roles that do all voting commands. |
 | attg_disable_ranks | List | owner | Roles that can disable the plugin. |
 
@@ -77,11 +77,11 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 ### Grenade Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
-| attg_grenade_fire_rate | Float | 3f | Firerate for grenade launcher. |
-| attg_grenade_magazine | Integer | 1 | Number of grenades per magazine. |
-| attg_grenade_reserve_ammo | Integer | 10 | How much grenade launcher ammo each player gets. |
-| attg_grenade_krakatoa | Integer | 10 | Number of shoot sounds to play when shot. |
-| attg_grenade_suppressed_krakatoa | Integer | 7 | Number of shoot sounds to play when shot with a suppressor. |
+| ~~attg_grenade_fire_rate~~ | Float | 3f | Firerate for grenade launcher. |
+| ~~attg_grenade_magazine~~ | Integer | 1 | Number of grenades per magazine. |
+| ~~attg_grenade_reserve_ammo~~ | Integer | 10 | How much grenade launcher ammo each player gets. |
+| ~~attg_grenade_krakatoa~~ | Integer | 10 | Number of shoot sounds to play when shot. |
+| ~~attg_grenade_suppressed_krakatoa~~ | Integer | 7 | Number of shoot sounds to play when shot with a suppressor. |
 
 ### Taser Config
 | Config        | Value Type | Default | Description |
@@ -101,9 +101,6 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 # Thanks
 Some of the code that I am using was made by 
 
-* [Androx](https://github.com/probe4aiur) 
-
-  * https://github.com/probe4aiur/HS8
 
 * [Joker119](https://github.com/galaxy119)
 
@@ -113,6 +110,3 @@ Some of the code that I am using was made by
 
   * https://github.com/Rnen/AdminToolbox
   
-  # Changes
-  
-  Changed [Androx](https://github.com/probe4aiur) HMD into a Taser and grenade launcher
