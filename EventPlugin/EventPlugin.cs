@@ -28,6 +28,8 @@ namespace ATTG3
     public class ATTG3Plugin : Smod2.Plugin
     {
         internal static ATTG3Plugin plugin;
+
+		// ITEMS
         public static ATTG3Plugin Instance { get; private set; }
         public CustomItemHandler<LAR> Handler2 { get; private set; }
         public CustomItemHandler<O49> Handler3 { get; private set; }
@@ -39,6 +41,8 @@ namespace ATTG3
         public CustomItemHandler<RECALL> Handler16 { get; private set; }
         //public CustomWeaponHandler<Taze> Handler { get; private set; }
 		public CustomWeaponHandler<Grenadec> Handler10 { get; private set; }
+
+		//TASER
 		public static float TAZEBodyDamage { get; private set; }
         public static float TAZEHeadDamage { get; private set; }
         public static float TAZELegDamage { get; private set; }
@@ -56,6 +60,8 @@ namespace ATTG3
 
         public static float TAZETagTime { get; private set; }
         public static int TAZETagGlitches { get; private set; }
+
+		//GRENADE
 		public static float GrenadeFireRate { get; private set; }
 		public static int GrenadeMagazine { get; private set; }
 
@@ -73,10 +79,11 @@ namespace ATTG3
 		public string[] Voterank { get; private set; }
         public string[] SCPrank { get; private set; }
         public bool Voteopen {get;set;}
-        public static bool
-           enabledcimtf = false,
-           roundstartedcimtf = false,
-           enabled2 = false;
+		public static bool
+		   enabledcimtf = false,
+		   roundstartedcimtf = false,
+		   enabledjug = false,
+		   roundstartedjug = false;
 
 		public bool Disable { get; set; } = false;
 
@@ -86,22 +93,30 @@ namespace ATTG3
 
         public bool Jug { get; set; }
 
-        public int CIMTFci_health = 100;
+        public int CIMTFci_health;
 
-        public int CIMTFntf_health = 100;
+        public int CIMTFntf_health;
 
         public int Yes { get;  set; }
         public int No { get;  set; }
+		// Jug Gamemode
+		public static bool JugNTF_Disarmer;
+		public static int Jugg_base;
+		public static int Jugg_increase;
+		public static int Jugg_grenade;
+		public static int jugNTF_ammo;
+		public static int jugNTF_Health;
+		public static bool jugg_infinite_nades;
+		public static Player juggernaut;
+		public static Player activator = null;
+		public static int juggernaut_healh;
+		public static int jugntf_health;
+		public static string[] juggernaut_prevRank = new string[2];
+		public static Player selectedJuggernaut = null;
+		public static float jugcritical_damage;
+		public static Player jugg_killer = null;
 
-        public static bool Jugg_NTF_Disarmer;
-        public static int Jugg_base;
-        public static int Jugg_increase;
-        public static int Jugg_grenade;
-        public static int Jugg_NTF_ammo;
-        public static int Jugg_NTF_Health;
-        public static bool Jugg_infinite_nades;
-
-        public override void Register()
+		public override void Register()
         {
             Instance = this;
             Timing.Init(this);
@@ -144,6 +159,18 @@ namespace ATTG3
 				AddConfig(new ConfigSetting("attg_grenade_reserve_ammo", 10, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_grenade_krakatoa", 10, SettingType.NUMERIC, true, ""));
 				AddConfig(new ConfigSetting("attg_grenade_suppressed_krakatoa", 7, SettingType.NUMERIC, true, ""));
+
+			// Event Configs
+			AddConfig(new ConfigSetting("attg_cimtf__ntf_health", 100, SettingType.NUMERIC, true, ""));
+			AddConfig(new ConfigSetting("attg_cimtf__ci_health", 100, SettingType.NUMERIC, true, ""));
+			AddConfig(new ConfigSetting("attg_juggernaut_base_health", 500, SettingType.NUMERIC, true, ""));
+			AddConfig(new ConfigSetting("attg_juggernaut_increase_amount", 500, SettingType.NUMERIC, true, ""));
+			AddConfig(new ConfigSetting("attg_ juggernaut_jugg_grenades", 6, SettingType.NUMERIC, true, ""));
+			AddConfig(new ConfigSetting("attg_juggernaut_ntf_disarmer", false, SettingType.BOOL, true, ""));
+			AddConfig(new ConfigSetting("attg_juggernaut_ntf_health", 150, SettingType.NUMERIC, true, ""));
+			AddConfig(new ConfigSetting("attg_juggernaut_critical_damage", 0.15, SettingType.FLOAT, true, ""));
+			AddConfig(new ConfigSetting("attg_juggernaut_jugg_infinite_nades", true, SettingType.BOOL, true, ""));
+
 
 			AddConfig(new ConfigSetting("attg_disable", false, SettingType.BOOL, true, "Disables Event Plugin"));
 			// Custom Items
@@ -212,13 +239,14 @@ namespace ATTG3
             this.AddCommand("AGP079", new P079(this));
             this.AddCommand("AGELS", new ELELS(this));
             this.AddCommand("AGHELP", new Help(this));
-            this.AddCommand("VoteT", new VoteAD(this));
-            this.AddCommand("VoteC", new VoteC(this));
-            this.AddCommand("VoteS", new VoteA(this));
+            this.AddCommand("AGVoteT", new VoteAD(this));
+            this.AddCommand("AGVoteC", new VoteC(this));
+            this.AddCommand("AGVoteS", new VoteA(this));
 			this.AddCommand("AGAmmo", new Ammo(this));
-			this.AddCommand("VoteBC", new VoteBC(this));
+			this.AddCommand("AGVoteBC", new VoteBC(this));
 			this.AddCommand("AGCIMTF", new CIMTFC(this));
-            this.AddCommand("AGUP", new Up(this));
+			this.AddCommand("AGJUG", new Jugc(this));
+			this.AddCommand("AGUP", new Up(this));
             this.AddCommand("AGL079", new L079(this));
             this.AddCommand("AGE079", new E079(this));
             this.AddCommand("AGCitem", new Citem(this));
@@ -254,6 +282,16 @@ namespace ATTG3
 			GrenadeSuppressedKrakatoa = GetConfigInt("attg_grenade_suppressed_krakatoa");
 			//Dissable Config
 			Disable = GetConfigBool("attg_disable");
+			CIMTFci_health = GetConfigInt("attg_cimtf_ci_health");
+			CIMTFntf_health = GetConfigInt("attg_cimtf__ntf_health");
+
+			Jugg_base = GetConfigInt("attg_juggernaut_base_health");
+			Jugg_increase = GetConfigInt("attg_juggernaut_increase_amount");
+			JugNTF_Disarmer = GetConfigBool("attg_juggernaut_ntf_disarmer");
+			Jugg_grenade = GetConfigInt("attg_juggernaut_jugg_grenades");
+			jugNTF_Health = GetConfigInt("attg_juggernaut_ntf_health");
+			jugcritical_damage = GetConfigFloat("attg_juggernaut_critical_damage");
+			jugg_infinite_nades = GetConfigBool("attg_juggernaut_infinite_jugg_nades");
 		}
         public override void OnEnable()
         {
@@ -263,10 +301,7 @@ namespace ATTG3
         {
             Info("Event Plugin disabled.");
         }
-
-		public class Functions
-		{
-			public static void EnableGamemode()
+		public static void EnableGamemodecimtf()
 			{
 				ATTG3Plugin.enabledcimtf = true;
 				if (!ATTG3Plugin.roundstartedcimtf)
@@ -281,10 +316,28 @@ namespace ATTG3
 				ATTG3Plugin.enabledcimtf = false;
 				ATTG3Plugin.plugin.pluginManager.Server.Map.ClearBroadcasts();
 			}
+
+			public static void EnableGamemodejug()
+			{
+				ATTG3Plugin.enabledjug = true;
+				if (!ATTG3Plugin.roundstartedjug)
+				{
+					ATTG3Plugin.plugin.pluginManager.Server.Map.ClearBroadcasts();
+					ATTG3Plugin.plugin.pluginManager.Server.Map.Broadcast(25, "<color=#228B22>Juggernaut Gamemode</color> is starting...", false);
+				}
+			}
+			public static void DisableGamemodejug()
+			{
+				ATTG3Plugin.enabledjug = false;
+				ATTG3Plugin.plugin.pluginManager.Server.Map.ClearBroadcasts();
+			}
 			public static void EndGamemodeRound()
 			{
 				ATTG3Plugin.plugin.Info("EndgameRound Function.");
 				ATTG3Plugin.roundstartedcimtf = false;
+				ATTG3Plugin.roundstartedjug = false;
+				ATTG3Plugin.enabledjug = false;
+				ATTG3Plugin.enabledcimtf = false;
 				ATTG3Plugin.plugin.Server.Round.EndRound();
 			}
 			public static IEnumerable<float> SpawnChaos(Player player, float delay)
@@ -327,7 +380,151 @@ namespace ATTG3
 				player.SetAmmo(AmmoType.DROPPED_9, 500);
 				player.SetHealth(plugin.CIMTFntf_health);
 			}
+			public static void SpawnAsNTFCommander(Player player)
+			{
+				player.ChangeRole(Role.NTF_COMMANDER, false, true, true, true);
+
+				ATTG3Plugin.jugntf_health = ATTG3Plugin.jugNTF_Health;
+				ATTG3Plugin.plugin.Info("SpawnNTF Health");
+				player.SetHealth(ATTG3Plugin.jugntf_health);
+
+				player.PersonalClearBroadcasts();
+				if (ATTG3Plugin.juggernaut != null)
+					player.PersonalBroadcast(15, "You are an <color=#002DB3>NTF Commander</color> Work with others to eliminate the <color=#228B22>Juggernaut " +	ATTG3Plugin.juggernaut.Name + "</color>", false);
+				else
+					player.PersonalBroadcast(15, "You are an <color=#002DB3>NTF Commander</color> Work with others to eliminate the <color=#228B22>Juggernaut</color>", false);
+			}
+
+			public static void SpawnAsJuggernaut(Player player)
+			{
+				ATTG3Plugin.juggernaut = player;
+
+				//Spawned as Juggernaut in 939s spawn location
+				Vector spawn = ATTG3Plugin.plugin.Server.Map.GetRandomSpawnPoint(Role.SCP_939_53);
+				player.ChangeRole(Role.CHAOS_INSURGENCY, false, false, true, true);
+				player.Teleport(spawn);
+
+				ATTG3Plugin.juggernaut_prevRank = new string[] { player.GetUserGroup().Color, player.GetUserGroup().Name };
+
+				// Given a Juggernaut badge
+				player.SetRank("silver", "Juggernaut");
+
+				// Health scales with amount of players in round
+				int health = ATTG3Plugin.Jugg_base + (ATTG3Plugin.Jugg_increase * ATTG3Plugin.plugin.Server.NumPlayers) - 500;
+				player.SetHealth(health);
+				ATTG3Plugin.juggernaut_healh = health;
+
+				// Clear Inventory
+				foreach (Smod2.API.Item item in player.GetInventory())
+					item.Remove();
+
+				//Increased Ammo
+				player.SetAmmo(AmmoType.DROPPED_7, 2000);
+				player.SetAmmo(AmmoType.DROPPED_5, 2000);
+				player.SetAmmo(AmmoType.DROPPED_9, 2000);
+
+				// 1 Logicer
+				player.GiveItem(ItemType.LOGICER);
+
+				// 1 O5 Keycard
+				player.GiveItem(ItemType.O5_LEVEL_KEYCARD);
+
+				// Frag Grenades
+				for (int i = 0; i < ATTG3Plugin.Jugg_grenade; i++)
+				{
+					player.GiveItem(ItemType.FRAG_GRENADE);
+				}
+
+				player.PersonalClearBroadcasts();
+				player.PersonalBroadcast(15, "You are the <color=#228B22>Juggernaut</color> Eliminate all <color=#002DB3>NTF Commanders</color>", false);
+			}
+
+			public static bool IsJuggernaut(Player player)
+			{
+				if (ATTG3Plugin.juggernaut != null)
+				{
+					if (player.Name == ATTG3Plugin.juggernaut.Name || player.SteamId == ATTG3Plugin.juggernaut.SteamId)
+						return true;
+					else
+						return false;
+				}
+				else
+					return false;
+			}
+
+			public static Player GetJuggernautPlayer()
+			{
+				foreach (Player player in ATTG3Plugin.plugin.pluginManager.Server.GetPlayers())
+				{
+					if (IsJuggernaut(player))
+					{
+						return player;
+					}
+					else
+					{
+						ATTG3Plugin.plugin.Warn("Juggernaut not found!");
+						//ResetJuggernaut();
+					}
+				}
+				return null;
+			}
+
+			public static Vector GetRandomPDExit()
+			{
+				List<Vector3> list = new List<Vector3>();
+				GameObject[] exits_array = GameObject.FindGameObjectsWithTag("RoomID");
+				foreach (GameObject exit in exits_array)
+				{
+					if (exit.GetComponent<Rid>() != null)
+						list.Add(exit.transform.position);
+				}
+
+				Vector3 chosenExit = list[UnityEngine.Random.Range(0, list.Count)];
+
+				Vector SmodExit = new Vector(chosenExit.x, chosenExit.y += 2f, chosenExit.z);
+				return SmodExit;
+			}
+
+			public static void CriticalHitJuggernaut(Player player)
+			{
+				//Vector position = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
+				Vector position = GetRandomPDExit();
+				int damage = (int)(ATTG3Plugin.juggernaut_healh * ATTG3Plugin.jugcritical_damage);
+				player.Damage(damage, DamageType.FRAG);
+				player.Teleport(position);
+				ATTG3Plugin.plugin.pluginManager.Server.Map.Broadcast(10, "The <color=#228B22>Juggernaut</color> take a <b>critical hit <i><color=#ff0000> -" + damage + "</color></i></b> and has been <b>transported</b> across the facility!", false);
+				ATTG3Plugin.plugin.Debug("Juggernaut Disarmed & Teleported");
+			}
+
+			public static void CriticalHitJuggernaut(Player player, Player activator)
+			{
+				//Vector position = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
+				Vector position = GetRandomPDExit();
+				int damage = (int)(ATTG3Plugin.juggernaut_healh * ATTG3Plugin.jugcritical_damage);
+				player.Damage(damage, DamageType.FRAG);
+				player.Teleport(position);
+				ATTG3Plugin.plugin.pluginManager.Server.Map.Broadcast(10, "" + activator.Name + " has sacrifieced themselves and made the <color=#228B22>Juggernaut</color> take a <b>critical hit <i><color=#ff0000> -" + damage + "</color></i></b> and has been <b>transported</b> across the facility!", false);
+				ATTG3Plugin.plugin.Debug("Juggernaut Disarmed & Teleported");
+			}
+
+			public static void ResetJuggernaut(Player player)
+			{
+				if (ATTG3Plugin.juggernaut_prevRank != null && ATTG3Plugin.juggernaut_prevRank.Length == 2)
+					player.SetRank(ATTG3Plugin.juggernaut_prevRank[0], ATTG3Plugin.juggernaut_prevRank[1]);
+				else
+					ATTG3Plugin.juggernaut.SetRank();
+				ResetJuggernaut();
+			}
+
+			public static void ResetJuggernaut()
+			{
+				ATTG3Plugin.plugin.Info("Resetting Juggernaut.");
+				ATTG3Plugin.juggernaut = null;
+				ATTG3Plugin.juggernaut_prevRank = null;
+				ATTG3Plugin.juggernaut_healh = 0;
+			}
+
 		}
-    }
-}
+	}
+
 

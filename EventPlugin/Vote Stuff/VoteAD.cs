@@ -34,38 +34,40 @@ namespace ATTG3
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
-            if (!(sender is Server) &&
-                sender is Player player &&
-                !plugin.Voterank.Contains(player.GetRankName()))
-            {
-                return new[]
-                {
-                    $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
-                };
-            }
-
-
-			//IF VOTE IS OPEN
-			if (plugin.Voteopen)
-            {
-                running = false;
-				//SET TO VOTE IS CLOSED
-				plugin.Voteopen = false;
-
-
+			if (!(sender is Server) &&
+				sender is Player player &&
+				!plugin.Voterank.Contains(player.GetRankName()))
+			{
+				return new[]
+				{
+					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
+				};
 			}
+			else
+			{
 
-			//IF VOTE IS CLOSED
-			else if (!plugin.Voteopen)
-            {
-                running = true;
-				//SET TO VOTE IS OPEN
-				plugin.Voteopen = true;
+				//IF VOTE IS OPEN
+				if (plugin.Voteopen)
+				{
+					running = false;
+					//SET TO VOTE IS CLOSED
+					plugin.Voteopen = false;
+
+
+				}
+
+				//IF VOTE IS CLOSED
+				else if (!plugin.Voteopen)
+				{
+					running = true;
+					//SET TO VOTE IS OPEN
+					plugin.Voteopen = true;
+				}
+				return new[]
+				{
+				$"Vote is now  {(running ? "ACTAVATED" : "DEACTAVATED")}."
+			};
 			}
-            return new[]
-            {
-                $"Vote is now  {(running ? "ACTAVATED" : "DEACTAVATED")}."
-            };
 
         }
         

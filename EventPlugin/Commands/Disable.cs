@@ -42,9 +42,11 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-			plugin.Info(sender + " ran the " + GetUsage() + " command!");
-			this.plugin.pluginManager.DisablePlugin(this.plugin);
-
+			else
+			{
+				plugin.Info(sender + " ran the " + GetUsage() + " command!");
+				this.plugin.pluginManager.DisablePlugin(this.plugin);
+			}
 			return new[]
 			{
 				$"EVENT PLUGIN DISABLED"

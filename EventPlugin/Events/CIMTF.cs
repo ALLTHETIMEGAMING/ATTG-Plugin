@@ -32,11 +32,11 @@ namespace ATTG3
 			{
 				if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP || ev.Player.TeamRole.Team == Smod2.API.Team.CLASSD)
 				{
-					Timing.Run(ATTG3Plugin.Functions.SpawnChaos(ev.Player, 0));
+					Timing.Run(ATTG3Plugin.SpawnChaos(ev.Player, 0));
 				}
 				else if (ev.Player.TeamRole.Role == Role.FACILITY_GUARD || ev.Player.TeamRole.Team == Smod2.API.Team.SCIENTIST)
 				{
-					Timing.Run(ATTG3Plugin.Functions.SpawnNTF(ev.Player, 0));
+					Timing.Run(ATTG3Plugin.SpawnNTF(ev.Player, 0));
 				}
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.SPECTATOR)
 				{
@@ -47,8 +47,7 @@ namespace ATTG3
 
 		public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
 		{
-			ATTG3Plugin.CIMTFci_health = this.plugin.GetConfigInt("attg_cimtf_ci_health");
-			ATTG3Plugin.CIMTFntf_health = this.plugin.GetConfigInt("attg_cimtf__ntf_health");
+			
 		}
 
 		public void OnRoundStart(RoundStartEvent ev)
@@ -66,11 +65,11 @@ namespace ATTG3
 					int random = new System.Random().Next(players.Count);
 					Player randomplayer = players[random];
 					players.Remove(randomplayer);
-					Timing.Run(ATTG3Plugin.Functions.SpawnNTF(randomplayer, 0));
+					Timing.Run(ATTG3Plugin.SpawnNTF(randomplayer, 0));
 				}
 				foreach (Player player in players)
 				{
-					Timing.Run(ATTG3Plugin.Functions.SpawnChaos(player, 0));
+					Timing.Run(ATTG3Plugin.SpawnChaos(player, 0));
 				}
 			}
 		}
@@ -80,7 +79,7 @@ namespace ATTG3
 			if (ATTG3Plugin.enabledcimtf || ATTG3Plugin.roundstartedcimtf)
 			{
 				plugin.Info("Round Ended!");
-				ATTG3Plugin.Functions.EndGamemodeRound();
+				ATTG3Plugin.EndGamemodeRound();
 			}
 		}
 
@@ -112,11 +111,11 @@ namespace ATTG3
 					}
 					else if (ciAlive && ntfAlive == false)
 					{
-						ev.Status = ROUND_END_STATUS.OTHER_VICTORY; ATTG3Plugin.Functions.EndGamemodeRound();
+						ev.Status = ROUND_END_STATUS.OTHER_VICTORY; ATTG3Plugin.EndGamemodeRound();
 					}
 					else if (ciAlive == false && ntfAlive)
 					{
-						ev.Status = ROUND_END_STATUS.MTF_VICTORY; ATTG3Plugin.Functions.EndGamemodeRound();
+						ev.Status = ROUND_END_STATUS.MTF_VICTORY; ATTG3Plugin.EndGamemodeRound();
 					}
 				}
 			}

@@ -42,16 +42,18 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-			running = !running;
-			if (running)
+			else
 			{
-				Timing.Run(TimingDelay(0.1f));
-			}
-			return new[]
-			{
+				running = !running;
+				if (running)
+				{
+					Timing.Run(TimingDelay(0.1f));
+				}
+				return new[]
+				{
 				$"all Tleslas are now {(running ? "on" : "off")}."
-			};
-
+				};
+			}
 		}
 		private IEnumerable<float> TimingDelay(float time)
 		{

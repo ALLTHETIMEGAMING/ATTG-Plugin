@@ -50,13 +50,13 @@ namespace ATTG3
 							"AGCIMTF disable - Disables the CI VS MTF gamemode. \n"
 						};
 					case "enable":
-						ATTG3Plugin.Functions.EnableGamemode();
+						ATTG3Plugin.EnableGamemodecimtf();
 						return new string[]
 						{
 							"CIMTF will be enabled for the next round!"
 						};
 					case "disable":
-						ATTG3Plugin.Functions.DisableGamemode();
+						ATTG3Plugin.DisableGamemodecimtf();
 						return new string[]
 						{
 							"CIMTF gamemode now disabled."
