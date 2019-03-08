@@ -83,7 +83,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SCP COMMANDS\E079.cs" />
-    <Compile Include="SCP COMMANDS\Enrage.cs" />
     <Compile Include="SCP COMMANDS\P079.cs" />
     <Compile Include="SCP COMMANDS\ST079.cs" />
     <Compile Include="SCP COMMANDS\C106.cs" />
