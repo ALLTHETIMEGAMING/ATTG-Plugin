@@ -17,8 +17,8 @@ namespace ATTG3
 {
 	[PluginDetails(
 		author = "All The Time Gaming",
-		description = "Event Mod",
-		id = "ATTG.ADMIN.Event",
+		description = "Admin Mod",
+		id = "ATTG.ADMIN.EVENT",
 		name = "",
 		SmodMajor = 3,
 		SmodMinor = 3,
