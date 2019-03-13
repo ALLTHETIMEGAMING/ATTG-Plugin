@@ -1,5 +1,3 @@
-
-
 # ATTG-Plugin
 An Smod plugin that adds Admin commands to SCP:SL
 
@@ -26,16 +24,14 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 # Items
 | Item ID       | Description |
 | :-------------: | :---------: | 
-| ~~200~~ | ~~Taser~~ |
-| ~~201~~ | ~~Grenade Launcher~~ |
-| ~~207~~ | ~~Medkit that changes player into SCP-106~~ |
-| ~~208~~ | ~~Medkit that changes player into SCP-049~~ |
-| ~~209~~ | ~~Medkit that changes player into SCP-939~~ |
-| ~~210~~ | ~~Medkit that changes player into SCP-173~~ |
-| ~~211~~ | ~~Medkit that changes player into SCP-096~~ |
-| ~~212~~ | ~~Medkit that changes player into SCP-049-2~~ |
-| ~~213~~ | ~~Medkit that changes player into SCP-079~~ |
-| ~~214~~ | ~~Medkit that teleports player back to where he picked up the item after 1 min~~ |
+| ~~201~~ | ~~Medkit that changes player into SCP-106~~ |
+| ~~202~~ | ~~Medkit that changes player into SCP-049~~ |
+| ~~203~~ | ~~Medkit that changes player into SCP-939~~ |
+| ~~204~~ | ~~Medkit that changes player into SCP-173~~ |
+| ~~205~~ | ~~Medkit that changes player into SCP-096~~ |
+| ~~206~~ | ~~Medkit that changes player into SCP-049-2~~ |
+| ~~207~~ | ~~Medkit that changes player into SCP-079~~ |
+| ~~208~~ | ~~Medkit that teleports player back to where he picked up the item after 1 min~~ |
 
 # Commands
 | Command      | Parameters| Description |
