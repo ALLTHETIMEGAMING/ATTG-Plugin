@@ -30,7 +30,6 @@ namespace ATTG3
         public bool Disable { get; set; } = false;
         public int Yes { get; set; }
         public int No { get; set; }
-
         public override void Register()
         {
             Instance = this;
