@@ -33,7 +33,7 @@ namespace ATTG3
 		public string[] AdminRanks { get; private set; }
 		public string[] Disablerank { get; private set; }
 		public string[] Voterank { get; private set; }
-        public string[] allrank { get; private set; }
+        public string[] Allrank { get; private set; }
         public string[] SCPrank { get; private set; }
 		public bool Voteopen { get; set; }
 		public bool Disable { get; set; } = false;
@@ -103,7 +103,7 @@ namespace ATTG3
 			AdminRanks = GetConfigList("attg_ranks");
 			Voterank = GetConfigList("attg_vote_ranks");
 			SCPrank = GetConfigList("attg_scp_ranks");
-            allrank = GetConfigList("attg_all_ranks");
+            Allrank = GetConfigList("attg_all_ranks");
 
             //Dissable Config
             Disable = GetConfigBool("attg_command_disable");

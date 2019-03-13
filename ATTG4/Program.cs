@@ -29,17 +29,21 @@ namespace ATTG3
     {
         internal static ATTG4Plugin plugin;
         public static ATTG4Plugin Instance { get; private set; }
-        public bool Running939 { get; set; }
+        public CustomItemHandler<LAR> Handler1 { get; private set; }
+        public CustomItemHandler<O49> Handler2 { get; private set; }
+        public CustomItemHandler<N39> Handler3 { get; private set; }
+        public CustomItemHandler<NUT> Handler4 { get; private set; }
+        public CustomItemHandler<SHY> Handler5 { get; private set; }
+        public CustomItemHandler<ZOM> Handler6 { get; private set; }
+        public CustomItemHandler<COM> Handler7 { get; private set; }
+        public CustomItemHandler<RECALL> Handler8 { get; private set; }
+
         public string[] AdminRanks { get; private set; }
         public string[] Disablerank { get; private set; }
-        public string[] Voterank { get; private set; }
         public string[] Allrank { get; private set; }
-        public string[] SCPrank { get; private set; }
         public bool Voteopen { get; set; }
         public bool Disable { get; set; } = false;
-        public int Yes { get; set; }
-        public int No { get; set; }
-
+     
         public override void Register()
         {
             Instance = this;
@@ -72,9 +76,56 @@ namespace ATTG3
 
             }, SettingType.LIST, true, "Valid ranks for all Commands"));
             ReloadConfig();
-            
-            this.AddCommand("AGSHAKE", new Shake(this));
-        }
+
+
+            AddConfig(new ConfigSetting("attg_disable", false, SettingType.BOOL, true, "Disables Event Plugin"));
+            Handler1 = new CustomItemHandler<LAR>(200)
+            {
+                DefaultType = ItemType.MEDKIT
+            };
+            Handler2 = new CustomItemHandler<O49>(201)
+            {
+                DefaultType = ItemType.MEDKIT
+            };
+            Handler3 = new CustomItemHandler<N39>(202)
+            {
+                DefaultType = ItemType.MEDKIT
+            };
+            Handler4 = new CustomItemHandler<NUT>(204)
+            {
+                DefaultType = ItemType.MEDKIT
+            };
+            Handler5 = new CustomItemHandler<SHY>(205)
+            {
+                DefaultType = ItemType.MEDKIT
+            };
+            Handler6 = new CustomItemHandler<ZOM>(206)
+            {
+                DefaultType = ItemType.MEDKIT
+            };
+            Handler7 = new CustomItemHandler<COM>(207)
+            {
+                DefaultType = ItemType.MEDKIT
+            };
+            Handler8 = new CustomItemHandler<RECALL>(208)
+            {
+                DefaultType = ItemType.COIN
+            };
+
+
+            ReloadConfig();
+            //Handler.Register();
+            Handler1.Register();
+            Handler2.Register();
+            Handler3.Register();
+            Handler4.Register();
+            Handler5.Register();
+            Handler6.Register();
+            Handler7.Register();
+            Handler8.Register();
+
+
+    }
         public void ReloadConfig()
         {
             // Command Perms
