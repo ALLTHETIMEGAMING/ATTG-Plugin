@@ -1,13 +1,12 @@
 ﻿// This was made by probe4aiur on GitHub. You can access the latest version here: 
 // https://gist.github.com/probe4aiur/fc74510ea216d30cbb0b6b884c4ba84c
 
-using UnityEngine;
 using Smod2.EventHandlers;
 using Smod2.Events;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace scp4aiur
 {
@@ -23,11 +22,11 @@ namespace scp4aiur
 
         public static void Init(Smod2.Plugin plugin, Priority priority = Priority.Normal)
         {
-            log = plugin.Info;
+            log=plugin.Info;
             plugin.AddEventHandlers(new Timing(), priority);
 
-            jobId = int.MinValue;
-            jobs = new Dictionary<int, QueueItem>();
+            jobId=int.MinValue;
+            jobs=new Dictionary<int, QueueItem>();
         }
 
         /// <summary>
@@ -118,8 +117,8 @@ namespace scp4aiur
 
             protected QueueItem(bool persist, string jobName)
             {
-                RoundPersist = persist;
-                name = jobName;
+                RoundPersist=persist;
+                name=jobName;
             }
 
             public abstract bool RunThisTick();
@@ -141,7 +140,7 @@ namespace scp4aiur
         {
             public NextTickQueue(Action jobAction, bool persist) : base(persist, "next-tick")
             {
-                action = jobAction;
+                action=jobAction;
             }
 
             public override bool RunThisTick()
@@ -156,13 +155,13 @@ namespace scp4aiur
 
             public AfterTicksQueue(Action jobAction, int ticks, bool persist) : base(persist, "after-ticks")
             {
-                action = jobAction;
-                ticksLeft = ticks;
+                action=jobAction;
+                ticksLeft=ticks;
             }
 
             public override bool RunThisTick()
             {
-                return --ticksLeft < 1;
+                return --ticksLeft<1;
             }
         }
 
@@ -172,13 +171,13 @@ namespace scp4aiur
 
             public TimerQueue(Action<float> jobAction, float time, bool persist) : base(persist, "timer")
             {
-                action = () => jobAction(timeLeft);
-                timeLeft = time;
+                action=() => jobAction(timeLeft);
+                timeLeft=time;
             }
 
             public override bool RunThisTick()
             {
-                return (timeLeft -= Time.deltaTime) <= 0;
+                return (timeLeft-=Time.deltaTime)<=0;
             }
         }
     }
