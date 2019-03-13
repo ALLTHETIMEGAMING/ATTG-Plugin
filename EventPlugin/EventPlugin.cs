@@ -17,8 +17,12 @@ namespace ATTG3
 {
 	[PluginDetails(
 		author = "All The Time Gaming",
+  
 		description = "COMMAND Mod",
 		id = "ATTG.ADMIN.COMMAND",
+		description = "Admin Mod",
+		id = "ATTG.ADMIN.EVENT",
+
 		name = "",
 		SmodMajor = 3,
 		SmodMinor = 3,
@@ -90,7 +94,6 @@ namespace ATTG3
 			this.AddCommand("AGE079", new E079(this));
 			this.AddCommand("AGCitem", new Citem(this));
 			this.AddCommand("AGDISABLE", new Disable(this));
-			this.AddCommand("AGENRAGE", new Enrage(this));
 			this.AddCommand("AGSPEEDA", new Speed2(this));
 			this.AddCommand("AGSPEED", new Speed(this));
 			this.AddCommand("AGSHAKE", new Shake(this));
