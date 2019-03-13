@@ -63,20 +63,8 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_ranks | List | owner, coowner | Roles that can do all commands. |
-
 | attg_vote_ranks | List | owner, coowner, admin | Roles that do all voting commands. |
 | attg_disable_ranks | List | owner | Roles that can disable the plugin. |
-
-
-### Grenade Config
-| Config        | Value Type | Default | Description |
-| :-------------: | :---------: | :---------: |:------ |
-| ~~attg_grenade_fire_rate~~ | Float | 3f | Firerate for grenade launcher. |
-| ~~attg_grenade_magazine~~ | Integer | 1 | Number of grenades per magazine. |
-| ~~attg_grenade_reserve_ammo~~ | Integer | 10 | How much grenade launcher ammo each player gets. |
-| ~~attg_grenade_krakatoa~~ | Integer | 10 | Number of shoot sounds to play when shot. |
-| ~~attg_grenade_suppressed_krakatoa~~ | Integer | 7 | Number of shoot sounds to play when shot with a suppressor. |
-
 
 
 ### Other Config
