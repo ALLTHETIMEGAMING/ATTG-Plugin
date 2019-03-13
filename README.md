@@ -75,8 +75,6 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 # Thanks
 Some of the code that I am using was made by 
 
-
-
 * [Evan](https://github.com/Rnen)
 
   * https://github.com/Rnen/AdminToolbox
