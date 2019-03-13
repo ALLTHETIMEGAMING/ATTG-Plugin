@@ -13,15 +13,15 @@ using scp4aiur;
 using System.Collections;
 
 
-namespace ATTG3
+namespace ATTG4
 {
     public class RECALL : CustomItem
     {
         //List<int>;
         //private readonly ATTG3Plugin plugin;
 
-        float delay = 60;
-        private readonly ATTG3Plugin plugin;
+        readonly float delay = 60;
+        private readonly ATTG4Plugin plugin;
 
         public static SmodPlayer SmodPlayer { get; private set; }
 

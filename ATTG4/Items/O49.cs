@@ -9,12 +9,12 @@ using ItemManager;
 using Smod2.API;
 using UnityEngine;
 
-namespace ATTG3
+namespace ATTG4
 {
 	
 	public class O49 : CustomItem
 	{
-        private readonly ATTG3Plugin plugin;
+        private readonly ATTG4Plugin plugin;
 
         public static SmodPlayer SmodPlayer { get; private set; }
         public override bool OnPickup()

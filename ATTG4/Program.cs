@@ -13,17 +13,17 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-namespace ATTG3
+namespace ATTG4
 {
     [PluginDetails(
         author = "All The Time Gaming",
-        description = "Event Mod",
-        id = "ATTG.ADMIN.Event",
+        description = "ATTG ITEM MOD",
+        id = "ATTG.ADMIN.ITEM",
         name = "",
         SmodMajor = 3,
         SmodMinor = 3,
         SmodRevision = 0,
-        version = "1.9.0"
+        version = "1.0.0"
         )]
     public class ATTG4Plugin : Smod2.Plugin
     {

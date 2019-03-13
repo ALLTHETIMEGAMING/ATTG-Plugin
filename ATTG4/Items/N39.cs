@@ -9,11 +9,11 @@ using ItemManager;
 using Smod2.API;
 using UnityEngine;
 
-namespace ATTG3
+namespace ATTG4
 {
 	public class N39 : CustomItem
 	{
-        private readonly ATTG3Plugin plugin;
+        private readonly ATTG4Plugin plugin;
 
         public static SmodPlayer SmodPlayer { get; private set; }
         public override bool OnPickup()
@@ -25,13 +25,12 @@ namespace ATTG3
 		}
         public override void OnMedkitUse()
         {
-            if (plugin.Citems)
-            {
+
                 PluginManager.Manager.Server.Map.Broadcast(10, "A SCP HAS SPAWNED", false);
                 SmodPlayer smodPlayer = new SmodPlayer(PlayerObject);
                 smodPlayer.ChangeRole(Smod2.API.Role.SCP_939_53, false, false);
                 smodPlayer.SetHealth(500);
-            }
+            
 
         }
         public override bool OnDeathDrop(GameObject attacker, DamageType damage)
