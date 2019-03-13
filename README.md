@@ -1,4 +1,3 @@
-# Development Paused
 
 
 # Event-Admin-Plugin
