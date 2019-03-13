@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Smod2.API;
 using Smod2.Commands;
-using Smod2.API;
-using scp4aiur;
+using System.Linq;
 
 namespace ATTG3
 {
@@ -16,9 +11,8 @@ namespace ATTG3
         public VoteC(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
-            this.plugin = plugin;
+            this.plugin=plugin;
         }
-
         public string GetCommandDescription()
         {
             // This prints when someone types HELP HELLO
@@ -33,8 +27,8 @@ namespace ATTG3
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
-            if (!(sender is Server) &&
-                sender is Player player &&
+            if (!(sender is Server)&&
+                sender is Player player&&
                 !plugin.Voterank.Contains(player.GetRankName()))
             {
                 return new[]
@@ -42,14 +36,14 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-                plugin.Yes = 0;
-                plugin.No = 0;
+            plugin.Yes=0;
+            plugin.No=0;
             return new[]
             {
                 $"Votes are cleared."
             };
 
         }
-        
+
     }
 }
