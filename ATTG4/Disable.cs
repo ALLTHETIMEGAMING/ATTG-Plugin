@@ -10,7 +10,7 @@ namespace ATTG4
         public Disable(ATTG4Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
-            this.plugin = plugin;
+            this.plugin=plugin;
         }
         public string GetCommandDescription()
         {
@@ -24,8 +24,8 @@ namespace ATTG4
         }
         public string[] OnCall(ICommandSender sender, string[] args)
         {
-            if (!(sender is Server) &&
-                sender is Player player &&
+            if (!(sender is Server)&&
+                sender is Player player&&
                 !plugin.Disablerank.Contains(player.GetRankName()))
             {
                 return new[]
@@ -35,7 +35,7 @@ namespace ATTG4
             }
             else
             {
-                plugin.Info(sender + " ran the " + GetUsage() + " command!");
+                plugin.Info(sender+" ran the "+GetUsage()+" command!");
                 this.plugin.pluginManager.DisablePlugin(this.plugin);
             }
             return new[]
