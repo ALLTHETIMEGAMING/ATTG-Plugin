@@ -64,12 +64,6 @@ namespace ATTG3
                 "owner",
                 "coowner"
             }, SettingType.LIST, true, "Ranks for all SCP Commands"));
-            AddConfig(new ConfigSetting("attg_vote_ranks", new[]
-            {
-                "owner",
-                "coowner",
-                "admin"
-            }, SettingType.LIST, true, "Valid ranks for all voteing Commands"));
             AddConfig(new ConfigSetting("attg_all_ranks", new[]
             {
                 "owner"
@@ -114,7 +108,6 @@ namespace ATTG3
 
 
             ReloadConfig();
-            //Handler.Register();
             Handler1.Register();
             Handler2.Register();
             Handler3.Register();
@@ -137,11 +130,11 @@ namespace ATTG3
         }
         public override void OnEnable()
         {
-            Info("Event Plugin enabled.");
+            Info("ATTG Item Plugin enabled.");
         }
         public override void OnDisable()
         {
-            Info("Event Plugin disabled.");
+            Info("ATTG Item Plugin disabled.");
         }
 
     }
