@@ -34,7 +34,7 @@ namespace ATTG4
 
         public override void Register()
         {
-            Instance = this;
+            Instance=this;
             Timing.Init(this);
             Timing2.Init(this);
             // Configs
@@ -59,37 +59,37 @@ namespace ATTG4
             }, SettingType.LIST, true, "Valid ranks for all Commands"));
             ReloadConfig();
             AddConfig(new ConfigSetting("attg_item_disable", false, SettingType.BOOL, true, "Disables Event Plugin"));
-            Handler1 = new CustomItemHandler<LAR>(200)
+            Handler1=new CustomItemHandler<LAR>(200)
             {
-                DefaultType = ItemType.MEDKIT
+                DefaultType=ItemType.MEDKIT
             };
-            Handler2 = new CustomItemHandler<O49>(201)
+            Handler2=new CustomItemHandler<O49>(201)
             {
-                DefaultType = ItemType.MEDKIT
+                DefaultType=ItemType.MEDKIT
             };
-            Handler3 = new CustomItemHandler<N39>(202)
+            Handler3=new CustomItemHandler<N39>(202)
             {
-                DefaultType = ItemType.MEDKIT
+                DefaultType=ItemType.MEDKIT
             };
-            Handler4 = new CustomItemHandler<NUT>(204)
+            Handler4=new CustomItemHandler<NUT>(204)
             {
-                DefaultType = ItemType.MEDKIT
+                DefaultType=ItemType.MEDKIT
             };
-            Handler5 = new CustomItemHandler<SHY>(205)
+            Handler5=new CustomItemHandler<SHY>(205)
             {
-                DefaultType = ItemType.MEDKIT
+                DefaultType=ItemType.MEDKIT
             };
-            Handler6 = new CustomItemHandler<ZOM>(206)
+            Handler6=new CustomItemHandler<ZOM>(206)
             {
-                DefaultType = ItemType.MEDKIT
+                DefaultType=ItemType.MEDKIT
             };
-            Handler7 = new CustomItemHandler<COM>(207)
+            Handler7=new CustomItemHandler<COM>(207)
             {
-                DefaultType = ItemType.MEDKIT
+                DefaultType=ItemType.MEDKIT
             };
-            Handler8 = new CustomItemHandler<RECALL>(208)
+            Handler8=new CustomItemHandler<RECALL>(208)
             {
-                DefaultType = ItemType.COIN
+                DefaultType=ItemType.COIN
             };
             ReloadConfig();
             Handler1.Register();
@@ -104,7 +104,7 @@ namespace ATTG4
         public void ReloadConfig()
         {
             //Dissable Config
-            Disable = GetConfigBool("attg_item_disable");
+            Disable=GetConfigBool("attg_item_disable");
         }
         public override void OnEnable()
         {
