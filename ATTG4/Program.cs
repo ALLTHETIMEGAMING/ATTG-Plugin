@@ -38,10 +38,8 @@ namespace ATTG4
         public CustomItemHandler<COM> Handler7 { get; private set; }
         public CustomItemHandler<RECALL> Handler8 { get; private set; }
 
-        public string[] AdminRanks { get; private set; }
         public string[] Disablerank { get; private set; }
         public string[] Allrank { get; private set; }
-        public bool Voteopen { get; set; }
         public bool Disable { get; set; } = false;
      
         public override void Register()
@@ -72,7 +70,7 @@ namespace ATTG4
             ReloadConfig();
 
 
-            AddConfig(new ConfigSetting("attg_disable", false, SettingType.BOOL, true, "Disables Event Plugin"));
+            AddConfig(new ConfigSetting("attg_item_disable", false, SettingType.BOOL, true, "Disables Event Plugin"));
             Handler1 = new CustomItemHandler<LAR>(200)
             {
                 DefaultType = ItemType.MEDKIT

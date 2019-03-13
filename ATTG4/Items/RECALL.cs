@@ -38,11 +38,6 @@ namespace ATTG4
         }
         private static IEnumerable<float> TimingDelay(float time)
         {
-            // Why wont this work?
-            //Severity	Code	Description	Project	File	Line	Suppression State
-            //Error CS0120  An object reference is required for the non-static field, method, or property 'CustomItem.PlayerObject' ATTG3    47  Active
-            
-
             float delay = 60;
             int HP = SmodPlayer.GetHealth();
             
