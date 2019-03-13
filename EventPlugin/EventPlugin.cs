@@ -63,7 +63,6 @@ namespace ATTG3
             this.AddCommand("AGTL", new Tleslad(this));
             this.AddCommand("AGEL", new ELEL(this));
             this.AddCommand("AG106D", new C106(this));
-            this.AddCommand("AGS079", new ST079(this));
             this.AddCommand("AGTLR", new TleslR(this));
             this.AddCommand("AGP079", new P079(this));
             this.AddCommand("AGELS", new ELELS(this));
@@ -76,7 +75,6 @@ namespace ATTG3
             this.AddCommand("AGUP", new Up(this));
             this.AddCommand("AGL079", new L079(this));
             this.AddCommand("AGE079", new E079(this));
-            this.AddCommand("AGCitem", new Citem(this));
             this.AddCommand("AGDISABLE", new Disable(this));
             this.AddCommand("AGSPEEDA", new Speed2(this));
             this.AddCommand("AGSPEED", new Speed(this));
