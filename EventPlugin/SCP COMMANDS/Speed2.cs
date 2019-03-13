@@ -10,12 +10,9 @@ namespace ATTG3
     class Speed2 : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-
         private float Desplay2 = 5f;
-
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-
         public Scp939PlayerScript PlayerScript { get; private set; }
 
         public Speed2(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -33,8 +30,6 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-
-
             float converted = float.Parse(args[0]);
             Desplay2=converted;
 
@@ -44,15 +39,10 @@ namespace ATTG3
                 Timing.Run(TimingDelay(0.1f));
                 return new string[] { " All 939s have been given Super speed! at "+Desplay2+"Speed" };
             }
-
-
             else
             {
                 return new string[] { "939 speed reset" };
             }
-
-
-
         }
         private IEnumerable<float> TimingDelay(float time)
         {
