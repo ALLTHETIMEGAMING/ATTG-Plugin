@@ -2,7 +2,7 @@
 An Smod plugin that adds Admin commands to SCP:SL
 
 # Installation
-**[Smod2](https://github.com/Grover-c13/Smod2) must be installed for this to work.**
+**[Smod2](https://github.com/Grover-c13/Smod2) and [ItemManager](https://github.com/probe4aiur/ItemManager) must be installed for this to work.**
 
 Place the "ATTG3.dll" file in your sm_plugins folder.
 # Request Forms
@@ -51,7 +51,6 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGVOTEBC| NONE | Displays how to vote |
 | AGAMMO | Players name |Gives player 100000 ammo|
 | AGUP | Players name | TPs player up from there position |
-| ~~AGCITEM~~ | NONE | ~~Enables custom items~~ |
 | AGDISABLE | NONE | Disables Event Plugin |
 | AGSHAKE | NONE | Shakes screens of all players |
 
@@ -64,21 +63,19 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | :-------------: | :---------: | :---------: |:------ |
 | attg_ranks | List | owner, coowner | Roles that can do all commands. |
 | attg_vote_ranks | List | owner, coowner, admin | Roles that do all voting commands. |
-| attg_disable_ranks | List | owner | Roles that can disable the plugin. |
+| attg_command_disable_ranks | List | owner | Roles that can disable the plugin. |
 
 
 ### Other Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
-| attg_disable | Bool | false | Disables Event Plugin |
+| attg_command_disable | Bool | false | Disables ATTG Command Plugin |
+| attg_item_disable | Bool | false | Disables ATTG Command Plugin |
 
 # Thanks
 Some of the code that I am using was made by 
 
 
-* [Joker119](https://github.com/galaxy119)
-
-  * https://github.com/galaxy119/JokerAnnouncements
 
 * [Evan](https://github.com/Rnen)
 
