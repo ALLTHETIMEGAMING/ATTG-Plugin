@@ -6,12 +6,10 @@ namespace ATTG3
     class CommandEvent : IEventHandlerCallCommand
     {
         private readonly ATTG3Plugin plugin;
-
         public CommandEvent(ATTG3Plugin plugin)
         {
             this.plugin=plugin;
         }
-
         public void OnCallCommand(PlayerCallCommandEvent ev)
         {
             string command = ev.Command.ToLower();
