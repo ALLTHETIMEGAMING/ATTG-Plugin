@@ -77,15 +77,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | ~~attg_grenade_krakatoa~~ | Integer | 10 | Number of shoot sounds to play when shot. |
 | ~~attg_grenade_suppressed_krakatoa~~ | Integer | 7 | Number of shoot sounds to play when shot with a suppressor. |
 
-### Taser Config
-| Config        | Value Type | Default | Description |
-| :-------------: | :---------: | :---------: |:------ |
-| ~~attg_taze_fire_rate~~ | Float | 0.5f | Firerate for taser |
-| ~~attg_taze_magazine~~ | Integer | 1 | Number of taser shots per magazine. |
-| ~~attg_taze_reserve_ammo~~ | Integer | 10 | How much taser ammo each player gets. |
-| ~~attg_taze_krakatoa~~ | Integer | 4 | Number of shoot sounds to play when shot. |
-| ~~attg_taze_tag_time~~ | Float | 2f | How log after player is hit to be tazed. |
-| ~~attg_taze_tag_glitches~~ | Integer | 15 | Number of screen effects to play when player is hit |
+
 
 ### Other Config
 | Config        | Value Type | Default | Description |
