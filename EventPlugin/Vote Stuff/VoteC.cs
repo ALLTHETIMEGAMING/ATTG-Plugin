@@ -18,13 +18,11 @@ namespace ATTG3
             // This prints when someone types HELP HELLO
             return "Clears Vote";
         }
-
         public string GetUsage()
         {
             // This prints when someone types HELP HELLO
             return "AGVOTEC";
         }
-
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
@@ -42,8 +40,6 @@ namespace ATTG3
             {
                 $"Votes are cleared."
             };
-
         }
-
     }
 }
