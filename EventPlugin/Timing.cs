@@ -1,13 +1,12 @@
 ﻿// This was made by probe4aiur on GitHub. You can access the latest version here: 
 // https://gist.github.com/probe4aiur/fc74510ea216d30cbb0b6b884c4ba84c
 
-using UnityEngine;
 using Smod2.EventHandlers;
 using Smod2.Events;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace scp4aiur
 {
@@ -23,11 +22,11 @@ namespace scp4aiur
 
         public static void Init(Smod2.Plugin plugin, Priority priority = Priority.Normal)
         {
-            log = plugin.Info;
+            log=plugin.Info;
             plugin.AddEventHandlers(new Timing(), priority);
 
-            jobId = int.MinValue;
-            jobs = new Dictionary<int, QueueItem>();
+            jobId=int.MinValue;
+            jobs=new Dictionary<int, QueueItem>();
         }
 
         /// <summary>
@@ -57,7 +56,7 @@ namespace scp4aiur
         /// <param name="ev"></param>
         public void OnUpdate(UpdateEvent ev)
         {
-			foreach (int job in jobs.Keys.ToArray().Where(x => jobs[x].Run()))
+            foreach (int job in jobs.Keys.ToArray().Where(x => jobs[x].Run()))
             {
                 jobs.Remove(job);
             }
@@ -79,57 +78,57 @@ namespace scp4aiur
         private class QueueItem
         {
             private readonly IEnumerator<float> timer;
-	        private int waitFrames;
-	        private float waitTime;
+            private int waitFrames;
+            private float waitTime;
 
             public bool RoundPersist { get; }
 
             public QueueItem(IEnumerable<float> timer, bool persist)
             {
-	            this.timer = timer.GetEnumerator();
-                RoundPersist = persist;
+                this.timer=timer.GetEnumerator();
+                RoundPersist=persist;
             }
 
-	        public bool Run()
-	        {
-		        try
-		        {
-			        if (waitFrames < 1)
-			        {
-				        if (waitTime <= 0)
-				        {
-					        if (!timer.MoveNext())
-					        {
-						        return true;
-					        }
+            public bool Run()
+            {
+                try
+                {
+                    if (waitFrames<1)
+                    {
+                        if (waitTime<=0)
+                        {
+                            if (!timer.MoveNext())
+                            {
+                                return true;
+                            }
 
-					        if (timer.Current > 0)
-					        {
-						        waitTime += timer.Current;
-					        }
-					        else
-					        {
-						        waitFrames = (int)-timer.Current;
-							}
-				        }
-				        else
-				        {
-					        waitTime -= Time.deltaTime;
-				        }
-					}
-			        else
-			        {
-				        waitFrames--;
-			        }
+                            if (timer.Current>0)
+                            {
+                                waitTime+=timer.Current;
+                            }
+                            else
+                            {
+                                waitFrames=(int)-timer.Current;
+                            }
+                        }
+                        else
+                        {
+                            waitTime-=Time.deltaTime;
+                        }
+                    }
+                    else
+                    {
+                        waitFrames--;
+                    }
 
-			        return false;
-		        }
-		        catch (Exception e)
-		        {
-			        log($"Exception was thrown by job:\n{e}");
-			        return true;
-		        }
-			}
+                    return false;
+                }
+                catch (Exception e)
+                {
+                    log($"Exception was thrown by job:\n{e}");
+                    return true;
+                }
+            }
         }
     }
 }
