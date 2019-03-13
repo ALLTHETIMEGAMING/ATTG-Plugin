@@ -21,15 +21,15 @@ namespace ATTG4
 
 		public string GetCommandDescription()
 		{
-			// This prints when someone types HELP HELLO
-			return "Disable Event Plugin";
-		}
+            // This prints when someone types HELP HELLO
+            return "Disable ATTG Item Plugin";
+        }
 
 		public string GetUsage()
 		{
-			// This prints when someone types HELP HELLO
-			return "Disable Event Plugin";
-		}
+            // This prints when someone types HELP HELLO
+            return "Disable ATTG Item Plugin";
+        }
 
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
@@ -49,7 +49,7 @@ namespace ATTG4
 			}
 			return new[]
 			{
-				$"EVENT PLUGIN DISABLED"
+				$"ATTG ITEM PLUGIN DISABLED"
 			};
 
 		}
