@@ -1,6 +1,6 @@
 
 
-# Event-Admin-Plugin
+#ATTG-Plugin
 An Smod plugin that adds Admin commands to SCP:SL
 
 # Installation
