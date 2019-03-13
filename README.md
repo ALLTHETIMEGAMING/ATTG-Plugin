@@ -70,7 +70,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_command_disable | Bool | false | Disables ATTG Command Plugin |
-| attg_item_disable | Bool | false | Disables ATTG Command Plugin |
+| attg_item_disable | Bool | false | Disables ATTG Item Plugin |
 
 # Thanks
 Some of the code that I am using was made by 
