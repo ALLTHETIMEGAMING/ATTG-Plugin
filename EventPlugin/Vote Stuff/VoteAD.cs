@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Smod2.API;
 using Smod2.Commands;
-using Smod2.API;
-using scp4aiur;
+using System.Linq;
 
 namespace ATTG3
 {
@@ -17,59 +12,46 @@ namespace ATTG3
         public VoteAD(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
-            this.plugin = plugin;
+            this.plugin=plugin;
         }
-
         public string GetCommandDescription()
         {
             // This prints when someone types HELP HELLO
             return "Enables or Disables voteing";
         }
-
         public string GetUsage()
         {
             // This prints when someone types HELP HELLO
             return "AGVOTET";
         }
-
         public string[] OnCall(ICommandSender sender, string[] args)
         {
-			if (!(sender is Server) &&
-				sender is Player player &&
-				!plugin.Voterank.Contains(player.GetRankName()))
-			{
-				return new[]
-				{
-					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
-				};
-			}
-			else
-			{
-
-				//IF VOTE IS OPEN
-				if (plugin.Voteopen)
-				{
-					running = false;
-					//SET TO VOTE IS CLOSED
-					plugin.Voteopen = false;
-
-
-				}
-
-				//IF VOTE IS CLOSED
-				else if (!plugin.Voteopen)
-				{
-					running = true;
-					//SET TO VOTE IS OPEN
-					plugin.Voteopen = true;
-				}
-				return new[]
-				{
-				$"Vote is now  {(running ? "ACTAVATED" : "DEACTAVATED")}."
-			};
-			}
-
+            if (!(sender is Server)&&
+                sender is Player player&&
+                !plugin.Voterank.Contains(player.GetRankName()))
+            {
+                return new[]
+                {
+                    $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
+                };
+            }
+            else
+            {
+                if (plugin.Voteopen)
+                {
+                    running=false;
+                    plugin.Voteopen=false;
+                }
+                else if (!plugin.Voteopen)
+                {
+                    running=true;
+                    plugin.Voteopen=true;
+                }
+                return new[]
+                {
+                $"Vote is now  {(running ? "ACTAVATED" : "DEACTAVATED")}."
+            };
+            }
         }
-        
     }
 }
