@@ -1,38 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Smod2.Commands;
-using Smod2.API;
-using scp4aiur;
+﻿using Smod2.Commands;
 
 namespace ATTG3
 {
-	class Citem : ICommandHandler
-	{
-		private readonly ATTG3Plugin plugin;
-		public Citem(ATTG3Plugin plugin)
-		{
-			//Constructor passing plugin refrence to this class
-			this.plugin = plugin;
-		}
+    class Citem : ICommandHandler
+    {
+        private readonly ATTG3Plugin plugin;
+        public Citem(ATTG3Plugin plugin)
+        {
+            //Constructor passing plugin refrence to this class
+            this.plugin = plugin;
+        }
 
-		public string GetCommandDescription()
-		{
-			// This prints when someone types HELP HELLO
-			return "Enables or Disables custom items";
-		}
+        public string GetCommandDescription()
+        {
+            // This prints when someone types HELP HELLO
+            return "Enables or Disables custom items";
+        }
 
-		public string GetUsage()
-		{
-			// This prints when someone types HELP HELLO
-			return "AGCITEM";
-		}
+        public string GetUsage()
+        {
+            // This prints when someone types HELP HELLO
+            return "AGCITEM";
+        }
 
-		public string[] OnCall(ICommandSender sender, string[] args)
-		{
-			/*if (!(sender is Server) &&
+        public string[] OnCall(ICommandSender sender, string[] args)
+        {
+            /*if (!(sender is Server) &&
 				sender is Player player &&
 				!plugin.Customitemrank.Contains(player.GetRankName()))
 			{
@@ -50,10 +43,10 @@ namespace ATTG3
                 plugin.Citems = true;
             }*/
             return new[]
-			{
-				$"COMMAND DISABLED"
-			};
+            {
+                $"COMMAND DISABLED"
+            };
 
-		}
-	}
+        }
+    }
 }
