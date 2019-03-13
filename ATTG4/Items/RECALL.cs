@@ -24,8 +24,6 @@ namespace ATTG4
         private readonly ATTG4Plugin plugin;
 
         public static SmodPlayer SmodPlayer { get; private set; }
-
-
         public override bool OnPickup()
         {
 
@@ -34,8 +32,6 @@ namespace ATTG4
                 Timing.Run(TimingDelay(delay));
 			return true;
 		}
-
-
         public override bool OnDeathDrop(GameObject attacker, DamageType damage)
         {
             return false;
