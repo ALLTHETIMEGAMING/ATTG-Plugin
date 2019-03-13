@@ -49,7 +49,6 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGVOTEC | NONE| Clears Vote |
 | AGVOTES | NONE | Displays Vote |
 | AGVOTEBC| NONE | Displays how to vote |
-| ~~AGCIMTF~~ | enable / disable |~~Turns on CI VS MTF next round~~ |
 | AGAMMO | Players name |Gives player 100000 ammo|
 | AGUP | Players name | TPs player up from there position |
 | ~~AGCITEM~~ | NONE | ~~Enables custom items~~ |
@@ -64,7 +63,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_ranks | List | owner, coowner | Roles that can do all commands. |
-| ~~attg_item_ranks~~ | ~~List~~ | ~~owner~~ | ~~Roles that can actavate the custom items.~~ |
+
 | attg_vote_ranks | List | owner, coowner, admin | Roles that do all voting commands. |
 | attg_disable_ranks | List | owner | Roles that can disable the plugin. |
 
