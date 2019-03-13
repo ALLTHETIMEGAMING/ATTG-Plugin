@@ -3,7 +3,6 @@ using Smod2.Attributes;
 using Smod2.Config;
 using Smod2.Events;
 
-
 namespace ATTG3
 {
     [PluginDetails(
