@@ -1,17 +1,8 @@
-using ItemManager;
 using ItemManager.Utilities;
 using scp4aiur;
 using Smod2.API;
 using Smod2.Attributes;
 using Smod2.Config;
-using Smod2.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Smod2.EventHandlers;
-using UnityEngine;
-using Random = UnityEngine.Random;
-
 
 namespace ATTG4
 {
@@ -37,11 +28,10 @@ namespace ATTG4
         public CustomItemHandler<ZOM> Handler6 { get; private set; }
         public CustomItemHandler<COM> Handler7 { get; private set; }
         public CustomItemHandler<RECALL> Handler8 { get; private set; }
-
         public string[] Disablerank { get; private set; }
         public string[] Allrank { get; private set; }
         public bool Disable { get; set; } = false;
-     
+
         public override void Register()
         {
             Instance = this;
@@ -68,8 +58,6 @@ namespace ATTG4
 
             }, SettingType.LIST, true, "Valid ranks for all Commands"));
             ReloadConfig();
-
-
             AddConfig(new ConfigSetting("attg_item_disable", false, SettingType.BOOL, true, "Disables Event Plugin"));
             Handler1 = new CustomItemHandler<LAR>(200)
             {
@@ -103,8 +91,6 @@ namespace ATTG4
             {
                 DefaultType = ItemType.COIN
             };
-
-
             ReloadConfig();
             Handler1.Register();
             Handler2.Register();
@@ -114,9 +100,7 @@ namespace ATTG4
             Handler6.Register();
             Handler7.Register();
             Handler8.Register();
-
-
-    }
+        }
         public void ReloadConfig()
         {
             //Dissable Config
@@ -130,7 +114,6 @@ namespace ATTG4
         {
             Info("ATTG Item Plugin disabled.");
         }
-
     }
 }
 
