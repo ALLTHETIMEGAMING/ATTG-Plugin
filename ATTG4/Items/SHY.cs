@@ -6,11 +6,9 @@ using UnityEngine;
 
 namespace ATTG4
 {
-
     public class SHY : CustomItem
     {
         private readonly ATTG4Plugin plugin;
-
         public static SmodPlayer SmodPlayer { get; private set; }
         public override bool OnPickup()
         {
@@ -20,13 +18,10 @@ namespace ATTG4
             smodPlayer.SetHealth(500);
             return true;
         }
-
         public override bool OnDeathDrop(GameObject attacker, DamageType damage)
         {
 
             return false;
         }
-
-
     }
 }
