@@ -69,6 +69,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\COM.cs" />
+    <Compile Include="Items\LAR.cs" />
+    <Compile Include="Items\N39.cs" />
+    <Compile Include="Items\NUT.cs" />
+    <Compile Include="Items\O49.cs" />
+    <Compile Include="Items\RECALL.cs" />
+    <Compile Include="Items\SHY.cs" />
+    <Compile Include="Items\ZOM.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Timing.cs" />

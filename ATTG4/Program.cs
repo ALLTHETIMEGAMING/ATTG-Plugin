@@ -33,7 +33,7 @@ namespace ATTG3
         public string[] AdminRanks { get; private set; }
         public string[] Disablerank { get; private set; }
         public string[] Voterank { get; private set; }
-        public string[] allrank { get; private set; }
+        public string[] Allrank { get; private set; }
         public string[] SCPrank { get; private set; }
         public bool Voteopen { get; set; }
         public bool Disable { get; set; } = false;
@@ -81,7 +81,7 @@ namespace ATTG3
 
 
             //Dissable Config
-            Disable = GetConfigBool("attg__disable");
+            Disable = GetConfigBool("attg_item_disable");
 
         }
         public override void OnEnable()
