@@ -51,7 +51,7 @@ namespace ATTG3
 				"owner",
 				"coowner"
 			}, SettingType.LIST, true, ""));
-			AddConfig(new ConfigSetting("attg_disable_ranks", new[]
+			AddConfig(new ConfigSetting("attg_command_disable_ranks", new[]
 			{
 				"owner"
 			}, SettingType.LIST, true, "Valid ranks to disable the Event Plugin"));

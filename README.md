@@ -63,8 +63,8 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | :-------------: | :---------: | :---------: |:------ |
 | attg_ranks | List | owner, coowner | Roles that can do all commands. |
 | attg_vote_ranks | List | owner, coowner, admin | Roles that do all voting commands. |
-| attg_command_disable_ranks | List | owner | Roles that can disable the plugin. |
-
+| attg_command_disable_ranks | List | owner | Roles that can disable the ATTG Command Plugin. |
+| attg_item_disable_ranks | List | owner | Roles that can disable the Item DLC
 
 ### Other Config
 | Config        | Value Type | Default | Description |
