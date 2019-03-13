@@ -119,12 +119,8 @@ namespace ATTG4
     }
         public void ReloadConfig()
         {
-            // Command Perms
-
-
             //Dissable Config
             Disable = GetConfigBool("attg_item_disable");
-
         }
         public override void OnEnable()
         {

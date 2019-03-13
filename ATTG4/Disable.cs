@@ -7,12 +7,13 @@ using Smod2.Commands;
 using Smod2.API;
 using scp4aiur;
 
-namespace ATTG3
+namespace ATTG4
 {
 	class Disable : ICommandHandler
 	{
-		private readonly ATTG3Plugin plugin;
-		public Disable(ATTG3Plugin plugin)
+		private readonly ATTG4Plugin plugin;
+		
+		public Disable(ATTG4Plugin plugin)
 		{
 			//Constructor passing plugin refrence to this class
 			this.plugin = plugin;
@@ -21,14 +22,14 @@ namespace ATTG3
 		public string GetCommandDescription()
 		{
 			// This prints when someone types HELP HELLO
-			return "Disable ATTG Command Plugin";
+			return "Disable Event Plugin";
 		}
 
 		public string GetUsage()
 		{
-            // This prints when someone types HELP HELLO
-            return "Disable ATTG Command Plugin";
-        }
+			// This prints when someone types HELP HELLO
+			return "Disable Event Plugin";
+		}
 
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
@@ -48,7 +49,7 @@ namespace ATTG3
 			}
 			return new[]
 			{
-				$"ATTG COMMAND PLUGIN DISABLED"
+				$"EVENT PLUGIN DISABLED"
 			};
 
 		}

@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Disable.cs" />
     <Compile Include="Items\COM.cs" />
     <Compile Include="Items\LAR.cs" />
     <Compile Include="Items\N39.cs" />
