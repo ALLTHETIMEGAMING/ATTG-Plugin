@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTG3", "EventPlugin\ATTG3.csproj", "{8C731E0A-5D94-4D34-B971-252802FA8AA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTG4", "ATTG4\ATTG4.csproj", "{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8C731E0A-5D94-4D34-B971-252802FA8AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C731E0A-5D94-4D34-B971-252802FA8AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C731E0A-5D94-4D34-B971-252802FA8AA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

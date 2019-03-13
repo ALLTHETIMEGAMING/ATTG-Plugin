@@ -17,13 +17,13 @@ namespace ATTG3
 {
 	[PluginDetails(
 		author = "All The Time Gaming",
-		description = "Event Mod",
-		id = "ATTG.ADMIN.Event",
+		description = "COMMAND Mod",
+		id = "ATTG.ADMIN.COMMAND",
 		name = "",
 		SmodMajor = 3,
 		SmodMinor = 3,
 		SmodRevision = 0,
-		version = "1.9.0"
+		version = "2.0.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
 	{
@@ -107,16 +107,16 @@ namespace ATTG3
             allrank = GetConfigList("attg_all_ranks");
 
             //Dissable Config
-            Disable = GetConfigBool("attg_disable");
+            Disable = GetConfigBool("attg_command_disable");
 
 		}
 		public override void OnEnable()
 		{
-			Info("Event Plugin enabled.");
+			Info("ATTG Command Plugin enabled.");
 		}
 		public override void OnDisable()
 		{
-			Info("Event Plugin disabled.");
+			Info("ATTG Command Plugin disabled.");
 		}
 
 	}
