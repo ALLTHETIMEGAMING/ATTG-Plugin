@@ -12,7 +12,7 @@ namespace ATTG3
         IConfigFile Config => ConfigManager.Manager.Config;
         public Ammo(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
-        public string GetUsage() => "";
+        public string GetUsage() => " Gives player 100,000 ammo";
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
@@ -29,15 +29,6 @@ namespace ATTG3
             Player caller = (sender is Player send) ? send : null;
             if (args.Length>0)
             {
-                if (args[0].ToLower()=="all"||args[0].StartsWith("*"))
-                {
-                    foreach (Player p in Server.GetPlayers())
-                    {
-                        p.SetAmmo(AmmoType.DROPPED_5, 100000);
-                        p.SetAmmo(AmmoType.DROPPED_7, 100000);
-                        p.SetAmmo(AmmoType.DROPPED_9, 100000);
-                    }
-                }
                 Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)

@@ -17,7 +17,7 @@ namespace ATTG3
 
         public Speed2(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
-        public string GetUsage() => "";
+        public string GetUsage() => "Gives ALL 939s Super Speed";
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {

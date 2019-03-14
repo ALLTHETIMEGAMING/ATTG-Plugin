@@ -19,7 +19,7 @@ namespace ATTG3
         public Scp939PlayerScript PlayerScript { get; private set; }
         public Speed(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
-        public string GetUsage() => "";
+        public string GetUsage() => "Makes a player that is SCP-939 fast";
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&

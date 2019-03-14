@@ -66,31 +66,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Citem.cs" />
     <Compile Include="Commands\Disable.cs" />
     <Compile Include="Commands\ELEL.cs" />
     <Compile Include="Commands\ELES.cs" />
     <Compile Include="Commands\Help.cs" />
     <Compile Include="Commands\Shake.cs" />
-    <Compile Include="SCP COMMANDS\Speed2.cs" />
-    <Compile Include="SCP COMMANDS\Speed.cs" />
+    <Compile Include="Player Commands\Speed2.cs" />
+    <Compile Include="Player Commands\Speed.cs" />
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Commands\Tleslad.cs" />
-    <Compile Include="Commands\Up.cs" />
+    <Compile Include="Player Commands\Up.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SCP COMMANDS\E079.cs" />
-    <Compile Include="SCP COMMANDS\P079.cs" />
-    <Compile Include="SCP COMMANDS\ST079.cs" />
-    <Compile Include="SCP COMMANDS\C106.cs" />
+    <Compile Include="Commands\E079.cs" />
+    <Compile Include="Commands\P079.cs" />
+    <Compile Include="Commands\C106.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="GetPlayerFromString.cs" />
-    <Compile Include="Give\Ammo.cs" />
+    <Compile Include="Player Commands\Ammo.cs" />
     <Compile Include="LevenshteinDistance.cs" />
-    <Compile Include="SCP COMMANDS\L079.cs" />
+    <Compile Include="Player Commands\L079.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVoteNo.cs" />
     <Compile Include="Vote Stuff\PublicVoteYes.cs" />
