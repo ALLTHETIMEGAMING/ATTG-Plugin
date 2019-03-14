@@ -59,19 +59,8 @@ namespace ATTG3
             }
             return new[]
             {
-                $"all SCP 106 is now {(running ? "Locked" : "Unlocked")}."
+                $"all SCP of 079s generators are now {(running ? "open" : "closed")}."
             };
-        }
-        private IEnumerable<float> TimingDelay(float time)
-        {
-            while (running)
-            {
-                foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
-                {
-                    TeslaGate.Activate(true);
-                }
-                yield return 0.5f;
-            }
         }
     }
 }

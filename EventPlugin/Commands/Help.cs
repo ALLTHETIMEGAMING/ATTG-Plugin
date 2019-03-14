@@ -53,7 +53,5 @@ namespace ATTG3
                 "Plugin created by All The Time Gaming"
         };
         }
-
-
     }
 }
