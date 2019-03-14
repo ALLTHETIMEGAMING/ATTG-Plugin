@@ -21,17 +21,17 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 
 [Trello Page](https://trello.com/b/YpKW1b8p/event-plugin)
 
-# Items
+# Item DLC
 | Item ID       | Description |
 | :-------------: | :---------: | 
-| ~~201~~ | ~~Medkit that changes player into SCP-106~~ |
-| ~~202~~ | ~~Medkit that changes player into SCP-049~~ |
-| ~~203~~ | ~~Medkit that changes player into SCP-939~~ |
-| ~~204~~ | ~~Medkit that changes player into SCP-173~~ |
-| ~~205~~ | ~~Medkit that changes player into SCP-096~~ |
-| ~~206~~ | ~~Medkit that changes player into SCP-049-2~~ |
-| ~~207~~ | ~~Medkit that changes player into SCP-079~~ |
-| ~~208~~ | ~~Medkit that teleports player back to where he picked up the item after 1 min~~ |
+| 200 | Medkit that changes player into SCP-106 |
+| 201 | Medkit that changes player into SCP-049 |
+| 202 | Medkit that changes player into SCP-939 |
+| 203 | Medkit that changes player into SCP-173 |
+| 204 | Medkit that changes player into SCP-096 |
+| 205 | Medkit that changes player into SCP-049-2 |
+| 206 | Medkit that changes player into SCP-079 |
+| 207 | Medkit that teleports player back to where he picked up the item after 1 min |
 
 # Commands
 | Command      | Parameters| Description |
