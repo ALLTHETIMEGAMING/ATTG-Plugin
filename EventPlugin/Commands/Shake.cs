@@ -9,10 +9,7 @@ namespace ATTG3
     class Shake : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        private object player2;
-        public Player myPlayer;
-        private bool running;
-
+        private bool Running;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
 
@@ -33,19 +30,19 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-            running=!running;
-            if (running)
+            Running=!Running;
+            if (Running)
             {
                 Timing.Run(TimingDelay(0.1f));
             }
             return new[]
             {
-                $"Map Shake is now {(running ? "on" : "off")}."
+                $"Map Shake is now {(Running ? "on" : "off")}."
             };
         }
         private IEnumerable<float> TimingDelay(float time)
         {
-            while (running)
+            while (Running)
             {
                 plugin.Server.Map.Shake();
 
