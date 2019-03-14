@@ -10,7 +10,6 @@ namespace ATTG3
     class Speed : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        private object player2;
         public Player myPlayer;
         private bool running;
 
