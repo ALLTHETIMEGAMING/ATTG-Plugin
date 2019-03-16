@@ -26,6 +26,7 @@ namespace ATTG3
                 !plugin.AdminRanks.Contains(player.GetRankName()))
             {
                 return new[]
+
                 {
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
