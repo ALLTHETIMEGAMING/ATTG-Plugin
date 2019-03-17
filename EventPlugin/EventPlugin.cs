@@ -7,13 +7,13 @@ namespace ATTG3
 {
     [PluginDetails(
         author = "All The Time Gaming",
-        description = "COMMAND Mod",
+        description = "COMMAND MOD",
         id = "ATTG.ADMIN.COMMAND",
         name = "",
         SmodMajor = 3,
         SmodMinor = 3,
         SmodRevision = 0,
-        version = "2.0.0"
+        version = "1.0.0"
         )]
     public class ATTG3Plugin : Smod2.Plugin
     {
