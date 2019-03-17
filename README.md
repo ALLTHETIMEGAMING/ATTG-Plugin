@@ -40,8 +40,6 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGEL | NONE | Toggles Elevator locking |
 | AGTLR | NONE | Toggles Tesla Gates |
 | AGELR | Float | Changes elevator speed |
-| AG106D | NONE | Toggles recontaining SCP-106 |
-| AGS079 | NONE | SCP-079s generators time to 10 sec |
 | AGP079 | NONE | Opens SCP-079 Generators |
 | AGE079 | NONE | Ejects all tablets from generators |
 | AGL079 | NONE | Levels up 079 and gives AP |
@@ -53,6 +51,10 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGUP | Players name | TPs player up from there position |
 | AGDISABLE | NONE | Disables Event Plugin |
 | AGSHAKE | NONE | Shakes screens of all players |
+| AGSPEED | Player Name | Sets speed of player |
+| AGSPEEDA | Float | Sets speed of all 939s |
+| AG079T | Float | Sets Start time of all generators|
+
 
 
 # Config
