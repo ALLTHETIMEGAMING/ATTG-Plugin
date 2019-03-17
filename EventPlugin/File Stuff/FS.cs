@@ -14,13 +14,23 @@ namespace ATTG3
 	public class Filestuff
 	{
 
-		private readonly ATTG3Plugin plugin;
-		private string FilePath;
 		public string[] Setfile(string text)
 		{
-			if (FilePath == "")
-				return new string[] { "Error: missing filepath." };
 			File.AppendAllText(ATTG3Plugin.Rooms, text);
+
+			return new string[] { "Done" };
+		}
+
+		public string[] Setfile1(string text)
+		{
+			File.AppendAllText(ATTG3Plugin.Tlesla, text);
+
+			return new string[] { "Done" };
+		}
+
+		public string[] Setfile2(string text)
+		{
+			File.AppendAllText(ATTG3Plugin.Doors, text);
 
 			return new string[] { "Done" };
 		}
