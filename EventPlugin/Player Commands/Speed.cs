@@ -51,7 +51,7 @@ namespace ATTG3
             }
             else
             {
-                return new string[] { GetUsage() };
+                return new string[] { "AGSPEED: "+ GetUsage() };
             }
         }
         private IEnumerable<float> TimingDelay(float time)

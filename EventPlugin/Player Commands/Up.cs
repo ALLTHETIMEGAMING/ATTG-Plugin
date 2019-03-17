@@ -48,7 +48,7 @@ namespace ATTG3
                 }
                 else
                 {
-                    return new string[] { GetUsage() };
+                    return new string[] { "AGUP: " + GetUsage() };
                 }
             }
         }
