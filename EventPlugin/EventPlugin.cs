@@ -2,6 +2,11 @@
 using Smod2.Attributes;
 using Smod2.Config;
 using Smod2.Events;
+using System;
+using Smod2;
+using Smod2.API;
+using System.IO;
+using System.Collections.Generic;
 
 namespace ATTG3
 {
@@ -29,6 +34,8 @@ namespace ATTG3
 		public bool Disable { get; set; } = false;
 		public int Yes { get; set; }
 		public int No { get; set; }
+		public static string attgfolder = FileManager.GetAppFolder() + "ATTG";
+		public static string Rooms = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Rooms.txt";
 		public override void Register()
 		{
 			Instance = this;
@@ -80,9 +87,12 @@ namespace ATTG3
 			this.AddCommand("AGSPEED", new Speed(this));
 			this.AddCommand("AGSHAKE", new Shake(this));
 			this.AddCommand("AG079T", new GenTime(this));
+			this.AddCommand("TEST", new Camerapos(this));
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
 			this.AddEventHandlers(new No(this));
 			this.AddEventHandlers(new Yes(this));
+
+
 		}
 		public void ReloadConfig()
 		{
@@ -96,6 +106,14 @@ namespace ATTG3
 		}
 		public override void OnEnable()
 		{
+			if (!Directory.Exists(attgfolder))
+			{
+				Directory.CreateDirectory(attgfolder);
+			}
+			if (!File.Exists(Rooms))
+			{
+				using (new StreamWriter(File.Create(Rooms))) { }
+			}
 			Info("ATTG Command Plugin enabled.");
 		}
 		public override void OnDisable()
@@ -103,6 +121,7 @@ namespace ATTG3
 			Info("ATTG Command Plugin disabled.");
 		}
 	}
+
 }
 
 

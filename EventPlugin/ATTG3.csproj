@@ -77,6 +77,7 @@
     <Compile Include="Commands\ELES.cs" />
     <Compile Include="Commands\Help.cs" />
     <Compile Include="Commands\Shake.cs" />
+    <Compile Include="File Stuff\FS.cs" />
     <Compile Include="Player Commands\Speed2.cs" />
     <Compile Include="Player Commands\Speed.cs" />
     <Compile Include="Commands\Tlesla.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Player Commands\Ammo.cs" />
     <Compile Include="LevenshteinDistance.cs" />
     <Compile Include="Player Commands\L079.cs" />
+    <Compile Include="File Stuff\Camerapos.cs" />
     <Compile Include="Testing commands\GenTime.cs" />
     <Compile Include="Testing commands\DoorTP.cs" />
     <Compile Include="Testing commands\Sign.cs" />

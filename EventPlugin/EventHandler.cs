@@ -3,7 +3,7 @@ using Smod2.Events;
 
 namespace ATTG3
 {
-    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerPlayerJoin
+    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown
     {
         private readonly ATTG3Plugin plugin;
         public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -17,7 +17,9 @@ namespace ATTG3
             plugin.Voteopen=false;
             plugin.Yes=0;
             plugin.No=0;
-        }
+			
+
+		}
         public void OnStopCountdown(WarheadStopEvent ev)
         {
             foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
