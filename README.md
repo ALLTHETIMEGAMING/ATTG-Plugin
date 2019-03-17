@@ -47,8 +47,8 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGVOTEC | NONE| Clears Vote |
 | AGVOTES | NONE | Displays Vote |
 | AGVOTEBC| NONE | Displays how to vote |
-| AGAMMO | Players name | Gives player 100000 ammo|
-| AGUP | Players name | TPs player up from there position |
+| AGAMMO | Players Name | Gives player 100000 ammo|
+| AGUP | Players Name | TPs player up from there position |
 | AGDISABLE | NONE | Disables Event Plugin |
 | AGSHAKE | NONE | Shakes screens of all players |
 | AGSPEED | Player Name | Sets speed of player |
