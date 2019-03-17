@@ -33,8 +33,6 @@ namespace ATTG3
                 "(AGTLR) Toggles Tlesla Gates",
                 "(AGELR) (#) changes Elevator speed",
                 "-------------SCP COMMANDS-------------",
-                "(AG106D) Toggles recontaining SCP-106",
-                "(AGS079) SCP-079s generators time to 10 sec",
                 "(AGP079) Opens SCP-079 Generators",
                 "(AGE079) Ejects all tablets from generators",
                 "(AGL079) Levels up 079 and gives AP",
@@ -49,6 +47,7 @@ namespace ATTG3
                 "(AGUP) (Players name)",
                 "(AGDISABLE) Disables Event Plugin",
                 "(AGSHAKE) Shakes all players screens",
+				"(AG079T) (#) Changes Start time of all Generators",
                 "----------------------------------------",
                 "Plugin created by All The Time Gaming"
         };
