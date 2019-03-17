@@ -17,7 +17,7 @@ namespace ATTG3
         )]
     public class ATTG3Plugin : Smod2.Plugin
     {
-        internal static ATTG3Plugin plugin;
+        
         public static ATTG3Plugin Instance { get; private set; }
         public bool Running939 { get; set; }
         public string[] AdminRanks { get; private set; }
@@ -70,7 +70,7 @@ namespace ATTG3
             this.AddCommand("AGVoteT", new VoteAD(this));
             this.AddCommand("AGVoteC", new VoteC(this));
             this.AddCommand("AGVoteS", new VoteA(this));
-            this.AddCommand("AGAmmo", new Ammo(this));
+            this.AddCommand("AGAMMO", new Ammo(this));
             this.AddCommand("AGVoteBC", new VoteBC(this));
             this.AddCommand("AGUP", new Up(this));
             this.AddCommand("AGL079", new L079(this));

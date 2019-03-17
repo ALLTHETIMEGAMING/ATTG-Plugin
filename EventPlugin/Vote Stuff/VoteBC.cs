@@ -35,10 +35,10 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-            PluginManager.Manager.Server.Map.Broadcast(10, "Want A Event Next round? Push ` and type .Yes or .No to vote", false);
+            PluginManager.Manager.Server.Map.Broadcast(10, "Push ` and type .Yes or .No to vote", false);
             return new[]
             {
-                $"Vote BC Played"
+                $"Vote help desplayed."
             };
         }
     }

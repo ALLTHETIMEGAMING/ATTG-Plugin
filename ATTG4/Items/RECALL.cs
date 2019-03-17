@@ -11,7 +11,7 @@ namespace ATTG4
     public class RECALL : CustomItem
     {
         readonly float delay = 60;
-        private readonly ATTG4Plugin plugin;
+        
 
         public static SmodPlayer SmodPlayer { get; private set; }
         public override bool OnPickup()

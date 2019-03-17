@@ -9,7 +9,7 @@ namespace ATTG4
 {
     public class NUT : CustomItem
     {
-        private readonly ATTG4Plugin plugin;
+        
         public static SmodPlayer SmodPlayer { get; private set; }
         public override bool OnPickup()
         {
