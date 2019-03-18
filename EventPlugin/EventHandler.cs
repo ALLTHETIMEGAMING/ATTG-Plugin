@@ -83,7 +83,6 @@ namespace ATTG3
 				FL.Setfile2(line);
 
 			}
-
 			foreach (Smod2.API.Generator Generator in Smod2.PluginManager.Manager.Server.Map.GetGenerators())
 			{
 				string Round = "Round: " + plugin.Server.Round + Environment.NewLine;
@@ -97,7 +96,6 @@ namespace ATTG3
 				FL.Setfile3(pos);
 				FL.Setfile3(line);
 			}
-
 		}
 		public void On079CameraTeleport(Smod2.Events.Player079CameraTeleportEvent ev)
 		{
@@ -114,7 +112,6 @@ namespace ATTG3
 				FL.Setfile3(line);
 			}
 		}
-
 	}
 }
 
