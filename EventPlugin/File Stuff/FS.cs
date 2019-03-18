@@ -42,5 +42,12 @@ namespace ATTG3
 			return new string[] { "Done" };
 		}
 
+		public string[] Setfile4(string text)
+		{
+			File.AppendAllText(ATTG3Plugin.Cam, text);
+
+			return new string[] { "Done" };
+		}
+
 	}
 }

@@ -34,11 +34,13 @@ namespace ATTG3
 		public bool Disable { get; set; } = false;
 		public int Yes { get; set; }
 		public int No { get; set; }
+		public bool Camgrab = false;
 		public static string attgfolder = FileManager.GetAppFolder() + "ATTG";
 		public static string Rooms = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Rooms.txt";
 		public static string Tlesla = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Tlesla.txt";
 		public static string Doors = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Door.txt";
 		public static string Gen = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Generator.txt";
+		public static string Cam = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Camera.txt";
 		public override void Register()
 		{
 			Instance = this;
@@ -128,6 +130,10 @@ namespace ATTG3
 			if (!File.Exists(Gen))
 			{
 				using (new StreamWriter(File.Create(Gen))) { }
+			}
+			if (!File.Exists(Cam))
+			{
+				using (new StreamWriter(File.Create(Cam))) { }
 			}
 			Info("ATTG Command Plugin enabled.");
 		}

@@ -11,7 +11,7 @@ using System.IO;
 
 namespace ATTG3
 {
-	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerRoundEnd
+	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerRoundEnd, IEventHandler079CameraTeleport
 	{
 		private ATTG3.Filestuff FL;
 		private readonly ATTG3Plugin plugin;
@@ -26,6 +26,20 @@ namespace ATTG3
 			plugin.Voteopen = false;
 			plugin.Yes = 0;
 			plugin.No = 0;
+		}
+		public void OnStopCountdown(WarheadStopEvent ev)
+		{
+			foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+			{
+				if (door.Name == "CHECKPOINT_ENT")
+				{
+					door.Open = true;
+					door.Locked = false;
+				}
+			}
+		}
+		public void OnRoundEnd(RoundEndEvent ev)
+		{
 			FL = new ATTG3.Filestuff();
 			foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA))
 			{
@@ -84,27 +98,23 @@ namespace ATTG3
 				FL.Setfile3(line);
 			}
 
-
-
-
-
 		}
-		public void OnStopCountdown(WarheadStopEvent ev)
+		public void On079CameraTeleport(Smod2.Events.Player079CameraTeleportEvent ev)
 		{
-			foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
-			{
-				if (door.Name == "CHECKPOINT_ENT")
-				{
-					door.Open = true;
-					door.Locked = false;
-				}
+			if (plugin.Camgrab) {
+				
+
+				string Round = "Round: " + plugin.Server.Round + Environment.NewLine;
+				string Map = "Map: " + plugin.Server.Map + Environment.NewLine;
+				string Pos = "Camera POS: " + ev.Camera + Environment.NewLine;
+				string line = "------------------------------" + Environment.NewLine;
+				FL.Setfile3(Round);
+				FL.Setfile3(Map);
+				FL.Setfile3(Pos);
+				FL.Setfile3(line);
 			}
 		}
-		public void OnRoundEnd(RoundEndEvent ev)
-		{
 
-
-		}
 	}
 }
 
