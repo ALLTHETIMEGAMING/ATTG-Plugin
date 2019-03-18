@@ -97,6 +97,7 @@
     <Compile Include="LevenshteinDistance.cs" />
     <Compile Include="Player Commands\L079.cs" />
     <Compile Include="File Stuff\Camerapos.cs" />
+    <Compile Include="Testing commands\Overcharge.cs" />
     <Compile Include="Testing commands\GenTime.cs" />
     <Compile Include="Testing commands\DoorTP.cs" />
     <Compile Include="Testing commands\Sign.cs" />

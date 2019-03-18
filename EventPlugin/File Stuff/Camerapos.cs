@@ -55,9 +55,9 @@ namespace ATTG3
 				string zone = "Zone Type: " + room.ZoneType + Environment.NewLine;
 				string room2 = "Room Type: " + room.RoomType + Environment.NewLine;
 				string pos = "Position: " + room.Position + Environment.NewLine;
+				string GenID = "Generic ID: " + room.GenericID + Environment.NewLine;
 				string forward = "Forward: " + room.Forward + Environment.NewLine;
 				string line = "------------------------------" + Environment.NewLine;
-				
 				FL.Setfile(zone);
 				FL.Setfile(room2);
 				FL.Setfile(pos);
@@ -85,6 +85,7 @@ namespace ATTG3
 				FL.Setfile2(line);
 
 			}
+
 
 			return new[]
 			{ "Done"};

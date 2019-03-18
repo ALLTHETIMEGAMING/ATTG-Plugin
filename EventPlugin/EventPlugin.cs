@@ -38,6 +38,7 @@ namespace ATTG3
 		public static string Rooms = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Rooms.txt";
 		public static string Tlesla = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Tlesla.txt";
 		public static string Doors = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Door.txt";
+		public static string Gen = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Generator.txt";
 		public override void Register()
 		{
 			Instance = this;
@@ -123,6 +124,10 @@ namespace ATTG3
 			if (!File.Exists(Tlesla))
 			{
 				using (new StreamWriter(File.Create(Tlesla))) { }
+			}
+			if (!File.Exists(Gen))
+			{
+				using (new StreamWriter(File.Create(Gen))) { }
 			}
 			Info("ATTG Command Plugin enabled.");
 		}

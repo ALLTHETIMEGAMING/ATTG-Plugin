@@ -35,5 +35,12 @@ namespace ATTG3
 			return new string[] { "Done" };
 		}
 
+		public string[] Setfile3(string text)
+		{
+			File.AppendAllText(ATTG3Plugin.Gen, text);
+
+			return new string[] { "Done" };
+		}
+
 	}
 }
