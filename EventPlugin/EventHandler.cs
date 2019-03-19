@@ -8,6 +8,7 @@ using System.Linq;
 using TMPro;
 using System;
 using System.IO;
+using UnityEngine;
 
 namespace ATTG3
 {
@@ -128,8 +129,17 @@ namespace ATTG3
 		{
 			if (plugin.ServerData)
 			{
-				
+				GameObject gameObject = GameObject.Find("Server");
+				int seed = -1;
+				seed = gameObject.GetComponent<RandomSeedSync>().seed;
+				string Round = "Round: " + plugin.Round + Environment.NewLine;
+				string Seed = "Round: " + seed + Environment.NewLine;
 				string Pos = "Spawn POS:" + ev.Player.GetPosition();
+				string line = "------------------------------" + Environment.NewLine;
+				FL.Setfile5(Round);
+				FL.Setfile5(Seed);
+				FL.Setfile5(Pos);
+				FL.Setfile5(line);
 			}
 		}
 	}

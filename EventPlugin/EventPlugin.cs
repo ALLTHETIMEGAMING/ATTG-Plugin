@@ -42,6 +42,7 @@ namespace ATTG3
 		public static string Doors = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Door.txt";
 		public static string Gen = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Generator.txt";
 		public static string Cam = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Camera.txt";
+		public static string Spawn = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Spawn.txt";
 		public override void Register()
 		{
 			Instance = this;
@@ -96,7 +97,7 @@ namespace ATTG3
 			this.AddCommand("TEST", new Camerapos(this));
 			this.AddCommand("DATA", new Data(this));
 			this.AddCommand("Over", new Overcharge(this));
-			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
+			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new No(this));
 			this.AddEventHandlers(new Yes(this));
 
@@ -137,6 +138,10 @@ namespace ATTG3
 			if (!File.Exists(Cam))
 			{
 				using (new StreamWriter(File.Create(Cam))) { }
+			}
+			if (!File.Exists(Spawn))
+			{
+				using (new StreamWriter(File.Create(Spawn))) { }
 			}
 			Info("ATTG Command Plugin enabled.");
 		}
