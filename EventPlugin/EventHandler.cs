@@ -96,20 +96,6 @@ namespace ATTG3
 					FL.Setfile3(line);
 
 				}
-
-			}
-		}
-		public void On079CameraTeleport(Player079CameraTeleportEvent ev)
-		{
-			if (plugin.ServerData)
-			{
-
-				string Round = "Round: " + plugin.Round + Environment.NewLine;
-				string Pos = "Camera POS: " + ev.Camera + Environment.NewLine;
-				string line = "------------------------------" + Environment.NewLine;
-				FL.Setfile4(Round);
-				FL.Setfile4(Pos);
-				FL.Setfile4(line);
 			}
 		}
 	}
