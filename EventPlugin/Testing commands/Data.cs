@@ -39,7 +39,7 @@ namespace ATTG3
 			plugin.ServerData = !plugin.ServerData;
 				return new[]
 			{
-				$"Camera Pos Grabing is {(plugin.ServerData ? "on" : "off")}."
+				$"Data Grabing is {(plugin.ServerData ? "on" : "off")}."
 			};
 			
 			

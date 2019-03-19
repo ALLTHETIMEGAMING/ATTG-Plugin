@@ -19,7 +19,7 @@ namespace ATTG3
 		SmodMajor = 3,
 		SmodMinor = 3,
 		SmodRevision = 0,
-		version = "1.0.0"
+		version = "2.0.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
 	{
