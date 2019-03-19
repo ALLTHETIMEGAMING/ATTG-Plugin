@@ -1,42 +1,42 @@
 ﻿using System.IO;
 
-namespace ATTG3
+namespace ATTG_Test
 {
 	public class Filestuff
 	{
 		public string[] Setfile(string text)
 		{
-			File.AppendAllText(ATTG3Plugin.Rooms, text);
+			File.AppendAllText(ATTGLogPlugin.Rooms, text);
 
 			return new string[] { "Done" };
 		}
 		public string[] Setfile1(string text)
 		{
-			File.AppendAllText(ATTG3Plugin.Tlesla, text);
+			File.AppendAllText(ATTGLogPlugin.Tlesla, text);
 
 			return new string[] { "Done" };
 		}
 		public string[] Setfile2(string text)
 		{
-			File.AppendAllText(ATTG3Plugin.Doors, text);
+			File.AppendAllText(ATTGLogPlugin.Doors, text);
 
 			return new string[] { "Done" };
 		}
 		public string[] Setfile3(string text)
 		{
-			File.AppendAllText(ATTG3Plugin.Gen, text);
+			File.AppendAllText(ATTGLogPlugin.Gen, text);
 
 			return new string[] { "Done" };
 		}
 		public string[] Setfile4(string text)
 		{
-			File.AppendAllText(ATTG3Plugin.Cam, text);
+			File.AppendAllText(ATTGLogPlugin.Cam, text);
 
 			return new string[] { "Done" };
 		}
 		public string[] Setfile5(string text)
 		{
-			File.AppendAllText(ATTG3Plugin.Spawn, text);
+			File.AppendAllText(ATTGLogPlugin.Spawn, text);
 
 			return new string[] { "Done" };
 		}

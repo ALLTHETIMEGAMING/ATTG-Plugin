@@ -3,22 +3,21 @@ using Smod2.API;
 using Smod2.Commands;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using System;
 using System.IO;
 
-namespace ATTG3
+namespace ATTG_Test
 {
-	class Camerapos : ICommandHandler
+	class Data_Command : ICommandHandler
 	{
-		private readonly ATTG3Plugin plugin;
-		private ATTG3.Filestuff FL;
+		private readonly ATTGLogPlugin plugin;
+		private Filestuff FL;
 		public object FilePath { get; private set; }
 
-		public Camerapos(ATTG3Plugin plugin)
+		public Data_Command(ATTGLogPlugin plugin)
 		{
 
-			FL = new ATTG3.Filestuff();
+			FL = new Filestuff();
 			//Constructor passing plugin refrence to this class
 			this.plugin = plugin;
 		}
@@ -33,14 +32,14 @@ namespace ATTG3
 		public string GetUsage()
 		{
 			// This prints when someone types HELP HELLO
-			return "Sets All of SCP-079s Generators max time";
+			return "";
 		}
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
 			
 			if (!(sender is Server) &&
 				sender is Player player &&
-				!plugin.SCPrank.Contains(player.GetRankName()))
+				!plugin.AdminRanks.Contains(player.GetRankName()))
 			{
 				return new[]
 				{

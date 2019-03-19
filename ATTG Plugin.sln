@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTG3", "EventPlugin\ATTG3.csproj", "{8C731E0A-5D94-4D34-B971-252802FA8AA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTG Command Plugin", "EventPlugin\ATTG Command Plugin.csproj", "{8C731E0A-5D94-4D34-B971-252802FA8AA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTG4", "ATTG4\ATTG4.csproj", "{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTG Item Plugin", "ATTG4\ATTG Item Plugin.csproj", "{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATTG Test Plugin", "ATTG Log Plugin\ATTG Test Plugin.csproj", "{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,22 @@ Global
 		{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}.Release|x64.Build.0 = Release|Any CPU
 		{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}.Release|x86.ActiveCfg = Release|Any CPU
 		{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}.Release|x86.Build.0 = Release|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Debug|ARM.Build.0 = Debug|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Debug|x64.Build.0 = Debug|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Debug|x86.Build.0 = Debug|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Release|ARM.ActiveCfg = Release|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Release|ARM.Build.0 = Release|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Release|x64.ActiveCfg = Release|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Release|x64.Build.0 = Release|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Release|x86.ActiveCfg = Release|Any CPU
+		{77A7D65C-96E9-4D9C-B88F-2C79C86B63BF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
