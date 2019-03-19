@@ -97,9 +97,6 @@
     <Compile Include="Player Commands\L079.cs" />
     <Compile Include="Testing commands\Overcharge.cs" />
     <Compile Include="Testing commands\GenTime.cs" />
-    <Compile Include="Testing commands\DoorTP.cs" />
-    <Compile Include="Testing commands\Data.cs" />
-    <Compile Include="Testing commands\Sign.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Vote Stuff\VoteBC.cs" />

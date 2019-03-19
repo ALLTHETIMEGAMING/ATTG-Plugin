@@ -2,11 +2,6 @@
 using Smod2.Attributes;
 using Smod2.Config;
 using Smod2.Events;
-using System;
-using Smod2;
-using Smod2.API;
-using System.IO;
-using System.Collections.Generic;
 
 namespace ATTG3
 {
@@ -35,18 +30,9 @@ namespace ATTG3
 		public bool Disable { get; set; } = false;
 		public int Yes { get; set; }
 		public int No { get; set; }
-		public bool ServerData = false;
-		public int Roundnum = 0;
-		public static string attgfolder = FileManager.GetAppFolder() + "ATTG";
-		public static string Rooms = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Rooms.txt";
-		public static string Tlesla = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Tlesla.txt";
-		public static string Doors = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Door.txt";
-		public static string Gen = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Generator.txt";
-		public static string Cam = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Camera.txt";
-		public static string Spawn = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Spawn.txt";
 		public override void Register()
 		{
-			Instance = this;
+			Instance=this;
 			Timing.Init(this);
 			Timing2.Init(this);
 			// Configs
@@ -104,43 +90,15 @@ namespace ATTG3
 		public void ReloadConfig()
 		{
 			// Command Perms
-			AdminRanks = GetConfigList("attg_ranks");
-			Voterank = GetConfigList("attg_vote_ranks");
-			SCPrank = GetConfigList("attg_scp_ranks");
-			Allrank = GetConfigList("attg_all_ranks");
+			AdminRanks=GetConfigList("attg_ranks");
+			Voterank=GetConfigList("attg_vote_ranks");
+			SCPrank=GetConfigList("attg_scp_ranks");
+			Allrank=GetConfigList("attg_all_ranks");
 			//Dissable Config
-			Disable = GetConfigBool("attg_command_disable");
+			Disable=GetConfigBool("attg_command_disable");
 		}
 		public override void OnEnable()
 		{
-			if (!Directory.Exists(attgfolder))
-			{
-				Directory.CreateDirectory(attgfolder);
-			}
-			if (!File.Exists(Rooms))
-			{
-				using (new StreamWriter(File.Create(Rooms))) { }
-			}
-			if (!File.Exists(Doors))
-			{
-				using (new StreamWriter(File.Create(Doors))) { }
-			}
-			if (!File.Exists(Tlesla))
-			{
-				using (new StreamWriter(File.Create(Tlesla))) { }
-			}
-			if (!File.Exists(Gen))
-			{
-				using (new StreamWriter(File.Create(Gen))) { }
-			}
-			if (!File.Exists(Cam))
-			{
-				using (new StreamWriter(File.Create(Cam))) { }
-			}
-			if (!File.Exists(Spawn))
-			{
-				using (new StreamWriter(File.Create(Spawn))) { }
-			}
 			Info("ATTG Command Plugin enabled.");
 		}
 		public override void OnDisable()
