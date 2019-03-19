@@ -80,8 +80,7 @@ namespace ATTG3
             this.AddCommand("AGSPEED", new Speed(this));
             this.AddCommand("AGSHAKE", new Shake(this));
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
-            this.AddEventHandlers(new No(this));
-            this.AddEventHandlers(new Yes(this));
+            this.AddEventHandlers(new Vote(this));
         }
         public void ReloadConfig()
         {

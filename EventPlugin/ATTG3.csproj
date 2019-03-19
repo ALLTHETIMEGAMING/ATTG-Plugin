@@ -90,8 +90,7 @@
     <Compile Include="LevenshteinDistance.cs" />
     <Compile Include="Player Commands\L079.cs" />
     <Compile Include="Timing2.cs" />
-    <Compile Include="Vote Stuff\PublicVoteNo.cs" />
-    <Compile Include="Vote Stuff\PublicVoteYes.cs" />
+    <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Vote Stuff\VoteBC.cs" />
     <Compile Include="Vote Stuff\VoteA.cs" />
     <Compile Include="Vote Stuff\VoteAD.cs" />
