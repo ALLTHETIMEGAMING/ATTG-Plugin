@@ -8,7 +8,7 @@ namespace ATTG4
 {
     public class ZOM : CustomItem
     {
-        private readonly ATTG4Plugin plugin;
+        
         public static SmodPlayer SmodPlayer { get; private set; }
         public override bool OnPickup()
         {

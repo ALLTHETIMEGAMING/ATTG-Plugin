@@ -12,7 +12,7 @@ namespace ATTG3
         IConfigFile Config => ConfigManager.Manager.Config;
         public L079(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
-        public string GetUsage() => "";
+        public string GetUsage() => "Makes 079 Level 5";
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
@@ -35,7 +35,7 @@ namespace ATTG3
                 {
                     myPlayer.Scp079Data.ShowLevelUp(5);
                     myPlayer.Scp079Data.APPerSecond=1000;
-                    myPlayer.Scp079Data.MaxAP=100000000;
+                    myPlayer.Scp079Data.MaxAP=100000;
                     myPlayer.Scp079Data.Level=4;
                     return new string[] { myPlayer.Name+" Leveled up" };
                 }
@@ -44,7 +44,7 @@ namespace ATTG3
             }
             else
             {
-                return new string[] { GetUsage() };
+                return new string[] { "AGL079" + GetUsage() };
             }
         }
     }

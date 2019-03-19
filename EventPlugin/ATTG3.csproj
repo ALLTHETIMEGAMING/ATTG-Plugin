@@ -49,6 +49,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\References\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\References\UnityEngine.dll</HintPath>
     </Reference>
@@ -64,6 +67,9 @@
     <Reference Include="UnityEngine.PhysicsModule">
       <HintPath>..\References\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\References\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Disable.cs" />
@@ -71,6 +77,7 @@
     <Compile Include="Commands\ELES.cs" />
     <Compile Include="Commands\Help.cs" />
     <Compile Include="Commands\Shake.cs" />
+    <Compile Include="File Stuff\FS.cs" />
     <Compile Include="Player Commands\Speed2.cs" />
     <Compile Include="Player Commands\Speed.cs" />
     <Compile Include="Commands\Tlesla.cs" />
@@ -89,6 +96,12 @@
     <Compile Include="Player Commands\Ammo.cs" />
     <Compile Include="LevenshteinDistance.cs" />
     <Compile Include="Player Commands\L079.cs" />
+    <Compile Include="File Stuff\Camerapos.cs" />
+    <Compile Include="Testing commands\Overcharge.cs" />
+    <Compile Include="Testing commands\GenTime.cs" />
+    <Compile Include="Testing commands\DoorTP.cs" />
+    <Compile Include="Testing commands\Data.cs" />
+    <Compile Include="Testing commands\Sign.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Vote Stuff\VoteBC.cs" />
@@ -109,8 +122,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Testing commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

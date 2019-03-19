@@ -1,15 +1,14 @@
-﻿using Smod2;
-using Smod2.API;
+﻿using Smod2.API;
 using Smod2.Commands;
+using System.Collections.Generic;
 using System.Linq;
-
 namespace ATTG3
 {
-    class VoteBC : ICommandHandler
+    class Overcharge : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        public float Desplay = 0f;
-        public VoteBC(ATTG3Plugin plugin)
+        private bool running;
+        public Overcharge(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
             this.plugin=plugin;
@@ -17,28 +16,29 @@ namespace ATTG3
         public string GetCommandDescription()
         {
             // This prints when someone types HELP HELLO
-            return "Displays how to vote";
+            return "";
         }
         public string GetUsage()
         {
             // This prints when someone types HELP HELLO
-            return "AGVOTEBC";
+            return "HCZ Overcharge";
         }
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
                 sender is Player player&&
-                !plugin.Voterank.Contains(player.GetRankName()))
+                !plugin.SCPrank.Contains(player.GetRankName()))
             {
                 return new[]
                 {
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-            PluginManager.Manager.Server.Map.Broadcast(10, "Push ` and type .Yes or .No to vote", false);
-            return new[]
-            {
-                $"Vote help desplayed."
+			Generator079.generators[0].CallRpcOvercharge();
+
+			return new[]
+			{
+				$"Overcharge Actavated."
             };
         }
     }

@@ -18,7 +18,7 @@ namespace ATTG4
         )]
     public class ATTG4Plugin : Smod2.Plugin
     {
-        internal static ATTG4Plugin plugin;
+        
         public static ATTG4Plugin Instance { get; private set; }
         public CustomItemHandler<LAR> Handler1 { get; private set; }
         public CustomItemHandler<O49> Handler2 { get; private set; }
