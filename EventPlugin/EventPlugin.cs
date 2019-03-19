@@ -34,7 +34,8 @@ namespace ATTG3
 		public bool Disable { get; set; } = false;
 		public int Yes { get; set; }
 		public int No { get; set; }
-		public bool Camgrab = false;
+		public bool ServerData = false;
+		public int Roundnum = 0;
 		public static string attgfolder = FileManager.GetAppFolder() + "ATTG";
 		public static string Rooms = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Rooms.txt";
 		public static string Tlesla = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Tlesla.txt";
@@ -93,6 +94,8 @@ namespace ATTG3
 			this.AddCommand("AGSHAKE", new Shake(this));
 			this.AddCommand("AG079T", new GenTime(this));
 			this.AddCommand("TEST", new Camerapos(this));
+			this.AddCommand("DATA", new Data(this));
+			this.AddCommand("Over", new Overcharge(this));
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
 			this.AddEventHandlers(new No(this));
 			this.AddEventHandlers(new Yes(this));

@@ -6,11 +6,11 @@ using TMPro;
 
 namespace ATTG3
 {
-	class Campos : ICommandHandler
+	class Data : ICommandHandler
 	{
 		private readonly ATTG3Plugin plugin;
 		
-		public Campos(ATTG3Plugin plugin)
+		public Data(ATTG3Plugin plugin)
 		{
 			//Constructor passing plugin refrence to this class
 			this.plugin = plugin;
@@ -36,10 +36,10 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-			plugin.Camgrab = !plugin.Camgrab;
+			plugin.ServerData = !plugin.ServerData;
 				return new[]
 			{
-				$"Camera Pos Grabing is {(plugin.Camgrab ? "on" : "off")}."
+				$"Camera Pos Grabing is {(plugin.ServerData ? "on" : "off")}."
 			};
 			
 			
