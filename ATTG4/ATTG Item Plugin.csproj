@@ -7,7 +7,7 @@
     <ProjectGuid>{78C6D3AC-0715-4020-8AB2-E4F28E3AF105}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>ATTG4</RootNamespace>
-    <AssemblyName>ATTG4</AssemblyName>
+    <AssemblyName>ATTG-ITEM</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>

@@ -95,8 +95,6 @@ namespace ATTG3
 			this.AddCommand("AGSPEED", new Speed(this));
 			this.AddCommand("AGSHAKE", new Shake(this));
 			this.AddCommand("AG079T", new GenTime(this));
-			this.AddCommand("TEST", new Camerapos(this));
-			this.AddCommand("DATA", new Data(this));
 			this.AddCommand("Over", new Overcharge(this));
 			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));
