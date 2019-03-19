@@ -21,19 +21,8 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 
 [Trello Page](https://trello.com/b/YpKW1b8p/event-plugin)
 
-# Item DLC
-| Item ID       | Description |
-| :-------------: | :---------: | 
-| 200 | Medkit that changes player into SCP-106 |
-| 201 | Medkit that changes player into SCP-049 |
-| 202 | Medkit that changes player into SCP-939 |
-| 203 | Medkit that changes player into SCP-173 |
-| 204 | Medkit that changes player into SCP-096 |
-| 205 | Medkit that changes player into SCP-049-2 |
-| 206 | Medkit that changes player into SCP-079 |
-| 207 | Medkit that teleports player back to where he picked up the item after 1 min |
 
-# Commands
+# ATTG Command Plugin
 | Command      | Parameters| Description |
 | :-------------: | :---------: | :---------: | 
 | AGTL | NONE | Turns on all Tesla |
@@ -55,23 +44,31 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGSPEEDA | Float | Sets speed of all 939s |
 | AG079T | Float | Sets Start time of all generators|
 
-
-
-# Config
-
-
-### Admin Config
+### ATTG Command Plugin Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_ranks | List | owner, coowner | Roles that can do all commands. |
 | attg_vote_ranks | List | owner, coowner, admin | Roles that do all voting commands. |
 | attg_command_disable_ranks | List | owner | Roles that can disable the ATTG Command Plugin. |
-| attg_item_disable_ranks | List | owner | Roles that can disable the Item DLC
+| attg_command_disable | Bool | false | Disables ATTG Command Plugin |
 
-### Other Config
+# Item DLC
+| Item ID       | Description |
+| :-------------: | :---------: | 
+| 200 | Medkit that changes player into SCP-106 |
+| 201 | Medkit that changes player into SCP-049 |
+| 202 | Medkit that changes player into SCP-939 |
+| 203 | Medkit that changes player into SCP-173 |
+| 204 | Medkit that changes player into SCP-096 |
+| 205 | Medkit that changes player into SCP-049-2 |
+| 206 | Medkit that changes player into SCP-079 |
+| 207 | Medkit that teleports player back to where he picked up the item after 1 min |
+
+
+### ATTG Item Plugin Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
-| attg_command_disable | Bool | false | Disables ATTG Command Plugin |
+| attg_item_disable_ranks | List | owner | Roles that can disable the Item DLC |
 | attg_item_disable | Bool | false | Disables ATTG Item Plugin |
 
 # Thanks
