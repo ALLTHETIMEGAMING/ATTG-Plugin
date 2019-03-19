@@ -65,7 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATTG Log Plugin.cs" />
+    <Compile Include="ATTG Test Plugin.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Camerapos.cs" />
