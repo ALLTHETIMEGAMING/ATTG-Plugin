@@ -24,7 +24,8 @@ namespace ATTG_Test
         {
             if (plugin.ServerData)
             {
-                foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA))
+				FL=new ATTG_Test.Filestuff();
+				foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA))
                 {
 
                     string Round = "Round: "+plugin.Server.Round+Environment.NewLine;
