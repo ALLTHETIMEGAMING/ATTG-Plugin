@@ -4,6 +4,8 @@ using Smod2.EventHandlers;
 using Smod2.Events;
 using System;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ATTG_Test
 {
@@ -88,7 +90,33 @@ namespace ATTG_Test
                     FL.Setfile3(line);
 
                 }
+                foreach (Elevator elevator in PluginManager.Manager.Server.Map.GetElevators())
+                {
+                    List<Vector> ele = elevator.GetPositions();
+                    string Round = "Round: "+plugin.Server.Round+Environment.NewLine;
+                    string Map = "Map: "+plugin.Server.Map+Environment.NewLine;
+                    string pos = "Position: "+ ele + Environment.NewLine;
+                    string line = "------------------------------"+Environment.NewLine;
+                    FL.Setfile6(Round);
+                    FL.Setfile6(Map);
+                    FL.Setfile6(pos);
+                    FL.Setfile6(line);
 
+                }
+                Dictionary<Vector, Vector> eletele = new Dictionary<Vector, Vector>();
+                eletele=PluginManager.Manager.Server.Map.GetElevatorTeleportPoints();
+                foreach (KeyValuePair<Vector, Vector> eleteleport in eletele)
+                {
+                    
+                    string Round = "Round: "+plugin.Server.Round+Environment.NewLine;
+                    string Map = "Map: "+plugin.Server.Map+Environment.NewLine;
+                    string pos = "Position: " + eleteleport.ToString() + Environment.NewLine;
+                    string line = "------------------------------"+Environment.NewLine;
+                    FL.Setfile7(Round);
+                    FL.Setfile7(Map);
+                    FL.Setfile7(pos);
+                    FL.Setfile7(line);
+                }
             }
         }
         public void On079CameraTeleport(Player079CameraTeleportEvent ev)

@@ -19,7 +19,7 @@ namespace ATTG_Test
         SmodMajor = 3,
         SmodMinor = 3,
         SmodRevision = 0,
-        version = "1.0.0"
+        version = "1.1.0"
         )]
     public class ATTGLogPlugin : Smod2.Plugin
     {
@@ -37,6 +37,8 @@ namespace ATTG_Test
         public static string Gen = FileManager.GetAppFolder()+"ATTG"+Path.DirectorySeparatorChar+"Generator.txt";
         public static string Cam = FileManager.GetAppFolder()+"ATTG"+Path.DirectorySeparatorChar+"Camera.txt";
         public static string Spawn = FileManager.GetAppFolder()+"ATTG"+Path.DirectorySeparatorChar+"Spawn.txt";
+        public static string Elevator = FileManager.GetAppFolder()+"ATTG"+Path.DirectorySeparatorChar+"Elevator.txt";
+        public static string Elevator2 = FileManager.GetAppFolder()+"ATTG"+Path.DirectorySeparatorChar+"ElevatorTeleport.txt";
         public override void Register()
         {
             Instance=this;
@@ -93,11 +95,19 @@ namespace ATTG_Test
             {
                 using (new StreamWriter(File.Create(Spawn))) { }
             }
-            Info("ATTG Command Plugin enabled.");
+            if (!File.Exists(Elevator))
+            {
+                using (new StreamWriter(File.Create(Elevator))) { }
+            }
+            if (!File.Exists(Elevator2))
+            {
+                using (new StreamWriter(File.Create(Elevator2))) { }
+            }
+            Info("ATTG Test Plugin enabled.");
         }
         public override void OnDisable()
         {
-            Info("ATTG Command Plugin disabled.");
+            Info("ATTG Test Plugin disabled.");
         }
     }
 }

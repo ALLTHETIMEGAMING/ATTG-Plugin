@@ -40,5 +40,18 @@ namespace ATTG_Test
 
 			return new string[] { "Done" };
 		}
-	}
+        public string[] Setfile6(string text)
+        {
+            File.AppendAllText(ATTGLogPlugin.Elevator, text);
+
+            return new string[] { "Done" };
+        }
+        public string[] Setfile7(string text)
+        {
+            File.AppendAllText(ATTGLogPlugin.Elevator2, text);
+
+            return new string[] { "Done" };
+        }
+
+    }
 }
