@@ -2,6 +2,13 @@
 using Smod2.Attributes;
 using Smod2.Config;
 using Smod2.Events;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Smod2.EventHandlers;
+using Smod2;
+using Smod2.API;
+using Smod2.Commands;
 
 namespace ATTG3
 {
@@ -30,7 +37,8 @@ namespace ATTG3
 		public bool Disable { get; set; } = false;
 		public int Yes { get; set; }
 		public int No { get; set; }
-		public override void Register()
+        public List<string> Doorperms;
+        public override void Register()
 		{
 			Instance=this;
 			Timing.Init(this);
@@ -99,7 +107,14 @@ namespace ATTG3
 		}
 		public override void OnEnable()
 		{
-			Info("ATTG Command Plugin enabled.");
+            foreach (Smod2.API.Door door in PluginManager.Manager.Server.Map.GetDoors())
+            {
+                if (door.Name!=null)
+                {
+                    Doorperms.Add(door.Name);
+                }
+            }
+                Info("ATTG Command Plugin enabled.");
 		}
 		public override void OnDisable()
 		{

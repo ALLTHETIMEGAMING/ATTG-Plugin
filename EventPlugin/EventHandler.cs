@@ -10,10 +10,11 @@ using System;
 using System.IO;
 using UnityEngine;
 
+
 namespace ATTG3
 {
-	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown
-	{
+	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess
+    {
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
 
@@ -39,7 +40,19 @@ namespace ATTG3
 				}
 			}
 		}
-	}
+        public void OnDoorAccess(PlayerDoorAccessEvent ev)
+        {
+            Player player = ev.Player;
+            if (plugin.Doorperms.Contains(ev.Door.Name)){
+                if (player.HasItem(ItemType.O5_LEVEL_KEYCARD))
+                {
+                    ev.Allow = true;
+                }
+
+            }
+
+        }
+    }
 }
 
 
