@@ -39,7 +39,7 @@ namespace ATTG3
             if (ev.Door.Permission=="CONT_LVL_3")
             {
                 if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
-                   
+                    player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD))
                 {
                     ev.Allow=true;
                 }
