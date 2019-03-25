@@ -38,8 +38,6 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-			
-
 			running=!running;
 			if (running)
 			{
