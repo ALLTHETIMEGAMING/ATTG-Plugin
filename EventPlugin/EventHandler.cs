@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace ATTG3
 {
-	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerGeneratorAccess, IEventHandlerPlayerDie
+	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -133,15 +133,15 @@ namespace ATTG3
 				}
 			}
 		}
-		public void OnGeneratorAccess(PlayerGeneratorAccessEvent ev)
+		public void OnGeneratorUnlock(PlayerGeneratorUnlockEvent ev)
 		{
 			Player player = ev.Player;
-			Generator gen =ev.Generator;
+			Generator gen = ev.Generator;
 
 			if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
 					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
 			{
-				ev.Allow = true;
+				gen.Unlock();
 			}
 		}
 		public void OnPlayerDie(PlayerDeathEvent ev)
