@@ -1,23 +1,18 @@
-﻿using scp4aiur;
-using Smod2.Attributes;
-using Smod2.Config;
-using Smod2.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Smod2.EventHandlers;
 using Smod2;
 using Smod2.API;
 using Smod2.Commands;
 using UnityEngine;
-using RemoteAdmin;
+using UnityEngine.Networking;
+using Object = System.Object;
 
 namespace ATTG3
 {
-	class Test : ICommandHandler
+	class Test : NetworkBehaviour, ICommandHandler
 	{
 		private readonly ATTG3Plugin plugin;
-		public static GameObject local;
+		public GameObject local;
 		public Test(ATTG3Plugin plugin)
 		{
 			//Constructor passing plugin refrence to this class
@@ -44,7 +39,19 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-			PlayerList.AddPlayer(local);
+			Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
+			if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; ; }
+			if (args.Length>1)
+			{
+				GameObject player2 = (GameObject)myPlayer.GetGameObject();
+				GameObject Test = Instantiate(player2);
+				PlayerList.AddPlayer(Test);
+
+
+
+
+			}
+				
 			return new[]
 			{
 				$""

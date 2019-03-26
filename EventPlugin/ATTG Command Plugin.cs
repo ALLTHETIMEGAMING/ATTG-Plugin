@@ -70,10 +70,7 @@ namespace ATTG3
 				"owner"
 			}, SettingType.LIST, true, "Valid ranks for all Commands"));
 
-			AddConfig(new ConfigSetting("attg_049_infect", new[]
-		{
-				true
-			}, SettingType.BOOL, true, "Makes SCP-049 revive instantly"));
+			AddConfig(new ConfigSetting("attg_049_infect", true, SettingType.BOOL, true, "Makes SCP-049 revive instantly"));
 
 			ReloadConfig();
 			this.AddCommand("AGTL", new Tleslad(this));
