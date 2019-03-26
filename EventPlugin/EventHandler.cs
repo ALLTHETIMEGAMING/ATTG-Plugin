@@ -6,7 +6,7 @@ using Smod2.Events;
 
 namespace ATTG3
 {
-    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess
+    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerGeneratorAccess
     {
         private readonly ATTG3Plugin plugin;
         public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -129,7 +129,20 @@ namespace ATTG3
                 }
             }
         }
-    }
+
+		public void OnGeneratorAccess(PlayerGeneratorAccessEvent ev)
+		{
+
+
+
+
+
+
+
+
+
+		}
+	}
 }
 
 
