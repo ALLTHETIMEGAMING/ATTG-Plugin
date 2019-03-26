@@ -135,14 +135,14 @@ namespace ATTG3
 		}
 		public void OnGeneratorAccess(PlayerGeneratorAccessEvent ev)
 		{
+			Player player = ev.Player;
+			Generator gen =ev.Generator;
 
-
-
-
-
-
-
-
+			if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
+			{
+				ev.Allow = true;
+			}
 		}
 		public void OnPlayerDie(PlayerDeathEvent ev)
 		{
