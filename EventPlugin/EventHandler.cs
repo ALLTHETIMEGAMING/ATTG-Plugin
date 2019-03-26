@@ -12,7 +12,8 @@ namespace ATTG3
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
 		Player Killed;
-		int Wait;
+		int Wait = 0;
+		bool Running = false;
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			if (plugin.Disable)
@@ -23,6 +24,7 @@ namespace ATTG3
 			plugin.Voteopen=false;
 			plugin.Yes=0;
 			plugin.No=0;
+			plugin.Lights=false;
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{
@@ -131,7 +133,6 @@ namespace ATTG3
 				}
 			}
 		}
-
 		public void OnGeneratorAccess(PlayerGeneratorAccessEvent ev)
 		{
 
@@ -145,26 +146,35 @@ namespace ATTG3
 		}
 		public void OnPlayerDie(PlayerDeathEvent ev)
 		{
-
-			Smod2.API.Player test;
-			test=ev.Killer;
-			Killed=ev.Player;
-			if (test.TeamRole.Role==Role.SCP_049)
+			if (plugin.O49infect)
 			{
-				Timing.Run(TimingDelay(1));
-				if (Wait==1)
+				Smod2.API.Player test;
+				test=ev.Killer;
+				Killed=ev.Player;
+				if (test.TeamRole.Role==Role.SCP_049)
 				{
-					Killed.ChangeRole(Smod2.API.Role.SCP_049_2, false, false, false, true);
-					Wait=0;
+					Running=true;
+					Timing.Run(TimingDelay(1));
+
 				}
 			}
 		}
 		private IEnumerable<float> TimingDelay(float time)
 		{
-
-			Wait++;
-			yield return 1;
-
+			while (Running)
+			{
+				if (Wait==0)
+				{
+					Wait++;
+				}
+				if (Wait==1)
+				{
+					Running=false;
+					Killed.ChangeRole(Smod2.API.Role.SCP_049_2, false, false, false, true);
+					Wait=0;
+				}
+				yield return 1;
+			}
 		}
 	}
 }

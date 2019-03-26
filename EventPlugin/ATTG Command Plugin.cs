@@ -37,7 +37,8 @@ namespace ATTG3
 		public bool Disable { get; set; } = false;
 		public int Yes { get; set; }
 		public int No { get; set; }
-        public List<string> Doorperms;
+		public bool Lights { get; set; }
+		public bool O49infect { get; set; }
         public override void Register()
 		{
 			Instance=this;
@@ -68,6 +69,12 @@ namespace ATTG3
 			{
 				"owner"
 			}, SettingType.LIST, true, "Valid ranks for all Commands"));
+
+			AddConfig(new ConfigSetting("attg_049_infect", new[]
+		{
+				"true"
+			}, SettingType.BOOL, true, "Makes SCP-049 revive instantly"));
+
 			ReloadConfig();
 			this.AddCommand("AGTL", new Tleslad(this));
 			this.AddCommand("AGEL", new ELEL(this));
@@ -89,7 +96,7 @@ namespace ATTG3
 			this.AddCommand("AGSPEED", new Speed(this));
 			this.AddCommand("AGSHAKE", new Shake(this));
 			this.AddCommand("AG079T", new GenTime(this));
-			this.AddCommand("Over", new Overcharge(this));
+			this.AddCommand("Lights", new Overcharge(this));
 			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));
 
@@ -104,16 +111,11 @@ namespace ATTG3
 			Allrank=GetConfigList("attg_all_ranks");
 			//Dissable Config
 			Disable=GetConfigBool("attg_command_disable");
+			// Other
+			O49infect=GetConfigBool("attg_049_infect");
 		}
 		public override void OnEnable()
 		{
-            foreach (Smod2.API.Door door in PluginManager.Manager.Server.Map.GetDoors())
-            {
-                if (door.Name!=null)
-                {
-                    Doorperms.Add(door.Name);
-                }
-            }
                 Info("ATTG Command Plugin enabled.");
 		}
 		public override void OnDisable()
