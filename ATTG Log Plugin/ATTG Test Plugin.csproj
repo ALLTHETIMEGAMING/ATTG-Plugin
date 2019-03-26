@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="ATTG Test Plugin.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Disable.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="Camerapos.cs" />
     <Compile Include="FS.cs" />

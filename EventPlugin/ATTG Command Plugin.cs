@@ -72,7 +72,7 @@ namespace ATTG3
 
 			AddConfig(new ConfigSetting("attg_049_infect", new[]
 		{
-				"true"
+				true
 			}, SettingType.BOOL, true, "Makes SCP-049 revive instantly"));
 
 			ReloadConfig();
@@ -96,7 +96,7 @@ namespace ATTG3
 			this.AddCommand("AGSPEED", new Speed(this));
 			this.AddCommand("AGSHAKE", new Shake(this));
 			this.AddCommand("AG079T", new GenTime(this));
-			this.AddCommand("Lights", new Overcharge(this));
+			this.AddCommand("AGLights", new Overcharge(this));
 			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));
 
