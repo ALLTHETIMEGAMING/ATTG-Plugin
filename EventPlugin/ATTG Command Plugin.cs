@@ -94,7 +94,6 @@ namespace ATTG3
 			this.AddCommand("AGSHAKE", new Shake(this));
 			this.AddCommand("AG079T", new GenTime(this));
 			this.AddCommand("AGLights", new Overcharge(this));
-			this.AddCommand("Dummy", new Test(this));
 			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));
 

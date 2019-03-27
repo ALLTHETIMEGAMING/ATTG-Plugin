@@ -4,7 +4,8 @@ using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using System.Collections.Generic;
-
+using UnityEngine;
+using System.Linq;
 namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock
@@ -12,6 +13,7 @@ namespace ATTG3
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
 		Player Killed;
+		public Scp096PlayerScript PlayerScript { get; private set; }
 		int Wait = 0;
 		bool Running = false;
 		public void OnRoundStart(RoundStartEvent ev)
@@ -40,7 +42,17 @@ namespace ATTG3
 		public void OnDoorAccess(PlayerDoorAccessEvent ev)
 		{
 			Player player = ev.Player;
-			if (ev.Door.Permission=="CONT_LVL_3")
+
+			if (ev.Player.TeamRole.Role==Role.SCP_096)
+			{
+				GameObject Obj = (GameObject)ev.Player.GetGameObject();
+				PlayerScript=Obj.GetComponent<Scp096PlayerScript>();
+				if (PlayerScript.Networkenraged == PlayerScript.enraged)
+				{
+					ev.Door.Open = true;
+				}
+			}
+			else if (ev.Door.Permission=="CONT_LVL_3")
 			{
 				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
 					player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD))
