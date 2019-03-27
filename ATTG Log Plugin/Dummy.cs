@@ -5,14 +5,12 @@ using Smod2.API;
 using Smod2.Commands;
 using UnityEngine;
 using UnityEngine.Networking;
-using Object = System.Object;
 
 namespace ATTG3
 {
-	class Test : NetworkBehaviour, ICommandHandler
+	class Test : NetworkManager, ICommandHandler
 	{
 		private readonly ATTG3Plugin plugin;
-		public GameObject local;
 		public Test(ATTG3Plugin plugin)
 		{
 			//Constructor passing plugin refrence to this class
@@ -43,10 +41,15 @@ namespace ATTG3
 			if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; ; }
 			if (args.Length>1)
 			{
-				GameObject player2 = (GameObject)myPlayer.GetGameObject();
-				GameObject Test = Instantiate(player2);
-				PlayerList.AddPlayer(Test);
 
+				Vector pos = myPlayer.GetPosition();
+				Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
+				GameObject Player = playerPrefab;
+				Vector3 Spawn = transform.TransformPoint(Spawnpoint);
+				GameObject Test = Instantiate(Player, Spawn.transform.TransformPoint);
+				
+				NetworkServer.Spawn(Test);
+				
 
 
 
@@ -54,7 +57,7 @@ namespace ATTG3
 				
 			return new[]
 			{
-				$""
+				$"Object Created"
 			};
 		}
 	}
