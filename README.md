@@ -17,8 +17,6 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 
 [SCP: Secret Laboratory Discord](https://discord.gg/scpsl )
 
-[Trello Page](https://trello.com/b/YpKW1b8p/event-plugin)
-
 
 # ATTG Command Plugin
 | Command      | Parameters| Description |
