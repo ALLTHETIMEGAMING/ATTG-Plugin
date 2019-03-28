@@ -47,7 +47,7 @@ namespace ATTG3
 			{
 				GameObject Obj = (GameObject)ev.Player.GetGameObject();
 				PlayerScript=Obj.GetComponent<Scp096PlayerScript>();
-				if (PlayerScript.Networkenraged == PlayerScript.enraged)
+				if (PlayerScript.Networkenraged == Scp096PlayerScript.RageState.Enraged)
 				{
 					ev.Door.Open = true;
 				}

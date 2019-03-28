@@ -73,7 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Disable.cs" />
-    <Compile Include="Commands\Dummy.cs" />
     <Compile Include="Commands\ELEL.cs" />
     <Compile Include="Commands\ELES.cs" />
     <Compile Include="Commands\Help.cs" />
