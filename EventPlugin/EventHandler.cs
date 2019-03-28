@@ -178,13 +178,13 @@ namespace ATTG3
 				}
 			}
 		}
-		public void OnSpawn(Smod2.Events.PlayerSpawnEvent ev)
+		public void OnSpawn(PlayerSpawnEvent ev)
 		{
-
-
-
-
-
+			if (plugin.Lights)
+			{
+				Player player = ev.Player;
+				player.GiveItem(ItemType.FLASHLIGHT);
+			}
 		}
 		private IEnumerable<float> TimingDelay(float time)
 		{

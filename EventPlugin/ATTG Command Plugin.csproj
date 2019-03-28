@@ -75,6 +75,7 @@
     <Compile Include="Commands\Disable.cs" />
     <Compile Include="Commands\ELEL.cs" />
     <Compile Include="Commands\ELES.cs" />
+    <Compile Include="Player Commands\Handcuff.cs" />
     <Compile Include="Commands\Help.cs" />
     <Compile Include="Commands\Shake.cs" />
     <Compile Include="Player Commands\Speed2.cs" />

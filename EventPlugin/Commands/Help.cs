@@ -49,7 +49,7 @@ namespace ATTG3
                 "(AGUP) (Players name) Forces player up",
                 "(AGDISABLE) Disables ATTG Command Plugin",
                 "(AGSHAKE) Shakes all players screens",
-				"(AG079T) (#) Changes Start time of all Generators",
+				"(AGLIGHTS) Turns off all lights in HCZ / LCZ",
                 "----------------------------------------",
                 "Plugin created by All The Time Gaming"
         };
