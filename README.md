@@ -11,7 +11,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 
 # Support
 
-[Event Plugin Discord](https://discord.gg/8bjsvST)
+[ATTG Plugin Discord](https://discord.gg/8bjsvST)
 
 [Smod Discord](https://discord.gg/nJRA2CT)
 
@@ -39,7 +39,7 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGSPEED | Player Name | Sets speed of player |
 | AGSPEEDA | Float | Sets speed of all 939s |
 | AG079T | Float | Sets Start time of all generators|
-| AGLIGHTS| NONE | Turns off all lights in LCZ and HCZ
+| AGLIGHTS| NONE | Turns off all lights in LCZ and HCZ |
 
 ### ATTG Command Plugin Config
 | Config        | Value Type | Default | Description |
