@@ -39,6 +39,7 @@ namespace ATTG3
 		public int No { get; set; }
 		public bool Lights { get; set; }
 		public bool O49infect { get; set; }
+		public bool O96Door { get; set; }
         public override void Register()
 		{
 			Instance=this;
@@ -71,6 +72,7 @@ namespace ATTG3
 			}, SettingType.LIST, true, "Valid ranks for all Commands"));
 
 			AddConfig(new ConfigSetting("attg_049_infect", true, SettingType.BOOL, true, "Makes SCP-049 revive instantly"));
+			AddConfig(new ConfigSetting("attg_096_door", true, SettingType.BOOL, true, "Makes SCP-096 able to open all doors when enraged"));
 
 			ReloadConfig();
 			this.AddCommand("AGTL", new Tleslad(this));
@@ -110,6 +112,7 @@ namespace ATTG3
 			Disable=GetConfigBool("attg_command_disable");
 			// Other
 			O49infect=GetConfigBool("attg_049_infect");
+			O96Door=GetConfigBool("attg_096_door");
 		}
 		public override void OnEnable()
 		{

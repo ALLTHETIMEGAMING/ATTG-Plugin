@@ -11,7 +11,6 @@ namespace ATTG3
 	class Overcharge : ICommandHandler
 	{
 		private readonly ATTG3Plugin plugin;
-		bool running;
 		public Overcharge(ATTG3Plugin plugin)
 		{
 			//Constructor passing plugin refrence to this class
