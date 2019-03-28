@@ -5,7 +5,6 @@ using Smod2.EventHandlers;
 using Smod2.Events;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock
@@ -42,118 +41,126 @@ namespace ATTG3
 		public void OnDoorAccess(PlayerDoorAccessEvent ev)
 		{
 			Player player = ev.Player;
-
-			if (ev.Player.TeamRole.Role==Role.SCP_096)
+			if (plugin.O96Door)
 			{
-				GameObject Obj = (GameObject)ev.Player.GetGameObject();
-				PlayerScript=Obj.GetComponent<Scp096PlayerScript>();
-				if (PlayerScript.Networkenraged == Scp096PlayerScript.RageState.Enraged)
+				if (ev.Player.TeamRole.Role==Role.SCP_096)
 				{
-					ev.Door.Open = true;
+					GameObject Obj = (GameObject)ev.Player.GetGameObject();
+					PlayerScript=Obj.GetComponent<Scp096PlayerScript>();
+					if (PlayerScript.Networkenraged==Scp096PlayerScript.RageState.Enraged)
+					{
+						ev.Door.Open=true;
+					}
 				}
 			}
-			else if (ev.Door.Permission=="CONT_LVL_3")
+			else if (plugin.NoCHand)
 			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
-					player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD))
+				if (ev.Door.Permission=="CONT_LVL_3")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
+						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
-			}
-			else if (ev.Door.Permission=="CONT_LVL_2")
-			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
-					player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-					player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD))
+				else if (ev.Door.Permission=="CONT_LVL_2")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
+						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
-			}
-			else if (ev.Door.Permission=="CONT_LVL_1")
-			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
-					player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-					player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD)||
-					player.HasItem(ItemType.GUARD_KEYCARD)||player.HasItem(ItemType.JANITOR_KEYCARD)||
-					player.HasItem(ItemType.SCIENTIST_KEYCARD))
+				else if (ev.Door.Permission=="CONT_LVL_1")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
+						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD)||
+						player.HasItem(ItemType.GUARD_KEYCARD)||player.HasItem(ItemType.JANITOR_KEYCARD)||
+						player.HasItem(ItemType.SCIENTIST_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
-			}
-			else if (ev.Door.Permission=="CHCKPOINT_ACC")
-			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
-					player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-					player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD)||
-					player.HasItem(ItemType.GUARD_KEYCARD))
+				else if (ev.Door.Permission=="CHCKPOINT_ACC")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
+						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD)||
+						player.HasItem(ItemType.GUARD_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
-			}
-			else if (ev.Door.Permission=="ARMORY_LVL_1")
-			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-					player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.GUARD_KEYCARD))
+				else if (ev.Door.Permission=="ARMORY_LVL_1")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.GUARD_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
-			}
-			else if (ev.Door.Permission=="ARMORY_LVL_2")
-			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-					player.HasItem(ItemType.SENIOR_GUARD_KEYCARD))
+				else if (ev.Door.Permission=="ARMORY_LVL_2")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
-			}
-			else if (ev.Door.Permission=="ARMORY_LVL_3")
-			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
+				else if (ev.Door.Permission=="ARMORY_LVL_3")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
-			}
-			else if (ev.Door.Permission=="ARMORY_LVL_1")
-			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-					player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.GUARD_KEYCARD))
+				else if (ev.Door.Permission=="ARMORY_LVL_1")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.GUARD_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
-			}
-			else if (ev.Door.Permission=="EXIT_ACC")
-			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD))
+				else if (ev.Door.Permission=="EXIT_ACC")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
-			}
-			else if (ev.Door.Permission=="INCOM_ACC")
-			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
+				else if (ev.Door.Permission=="INCOM_ACC")
 				{
-					ev.Allow=true;
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
+					{
+						ev.Allow=true;
+					}
 				}
 			}
 		}
 		public void OnGeneratorUnlock(PlayerGeneratorUnlockEvent ev)
 		{
-			Player player = ev.Player;
-			Generator gen = ev.Generator;
-
-			if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-					player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
+			if (plugin.NoCHand)
 			{
-				gen.Unlock();
+				Player player = ev.Player;
+				Generator gen = ev.Generator;
+
+				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
+				{
+					gen.Unlock();
+				}
 			}
 		}
 		public void OnPlayerDie(PlayerDeathEvent ev)
