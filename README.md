@@ -4,7 +4,7 @@ An Smod plugin that adds Admin commands to SCP:SL
 # Installation
 **[Smod2](https://github.com/Grover-c13/Smod2) must be installed for this to work.**
 
-Place the "ATTG3.dll" file in your sm_plugins folder.
+Place the "ATTG_Command.dll" file in your sm_plugins folder.
 # Request Forms
 
 [Command Request](https://goo.gl/forms/GW8Ic4UplluDDP592) 
