@@ -38,8 +38,8 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-			running=!running;
-			if (running)
+			plugin.Lights=!plugin.Lights;
+			if (plugin.Lights)
 			{
 				Timing.Run(TimingRunLights(PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType==ZoneType.LCZ).ToArray()));
 			}
@@ -51,7 +51,7 @@ namespace ATTG3
 
 		private IEnumerable<float> TimingRunLights(IReadOnlyList<Room> rooms)
 		{
-			while (running)
+			while (plugin.Lights)
 			{
 				Generator079.generators[0].CallRpcOvercharge();
 				foreach (Room room in rooms)
