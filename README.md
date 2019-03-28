@@ -9,8 +9,6 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 
 [Command Request](https://goo.gl/forms/GW8Ic4UplluDDP592) 
 
-[Item Request](https://goo.gl/forms/yMY8dRiiafXGqW3y2)
-
 # Support
 
 [Event Plugin Discord](https://discord.gg/8bjsvST)
@@ -43,33 +41,18 @@ Place the "ATTG3.dll" file in your sm_plugins folder.
 | AGSPEED | Player Name | Sets speed of player |
 | AGSPEEDA | Float | Sets speed of all 939s |
 | AG079T | Float | Sets Start time of all generators|
+| AGLIGHTS| NONE | Turns off all lights in LCZ and HCZ
 
 ### ATTG Command Plugin Config
 | Config        | Value Type | Default | Description |
 | :-------------: | :---------: | :---------: |:------ |
 | attg_ranks | List | owner, coowner | Roles that can do all commands. |
 | attg_vote_ranks | List | owner, coowner, admin | Roles that do all voting commands. |
+| attg_049_infect | Bool | True | Makes SCP-049 revive instantly |
+| attg_096_door | Bool | True | Makes SCP-096 able to open all doors when enraged |
+| attg_card_hand | Bool | True | Makes all players able to open keycard doors with out a keycard in hand |
 | attg_command_disable_ranks | List | owner | Roles that can disable the ATTG Command Plugin. |
 | attg_command_disable | Bool | false | Disables ATTG Command Plugin |
-
-# Item DLC
-| Item ID       | Description |
-| :-------------: | :---------: | 
-| 200 | Medkit that changes player into SCP-106 |
-| 201 | Medkit that changes player into SCP-049 |
-| 202 | Medkit that changes player into SCP-939 |
-| 203 | Medkit that changes player into SCP-173 |
-| 204 | Medkit that changes player into SCP-096 |
-| 205 | Medkit that changes player into SCP-049-2 |
-| 206 | Medkit that changes player into SCP-079 |
-| 207 | Medkit that teleports player back to where he picked up the item after 1 min |
-
-
-### ATTG Item Plugin Config
-| Config        | Value Type | Default | Description |
-| :-------------: | :---------: | :---------: |:------ |
-| attg_item_disable_ranks | List | owner | Roles that can disable the Item DLC |
-| attg_item_disable | Bool | false | Disables ATTG Item Plugin |
 
 # Thanks
 Some of the code that I am using was made by 
