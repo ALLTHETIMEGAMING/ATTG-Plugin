@@ -5,11 +5,11 @@ using Smod2.Commands;
 
 namespace ATTG3
 {
-    class Handcuff : ICommandHandler
+    class Unhandcuff : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
 		Server Server => PluginManager.Manager.Server;
-		public Handcuff(ATTG3Plugin plugin)
+		public Unhandcuff(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
             this.plugin = plugin;
@@ -22,7 +22,7 @@ namespace ATTG3
         public string GetUsage()
         {
             // This prints when someone types HELP HELLO
-            return "Handcuffs player ";
+            return "Unhandcuffs player ";
         }
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
@@ -44,7 +44,7 @@ namespace ATTG3
 				if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
 				if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
 				{
-					caller.HandcuffPlayer(myPlayer);
+					myPlayer.RemoveHandcuffs();
 					return new string[] { myPlayer.Name+" has been handcuffed" };
 				}
 				else
@@ -52,7 +52,7 @@ namespace ATTG3
 			}
 			else
 			{
-				return new string[] { "AGHAND: "+GetUsage() };
+				return new string[] { "AGUNHAND: "+GetUsage() };
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-﻿/*using System.Linq;
+﻿using System.Linq;
 using Smod2.EventHandlers;
 using Smod2;
 using Smod2.API;
@@ -6,12 +6,12 @@ using Smod2.Commands;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace ATTG3
+namespace ATTGL
 {
 	class Test : NetworkManager, ICommandHandler
 	{
-		private readonly ATTG3Plugin plugin;
-		public Test(ATTG3Plugin plugin)
+		private readonly ATTGLogPlugin plugin;
+		public Test(ATTGLogPlugin plugin)
 		{
 			//Constructor passing plugin refrence to this class
 			this.plugin=plugin;
@@ -42,19 +42,15 @@ namespace ATTG3
 			if (args.Length>1)
 			{
 
-				Vector pos = myPlayer.GetPosition();
-				Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
-				GameObject Player = playerPrefab;
-				Vector3 Spawn = transform.TransformPoint(Spawnpoint);
-				GameObject Test = Instantiate(Player, Spawn.transform.TransformPoint);
+				Class @class = klasy[curClass];
+				GameObject val = Object.Instantiate<GameObject>(@class.model_ragdoll);
 				
-				NetworkServer.Spawn(Test);
-				
+
 
 
 
 			}
-				
+
 			return new[]
 			{
 				$"Object Created"
@@ -62,4 +58,4 @@ namespace ATTG3
 		}
 	}
 }
-*/
+
