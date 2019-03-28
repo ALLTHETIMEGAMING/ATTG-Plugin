@@ -119,7 +119,7 @@ namespace ATTG3
 		}
 		public override void OnEnable()
 		{
-                Info("ATTG Command Plugin enabled.");
+            Info("ATTG Command Plugin enabled.");
 		}
 		public override void OnDisable()
 		{
