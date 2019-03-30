@@ -53,7 +53,7 @@ namespace ATTG3
 					}
 				}
 			}
-			else if (plugin.NoCHand)
+			if (plugin.NoCHand)
 			{
 				if (ev.Door.Permission=="CONT_LVL_3")
 				{
@@ -200,7 +200,7 @@ namespace ATTG3
 					Killed.ChangeRole(Smod2.API.Role.SCP_049_2, false, false, false, true);
 					Wait=0;
 				}
-				yield return 1;
+				yield return 30;
 			}
 		}
 	}
