@@ -165,7 +165,7 @@ namespace ATTG3
 		}
 		public void OnPlayerDie(PlayerDeathEvent ev)
 		{
-			if (plugin.O49infect)
+			if (plugin.O49infect && 
 			{
 				Smod2.API.Player test;
 				test=ev.Killer;
