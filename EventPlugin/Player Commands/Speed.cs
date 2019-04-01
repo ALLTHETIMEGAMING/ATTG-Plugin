@@ -11,11 +11,10 @@ namespace ATTG3
     {
         private readonly ATTG3Plugin plugin;
         public Player myPlayer;
-        private bool running;
-
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public Scp939PlayerScript PlayerScript { get; private set; }
+		public float converted;
+		public Scp939PlayerScript PlayerScript { get; private set; }
         public Speed(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "Makes a player that is SCP-939 fast";
@@ -39,13 +38,24 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role==Role.SCP_939_53||myPlayer.TeamRole.Role==Role.SCP_939_89)
                 {
-                    running=!running;
-                    if (running)
+					plugin.Running939P=!plugin.Running939P;
+                    if (plugin.Running939P)
                     {
-                        Timing.Run(TimingDelay(0.1f));
+						if (args.Length>1)
+						{
+							converted=float.Parse(args[1]);
+						}
+						else
+						{
+							converted=5f;
+						}
+						Timing.Run(TimingDelay(0.1f));
                     }
                     return new string[] { myPlayer.Name+" has been given Super speed!" };
                 }
+				
+
+
                 else
                     return new string[] { myPlayer.Name+" is not scp 939" };
             }
@@ -56,12 +66,12 @@ namespace ATTG3
         }
         private IEnumerable<float> TimingDelay(float time)
         {
-            while (running)
+            while (plugin.Running939P)
             {
                 GameObject playerObj = (GameObject)myPlayer.GetGameObject();
                 PlayerScript=playerObj.GetComponent<Scp939PlayerScript>();
                 PlayerScript.NetworkspeedMultiplier=5;
-                yield return 0.5f;
+                yield return converted;
             }
         }
     }

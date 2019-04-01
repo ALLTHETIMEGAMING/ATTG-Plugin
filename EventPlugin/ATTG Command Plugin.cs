@@ -27,6 +27,7 @@ namespace ATTG3
 	{
 
 		public static ATTG3Plugin Instance { get; private set; }
+		public bool Running939P { get; set; }
 		public bool Running939 { get; set; }
 		public string[] AdminRanks { get; private set; }
 		public string[] Disablerank { get; private set; }
@@ -41,6 +42,7 @@ namespace ATTG3
 		public bool O49infect { get; set; }
 		public bool O96Door { get; set; }
 		public bool NoCHand { get; set; }
+		public float Elevatord { get; set; }
         public override void Register()
 		{
 			Instance=this;
@@ -75,6 +77,7 @@ namespace ATTG3
 			AddConfig(new ConfigSetting("attg_049_infect", true, SettingType.BOOL, true, "Makes SCP-049 revive instantly"));
 			AddConfig(new ConfigSetting("attg_096_door", true, SettingType.BOOL, true, "Makes SCP-096 able to open all doors when enraged"));
 			AddConfig(new ConfigSetting("attg_card_hand", true, SettingType.BOOL, true, "Makes all players able to open keycard doors with out a keycard in hand"));
+			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, SettingType.FLOAT, true, "Makes all players able to open keycard doors with out a keycard in hand"));
 
 			ReloadConfig();
 			this.AddCommand("AGTL", new Tleslad(this));
@@ -118,6 +121,7 @@ namespace ATTG3
 			O49infect=GetConfigBool("attg_049_infect");
 			O96Door=GetConfigBool("attg_096_door");
 			NoCHand=GetConfigBool("attg_card_hand");
+			Elevatord=GetConfigFloat("attg_elevator_speed");
 		}
 		public override void OnEnable()
 		{

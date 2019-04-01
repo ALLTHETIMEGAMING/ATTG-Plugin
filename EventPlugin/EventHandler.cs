@@ -21,6 +21,12 @@ namespace ATTG3
 			{
 				this.plugin.pluginManager.DisablePlugin(this.plugin);
 			}
+
+			foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
+			{
+				Elevator.MovingSpeed=plugin.Elevatord;
+			}
+				plugin.Running939P=false;
 			plugin.Running939=false;
 			plugin.Voteopen=false;
 			plugin.Yes=0;
@@ -165,12 +171,14 @@ namespace ATTG3
 		}
 		public void OnPlayerDie(PlayerDeathEvent ev)
 		{
-			if (plugin.O49infect && 
+			RoundStats stats = PluginManager.Manager.Server.Round.Stats;
+
+			if (plugin.O49infect)
 			{
 				Smod2.API.Player test;
 				test=ev.Killer;
 				Killed=ev.Player;
-				if (test.TeamRole.Role==Role.SCP_049)
+				if (test.TeamRole.Role==Role.SCP_049 && stats.Zombies < 8)
 				{
 					Running=true;
 					Timing.Run(TimingDelay(1));
@@ -182,8 +190,7 @@ namespace ATTG3
 		{
 			if (plugin.Lights)
 			{
-				Player player = ev.Player;
-				player.GiveItem(ItemType.FLASHLIGHT);
+				ev.Player.GiveItem(ItemType.FLASHLIGHT);
 			}
 		}
 		private IEnumerable<float> TimingDelay(float time)

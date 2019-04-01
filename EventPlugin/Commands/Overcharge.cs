@@ -10,6 +10,7 @@ namespace ATTG3
 {
 	class Overcharge : ICommandHandler
 	{
+		public float converted;
 		private readonly ATTG3Plugin plugin;
 		public Overcharge(ATTG3Plugin plugin)
 		{
@@ -40,11 +41,19 @@ namespace ATTG3
 			plugin.Lights=!plugin.Lights;
 			if (plugin.Lights)
 			{
+				if (args.Length>1)
+				{
+					converted=float.Parse(args[1]);
+				}
+				else
+				{
+					converted=3f;
+				}
 				Timing.Run(TimingRunLights(PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType==ZoneType.LCZ).ToArray()));
 			}
 			return new[]
 			{
-				$"Overcharge Actavated."
+				$"Lights {(plugin.Lights ? "Actavated" : "Deactavated")}."
 			};
 		}
 
@@ -59,7 +68,7 @@ namespace ATTG3
 					room.FlickerLights();
 				}
 
-				yield return 3f;
+				yield return converted;
 			}
 		}
 	}
