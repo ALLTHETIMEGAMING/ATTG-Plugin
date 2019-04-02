@@ -181,7 +181,7 @@ namespace ATTG3
 				if (test.TeamRole.Role==Role.SCP_049 && stats.Zombies < 8)
 				{
 					Running=true;
-					Timing.Run(TimingDelay(1));
+					Timing.Run(TimingDelay(30));
 
 				}
 			}
