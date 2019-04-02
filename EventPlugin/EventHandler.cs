@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace ATTG3
 {
-	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSpawn
-	{
+	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSetRole 
+    {
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
 		Player Killed;
@@ -22,11 +22,13 @@ namespace ATTG3
 				this.plugin.pluginManager.DisablePlugin(this.plugin);
 			}
 
-			foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
-			{
-				Elevator.MovingSpeed=plugin.Elevatord;
-			}
-				plugin.Running939P=false;
+            foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
+            {
+                Elevator.MovingSpeed=plugin.Elevatord;
+            }
+
+
+            plugin.Running939P=false;
 			plugin.Running939=false;
 			plugin.Voteopen=false;
 			plugin.Yes=0;
@@ -186,8 +188,8 @@ namespace ATTG3
 				}
 			}
 		}
-		public void OnSpawn(PlayerSpawnEvent ev)
-		{
+		public void OnSetRole(PlayerSetRoleEvent ev)
+        {
 			if (plugin.Lights)
 			{
 				ev.Player.GiveItem(ItemType.FLASHLIGHT);
@@ -210,7 +212,7 @@ namespace ATTG3
 				yield return 30;
 			}
 		}
-	}
+    }
 }
 
 
