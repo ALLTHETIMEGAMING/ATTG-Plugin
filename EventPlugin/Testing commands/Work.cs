@@ -1,6 +1,8 @@
 ﻿using Smod2;
 using Smod2.API;
 using Smod2.Commands;
+using Smod2.Events;
+using Smod2.EventSystem.Events;
 using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -9,6 +11,7 @@ using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Smod2.EventHandlers;
 
 namespace ATTG3
 {
@@ -52,11 +55,11 @@ namespace ATTG3
 					Vector pos = myPlayer.GetPosition();
 					Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
 
-					GameObject val = Object.Instantiate<GameObject>(@class.model_player,Spawnpoint, Quaternion.identity);
+					GameObject val = Object.Instantiate<GameObject>(Player.prefab, Spawnpoint, Quaternion.identity);
 					NetworkServer.Spawn(val);
 
 
-					return new string[] { myPlayer.Name+" has been given ammo!" };
+					return new string[] { "Player Spawned" };
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
@@ -66,5 +69,8 @@ namespace ATTG3
                 return new string[] { "AGWORK: " + GetUsage() };
             }
         }
+
+
     }
+
 }
