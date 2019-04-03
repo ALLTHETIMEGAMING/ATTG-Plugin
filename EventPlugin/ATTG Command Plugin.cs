@@ -39,7 +39,8 @@ namespace ATTG3
 		public int Yes { get; set; }
 		public int No { get; set; }
 		public bool Lights { get; set; }
-		public bool O49infect { get; set; }
+        public bool GenLock { get; set; }
+        public bool O49infect { get; set; }
 		public bool O96Door { get; set; }
 		public bool NoCHand { get; set; }
 		public float Elevatord { get; set; }
@@ -100,11 +101,12 @@ namespace ATTG3
 			this.AddCommand("AGSPEED", new Speed(this));
 			this.AddCommand("AGSHAKE", new Shake(this));
 			this.AddCommand("AG079T", new GenTime(this));
-			this.AddCommand("AGLights", new Overcharge(this));
-			//this.AddCommand("AGWORK", new Car(this));
-			//is.AddCommand("AGHAND", new Handcuff(this));
-			//is.AddCommand("AGUNHAND", new Unhandcuff(this));
-			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
+            this.AddCommand("AGLights", new Overcharge(this));
+            this.AddCommand("AGGEND", new GenDisable(this)); 
+            //this.AddCommand("AGWORK", new Car(this));
+            //is.AddCommand("AGHAND", new Handcuff(this));
+            //is.AddCommand("AGUNHAND", new Unhandcuff(this));
+            this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));
 
 

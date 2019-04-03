@@ -75,6 +75,7 @@
     <Compile Include="Commands\Disable.cs" />
     <Compile Include="Commands\ELEL.cs" />
     <Compile Include="Commands\ELES.cs" />
+    <Compile Include="Commands\GenDisable.cs" />
     <Compile Include="Commands\Help.cs" />
     <Compile Include="Commands\Shake.cs" />
     <Compile Include="Player Commands\Speed2.cs" />
@@ -95,7 +96,7 @@
     <Compile Include="Player Commands\Ammo.cs" />
     <Compile Include="LevenshteinDistance.cs" />
     <Compile Include="Player Commands\L079.cs" />
-    <Compile Include="Commands\Overcharge.cs" />
+    <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands\GenTime.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />

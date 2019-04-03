@@ -163,10 +163,20 @@ namespace ATTG3
 		}
 		public void OnGeneratorUnlock(PlayerGeneratorUnlockEvent ev)
 		{
-			if (plugin.NoCHand)
+            Player player = ev.Player;
+            Generator gen = ev.Generator;
+            if (plugin.GenLock)
+            {
+                foreach (Generator079 gen2 in Generator079.generators)
+                {
+                    gen2.NetworkisDoorUnlocked=false;
+                    gen2.NetworkisDoorOpen=false;
+                }
+
+            }
+			if (plugin.NoCHand && !plugin.GenLock)
 			{
-				Player player = ev.Player;
-				Generator gen = ev.Generator;
+				
 
 				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
 						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))

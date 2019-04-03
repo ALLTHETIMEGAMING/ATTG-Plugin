@@ -53,7 +53,7 @@ namespace ATTG3
 			}
 			return new[]
 			{
-				$"Lights {(plugin.Lights ? "Actavated" : "Deactavated")}."
+				$"Lights {(plugin.Lights ? "Deactavated" : "Actavated")}."
 			};
 		}
 
