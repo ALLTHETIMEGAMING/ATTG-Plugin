@@ -5,6 +5,10 @@ using Smod2.EventHandlers;
 using Smod2.Events;
 using System.Collections.Generic;
 using UnityEngine;
+using Smod2.Attributes;
+using ATTG_Command;
+using Smod2.EventSystem.Events;
+
 namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSetRole 

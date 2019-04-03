@@ -9,11 +9,14 @@ using Smod2.Events;
 using Smod2.EventSystem.Events;
 using System;
 using UnityEngine.Networking;
+using Smod2.Attributes;
+using ATTG_Command;
 namespace ATTG3
 {
     class Car : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
+
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
         public Car(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -32,9 +35,9 @@ namespace ATTG3
             }
             else
             {
-				
-			SummonVehicleEvent.ExecuteHandler(Smod2.EventHandlers.IEventHandler);
-					return new string[] { "Car Called" };
+                MTFRespawn mtfrespawn = new MTFRespawn();
+                mtfrespawn.CallRpcVan();
+                return new string[] { "Car Called" };
                 
             }
         }
