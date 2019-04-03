@@ -81,7 +81,6 @@
     <Compile Include="Player Commands\Speed.cs" />
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Commands\Tleslad.cs" />
-    <Compile Include="Commands\Car.cs" />
     <Compile Include="Player Commands\Up.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
