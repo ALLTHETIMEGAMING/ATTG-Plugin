@@ -70,8 +70,8 @@ namespace ATTG3
             {
                 GameObject playerObj = (GameObject)myPlayer.GetGameObject();
                 PlayerScript=playerObj.GetComponent<Scp939PlayerScript>();
-                PlayerScript.NetworkspeedMultiplier=5;
-                yield return converted;
+                PlayerScript.NetworkspeedMultiplier=converted;
+                yield return 1f;
             }
         }
     }
