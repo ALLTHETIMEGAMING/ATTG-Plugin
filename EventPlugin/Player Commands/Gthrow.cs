@@ -1,8 +1,9 @@
-﻿using Smod2;
+﻿using scp4aiur;
+using Smod2;
 using Smod2.API;
 using Smod2.Commands;
+using System.Collections.Generic;
 using System.Linq;
-using scp4aiur;
 
 namespace ATTG3
 {
@@ -10,6 +11,7 @@ namespace ATTG3
     {
         private readonly ATTG3Plugin plugin;
         private bool Running;
+        Player Gplayer;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
         public Gthrow(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -38,10 +40,11 @@ namespace ATTG3
                     if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                     if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                     {
-                        
-                        if (plugin.ULockdownact)
+                        Running=!Running;
+                        if (Running)
                         {
                             Timing.Run(TimingDelay(0.1f));
+                            Gplayer=myPlayer;
                             return new string[] { myPlayer.Name+" Grenade Throw Actavated" };
                         }
                         else
@@ -62,7 +65,7 @@ namespace ATTG3
         {
             while (Running)
             {
-                plugin.Server.Map.Shake();
+                Gplayer.ThrowGrenade(ItemType.FRAG_GRENADE,false,);
 
                 yield return 3f;
             }
