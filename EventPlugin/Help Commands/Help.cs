@@ -43,14 +43,18 @@ namespace ATTG3
                 "(AGVOTEC) Clears Vote",
                 "(AGVOTES) Displays Vote",
                 "(AGVOTEBC) Displays how to vote",
-                "-------------OTHER COMMANDS-------------",
-                "(AGHELP) This command",
+				"-------------HELP COMMANDS-------------",
+				"(AGHELP) This command",
+				"(AGIH) Prints All Items in SCP:SL",
+				"(AGTH) Prints All Teams in SCP:SL",
+				"-------------OTHER COMMANDS-------------",
                 "(AGAMMO) (Players name) Gives plaer 100,000",
                 "(AGUP) (Players name) Forces player up",
                 "(AGDISABLE) Disables ATTG Command Plugin",
                 "(AGSHAKE) Shakes all players screens",
 				"(AGLIGHTS) Turns off all lights in HCZ / LCZ",
-                "----------------------------------------",
+				"(AGGEND) Disables all Generators",
+				"----------------------------------------",
                 "Plugin created by All The Time Gaming"
         };
         }
