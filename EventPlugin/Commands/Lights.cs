@@ -47,6 +47,7 @@ namespace ATTG3
 				}
 				else
 				{
+                    
 					converted=3f;
 				}
 				Timing.Run(TimingRunLights(PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType==ZoneType.LCZ).ToArray()));
@@ -67,7 +68,7 @@ namespace ATTG3
 				{
 					room.FlickerLights();
 				}
-
+                
 				yield return converted;
 			}
 		}

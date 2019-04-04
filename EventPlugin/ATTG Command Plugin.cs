@@ -44,6 +44,10 @@ namespace ATTG3
 		public bool O96Door { get; set; }
 		public bool NoCHand { get; set; }
 		public float Elevatord { get; set; }
+        public string PlayerLD { get; set; }
+        public bool Lockdownact { get; set; }
+        public string PlayerUD { get; set; }
+        public bool ULockdownact { get; set; }
         public override void Register()
 		{
 			Instance=this;
@@ -103,11 +107,14 @@ namespace ATTG3
 			this.AddCommand("AG079T", new GenTime(this));
             this.AddCommand("AGLights", new Overcharge(this));
             this.AddCommand("AGGEND", new GenDisable(this));
-			this.AddCommand("AGTH", new ItemH(this));
-			this.AddCommand("AGIH", new Teams(this));
-			//is.AddCommand("AGHAND", new Handcuff(this));
-			//is.AddCommand("AGUNHAND", new Unhandcuff(this));
-			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
+            this.AddCommand("AGTH", new ItemH(this));
+            this.AddCommand("AGIH", new Teams(this));
+            this.AddCommand("AGLOCK", new Lock(this));
+            this.AddCommand("AGULOCK", new Unlock(this));
+            this.AddCommands(RS.CA, new RS(this));
+            //is.AddCommand("AGHAND", new Handcuff(this));
+            //is.AddCommand("AGUNHAND", new Unhandcuff(this));
+            this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));
 
 

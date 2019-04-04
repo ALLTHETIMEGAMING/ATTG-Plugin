@@ -50,8 +50,13 @@ namespace ATTG3
 							converted=5f;
 						}
 						Timing.Run(TimingDelay(0.1f));
+                        return new string[] { myPlayer.Name+" has been given Super speed!" };
                     }
-                    return new string[] { myPlayer.Name+" has been given Super speed!" };
+                    else
+                    {
+                        return new string[] { myPlayer.Name+"Speed Reset" };
+
+                    }
                 }
 				
 

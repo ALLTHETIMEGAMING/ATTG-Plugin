@@ -4,6 +4,7 @@ namespace ATTG3
     class ItemH : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
+
         public ItemH(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
