@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Smod2.EventHandlers;
 using Smod2;
+using Smod2.Logging;
 using Smod2.API;
 using Smod2.Commands;
 
@@ -50,6 +51,7 @@ namespace ATTG3
         public bool ULockdownact { get; set; }
         public override void Register()
 		{
+            
 			Instance=this;
 			Timing.Init(this);
 			Timing2.Init(this);

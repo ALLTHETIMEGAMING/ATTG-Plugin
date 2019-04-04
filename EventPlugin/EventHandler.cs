@@ -27,14 +27,16 @@ namespace ATTG3
             {
                 Elevator.MovingSpeed=plugin.Elevatord;
             }
-
-
             plugin.Running939P=false;
             plugin.Running939=false;
             plugin.Voteopen=false;
             plugin.Yes=0;
             plugin.No=0;
             plugin.Lights=false;
+            plugin.Lockdownact=false;
+            plugin.ULockdownact=false;
+            plugin.PlayerLD=null;
+            plugin.PlayerUD=null;
         }
         public void OnStopCountdown(WarheadStopEvent ev)
         {
