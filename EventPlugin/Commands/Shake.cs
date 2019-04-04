@@ -13,8 +13,6 @@ namespace ATTG3
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
 
-        public Scp939PlayerScript PlayerScript { get; private set; }
-
         public Shake(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "Shakes Map";
         public string GetUsage() => "AGSHAKE";

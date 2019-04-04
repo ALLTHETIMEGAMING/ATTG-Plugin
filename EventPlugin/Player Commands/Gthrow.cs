@@ -2,12 +2,14 @@
 using Smod2.API;
 using Smod2.Commands;
 using System.Linq;
+using scp4aiur;
 
 namespace ATTG3
 {
     class Gthrow : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
+        private bool Running;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
         public Gthrow(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -39,7 +41,7 @@ namespace ATTG3
                         
                         if (plugin.ULockdownact)
                         {
-                            
+                            Timing.Run(TimingDelay(0.1f));
                             return new string[] { myPlayer.Name+" Grenade Throw Actavated" };
                         }
                         else
@@ -54,6 +56,15 @@ namespace ATTG3
                 {
                     return new string[] { "AGGT: "+GetUsage() };
                 }
+            }
+        }
+        private IEnumerable<float> TimingDelay(float time)
+        {
+            while (Running)
+            {
+                plugin.Server.Map.Shake();
+
+                yield return 3f;
             }
         }
     }
