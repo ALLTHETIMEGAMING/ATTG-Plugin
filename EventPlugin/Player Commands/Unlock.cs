@@ -37,6 +37,8 @@ namespace ATTG3
                     if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                     {
                         plugin.ULockdownact=!plugin.ULockdownact;
+                        plugin.Lockdownact=false;
+                        plugin.PlayerLD=null;
                         if (plugin.ULockdownact)
                         {
                             plugin.PlayerUD=myPlayer.Name;

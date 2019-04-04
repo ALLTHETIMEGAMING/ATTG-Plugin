@@ -64,7 +64,7 @@ namespace ATTG3
             }
             if (plugin.Lockdownact)
             {
-                if (plugin.PlayerLD==ev.Player.Name)
+                if (plugin.PlayerLD==ev.Player.SteamId)
                 {
                     ev.Door.Locked=true;
                     ev.Door.Open=false;
@@ -73,7 +73,7 @@ namespace ATTG3
             }
             if (plugin.ULockdownact)
             {
-                if (plugin.PlayerUD==ev.Player.Name)
+                if (plugin.PlayerUD==ev.Player.SteamId)
                 {
                     ev.Door.Locked=false;
                     ev.Door.Open=true;
