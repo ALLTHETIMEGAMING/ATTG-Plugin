@@ -44,8 +44,8 @@ namespace ATTG3
 
             return new[]
             {
-                $"Generators {(plugin.Lights ? "Locked" : "Unlocked")}."
-            };
+                $"Generators {(plugin.Lights ? "Unlocked" : "Locked")}."
+			};
 
 
         }

