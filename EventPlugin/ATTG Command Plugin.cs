@@ -49,6 +49,7 @@ namespace ATTG3
         public bool Lockdownact { get; set; }
         public string PlayerUD { get; set; }
         public bool ULockdownact { get; set; }
+        public bool Gthrow { get; set; }
         public override void Register()
 		{
 			Instance=this;

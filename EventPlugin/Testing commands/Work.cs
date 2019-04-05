@@ -55,8 +55,8 @@ namespace ATTG3
 					Vector pos = myPlayer.GetPosition();
 					Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
 
-					GameObject val = Object.Instantiate<GameObject>(Player.prefab, Spawnpoint, Quaternion.identity);
-					NetworkServer.Spawn(val);
+                    GameObject val = NetworkManager.Instantiate<GameObject>(playerPrefab, Spawnpoint, Quaternion.identity);
+                    NetworkServer.Spawn(val);
 
 
 					return new string[] { "Player Spawned" };

@@ -10,7 +10,6 @@ namespace ATTG3
     class Gthrow : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        private bool Running;
         Player Gplayer;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
@@ -40,8 +39,8 @@ namespace ATTG3
                     if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                     if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                     {
-                        Running=!Running;
-                        if (Running)
+                        plugin.GenLock=!plugin.GenLock;
+                        if (plugin.GenLock)
                         {
                             Timing.Run(TimingDelay(0.1f));
                             Gplayer=myPlayer;
@@ -63,11 +62,11 @@ namespace ATTG3
         }
         private IEnumerable<float> TimingDelay(float time)
         {
-            while (Running)
+            while (plugin.GenLock)
             {
                 Vector Grot = Gplayer.GetRotation();
                 Vector Gpos = Gplayer.GetPosition();
-                Gplayer.ThrowGrenade(ItemType.FRAG_GRENADE,false,Grot,false,Gpos,false,10f,false);
+                Gplayer.ThrowGrenade(ItemType.FRAG_GRENADE, false, Grot, false, Gpos, false, 10f, false);
                 yield return 3f;
             }
         }
