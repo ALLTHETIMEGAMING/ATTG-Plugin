@@ -36,7 +36,7 @@ namespace ATTG3
             else
             {
                 plugin.Info(sender + " ran the " + GetUsage() + " command!");
-                this.plugin.pluginManager.DisablePlugin(this.plugin);
+                this.plugin.PluginManager.DisablePlugin(this.plugin);
             }
             return new[]
             {

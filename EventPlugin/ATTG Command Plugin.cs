@@ -93,6 +93,7 @@ namespace ATTG3
             this.AddCommand("AGLOCK", new Lock(this));
             this.AddCommand("AGULOCK", new Unlock(this));
             this.AddCommands(RS.CA, new RS(this));
+            this.AddCommand("AGG", new Gthrow(this));
             //is.AddCommand("AGHAND", new Handcuff(this));
             //is.AddCommand("AGUNHAND", new Unhandcuff(this));
             this.AddEventHandlers(new EventHandler(this), Priority.Highest);

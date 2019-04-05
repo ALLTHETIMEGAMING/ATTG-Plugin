@@ -65,7 +65,9 @@ namespace ATTG3
         {
             while (Running)
             {
-			   // Gplayer.ThrowGrenade(ItemType.FRAG_GRENADE,false,);
+                Vector Grot = Gplayer.GetRotation();
+                Vector Gpos = Gplayer.GetPosition();
+                Gplayer.ThrowGrenade(ItemType.FRAG_GRENADE,false,Grot,false,Gpos,false,10f,false);
                 yield return 3f;
             }
         }

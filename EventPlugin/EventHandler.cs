@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ATTG3
 {
-    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSetRole, IEventHandlerBan
+    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet
     {
         private readonly ATTG3Plugin plugin;
         public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -20,7 +20,7 @@ namespace ATTG3
         {
             if (plugin.Disable)
             {
-                this.plugin.pluginManager.DisablePlugin(this.plugin);
+                this.plugin.PluginManager.DisablePlugin(this.plugin);
             }
 
             foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
@@ -232,6 +232,18 @@ namespace ATTG3
 
 
             }
+
+        }
+        public void OnGeneratorInsertTablet(PlayerGeneratorInsertTabletEvent ev)
+        {
+            if (plugin.GenLock)
+            {
+                ev.Allow=false;
+                ev.Player.PersonalBroadcast(10, "Generators are Locked", false);
+                ev.RemoveTablet=true;
+
+            }
+
 
         }
         private IEnumerable<float> TimingDelay(float time)
