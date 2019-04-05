@@ -67,7 +67,6 @@ namespace ATTG3
             {
 
 			   // Gplayer.ThrowGrenade(ItemType.FRAG_GRENADE,false,);
-
                 yield return 3f;
             }
         }
