@@ -58,9 +58,6 @@ namespace ATTG3
 
                     }
                 }
-				
-
-
                 else
                     return new string[] { myPlayer.Name+" is not scp 939" };
             }
