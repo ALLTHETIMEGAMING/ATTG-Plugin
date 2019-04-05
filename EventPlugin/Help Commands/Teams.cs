@@ -32,7 +32,7 @@ namespace ATTG3
 				"0       | SCP                   | All SCPs",
 				"1       | NINETAILFOX           | All MTF",
 				"2       | CHAOS_INSURGENCY      | Chaos insurgency",
-				"3       | SCIENTIST             | Scientiest",
+                "3       | SCIENTIST             | Scientist",
 				"4       | CLASSD                | Class-D",
 				"5       | SPECTATOR             | Spectators",
 				"6       | TUTORIAL              | TUTORIAL",

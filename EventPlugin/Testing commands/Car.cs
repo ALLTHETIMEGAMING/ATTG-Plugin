@@ -35,11 +35,14 @@ namespace ATTG3
             }
             else
             {
-                MTFRespawn mtfrespawn = new MTFRespawn();
-                mtfrespawn.CallRpcVan();
+                
                 return new string[] { "Car Called" };
                 
             }
+        }
+        void InvokeEvent(SummonVehicleEvent ev)
+        {
+            ev.IsCI=true;
         }
     }
 }

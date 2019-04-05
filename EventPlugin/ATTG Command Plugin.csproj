@@ -104,6 +104,7 @@
     <Compile Include="Player Commands\L079.cs" />
     <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands\GenTime.cs" />
+    <Compile Include="Testing commands\Car.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Vote Stuff\VoteBC.cs" />
@@ -124,8 +125,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Testing commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
