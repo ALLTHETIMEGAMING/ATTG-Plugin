@@ -25,7 +25,9 @@ namespace ATTG3
         public string GetUsage() => "";
 		
 		public Class[] kit;
-		public string[] OnCall(ICommandSender sender, string[] args)
+        private GameObject playerPrefab;
+
+        public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
                 sender is Player player&&
@@ -55,7 +57,7 @@ namespace ATTG3
 					Vector pos = myPlayer.GetPosition();
 					Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
 
-                    GameObject val = NetworkManager.Instantiate<GameObject>(playerPrefab, Spawnpoint, Quaternion.identity);
+                    GameObject val = Object.Instantiate(playerPrefab, Spawnpoint, Quaternion.identity);
                     NetworkServer.Spawn(val);
 
 
@@ -69,8 +71,5 @@ namespace ATTG3
                 return new string[] { "AGWORK: " + GetUsage() };
             }
         }
-
-
     }
-
 }
