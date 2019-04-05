@@ -34,15 +34,12 @@ namespace ATTG3
                 };
             }
             else
-            {
-                
+            
+                EventHandler hand = PluginManager.;
+                SummonVehicleEvent(true, true);
                 return new string[] { "Car Called" };
                 
             }
-        }
-        void InvokeEvent(SummonVehicleEvent ev)
-        {
-            ev.IsCI=true;
         }
     }
 }
