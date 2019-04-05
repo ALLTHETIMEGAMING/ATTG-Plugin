@@ -41,7 +41,7 @@ namespace ATTG3
                         plugin.PlayerLD=null;
                         if (plugin.ULockdownact)
                         {
-                            plugin.PlayerUD=myPlayer.Name;
+                            plugin.PlayerUD=myPlayer.SteamId;
                             return new string[] { myPlayer.Name+" Unlockdown Actavated" };
                         }
                         else
