@@ -20,9 +20,9 @@ namespace ATTG3
 		id = "ATTG.ADMIN.COMMAND",
 		name = "",
 		SmodMajor = 3,
-		SmodMinor = 3,
+		SmodMinor = 4,
 		SmodRevision = 0,
-		version = "1.2.0"
+		version = "1.3.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
 	{
@@ -51,40 +51,19 @@ namespace ATTG3
         public bool ULockdownact { get; set; }
         public override void Register()
 		{
-            
 			Instance=this;
 			Timing.Init(this);
 			Timing2.Init(this);
 			// Configs
-			AddConfig(new ConfigSetting("attg_ranks", new[]
-			{
-				"owner",
-				"coowner"
-			}, SettingType.LIST, true, ""));
-			AddConfig(new ConfigSetting("attg_command_disable_ranks", new[]
-			{
-				"owner"
-			}, SettingType.LIST, true, "Valid ranks to disable the Event Plugin"));
-			AddConfig(new ConfigSetting("attg_scp_ranks", new[]
-			{
-				"owner",
-				"coowner"
-			}, SettingType.LIST, true, "Ranks for all SCP Commands"));
-			AddConfig(new ConfigSetting("attg_vote_ranks", new[]
-			{
-				"owner",
-				"coowner",
-				"admin"
-			}, SettingType.LIST, true, "Valid ranks for all voteing Commands"));
-			AddConfig(new ConfigSetting("attg_all_ranks", new[]
-			{
-				"owner"
-			}, SettingType.LIST, true, "Valid ranks for all Commands"));
-
-			AddConfig(new ConfigSetting("attg_049_infect", false, SettingType.BOOL, true, "Makes SCP-049 revive instantly"));
-			AddConfig(new ConfigSetting("attg_096_door", true, SettingType.BOOL, true, "Makes SCP-096 able to open all doors when enraged"));
-			AddConfig(new ConfigSetting("attg_card_hand", true, SettingType.BOOL, true, "Makes all players able to open keycard doors with out a keycard in hand"));
-			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, SettingType.FLOAT, true, "Makes all players able to open keycard doors with out a keycard in hand"));
+			AddConfig(new ConfigSetting("attg_ranks", new[]{"owner","coowner"}, false, true, ""));
+			AddConfig(new ConfigSetting("attg_command_disable_ranks", new[]{"owner"}, false, true, "Valid ranks to disable the Event Plugin"));
+			AddConfig(new ConfigSetting("attg_scp_ranks", new[]{"owner","coowner"}, false, true, "Ranks for all SCP Commands"));
+			AddConfig(new ConfigSetting("attg_vote_ranks", new[]{"owner","coowner","admin"},false, true, "Valid ranks for all voteing Commands"));
+			AddConfig(new ConfigSetting("attg_all_ranks", new[]{"owner"}, false, true, "Valid ranks for all Commands"));
+			AddConfig(new ConfigSetting("attg_049_infect", false, false, true, "Makes SCP-049 revive instantly"));
+			AddConfig(new ConfigSetting("attg_096_door", true, false, true, "Makes SCP-096 able to open all doors when enraged"));
+			AddConfig(new ConfigSetting("attg_card_hand", true, false, true, "Makes all players able to open keycard doors with out a keycard in hand"));
+			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Makes all players able to open keycard doors with out a keycard in hand"));
 
 			ReloadConfig();
 			this.AddCommand("AGTL", new Tleslad(this));
