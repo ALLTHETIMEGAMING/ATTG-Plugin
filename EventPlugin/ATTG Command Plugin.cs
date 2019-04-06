@@ -99,8 +99,6 @@ namespace ATTG3
             //is.AddCommand("AGUNHAND", new Unhandcuff(this));
             this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));
-
-
 		}
 		public void ReloadConfig()
 		{
