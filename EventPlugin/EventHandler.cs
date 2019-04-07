@@ -8,8 +8,8 @@ using UnityEngine;
 
 namespace ATTG3
 {
-    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet
-    {
+    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet, IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse
+	{
         private readonly ATTG3Plugin plugin;
         public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
         Player Killed;
@@ -234,6 +234,20 @@ namespace ATTG3
             }
 
         }
+		public void OnWarheadKeycardAccess(Smod2.Events.WarheadKeycardAccessEvent ev)
+		{
+			Player player = ev.Player;
+			if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
+						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD))
+			{
+				ev.Allow=true;
+			}
+			if (player.GetBypassMode()==true)
+			{
+				ev.Allow=true;
+			}
+
+		}
         public void OnGeneratorInsertTablet(PlayerGeneratorInsertTabletEvent ev)
         {
             if (plugin.GenLock)
@@ -246,6 +260,32 @@ namespace ATTG3
 
 
         }
+		public void OnElevatorUse(Smod2.Events.PlayerElevatorUseEvent ev)
+		{
+			if (plugin.ELockdownact)
+			{
+				if (plugin.EPlayerLD==ev.Player.SteamId)
+				{
+					ev.Elevator.Locked=true;
+					
+				}
+
+			}
+			if (plugin.EULockdownact)
+			{
+				if (plugin.EPlayerUD==ev.Player.SteamId)
+				{
+					ev.Elevator.Locked=false;
+				}
+
+			}
+			if (ev.Elevator.Locked==true && ev.Player.GetBypassMode()==true)
+			{
+				ev.AllowUse=true;
+
+			}
+
+		}
         private IEnumerable<float> TimingDelay(float time)
         {
             while (Running)

@@ -45,11 +45,15 @@ namespace ATTG3
 		public bool O96Door { get; set; }
 		public bool NoCHand { get; set; }
 		public float Elevatord { get; set; }
-        public string PlayerLD { get; set; }
-        public bool Lockdownact { get; set; }
-        public string PlayerUD { get; set; }
-        public bool ULockdownact { get; set; }
-        public bool Gthrow { get; set; }
+		public string PlayerLD { get; set; }
+		public bool Lockdownact { get; set; }
+		public string PlayerUD { get; set; }
+		public bool ULockdownact { get; set; }
+		public string EPlayerLD { get; set; }
+		public bool ELockdownact { get; set; }
+		public string EPlayerUD { get; set; }
+		public bool EULockdownact { get; set; }
+		public bool Gthrow { get; set; }
         public override void Register()
 		{
 			Instance=this;
@@ -64,7 +68,7 @@ namespace ATTG3
 			AddConfig(new ConfigSetting("attg_049_infect", false, false, true, "Makes SCP-049 revive instantly"));
 			AddConfig(new ConfigSetting("attg_096_door", true, false, true, "Makes SCP-096 able to open all doors when enraged"));
 			AddConfig(new ConfigSetting("attg_card_hand", true, false, true, "Makes all players able to open keycard doors with out a keycard in hand"));
-			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Makes all players able to open keycard doors with out a keycard in hand"));
+			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Default Elevator speed"));
 
 			ReloadConfig();
 			this.AddCommand("AGTL", new Tleslad(this));
@@ -93,11 +97,14 @@ namespace ATTG3
             this.AddCommand("AGIH", new Teams(this));
             this.AddCommand("AGLOCK", new Lock(this));
             this.AddCommand("AGULOCK", new Unlock(this));
-            this.AddCommands(RS.CA, new RS(this));
+			this.AddCommand("AGELOCK", new ELock(this));
+			this.AddCommand("AGEULOCK", new EUnlock(this));
+			this.AddCommands(RS.CA, new RS(this));
             this.AddCommand("AGG", new Gthrow(this));
-            //is.AddCommand("AGHAND", new Handcuff(this));
-            //is.AddCommand("AGUNHAND", new Unhandcuff(this));
-            this.AddEventHandlers(new EventHandler(this), Priority.Highest);
+			this.AddCommand("AGGS", new GenSpam(this));
+			//is.AddCommand("AGHAND", new Handcuff(this));
+			//is.AddCommand("AGUNHAND", new Unhandcuff(this));
+			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));
 		}
 		public void ReloadConfig()

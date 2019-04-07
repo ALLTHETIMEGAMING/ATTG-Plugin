@@ -24,22 +24,22 @@ namespace ATTG3
         public string GetUsage() => "Forces player up";
         public string[] OnCall(ICommandSender sender, string[] args)
         {
-            if (!(sender is Server)&&
-                sender is Player player&&
-                !plugin.AdminRanks.Contains(player.GetRankName()))
-            {
-                return new[]
-                {
-                    $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
-                };
-            }
-            else
-            
-                EventHandler hand = PluginManager.;
-                SummonVehicleEvent(true, true);
+			if (!(sender is Server)&&
+				sender is Player player&&
+				!plugin.AdminRanks.Contains(player.GetRankName()))
+			{
+				return new[]
+				{
+					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
+				};
+			}
+			else
+				Smod2.Events.SummonVehicleEvent.SummonVehicleEvent(true, true);
+
                 return new string[] { "Car Called" };
                 
             }
         }
+
     }
-}
+

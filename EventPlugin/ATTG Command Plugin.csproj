@@ -75,6 +75,7 @@
     <Compile Include="Commands\Disable.cs" />
     <Compile Include="Commands\ELEL.cs" />
     <Compile Include="Commands\ELES.cs" />
+    <Compile Include="Commands\GenSpam.cs" />
     <Compile Include="Commands\GenDisable.cs" />
     <Compile Include="Help Commands\Round Info.cs" />
     <Compile Include="Help Commands\Teams.cs" />
@@ -82,6 +83,8 @@
     <Compile Include="Help Commands\Help.cs" />
     <Compile Include="Commands\Shake.cs" />
     <Compile Include="Player Commands\Gthrow.cs" />
+    <Compile Include="Player Commands\ELock.cs" />
+    <Compile Include="Player Commands\EUnlock.cs" />
     <Compile Include="Player Commands\Unlock.cs" />
     <Compile Include="Player Commands\Speed2.cs" />
     <Compile Include="Player Commands\Speed.cs" />
@@ -104,7 +107,6 @@
     <Compile Include="Player Commands\L079.cs" />
     <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands\GenTime.cs" />
-    <Compile Include="Testing commands\Work.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Vote Stuff\VoteBC.cs" />
@@ -125,6 +127,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Testing commands\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
