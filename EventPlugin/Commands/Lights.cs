@@ -50,25 +50,24 @@ namespace ATTG3
                     
 					converted=3f;
 				}
-				Timing.Run(TimingRunLights(PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType==ZoneType.LCZ).ToArray()));
+				Timing.Run(TimingDelay(converted));
 			}
 			return new[]
 			{
 				$"Lights {(plugin.Lights ? "Deactavated" : "Actavated")}."
 			};
 		}
-
-		private IEnumerable<float> TimingRunLights(IReadOnlyList<Room> rooms)
+		private IEnumerable<float> TimingDelay(float time)
 		{
 			while (plugin.Lights)
 			{
 				Generator079.generators[0].CallRpcOvercharge();
-				foreach (Room room in rooms)
+				foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType==ZoneType.LCZ).ToArray())
 
 				{
 					room.FlickerLights();
 				}
-                
+
 				yield return converted;
 			}
 		}

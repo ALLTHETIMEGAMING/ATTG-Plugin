@@ -35,9 +35,13 @@ namespace ATTG3
             plugin.Lights=false;
             plugin.Lockdownact=false;
             plugin.ULockdownact=false;
-            plugin.PlayerLD=null;
-            plugin.PlayerUD=null;
-        }
+			plugin.PlayerLD=null;
+			plugin.PlayerUD=null;
+			plugin.EPlayerLD=null;
+			plugin.EPlayerUD=null;
+			plugin.GenSpam=false;
+
+		}
         public void OnStopCountdown(WarheadStopEvent ev)
         {
             foreach (Smod2.API.Door door in PluginManager.Manager.Server.Map.GetDoors())

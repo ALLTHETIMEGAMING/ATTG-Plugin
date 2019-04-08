@@ -54,7 +54,7 @@ namespace ATTG3
 					
                     Vector pos = myPlayer.GetPosition();
                     Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
-                    GameObject val = Object.Instantiate(Resources.Load("Work Station", typeof(GameObject)), Spawnpoint, Quaternion.Euler(0,0,0)) as GameObject;
+                    GameObject val = WorkStation.Instantiate(Resources.Load("Work Station", typeof(GameObject)), Spawnpoint, Quaternion.Euler(0,0,0)) as GameObject;
                     NetworkServer.Spawn(val);
 
 

@@ -54,6 +54,7 @@ namespace ATTG3
 		public string EPlayerUD { get; set; }
 		public bool EULockdownact { get; set; }
 		public bool Gthrow { get; set; }
+		public bool GenSpam { get; set; }
         public override void Register()
 		{
 			Instance=this;
