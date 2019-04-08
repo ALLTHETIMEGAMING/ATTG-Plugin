@@ -82,7 +82,6 @@
     <Compile Include="Help Commands\ItemH.cs" />
     <Compile Include="Help Commands\Help.cs" />
     <Compile Include="Commands\Shake.cs" />
-    <Compile Include="Player Commands\Gthrow.cs" />
     <Compile Include="Player Commands\ELock.cs" />
     <Compile Include="Player Commands\EUnlock.cs" />
     <Compile Include="Player Commands\Unlock.cs" />
@@ -107,6 +106,7 @@
     <Compile Include="Player Commands\L079.cs" />
     <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands\GenTime.cs" />
+    <Compile Include="Testing commands\Work.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Vote Stuff\VoteBC.cs" />
@@ -117,6 +117,7 @@
     <Compile Include="ATTG Command Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Timing.cs" />
+    <Compile Include="Command Outline.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -127,8 +128,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Testing commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

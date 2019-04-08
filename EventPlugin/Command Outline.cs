@@ -15,15 +15,16 @@ using Smod2.EventHandlers;
 
 namespace ATTG3
 {
-    class Work : ICommandHandler
+    class CommandSetup : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public Work(ATTG3Plugin plugin) => this.plugin=plugin;
+        public CommandSetup(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
-		
+        //Variables Below
+
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
@@ -44,29 +45,9 @@ namespace ATTG3
 
 			
 
-			Player caller = (sender is Player send) ? send : null;
-            if (args.Length>0)
-            {
-                Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
-                if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
-                if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
-                {
-					
-                    Vector pos = myPlayer.GetPosition();
-                    Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
-                    GameObject val = Object.Instantiate(Resources.Load("Work Station", typeof(GameObject)), Spawnpoint, Quaternion.Euler(0,0,0)) as GameObject;
-                    NetworkServer.Spawn(val);
-
-
-					return new string[] { "Player Spawned" };
-                }
-                else
-                    return new string[] { myPlayer.Name+" is dead!" };
-            }
-            else
-            {
-                return new string[] { "AGWORK: " + GetUsage() };
-            }
+			
+                return new string[] { "Command Name Here" };
+            
         }
     }
 }

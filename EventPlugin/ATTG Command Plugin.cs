@@ -71,40 +71,44 @@ namespace ATTG3
 			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Default Elevator speed"));
 
 			ReloadConfig();
-			this.AddCommand("AGTL", new Tleslad(this));
-			this.AddCommand("AGEL", new ELEL(this));
-			this.AddCommand("AG106D", new C106(this));
-			this.AddCommand("AGTLR", new TleslR(this));
-			this.AddCommand("AGP079", new P079(this));
-			this.AddCommand("AGELS", new ELELS(this));
-			this.AddCommand("AGHELP", new Help(this));
-			this.AddCommand("AGVoteT", new VoteAD(this));
-			this.AddCommand("AGVoteC", new VoteC(this));
-			this.AddCommand("AGVoteS", new VoteA(this));
-			this.AddCommand("AGAMMO", new Ammo(this));
-			this.AddCommand("AGVoteBC", new VoteBC(this));
-			this.AddCommand("AGUP", new Up(this));
-			this.AddCommand("AGL079", new L079(this));
-			this.AddCommand("AGE079", new E079(this));
-			this.AddCommand("AGDISABLE", new Disable(this));
-			this.AddCommand("AGSPEEDA", new Speed2(this));
-			this.AddCommand("AGSPEED", new Speed(this));
-			this.AddCommand("AGSHAKE", new Shake(this));
-			this.AddCommand("AG079T", new GenTime(this));
-            this.AddCommand("AGLights", new Overcharge(this));
+            //SCP-079/Genorator Commands
             this.AddCommand("AGGEND", new GenDisable(this));
-            this.AddCommand("AGTH", new ItemH(this));
-            this.AddCommand("AGIH", new Teams(this));
+            this.AddCommand("AG079T", new GenTime(this));
+            this.AddCommand("AGGS", new GenSpam(this));
+            this.AddCommand("AGP079", new P079(this));
+            this.AddCommand("AGE079", new E079(this));
+            this.AddCommand("AGL079", new L079(this));
+            // lock / TeslaGate Commands 
             this.AddCommand("AGLOCK", new Lock(this));
             this.AddCommand("AGULOCK", new Unlock(this));
-			this.AddCommand("AGELOCK", new ELock(this));
-			this.AddCommand("AGEULOCK", new EUnlock(this));
-			this.AddCommands(RS.CA, new RS(this));
-            this.AddCommand("AGG", new Gthrow(this));
-			this.AddCommand("AGGS", new GenSpam(this));
-			//is.AddCommand("AGHAND", new Handcuff(this));
-			//is.AddCommand("AGUNHAND", new Unhandcuff(this));
-			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
+            this.AddCommand("AGELOCK", new ELock(this));
+            this.AddCommand("AGEULOCK", new EUnlock(this));
+            this.AddCommand("AGTL", new Tleslad(this));
+            this.AddCommand("AGEL", new ELEL(this));
+            this.AddCommand("AGTLR", new TleslR(this));
+            this.AddCommand("AGELS", new ELELS(this));
+            //Vote Commands
+            this.AddCommand("AGVoteT", new VoteAD(this));
+            this.AddCommand("AGVoteC", new VoteC(this));
+            this.AddCommand("AGVoteS", new VoteA(this));
+            this.AddCommand("AGAMMO", new Ammo(this));
+            this.AddCommand("AGVoteBC", new VoteBC(this));
+            //Help Commands
+            this.AddCommand("AGTH", new ItemH(this));
+            this.AddCommand("AGIH", new Teams(this));
+            this.AddCommand("AGHELP", new Help(this));
+            this.AddCommands(RS.CA, new RS(this));
+            //Other
+            this.AddCommand("AG106D", new C106(this));
+            this.AddCommand("AGUP", new Up(this));
+            this.AddCommand("AGDISABLE", new Disable(this));
+            this.AddCommand("AGSPEEDA", new Speed2(this));
+            this.AddCommand("AGSPEED", new Speed(this));
+            this.AddCommand("AGSHAKE", new Shake(this));
+            this.AddCommand("AGLights", new Overcharge(this));
+            this.AddCommand("AGWORK", new Work(this));
+            //Event Handlers
+            this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));
 		}
 		public void ReloadConfig()
@@ -131,7 +135,6 @@ namespace ATTG3
 			Info("ATTG Command Plugin disabled.");
 		}
 	}
-
 }
 
 
