@@ -54,6 +54,7 @@ namespace ATTG3
 		public string EPlayerUD { get; set; }
 		public bool EULockdownact { get; set; }
 		public bool Gthrow { get; set; }
+		public bool GenSpam { get; set; }
         public override void Register()
 		{
 			Instance=this;
@@ -100,7 +101,6 @@ namespace ATTG3
 			this.AddCommand("AGELOCK", new ELock(this));
 			this.AddCommand("AGEULOCK", new EUnlock(this));
 			this.AddCommands(RS.CA, new RS(this));
-            this.AddCommand("AGG", new Gthrow(this));
 			this.AddCommand("AGGS", new GenSpam(this));
 			//is.AddCommand("AGHAND", new Handcuff(this));
 			//is.AddCommand("AGUNHAND", new Unhandcuff(this));

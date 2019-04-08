@@ -1,5 +1,8 @@
-﻿using Smod2.API;
+﻿using scp4aiur;
+using Smod2;
+using Smod2.API;
 using Smod2.Commands;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 
@@ -40,6 +43,12 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
+			plugin.GenSpam=!plugin.GenSpam;
+			if (plugin.GenSpam)
+			{
+				Timing.Run(TimingDelay(10f));
+
+			}
             foreach (Generator079 gen in Generator079.generators)
 			{
 				gen.NetworkisTabletConnected=true;
@@ -54,5 +63,20 @@ namespace ATTG3
 
 
         }
-    }
+
+		private IEnumerable<float> TimingDelay(float time)
+		{
+			while (plugin.GenSpam)
+			{
+				foreach (Generator079 gen in Generator079.generators)
+				{
+					gen.NetworkisTabletConnected=true;
+					gen.EjectTablet();
+
+				}
+
+				yield return 10f;
+			}
+		}
+	}
 }

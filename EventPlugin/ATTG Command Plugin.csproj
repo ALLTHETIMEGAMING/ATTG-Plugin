@@ -82,7 +82,6 @@
     <Compile Include="Help Commands\ItemH.cs" />
     <Compile Include="Help Commands\Help.cs" />
     <Compile Include="Commands\Shake.cs" />
-    <Compile Include="Player Commands\Gthrow.cs" />
     <Compile Include="Player Commands\ELock.cs" />
     <Compile Include="Player Commands\EUnlock.cs" />
     <Compile Include="Player Commands\Unlock.cs" />
