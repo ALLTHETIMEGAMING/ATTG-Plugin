@@ -53,7 +53,7 @@ namespace ATTG3
                     Vector pos = myPlayer.GetPosition();
                     Vector3 Spawnpoint = new Vector3(33, 988,-62);
 
-					GameObject Ragdoll_16= new GameObject("Ragdoll_16");
+					GameObject Ragdoll_16= NetworkManager.FindObjectOfType("WorkStation");
 					//Work=GameObject.FindGameObjectWithTag("Work Station");
 					GameObject val = Object.Instantiate(Ragdoll_16, Spawnpoint, Quaternion.identity);
                     NetworkServer.Spawn(val);
