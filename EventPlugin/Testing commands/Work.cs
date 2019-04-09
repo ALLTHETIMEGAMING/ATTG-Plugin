@@ -23,9 +23,8 @@ namespace ATTG3
         public Work(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
-		
 
-        public string[] OnCall(ICommandSender sender, string[] args)
+		public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
                 sender is Player player&&
@@ -51,14 +50,15 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-					
                     Vector pos = myPlayer.GetPosition();
-                    Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
-                    GameObject val = WorkStation.Instantiate(Resources.Load("Work Station", typeof(GameObject)), Spawnpoint, Quaternion.Euler(0,0,0)) as GameObject;
+                    Vector3 Spawnpoint = new Vector3(33, 988,-62);
+
+					GameObject Ragdoll_16= new GameObject("Ragdoll_16");
+					//Work=GameObject.FindGameObjectWithTag("Work Station");
+					GameObject val = Object.Instantiate(Ragdoll_16, Spawnpoint, Quaternion.identity);
                     NetworkServer.Spawn(val);
 
-
-					return new string[] { "Player Spawned" };
+					return new string[] { "Workstation Spawned" };
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
