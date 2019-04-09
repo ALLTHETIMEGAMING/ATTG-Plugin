@@ -107,7 +107,7 @@ namespace ATTG3
             this.AddCommand("AGSPEED", new Speed(this));
             this.AddCommand("AGSHAKE", new Shake(this));
             this.AddCommand("AGLights", new Overcharge(this));
-            this.AddCommand("AGWORK", new Work(this));
+            //this.AddCommand("AGWORK", new Work(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Highest);
 			this.AddEventHandlers(new Vote(this));

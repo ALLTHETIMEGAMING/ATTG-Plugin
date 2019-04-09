@@ -37,10 +37,7 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-			if (Server.GetPlayers().Count<1)
-			{
-				return new string[] { "The server is empty!" };
-			}
+
 			
 
 			
