@@ -54,11 +54,8 @@ namespace ATTG3
                         player.ChangeRole(Role.NTF_LIEUTENANT, false, false, true, true);
 
                     }
-
                 }
-
             }
-
 		}
         public void OnGeneratorFinish(GeneratorFinishEvent ev)
         {
@@ -88,8 +85,7 @@ namespace ATTG3
         }
         public void OnRoundEnd(RoundEndEvent ev)
         {
-
-
+            gen=0;
         }
     }
 }
