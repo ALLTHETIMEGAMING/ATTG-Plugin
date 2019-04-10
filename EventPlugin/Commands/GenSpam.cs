@@ -59,7 +59,7 @@ namespace ATTG3
             }
             return new[]
             {
-                $"Generator Spam {(plugin.GenSpam ? "Off" : "On")}."
+                $"Generator Spam {(plugin.GenSpam ? "On" : "Off")}."
 			};
 
 
