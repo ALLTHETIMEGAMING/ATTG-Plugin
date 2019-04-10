@@ -15,12 +15,12 @@ using Smod2.EventHandlers;
 
 namespace ATTG3
 {
-    class CommandSetup2 : ICommandHandler
+    class Fakedea : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public CommandSetup2(ATTG3Plugin plugin) => this.plugin=plugin;
+        public Fakedea(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
         //Variables Below
@@ -37,20 +37,25 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-
-			foreach(GameObject game in NetworkManager.singleton.spawnPrefabs)
+            if (Server.GetPlayers().Count<1)
+                return new string[] { "The server is empty!" };
+            Player caller = (sender is Player send) ? send : null;
+            if (args.Length>0)
             {
-                if(game.GetComponent == WorkStation)
+                Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
+                if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
+                if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-
-
+                    
+                    return new string[] { myPlayer.Name+" " };
                 }
+                else
+                    return new string[] { myPlayer.Name+" is dead!" };
             }
-
-			
-
-			
-                return new string[] { "Command Name Here" };
+            else
+            {
+                return new string[] { " "+GetUsage() };
+            }
             
         }
     }
