@@ -15,12 +15,12 @@ using Smod2.EventHandlers;
 
 namespace ATTG3
 {
-    class CommandSetup : ICommandHandler
+    class DoorRE : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public CommandSetup(ATTG3Plugin plugin) => this.plugin=plugin;
+        public DoorRE(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
         //Variables Below
@@ -38,12 +38,15 @@ namespace ATTG3
                 };
             }
 
-			
+			foreach(Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+            {
+                if (door.Destroyed==true)
+                {
+                    door.Destroyed=false;
+                }
 
-			
-
-			
-                return new string[] { "Command Name Here" };
+            }
+                return new string[] { "Doors Fixed" };
             
         }
     }

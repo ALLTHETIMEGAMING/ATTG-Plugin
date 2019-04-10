@@ -37,9 +37,6 @@
     <Reference Include="Assembly-CSharp">
       <HintPath>..\References\Assembly-CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\References\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
     <Reference Include="ItemManager">
       <HintPath>..\References\ItemManager.dll</HintPath>
     </Reference>
@@ -77,13 +74,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Door Re.cs" />
     <Compile Include="Commands\Disable.cs" />
     <Compile Include="Commands\ELEL.cs" />
     <Compile Include="Commands\ELES.cs" />
     <Compile Include="Commands\GenSpam.cs" />
     <Compile Include="Commands\GenDisable.cs" />
-    <Compile Include="Events\Event Commands\Command Outline.cs" />
-    <Compile Include="Events\Event Handler\EventHandler.cs" />
     <Compile Include="Help Commands\Round Info.cs" />
     <Compile Include="Help Commands\Teams.cs" />
     <Compile Include="Help Commands\ItemH.cs" />
@@ -114,7 +110,6 @@
     <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands\GenTime.cs" />
     <Compile Include="Timing2.cs" />
-    <Compile Include="Vote Stuff\Red help.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Vote Stuff\VoteBC.cs" />
     <Compile Include="Vote Stuff\VoteA.cs" />
