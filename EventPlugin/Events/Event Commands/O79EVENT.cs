@@ -38,12 +38,13 @@ namespace ATTG3
                 };
             }
 
-			
 
-			
+            plugin.O79Event=!plugin.O79Event;
 
-			
-                return new string[] { "Command Name Here" };
+
+
+
+                return new string[] { "079 Event started" };
             
         }
     }
