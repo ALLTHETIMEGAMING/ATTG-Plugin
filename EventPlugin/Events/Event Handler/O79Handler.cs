@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ATTG3
 {
-    internal class O79Handler : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn, IEventHandlerDecideTeamRespawnQueue
+    internal class O79Handler : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn
     {
 
         int gen;
