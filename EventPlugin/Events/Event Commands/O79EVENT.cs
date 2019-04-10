@@ -15,12 +15,12 @@ using Smod2.EventHandlers;
 
 namespace ATTG3
 {
-    class CommandSetup : ICommandHandler
+    class O79EVENT: ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public CommandSetup(ATTG3Plugin plugin) => this.plugin=plugin;
+        public O79EVENT(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
         //Variables Below
