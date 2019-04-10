@@ -41,7 +41,7 @@ namespace ATTG3
 			plugin.Lights=!plugin.Lights;
 			if (plugin.Lights)
 			{
-				if (args.Length>1)
+				if (args.Length>0)
 				{
 					converted=float.Parse(args[1]);
 				}
