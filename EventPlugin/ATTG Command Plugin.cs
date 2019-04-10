@@ -55,6 +55,7 @@ namespace ATTG3
 		public bool EULockdownact { get; set; }
 		public bool Gthrow { get; set; }
 		public bool GenSpam { get; set; }
+		public bool O79Event { get; set; }
         public override void Register()
 		{
 			Instance=this;
