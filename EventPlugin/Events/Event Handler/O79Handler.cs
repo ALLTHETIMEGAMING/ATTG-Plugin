@@ -14,7 +14,11 @@ namespace ATTG3
         public O79Handler(ATTG3Plugin plugin) => this.plugin=plugin;
         public void OnRoundStart(RoundStartEvent ev)
         {
+			if (plugin.O79Event)
+			{
 
+
+			}
 
 		}
         
