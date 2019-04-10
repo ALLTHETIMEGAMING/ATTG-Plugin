@@ -68,13 +68,14 @@ namespace ATTG3
 			// Configs
 			AddConfig(new ConfigSetting("attg_ranks", new[]{"owner","coowner"}, false, true, ""));
 			AddConfig(new ConfigSetting("attg_command_disable_ranks", new[]{"owner"}, false, true, "Valid ranks to disable the Event Plugin"));
-			AddConfig(new ConfigSetting("attg_scp_ranks", new[]{"owner","coowner"}, false, true, "Ranks for all SCP Commands"));
+			AddConfig(new ConfigSetting("attg_event_ranks", new[]{"owner","coowner"}, false, true, "Ranks for all SCP Commands"));
 			AddConfig(new ConfigSetting("attg_vote_ranks", new[]{"owner","coowner","admin"},false, true, "Valid ranks for all voteing Commands"));
 			AddConfig(new ConfigSetting("attg_all_ranks", new[]{"owner"}, false, true, "Valid ranks for all Commands"));
-			AddConfig(new ConfigSetting("attg_049_infect", false, false, true, "Makes SCP-049 revive instantly"));
-			AddConfig(new ConfigSetting("attg_096_door", true, false, true, "Makes SCP-096 able to open all doors when enraged"));
-			AddConfig(new ConfigSetting("attg_card_hand", true, false, true, "Makes all players able to open keycard doors with out a keycard in hand"));
-			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Default Elevator speed"));
+			AddConfig(new ConfigSetting("attg_049_infect", false, false, true, "Allows SCP-049 revive instantly"));
+			AddConfig(new ConfigSetting("attg_096_door", true, false, true, "Allows SCP-096 able to open all doors when enraged"));
+            AddConfig(new ConfigSetting("attg_door_hand", true, false, true, "Allows all players able to open keycard doors with out a keycard in hand"));
+            AddConfig(new ConfigSetting("attg_door_hand", true, false, true, "Allows all players able to open Generators with out a keycard in hand"));
+            AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Default Elevator speed"));
 
 			ReloadConfig();
             //SCP-079/Genorator Commands
@@ -129,8 +130,9 @@ namespace ATTG3
 			// Other
 			O49infect=GetConfigBool("attg_049_infect");
 			O96Door=GetConfigBool("attg_096_door");
-			NoCHand=GetConfigBool("attg_card_hand");
-			Elevatord=GetConfigFloat("attg_elevator_speed");
+			NoCHand=GetConfigBool("attg_door_hand");
+            GenHand=GetConfigBool("attg_gen_hand");
+            Elevatord=GetConfigFloat("attg_elevator_speed");
 		}
 		public override void OnEnable()
 		{

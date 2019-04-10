@@ -194,7 +194,7 @@ namespace ATTG3
                 ev.Allow=false;
 
             }
-            if (plugin.NoCHand&&!plugin.GenLock)
+            if (plugin.GenHand&&!plugin.GenLock)
             {
 
 

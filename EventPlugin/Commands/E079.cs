@@ -25,7 +25,7 @@ namespace ATTG3
 		{
 			if (!(sender is Server)&&
 				sender is Player player&&
-				!plugin.SCPrank.Contains(player.GetRankName()))
+				!plugin.AdminRanks.Contains(player.GetRankName()))
 			{
 				return new[]
 				{
