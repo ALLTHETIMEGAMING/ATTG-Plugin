@@ -19,7 +19,7 @@ namespace ATTG3
             //Constructor passing plugin refrence to this class
             this.plugin=plugin;
         }
-
+        public float converted;
 
 
         public string GetCommandDescription()
@@ -36,7 +36,7 @@ namespace ATTG3
         {
             if (!(sender is Server)&&
                 sender is Player player&&
-                !plugin.SCPrank.Contains(player.GetRankName()))
+                !plugin.AdminRanks.Contains(player.GetRankName()))
             {
                 return new[]
                 {
@@ -44,21 +44,22 @@ namespace ATTG3
                 };
             }
 			plugin.GenSpam=!plugin.GenSpam;
-			if (plugin.GenSpam)
-			{
-				Timing.Run(TimingDelay(10f));
+            if (plugin.GenSpam)
+            {
+                if (args.Length>1)
+                {
+                    converted=float.Parse(args[1]);
+                }
+                else
+                {
+                    converted=10f;
+                }
+                Timing.Run(TimingDelay(converted));
 
-			}
-            foreach (Generator079 gen in Generator079.generators)
-			{
-				gen.NetworkisTabletConnected=true;
-				gen.EjectTablet();
-
-			}
-
+            }
             return new[]
             {
-                $"Generators {(plugin.Lights ? "Unlocked" : "Locked")}."
+                $"Generator Spam {(plugin.GenSpam ? "Off" : "On")}."
 			};
 
 
@@ -75,7 +76,7 @@ namespace ATTG3
 
 				}
 
-				yield return 10f;
+				yield return converted;
 			}
 		}
 	}
