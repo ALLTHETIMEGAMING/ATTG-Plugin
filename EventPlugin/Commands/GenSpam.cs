@@ -46,7 +46,7 @@ namespace ATTG3
 			plugin.GenSpam=!plugin.GenSpam;
             if (plugin.GenSpam)
             {
-                if (args.Length>1)
+                if (args.Length>0)
                 {
                     converted=float.Parse(args[1]);
                 }
