@@ -28,13 +28,14 @@ namespace ATTG3
 	{
 
 		public static ATTG3Plugin Instance { get; private set; }
-		public bool Running939P { get; set; }
-		public bool Running939 { get; set; }
+		
+        // Command Perms
 		public string[] AdminRanks { get; private set; }
 		public string[] Disablerank { get; private set; }
 		public string[] Voterank { get; private set; }
 		public string[] Allrank { get; private set; }
-		public string[] SCPrank { get; private set; }
+		public string[] Eventrank { get; private set; }
+        // Command Vars
 		public bool Voteopen { get; set; }
 		public bool Disable { get; set; } = false;
 		public int Yes { get; set; }
@@ -56,6 +57,9 @@ namespace ATTG3
 		public bool Gthrow { get; set; }
 		public bool GenSpam { get; set; }
 		public bool O79Event { get; set; }
+        public bool GenHand { get; set; }
+        public bool Running939P { get; set; }
+        public bool Running939 { get; set; }
         public override void Register()
 		{
 			Instance=this;
@@ -118,7 +122,7 @@ namespace ATTG3
 			// Command Perms
 			AdminRanks=GetConfigList("attg_ranks");
 			Voterank=GetConfigList("attg_vote_ranks");
-			SCPrank=GetConfigList("attg_scp_ranks");
+			Eventrank=GetConfigList("attg_event_ranks");
 			Allrank=GetConfigList("attg_all_ranks");
 			//Dissable Config
 			Disable=GetConfigBool("attg_command_disable");

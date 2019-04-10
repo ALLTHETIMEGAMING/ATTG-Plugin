@@ -8,7 +8,8 @@ using UnityEngine;
 
 namespace ATTG3
 {
-    internal class O79Handler : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn
+    internal class O79Handler : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
+        IEventHandlerRoundEnd
     {
 
         int gen;
@@ -84,6 +85,11 @@ namespace ATTG3
             {
                 ev.SpawnChaos=false;
             }
+        }
+        public void OnRoundEnd(RoundEndEvent ev)
+        {
+
+
         }
     }
 }

@@ -8,7 +8,10 @@ using UnityEngine;
 
 namespace ATTG3
 {
-    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet, IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse
+    internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, 
+        IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, 
+        IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet, 
+        IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse
 	{
         private readonly ATTG3Plugin plugin;
         public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
