@@ -51,7 +51,6 @@ namespace ATTG3
 					else if (player.TeamRole.Team!=Smod2.API.Team.SCP&&player.TeamRole.Team!=Smod2.API.Team.NINETAILFOX)
 					{
 						player.ChangeRole(Role.NTF_LIEUTENANT, true, false, true, true);
-
 					}
 				}
 			}
@@ -109,9 +108,7 @@ namespace ATTG3
 			{
 				ev.Allow=false;
 			}
-
 		}
-
 		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
 		{
 			if (plugin.O79Event)
