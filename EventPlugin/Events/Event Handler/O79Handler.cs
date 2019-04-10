@@ -6,7 +6,7 @@ using Smod2.Events;
 namespace ATTG3
 {
 	internal class O79Handler : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
-		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever
+		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet
 	{
 
 		bool nuke;
@@ -99,7 +99,15 @@ namespace ATTG3
 		{
 			if (plugin.O79Event&&nuke)
 			{
-
+				ev.Allow=false;
+				ev.Player.PersonalBroadcast(10, "Nuke cannot be activated at the moment", false);
+			}
+		}
+		public void OnGeneratorEjectTablet(Smod2.Events.PlayerGeneratorEjectTabletEvent ev)
+		{
+			if (plugin.O79Event)
+			{
+				ev.Allow=false;
 			}
 
 		}
