@@ -83,7 +83,6 @@ namespace ATTG3
             if (plugin.O79Event)
             {
                 ev.SpawnChaos=false;
-
             }
         }
     }
