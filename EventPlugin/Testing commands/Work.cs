@@ -53,9 +53,22 @@ namespace ATTG3
                     Vector pos = myPlayer.GetPosition();
                     Vector3 Spawnpoint = new Vector3(33, 988,-62);
 
-					GameObject Ragdoll_16= NetworkManager.FindObjectOfType("WorkStation");
-					//Work=GameObject.FindGameObjectWithTag("Work Station");
-					GameObject val = Object.Instantiate(Ragdoll_16, Spawnpoint, Quaternion.identity);
+                    //GameObject Ragdoll_16= NetworkManager.FindObjectOfType(WorkStation);
+                    //Work=GameObject.FindGameObjectWithTag("Work Station");
+                    List<string> Game;
+                    IEnumerable<GameObject> myEnumerable = Game.Where(FilterOutNotMe);
+
+                    GameObject FilterOutNotMe(GameObject aObj)
+                    {
+                        if (aObj==WorkStation.FindObjectOfType.)
+                            return aObj;
+                        return null;
+                    }
+                    
+                    
+
+
+                    GameObject val = Object.Instantiate(Ragdoll_16, Spawnpoint, Quaternion.identity);
                     NetworkServer.Spawn(val);
 
 					return new string[] { "Workstation Spawned" };

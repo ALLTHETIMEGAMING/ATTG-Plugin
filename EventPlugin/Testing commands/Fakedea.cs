@@ -24,7 +24,7 @@ namespace ATTG3
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
         //Variables Below
-
+        private CharacterClassManager ccm;
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
@@ -47,7 +47,13 @@ namespace ATTG3
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
                     
-                    return new string[] { myPlayer.Name+" " };
+                    int role = (int)myPlayer.TeamRole.Role;
+                    Class @class = ccm.klasy[role];
+                    Vector pos = myPlayer.GetPosition();
+                    Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
+                    GameObject gameObject = Object.Instantiate(@class.model_ragdoll,Spawnpoint, Quaternion.identity);
+                    NetworkServer.Spawn(gameObject);
+                    return new string[] { myPlayer.Name+" Death faked" };
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };

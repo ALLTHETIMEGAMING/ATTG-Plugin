@@ -114,6 +114,7 @@ namespace ATTG3
             this.AddCommand("AGSHAKE", new Shake(this));
             this.AddCommand("AGLights", new Overcharge(this));
             this.AddCommand("AG079EVENT", new O79EVENT(this));
+            this.AddCommand("AGFAKE", new Fakedea(this));
             //this.AddCommand("AGWORK", new Work(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Highest);
