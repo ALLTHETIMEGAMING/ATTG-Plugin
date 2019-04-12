@@ -44,7 +44,7 @@ namespace ATTG3
 					{
 						player.Scp079Data.Level=4;
 					}
-					else if (player.TeamRole.Team==Smod2.API.Team.SCP)
+					if (player.TeamRole.Team==Smod2.API.Team.SCP)
 					{
 						player.SetGodmode(true);
 					}
