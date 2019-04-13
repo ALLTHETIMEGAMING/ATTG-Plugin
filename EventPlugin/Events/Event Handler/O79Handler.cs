@@ -99,6 +99,7 @@ namespace ATTG3
 							door.Open=true;
 						}
 					}
+					nuke=true;
 				}
 
 			}
