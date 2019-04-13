@@ -6,7 +6,7 @@ using Smod2.Events;
 namespace ATTG3
 {
 	internal class O79Handler : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
-		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet
+		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole
 	{
 
 		bool nuke;
@@ -40,6 +40,19 @@ namespace ATTG3
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
+					 if (player.TeamRole.Team!=Smod2.API.Team.SCP)
+					{
+						player.ChangeRole(Role.NTF_LIEUTENANT, true, false, true, true);
+					}
+				}
+			}
+		}
+		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
+		{
+			if (plugin.O79Event)
+			{
+				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+				{
 					if (player.TeamRole.Role==Role.SCP_079)
 					{
 						player.Scp079Data.Level=4;
@@ -47,10 +60,6 @@ namespace ATTG3
 					if (player.TeamRole.Team==Smod2.API.Team.SCP)
 					{
 						player.SetGodmode(true);
-					}
-					else if (player.TeamRole.Team!=Smod2.API.Team.SCP&&player.TeamRole.Team!=Smod2.API.Team.NINETAILFOX)
-					{
-						player.ChangeRole(Role.NTF_LIEUTENANT, true, false, true, true);
 					}
 				}
 			}
