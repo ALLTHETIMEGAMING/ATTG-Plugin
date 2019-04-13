@@ -46,8 +46,16 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-                    
-                    return new string[] { myPlayer.Name+" " };
+					Vector pos = myPlayer.GetPosition();
+					Vector3 Spawnpoint = new Vector3(33, 988, -62);
+
+					int role = (int)myPlayer.TeamRole.Role;
+					Class @class = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().klasy[role];
+					GameObject ragdoll = Object.Instantiate(@class.model_ragdoll,Spawnpoint, Quaternion.identity);
+					NetworkServer.Spawn(ragdoll);
+					ragdoll.GetComponent<Ragdoll>().SetOwner(new Ragdoll.Info(myPlayer.PlayerId.ToString(), myPlayer.Name, new PlayerStats.HitInfo(), role, myPlayer.PlayerId));
+
+					return new string[] { myPlayer.Name+" " };
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
