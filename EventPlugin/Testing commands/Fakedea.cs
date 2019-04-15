@@ -26,6 +26,7 @@ namespace ATTG3
         public string GetUsage() => "";
 		//Variables Below
 		List<GameObject> wipe = new List<GameObject>();
+        int Count;
 
 		public string[] OnCall(ICommandSender sender, string[] args)
         {
@@ -64,11 +65,12 @@ namespace ATTG3
             {
 				foreach(GameObject game in wipe)
 				{
+                    Count++;
 					NetworkServer.Destroy(game);
 				}
 
 
-                return new string[] { " Wiped" };
+                return new string[] { Count + " Bodys Wiped" };
             }
             
         }

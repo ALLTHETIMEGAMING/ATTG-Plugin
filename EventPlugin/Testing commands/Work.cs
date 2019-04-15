@@ -23,8 +23,10 @@ namespace ATTG3
         public Work(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
+        List<GameObject> wipe = new List<GameObject>();
+        int Count;
 
-		public string[] OnCall(ICommandSender sender, string[] args)
+        public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
                 sender is Player player&&
@@ -50,20 +52,28 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-                    //Vector pos = myPlayer.GetPosition();
-                    //Vector3 Spawnpoint = new Vector3(33, 988,-62);
+                    
+                    GameObject player1 = (GameObject)myPlayer.GetGameObject();
                     GameObject Work =GameObject.Find("Work Station");
-                    GameObject val = Object.Instantiate(Work, Spawnpoint, Quaternion.identity);
+                    GameObject val = Object.Instantiate(Work, player1.transform.position, Quaternion.Euler(player1.transform.rotation.eulerAngles));
                     NetworkServer.Spawn(val);
-
-					return new string[] { "Workstation Spawned" };
+                    wipe.Add(val);
+                    return new string[] { "Workstation Spawned" };
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
             }
             else
             {
-                return new string[] { "AGWORK: " + GetUsage() };
+                
+                foreach (GameObject game in wipe)
+                {
+                    Count++;
+                    NetworkServer.Destroy(game);
+                }
+
+
+                return new string[] { Count + " Work Stations Wiped" };
             }
         }
     }
