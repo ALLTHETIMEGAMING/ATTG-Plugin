@@ -106,7 +106,7 @@ namespace ATTG3
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
 		{
-			if (plugin.O79Event&&nuke)
+			if (plugin.O79Event&&!nuke)
 			{
 				ev.Allow=false;
 				ev.Player.PersonalBroadcast(10, "Nuke cannot be activated at the moment", false);

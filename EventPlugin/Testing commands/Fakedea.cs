@@ -12,6 +12,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Smod2.EventHandlers;
+using ServerMod2.API;
 
 namespace ATTG3
 {
@@ -23,10 +24,10 @@ namespace ATTG3
         public Fakedea(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
-        //Variables Below
+		//Variables Below
+		List<GameObject> wipe = new List<GameObject>();
 
-
-        public string[] OnCall(ICommandSender sender, string[] args)
+		public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
                 sender is Player player&&
@@ -48,13 +49,13 @@ namespace ATTG3
                 {
 					Vector pos = myPlayer.GetPosition();
 					Vector3 Spawnpoint = new Vector3(33, 988, -62);
-
+					GameObject player1 = (GameObject)myPlayer.GetGameObject();
 					int role = (int)myPlayer.TeamRole.Role;
 					Class @class = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().klasy[role];
-					GameObject ragdoll = Object.Instantiate(@class.model_ragdoll,Spawnpoint, Quaternion.identity);
+					GameObject ragdoll = Object.Instantiate(@class.model_ragdoll,player1.transform.position+@class.ragdoll_offset.position,Quaternion.Euler(player1.transform.rotation.eulerAngles+@class.ragdoll_offset.rotation));
 					NetworkServer.Spawn(ragdoll);
 					ragdoll.GetComponent<Ragdoll>().SetOwner(new Ragdoll.Info(myPlayer.PlayerId.ToString(), myPlayer.Name, new PlayerStats.HitInfo(), role, myPlayer.PlayerId));
-
+					wipe.Add(ragdoll);
 					return new string[] { myPlayer.Name+" " };
                 }
                 else
@@ -62,7 +63,13 @@ namespace ATTG3
             }
             else
             {
-                return new string[] { " "+GetUsage() };
+				foreach(GameObject game in wipe)
+				{
+					NetworkServer.Destroy(game);
+				}
+
+
+                return new string[] { " Wiped" };
             }
             
         }
