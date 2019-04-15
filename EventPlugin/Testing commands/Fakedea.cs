@@ -47,7 +47,7 @@ namespace ATTG3
                     NetworkServer.Spawn(ragdoll);
                     ragdoll.GetComponent<Ragdoll>().SetOwner(new Ragdoll.Info(myPlayer.PlayerId.ToString(), myPlayer.Name, new PlayerStats.HitInfo(), role, myPlayer.PlayerId));
                     wipe.Add(ragdoll);
-                    return new string[] { myPlayer.Name+" " };
+                    return new string[] { myPlayer.Name+" Death Faked" };
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
