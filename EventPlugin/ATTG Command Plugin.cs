@@ -66,7 +66,7 @@ namespace ATTG3
 			Timing.Init(this);
 			Timing2.Init(this);
 			// Configs
-			AddConfig(new ConfigSetting("attg_ranks", new[]{"owner","coowner"}, false, true, ""));
+			AddConfig(new ConfigSetting("attg_ranks", new[]{"owner","coowner", "o51" }, false, true, ""));
 			AddConfig(new ConfigSetting("attg_command_disable_ranks", new[]{"owner"}, false, true, "Valid ranks to disable the Event Plugin"));
 			AddConfig(new ConfigSetting("attg_event_ranks", new[]{"owner","coowner"}, false, true, "Ranks for all SCP Commands"));
 			AddConfig(new ConfigSetting("attg_vote_ranks", new[]{"owner","coowner","admin"},false, true, "Valid ranks for all voteing Commands"));
@@ -116,6 +116,7 @@ namespace ATTG3
 			this.AddCommand("AGFAKE", new Fakedea(this));
 			this.AddCommand("AGWORK", new Work(this));
             this.AddCommand("AGAMMO", new Ammo(this));
+            this.AddCommand("AGBLAST", new Blast(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Highest);
             this.AddEventHandlers(new O79Handler(this), Priority.Normal);
