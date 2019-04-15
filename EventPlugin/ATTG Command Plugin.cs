@@ -57,6 +57,7 @@ namespace ATTG3
 		public bool Gthrow { get; set; }
 		public bool GenSpam { get; set; }
 		public bool O79Event { get; set; }
+        public bool VicEvent { get; set; }
         public bool GenHand { get; set; }
         public bool Running939P { get; set; }
         public bool Running939 { get; set; }

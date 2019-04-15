@@ -80,6 +80,7 @@
     <Compile Include="Commands\GenSpam.cs" />
     <Compile Include="Commands\GenDisable.cs" />
     <Compile Include="Events\Event Commands\O79EVENT.cs" />
+    <Compile Include="Events\Event Handler\VicHandler.cs" />
     <Compile Include="Events\Event Handler\O79Handler.cs" />
     <Compile Include="Help Commands\Round Info.cs" />
     <Compile Include="Help Commands\Teams.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Commands\GenTime.cs" />
     <Compile Include="Testing commands\Blast.cs" />
     <Compile Include="Testing commands\Fakedea.cs" />
+    <Compile Include="Testing commands\Work.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Vote Stuff\VoteBC.cs" />
