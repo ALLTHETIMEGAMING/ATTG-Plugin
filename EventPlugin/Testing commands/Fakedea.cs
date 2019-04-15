@@ -12,6 +12,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Smod2.EventHandlers;
+using ServerMod2.API;
 
 namespace ATTG3
 {
@@ -23,10 +24,10 @@ namespace ATTG3
         public Fakedea(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
-        //Variables Below
-        private CharacterClassManager ccm;
+		//Variables Below
+		List<GameObject> wipe = new List<GameObject>();
 
-        public string[] OnCall(ICommandSender sender, string[] args)
+		public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
                 sender is Player player&&
@@ -46,21 +47,28 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-                    
-                    int role = (int)myPlayer.TeamRole.Role;
-                    Class @class = ccm.klasy[role];
-                    Vector pos = myPlayer.GetPosition();
-                    Vector3 Spawnpoint = new Vector3(pos.x, pos.y, pos.z);
-                    GameObject gameObject = Object.Instantiate(@class.model_ragdoll,Spawnpoint, Quaternion.identity);
-                    NetworkServer.Spawn(gameObject);
-                    return new string[] { myPlayer.Name+" Death faked" };
+					GameObject player1 = (GameObject)myPlayer.GetGameObject();
+					int role = (int)myPlayer.TeamRole.Role;
+					Class @class = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().klasy[role];
+					GameObject ragdoll = Object.Instantiate(@class.model_ragdoll,player1.transform.position+@class.ragdoll_offset.position,Quaternion.Euler(player1.transform.rotation.eulerAngles+@class.ragdoll_offset.rotation));
+					NetworkServer.Spawn(ragdoll);
+					ragdoll.GetComponent<Ragdoll>().SetOwner(new Ragdoll.Info(myPlayer.PlayerId.ToString(), myPlayer.Name, new PlayerStats.HitInfo(), role, myPlayer.PlayerId));
+					wipe.Add(ragdoll);
+					return new string[] { myPlayer.Name+" " };
+
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
             }
             else
             {
-                return new string[] { " "+GetUsage() };
+				foreach(GameObject game in wipe)
+				{
+					NetworkServer.Destroy(game);
+				}
+
+
+                return new string[] { " Wiped" };
             }
             
         }

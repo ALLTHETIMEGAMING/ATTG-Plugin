@@ -74,7 +74,7 @@ namespace ATTG3
 			AddConfig(new ConfigSetting("attg_049_infect", false, false, true, "Allows SCP-049 revive instantly"));
 			AddConfig(new ConfigSetting("attg_096_door", true, false, true, "Allows SCP-096 able to open all doors when enraged"));
             AddConfig(new ConfigSetting("attg_door_hand", true, false, true, "Allows all players able to open keycard doors with out a keycard in hand"));
-            AddConfig(new ConfigSetting("attg_door_hand", true, false, true, "Allows all players able to open Generators with out a keycard in hand"));
+            AddConfig(new ConfigSetting("attg_gen_hand", true, false, true, "Allows all players able to open Generators with out a keycard in hand"));
             AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Default Elevator speed"));
 
 			ReloadConfig();
@@ -114,10 +114,10 @@ namespace ATTG3
             this.AddCommand("AGSHAKE", new Shake(this));
             this.AddCommand("AGLights", new Overcharge(this));
             this.AddCommand("AG079EVENT", new O79EVENT(this));
-            this.AddCommand("AGFAKE", new Fakedea(this));
-            //this.AddCommand("AGWORK", new Work(this));
-            //Event Handlers
-            this.AddEventHandlers(new EventHandler(this), Priority.Highest);
+			this.AddCommand("AGFAKE", new Fakedea(this));
+			//this.AddCommand("AGWORK", new Work(this));
+			//Event Handlers
+			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
             this.AddEventHandlers(new O79Handler(this), Priority.Normal);
             this.AddEventHandlers(new Vote(this));
 		}
