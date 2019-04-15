@@ -23,7 +23,8 @@ namespace ATTG3
 			// This prints when someone types HELP HELLO
 			return "tlesla";
 		}
-		public string[] OnCall(ICommandSender sender, string[] args)
+        public static readonly string[] CA = new string[] { "AGEL", "EL" };
+        public string[] OnCall(ICommandSender sender, string[] args)
 		{
 			if (!(sender is Server)&&
 				sender is Player player&&

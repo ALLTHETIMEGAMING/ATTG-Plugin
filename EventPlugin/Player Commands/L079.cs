@@ -13,6 +13,7 @@ namespace ATTG3
         public L079(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "Makes 079 Level 5";
+        public static readonly string[] CA = new string[] { "L079", "AGL079" };
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&

@@ -18,6 +18,7 @@ namespace ATTG3
         public Speed(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "Makes a player that is SCP-939 fast";
+        public static readonly string[] CA = new string[] { "SPEED", "AGSPEED" };
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&

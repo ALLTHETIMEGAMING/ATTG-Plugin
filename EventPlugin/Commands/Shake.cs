@@ -16,7 +16,7 @@ namespace ATTG3
         public Shake(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "Shakes Map";
         public string GetUsage() => "AGSHAKE";
-
+        public static readonly string[] CA = new string[] { "AGSHAKE", "SHAKE" };
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&

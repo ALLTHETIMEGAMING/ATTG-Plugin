@@ -79,45 +79,45 @@ namespace ATTG3
 
 			ReloadConfig();
             //SCP-079/Genorator Commands
-            this.AddCommand("AGGEND", new GenDisable(this));
-            this.AddCommand("AG079T", new GenTime(this));
-            this.AddCommand("AGGS", new GenSpam(this));
-            this.AddCommand("AGP079", new P079(this));
-            this.AddCommand("AGE079", new E079(this));
-            this.AddCommand("AGL079", new L079(this));
+            this.AddCommands(GenDisable.CA, new GenDisable(this));
+            this.AddCommands(GenTime.CA, new GenTime(this));
+            this.AddCommands(GenSpam1.CA, new GenSpam1(this));
+            this.AddCommands(P079.CA, new P079(this));
+            this.AddCommands(E079.CA, new E079(this));
+            this.AddCommands(L079.CA, new L079(this));
             // lock / TeslaGate Commands 
             this.AddCommand("AGLOCK", new Lock(this));
             this.AddCommand("AGULOCK", new Unlock(this));
             this.AddCommand("AGELOCK", new ELock(this));
             this.AddCommand("AGEULOCK", new EUnlock(this));
-            this.AddCommand("AGTL", new Tleslad(this));
-            this.AddCommand("AGEL", new ELEL(this));
-            this.AddCommand("AGTLR", new TleslR(this));
-            this.AddCommand("AGELS", new ELELS(this));
+            this.AddCommands(Tleslad.CA, new Tleslad(this));
+            this.AddCommands(ELEL.CA, new ELEL(this));
+            this.AddCommands(TleslR.CA, new TleslR(this));
+            this.AddCommands(ELELS.CA, new ELELS(this));
             //Vote Commands
-            this.AddCommand("AGVoteT", new VoteAD(this));
-            this.AddCommand("AGVoteC", new VoteC(this));
-            this.AddCommand("AGVoteS", new VoteA(this));
-            this.AddCommand("AGAMMO", new Ammo(this));
-            this.AddCommand("AGVoteBC", new VoteBC(this));
+            this.AddCommands(VoteAD.CA, new VoteAD(this));
+            this.AddCommands(VoteC.CA, new VoteC(this));
+            this.AddCommands(VoteA.CA, new VoteA(this));
+            this.AddCommands(VoteBC.CA, new VoteBC(this));
             //Help Commands
             this.AddCommand("AGTH", new ItemH(this));
             this.AddCommand("AGIH", new Teams(this));
             this.AddCommand("AGHELP", new Help(this));
             this.AddCommands(RS.CA, new RS(this));
             //Other
-            this.AddCommand("AG106D", new C106(this));
-            this.AddCommand("AGUP", new Up(this));
+            this.AddCommands(C106.CA, new C106(this));
+            this.AddCommands(Up.CA, new Up(this));
             this.AddCommand("AGDISABLE", new Disable(this));
-            this.AddCommand("AGSPEEDA", new Speed2(this));
-            this.AddCommand("AGSPEED", new Speed(this));
-            this.AddCommand("AGSHAKE", new Shake(this));
-            this.AddCommand("AGLights", new Overcharge(this));
+            this.AddCommands(Speed2.CA, new Speed2(this));
+            this.AddCommands(Speed.CA, new Speed(this));
+            this.AddCommands(Shake.CA, new Shake(this));
+            this.AddCommands(Overcharge.CA, new Overcharge(this));
             this.AddCommand("AG079EVENT", new O79EVENT(this));
 			this.AddCommand("AGFAKE", new Fakedea(this));
-			//this.AddCommand("AGWORK", new Work(this));
-			//Event Handlers
-			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
+			this.AddCommand("AGWORK", new Work(this));
+            this.AddCommand("AGAMMO", new Ammo(this));
+            //Event Handlers
+            this.AddEventHandlers(new EventHandler(this), Priority.Highest);
             this.AddEventHandlers(new O79Handler(this), Priority.Normal);
             this.AddEventHandlers(new Vote(this));
 		}

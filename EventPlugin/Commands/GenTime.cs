@@ -18,9 +18,9 @@ namespace ATTG3
 			this.plugin = plugin;
 		}
 
+        public static readonly string[] CA = new string[] { "AG079T", "079T", "GT" };
 
-
-		public string GetCommandDescription()
+        public string GetCommandDescription()
 		{
 			// This prints when someone types HELP HELLO
 			return "";

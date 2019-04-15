@@ -21,7 +21,8 @@ namespace ATTG3
 			// This prints when someone types HELP HELLO
 			return "Ejects all Tablets";
 		}
-		public string[] OnCall(ICommandSender sender, string[] args)
+        public static readonly string[] CA = new string[] { "AGE079", "E079" };
+        public string[] OnCall(ICommandSender sender, string[] args)
 		{
 			if (!(sender is Server)&&
 				sender is Player player&&

@@ -13,6 +13,7 @@ namespace ATTG3
         public Up(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "Forces player up";
+        public static readonly string[] CA = new string[] { "AGUP", "UP" };
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&

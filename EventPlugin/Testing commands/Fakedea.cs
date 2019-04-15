@@ -27,8 +27,8 @@ namespace ATTG3
 		//Variables Below
 		List<GameObject> wipe = new List<GameObject>();
         int Count;
-
-		public string[] OnCall(ICommandSender sender, string[] args)
+        public static readonly string[] CA = new string[] { "AGFAKE", "FAKE" };
+        public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
                 sender is Player player&&

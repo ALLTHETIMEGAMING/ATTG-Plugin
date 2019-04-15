@@ -21,6 +21,7 @@ namespace ATTG3
         {
             return "AGVOTES";
         }
+        public static readonly string[] CA = new string[] { "AGVOTES", "VOTES" };
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&

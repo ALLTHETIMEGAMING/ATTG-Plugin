@@ -25,7 +25,7 @@ namespace ATTG3
         public string GetUsage() => "";
         List<GameObject> wipe = new List<GameObject>();
         int Count;
-
+        public static readonly string[] CA = new string[] { "AGWORK", "WORK" };
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&

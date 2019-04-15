@@ -23,6 +23,8 @@ namespace ATTG3
             // This prints when someone types HELP HELLO
             return "Disables 106 Containment";
         }
+        public static readonly string[] CA = new string[] { "AGC106", "C106" };
+
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&

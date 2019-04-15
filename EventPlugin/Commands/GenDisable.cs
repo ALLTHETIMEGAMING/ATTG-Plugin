@@ -16,7 +16,7 @@ namespace ATTG3
             //Constructor passing plugin refrence to this class
             this.plugin=plugin;
         }
-
+        public static readonly string[] CA = new string[] { "AGGEND", "GEND", "GD" };
 
 
         public string GetCommandDescription()
@@ -27,7 +27,7 @@ namespace ATTG3
         public string GetUsage()
         {
             // This prints when someone types HELP HELLO
-            return "Locks SCP-079S Generators";
+            return "Locks SCP-079s Generators";
         }
         public string[] OnCall(ICommandSender sender, string[] args)
         {

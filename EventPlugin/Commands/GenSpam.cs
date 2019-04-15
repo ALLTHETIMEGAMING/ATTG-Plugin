@@ -8,13 +8,14 @@ using TMPro;
 
 namespace ATTG3
 {
-    class GenSpam : ICommandHandler
+    class GenSpam1 : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
 
         public static TextMeshProUGUI Sign2 = new TextMeshProUGUI();
+        public static readonly string[] CA = new string[] { "GENSPAM", "AGGENSPAM", "GS" };
 
-        public GenSpam(ATTG3Plugin plugin)
+        public GenSpam1(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
             this.plugin=plugin;

@@ -21,9 +21,10 @@ namespace ATTG3
 		public string GetUsage()
 		{
 			// This prints when someone types HELP HELLO
-			return "AGELS";
+			return "AGES";
 		}
-		public string[] OnCall(ICommandSender sender, String[] args)
+        public static readonly string[] CA = new string[] { "AGES", "ES" };
+        public string[] OnCall(ICommandSender sender, String[] args)
 		{
 			float Desplay2 = 0f;
 			if (!(sender is Server)&&
