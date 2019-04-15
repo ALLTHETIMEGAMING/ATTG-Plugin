@@ -50,25 +50,10 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-                    Vector pos = myPlayer.GetPosition();
-                    Vector3 Spawnpoint = new Vector3(33, 988,-62);
-
-                    //GameObject Ragdoll_16= NetworkManager.FindObjectOfType(WorkStation);
-                    //Work=GameObject.FindGameObjectWithTag("Work Station");
-                    List<string> Game;
-                    IEnumerable<GameObject> myEnumerable = Game.Where(FilterOutNotMe);
-
-                    GameObject FilterOutNotMe(GameObject aObj)
-                    {
-                        if (aObj==WorkStation.FindObjectOfType.)
-                            return aObj;
-                        return null;
-                    }
-                    
-                    
-
-
-                    GameObject val = Object.Instantiate(Ragdoll_16, Spawnpoint, Quaternion.identity);
+                    //Vector pos = myPlayer.GetPosition();
+                    //Vector3 Spawnpoint = new Vector3(33, 988,-62);
+                    GameObject Work =GameObject.Find("Work Station");
+                    GameObject val = Object.Instantiate(Work, Spawnpoint, Quaternion.identity);
                     NetworkServer.Spawn(val);
 
 					return new string[] { "Workstation Spawned" };
