@@ -54,11 +54,19 @@ namespace ATTG3
                 {
                     
                     GameObject player1 = (GameObject)myPlayer.GetGameObject();
-                    GameObject Work =GameObject.Find("Work Station");
-                    GameObject val = Object.Instantiate(Work, player1.transform.position, Quaternion.Euler(player1.transform.rotation.eulerAngles));
-                    NetworkServer.Spawn(val);
-                    wipe.Add(val);
-                    return new string[] { "Workstation Spawned" };
+                    GameObject Work = GameObject.Find("Work Station");
+                    
+                    if (Work==null)
+                    {
+                        return new string[] { "ERROR WORK == NULL" };
+                    }
+                    else
+                    {
+                        GameObject val = Object.Instantiate(Work, player1.transform.position, Quaternion.Euler(player1.transform.rotation.eulerAngles));
+                        NetworkServer.Spawn(val);
+                        wipe.Add(val);
+                        return new string[] { "Workstation Spawned" };
+                    }
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
