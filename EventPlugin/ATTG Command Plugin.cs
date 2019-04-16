@@ -114,7 +114,7 @@ namespace ATTG3
             this.AddCommands(Speed.CA, new Speed(this));
             this.AddCommands(Shake.CA, new Shake(this));
             this.AddCommands(Overcharge.CA, new Overcharge(this));
-            this.AddCommand("AG079EVENT", new O79EVENT(this));
+            this.AddCommand("AGSGOD", new O79EVENT(this));
 			this.AddCommand("AGFAKE", new Fakedea(this));
             this.AddCommand("AGAMMO", new Ammo(this));
             this.AddCommand("AGBLAST", new Blast(this));

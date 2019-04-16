@@ -57,7 +57,7 @@ namespace ATTG3
                 "(AGSHAKE) Shakes all players screens",
 				"(AGLIGHTS) Turns off all lights in HCZ / LCZ",
 				"(AGGEND) Disables all Generators",
-                "(AG079EVENT) Starts 079 Event",
+                "(AGSGOD) Starts SCP God Event",
                 "(AGFAKE) (Player Name) Fakes a players death",
                 "(AGWORK) (Player Name) Spawns a Work Station under player",
                 "(AGBLAST) Closes the Nuke blast doors",
