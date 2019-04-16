@@ -60,7 +60,8 @@ namespace ATTG3
                 "(AG079EVENT) Starts 079 Event",
                 "(AGFAKE) (Player Name) Fakes a players death",
                 "(AGWORK) (Player Name) Spawns a Work Station under player",
-				"----------------------------------------",
+                "(AGBLAST) Closes the Nuke blast doors",
+                "----------------------------------------",
                 "Plugin created by All The Time Gaming"
         };
         }
