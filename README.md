@@ -39,7 +39,17 @@ Place the "ATTG_Command.dll" file in your sm_plugins folder.
 | AGSPEED | Player Name | Sets speed of player |
 | AGSPEEDA | Float | Sets speed of all 939s |
 | AG079T | Float | Sets Start time of all generators|
-| AGLIGHTS| NONE | Turns off all lights in LCZ and HCZ |
+| AGSGOD | None | Starts SCP God Event|
+| AGLIGHTS| Float| Turns off all lights in LCZ and HCZ |
+| AGRS| None | Round Stats |
+| AGTH| None | Shows Team # |
+| AGIH| None | Shows all Items |
+| AGFAKE | Player| Drops a body of the player |
+| AGLOCK | Player | Lets player lock doors|
+| AGULOCK | Player | Lets player unlock doors|
+| AGELOCK | Player | Lets player lock Elevators|
+| AGEULOCK | Player | Lets player unlock Elevators|
+| AGBLAST | None | Closes nuke blast doors|
 
 ### ATTG Command Plugin Config
 | Config        | Value Type | Default | Description |
@@ -49,6 +59,7 @@ Place the "ATTG_Command.dll" file in your sm_plugins folder.
 | attg_049_infect | Bool | True | Makes SCP-049 revive instantly |
 | attg_096_door | Bool | True | Makes SCP-096 able to open all doors when enraged |
 | attg_card_hand | Bool | True | Makes all players able to open keycard doors with out a keycard in hand |
+| attg_gen_hand | Bool | True | Allows all players able to open Generators without a keycard in hand |
 | attg_command_disable_ranks | List | owner | Roles that can disable the ATTG Command Plugin. |
 | attg_command_disable | Bool | false | Disables ATTG Command Plugin |
 
