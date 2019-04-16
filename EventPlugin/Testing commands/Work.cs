@@ -60,9 +60,7 @@ namespace ATTG3
                     }
                     else
                     {
-                        Vector pos = myPlayer.GetPosition();
-                        Vector3 Spawnpoint = new Vector3(pos.x,pos.y,pos.z);
-                        GameObject val = Object.Instantiate(Works, Spawnpoint, Quaternion.identity);
+                        GameObject val = Object.Instantiate(Works, player1.transform.position, Quaternion.Euler(player1.transform.rotation.eulerAngles));
                         NetworkServer.Spawn(val);
                         wipe.Add(val);
                         return new string[] { "Workstation Spawned" };
