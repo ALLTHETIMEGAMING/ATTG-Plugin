@@ -38,14 +38,15 @@ namespace ATTG3
                 };
             }
 
-
-            plugin.O79Event=!plugin.O79Event;
-
-
-
-
+            if (!plugin.RoundStarted)
+            {
+                plugin.O79Event=true;
                 return new string[] { "079 Event started" };
-            
+            }
+            else
+            {
+                return new string[] { "Event must be started before the round starts." };
+            }
         }
     }
 }

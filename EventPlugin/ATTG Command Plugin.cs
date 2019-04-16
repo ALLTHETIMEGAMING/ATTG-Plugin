@@ -61,6 +61,7 @@ namespace ATTG3
         public bool GenHand { get; set; }
         public bool Running939P { get; set; }
         public bool Running939 { get; set; }
+        public bool RoundStarted { get; set; }
         public override void Register()
 		{
 			Instance=this;

@@ -11,8 +11,8 @@ namespace ATTG3
     internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown, 
         IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock, 
         IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet, 
-        IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse
-	{
+        IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd
+    {
         private readonly ATTG3Plugin plugin;
         public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
         Player Killed;
@@ -43,6 +43,7 @@ namespace ATTG3
 			plugin.EPlayerLD=null;
 			plugin.EPlayerUD=null;
 			plugin.GenSpam=false;
+            plugin.RoundStarted=true;
 
 		}
         public void OnStopCountdown(WarheadStopEvent ev)
@@ -293,6 +294,11 @@ namespace ATTG3
 			}
 
 		}
+        public void OnRoundEnd(Smod2.Events.RoundEndEvent ev)
+        {
+            plugin.RoundStarted=false;
+
+        }
         private IEnumerable<float> TimingDelay(float time)
         {
             while (Running)
