@@ -53,11 +53,11 @@ namespace ATTG3
 			{
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
-					if (player.TeamRole.Role==Role.SCP_079)
+					if (player.TeamRole.Role==Role.SCP_079&&gen!=5)
 					{
 						player.Scp079Data.Level=4;
 					}
-					if (player.TeamRole.Team==Smod2.API.Team.SCP)
+					if (player.TeamRole.Team==Smod2.API.Team.SCP&&gen!=5)
 					{
 						player.SetGodmode(true);
 					}
@@ -105,6 +105,7 @@ namespace ATTG3
 			}
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
+
 		{
 			if (plugin.O79Event&&!nuke)
 			{
@@ -124,6 +125,14 @@ namespace ATTG3
 			if (plugin.O79Event)
 			{
 				ev.SpawnChaos=false;
+				if (gen==5)
+				{
+					foreach (Player play in ev.PlayerList)
+					{
+						play.GiveItem(ItemType.MICROHID);
+
+					}
+				}
 			}
 		}
 		public void OnRoundEnd(RoundEndEvent ev)

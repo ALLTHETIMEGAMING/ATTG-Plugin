@@ -113,7 +113,6 @@
     <Compile Include="Commands\GenTime.cs" />
     <Compile Include="Testing commands\Blast.cs" />
     <Compile Include="Testing commands\Fakedea.cs" />
-    <Compile Include="Testing commands\Work.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Vote Stuff\VoteBC.cs" />
