@@ -54,8 +54,8 @@ namespace ATTG3
                 {
                     
                     GameObject player1 = (GameObject)myPlayer.GetGameObject();
-                    GameObject Work = NetworkManager.FindObjectOfType<WorkStation>().gameObject;
-                    
+					GameObject Work = NetworkServer.FindLocalObject
+                   
                     if (Work==null)
                     {
                         return new string[] { "ERROR WORK == NULL" };
