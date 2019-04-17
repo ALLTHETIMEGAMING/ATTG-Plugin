@@ -44,7 +44,7 @@ namespace ATTG3
 			{
 				if (args.Length>0)
 				{
-					converted=float.Parse(args[1]);
+					converted=float.Parse(args[0]);
 				}
 				else
 				{
