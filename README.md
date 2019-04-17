@@ -34,7 +34,6 @@ Place the "ATTG_Command.dll" file in your sm_plugins folder.
 | AGVOTEBC| NONE | Displays how to vote |
 | AGAMMO | Players Name | Gives player 100000 ammo|
 | AGUP | Players Name | TPs player up from there position |
-| AGDISABLE | NONE | Disables Event Plugin |
 | AGSHAKE | NONE | Shakes screens of all players |
 | AGSPEED | Player Name | Sets speed of player |
 | AGSPEEDA | Float | Sets speed of all 939s |
@@ -60,7 +59,6 @@ Place the "ATTG_Command.dll" file in your sm_plugins folder.
 | attg_096_door | Bool | True | Makes SCP-096 able to open all doors when enraged |
 | attg_card_hand | Bool | True | Makes all players able to open keycard doors with out a keycard in hand |
 | attg_gen_hand | Bool | True | Allows all players able to open Generators without a keycard in hand |
-| attg_command_disable_ranks | List | owner | Roles that can disable the ATTG Command Plugin. |
 | attg_command_disable | Bool | false | Disables ATTG Command Plugin |
 
 # Thanks
