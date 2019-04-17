@@ -31,7 +31,6 @@ namespace ATTG3
 		
         // Command Perms
 		public string[] AdminRanks { get; private set; }
-		public string[] Disablerank { get; private set; }
 		public string[] Voterank { get; private set; }
 		public string[] Allrank { get; private set; }
 		public string[] Eventrank { get; private set; }
@@ -69,9 +68,8 @@ namespace ATTG3
 			Timing2.Init(this);
 			// Configs
 			AddConfig(new ConfigSetting("attg_ranks", new[]{"owner","coowner", "o51" }, false, true, ""));
-			AddConfig(new ConfigSetting("attg_command_disable_ranks", new[]{"owner"}, false, true, "Valid ranks to disable the Event Plugin"));
 			AddConfig(new ConfigSetting("attg_event_ranks", new[]{"owner","coowner"}, false, true, "Ranks for all SCP Commands"));
-			AddConfig(new ConfigSetting("attg_vote_ranks", new[]{"owner","coowner","admin"},false, true, "Valid ranks for all voteing Commands"));
+			AddConfig(new ConfigSetting("attg_vote_ranks", new[]{"owner","coowner","admin", "o51"},false, true, "Valid ranks for all voteing Commands"));
 			AddConfig(new ConfigSetting("attg_all_ranks", new[]{"owner"}, false, true, "Valid ranks for all Commands"));
 			AddConfig(new ConfigSetting("attg_049_infect", false, false, true, "Allows SCP-049 revive instantly"));
 			AddConfig(new ConfigSetting("attg_096_door", true, false, true, "Allows SCP-096 able to open all doors when enraged"));
@@ -109,7 +107,6 @@ namespace ATTG3
             //Other
             this.AddCommands(C106.CA, new C106(this));
             this.AddCommands(Up.CA, new Up(this));
-            this.AddCommand("AGDISABLE", new Disable(this));
             this.AddCommands(Speed2.CA, new Speed2(this));
             this.AddCommands(Speed.CA, new Speed(this));
             this.AddCommands(Shake.CA, new Shake(this));
