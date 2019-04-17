@@ -48,9 +48,11 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-
+                    GameObject player1 = (GameObject)myPlayer.GetGameObject();
                     Vector pos = myPlayer.GetPosition();
-                    GameObject val = GameObject.Instantiate(GameObject.FindObjectOfType<WorkStation>().gameObject);
+                    GameObject Work1 = GameObject.FindObjectOfType<WorkStation>().gameObject;
+                    GameObject Work2 = NetworkManager.FindObjectOfType<WorkStation>().gameObject;
+                    GameObject val = GameObject.Instantiate(, player1.transform.position, Quaternion.identity);
                         val.GetComponent<WorkStation>().Networkposition=new Offset {position=new Vector3(pos.x, pos.y, pos.z),rotation=Vector3.zero,scale=Vector3.one};
                         NetworkServer.Spawn(val);
                         wipe.Add(val);
