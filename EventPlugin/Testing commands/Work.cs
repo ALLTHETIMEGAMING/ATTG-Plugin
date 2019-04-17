@@ -25,7 +25,6 @@ namespace ATTG3
         public string GetUsage() => "";
         List<GameObject> wipe = new List<GameObject>();
         int Count;
-        GameObject Works;
         public static readonly string[] CA = new string[] { "AGWORK", "WORK" };
         public string[] OnCall(ICommandSender sender, string[] args)
         {
@@ -49,22 +48,14 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-                    GameObject player1 = (GameObject)myPlayer.GetGameObject();
-                    foreach (WorkStation workStation in Object.FindObjectsOfType<WorkStation>())
-                    {
-                        Works = workStation.gameObject;
-                    }
-                    if (Works==null)
-                    {
-                        return new string[] { "ERROR WORK == NULL" };
-                    }
-                    else
-                    {
-                        GameObject val = Object.Instantiate(Works, player1.transform.position, Quaternion.Euler(player1.transform.rotation.eulerAngles));
+
+                    Vector pos = myPlayer.GetPosition();
+                    GameObject val = GameObject.Instantiate(GameObject.FindObjectOfType<WorkStation>().gameObject);
+                        val.GetComponent<WorkStation>().Networkposition=new Offset {position=new Vector3(pos.x, pos.y, pos.z),rotation=Vector3.zero,scale=Vector3.one};
                         NetworkServer.Spawn(val);
                         wipe.Add(val);
                         return new string[] { "Workstation Spawned" };
-                    }
+                    
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
