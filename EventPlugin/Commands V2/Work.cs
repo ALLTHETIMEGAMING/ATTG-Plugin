@@ -54,7 +54,7 @@ namespace ATTG3
 					GameObject Work1 = NetworkManager.singleton.spawnPrefabs.First(x => x.name=="Work Station");
 
 					GameObject val = GameObject.Instantiate(Work1, player1.transform.position, Quaternion.identity);
-                        val.GetComponent<WorkStation>().Networkposition=new Offset {position=new Vector3(pos.x, pos.y, pos.z),rotation=Vector3.zero,scale=Vector3.one};
+                        val.GetComponent<WorkStation>().Networkposition=new Offset {position=new Vector3(pos.x, pos.y, pos.z),rotation=player1.transform.localPosition, scale=Vector3.one};
                         NetworkServer.Spawn(val);
                         wipe.Add(val);
                         return new string[] { "Workstation Spawned" };
@@ -71,7 +71,7 @@ namespace ATTG3
                     Count++;
                     NetworkServer.Destroy(game);
                 }
-
+				Count=0;
 
                 return new string[] { Count + " Work Stations Wiped" };
             }

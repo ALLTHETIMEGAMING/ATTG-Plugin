@@ -116,7 +116,8 @@ namespace ATTG3
             this.AddCommand("AGAMMO", new Ammo(this));
             this.AddCommand("AGBLAST", new Blast(this));
             this.AddCommand("AGLOCKER", new Locker1(this));
-            this.AddCommand("AGWORK", new Work(this));
+			this.AddCommand("AGDF", new DoorF(this));
+			this.AddCommand("AGWORK", new Work(this));
 			this.AddCommand("AGGENM", new Genm(this));
 			//Event Handlers
 			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
