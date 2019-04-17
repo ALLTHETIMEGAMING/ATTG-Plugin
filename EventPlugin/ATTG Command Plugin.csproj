@@ -74,7 +74,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Disable.cs" />
     <Compile Include="Commands\ELEL.cs" />
     <Compile Include="Commands\ELES.cs" />
     <Compile Include="Commands\GenSpam.cs" />
@@ -112,6 +111,8 @@
     <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands\GenTime.cs" />
     <Compile Include="Testing commands\Blast.cs" />
+    <Compile Include="Testing commands\Locker.cs" />
+    <Compile Include="Testing commands\DoorF.cs" />
     <Compile Include="Testing commands\Fakedea.cs" />
     <Compile Include="Testing commands\Work.cs" />
     <Compile Include="Timing2.cs" />
