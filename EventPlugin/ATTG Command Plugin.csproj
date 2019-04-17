@@ -111,6 +111,7 @@
     <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands\GenTime.cs" />
     <Compile Include="Testing commands\Blast.cs" />
+    <Compile Include="Testing commands\Genm.cs" />
     <Compile Include="Testing commands\Locker.cs" />
     <Compile Include="Testing commands\DoorF.cs" />
     <Compile Include="Testing commands\Fakedea.cs" />

@@ -117,8 +117,9 @@ namespace ATTG3
             this.AddCommand("AGBLAST", new Blast(this));
             this.AddCommand("AGLOCKER", new Locker1(this));
             this.AddCommand("AGWORK", new Work(this));
-            //Event Handlers
-            this.AddEventHandlers(new EventHandler(this), Priority.Highest);
+			this.AddCommand("AGGENM", new Genm(this));
+			//Event Handlers
+			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
             this.AddEventHandlers(new O79Handler(this), Priority.Normal);
             this.AddEventHandlers(new Vote(this));
 		}

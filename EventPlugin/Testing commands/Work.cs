@@ -50,9 +50,10 @@ namespace ATTG3
                 {
                     GameObject player1 = (GameObject)myPlayer.GetGameObject();
                     Vector pos = myPlayer.GetPosition();
-                    GameObject Work1 = GameObject.FindObjectOfType<WorkStation>().gameObject;
-                    GameObject Work2 = NetworkManager.FindObjectOfType<WorkStation>().gameObject;
-                    GameObject val = GameObject.Instantiate(, player1.transform.position, Quaternion.identity);
+                    
+					GameObject Work1 = NetworkManager.singleton.spawnPrefabs.First(x => x.name=="Work Station");
+
+					GameObject val = GameObject.Instantiate(Work1, player1.transform.position, Quaternion.identity);
                         val.GetComponent<WorkStation>().Networkposition=new Offset {position=new Vector3(pos.x, pos.y, pos.z),rotation=Vector3.zero,scale=Vector3.one};
                         NetworkServer.Spawn(val);
                         wipe.Add(val);

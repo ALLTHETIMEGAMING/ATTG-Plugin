@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace ATTG3
 {
-    class Locker1 : ICommandHandler
+    class Genm : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public Locker1(ATTG3Plugin plugin) => this.plugin=plugin;
+        public Genm(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
         //Variables Below
@@ -35,14 +35,14 @@ namespace ATTG3
                 {
 
                     
-                    foreach (Locker Lock in Object.FindObjectsOfType<Locker>())
+                    foreach (Generator079 Gen in Object.FindObjectsOfType<Generator079>())
                     {
                         count++;
                         if (count==1)
                         {
 							GameObject player1 = (GameObject)myPlayer.GetGameObject();
 							
-							Lock.NetworklocalPos=new Offset
+							Gen.Networkposition=new Offset
 							{
 								position=player1.transform.position,
 								rotation=Vector3.zero,
