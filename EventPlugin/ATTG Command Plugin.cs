@@ -86,10 +86,7 @@ namespace ATTG3
             this.AddCommands(E079.CA, new E079(this));
             this.AddCommands(L079.CA, new L079(this));
             // lock / TeslaGate Commands 
-            this.AddCommand("AGLOCK", new Lock(this));
-            this.AddCommand("AGULOCK", new Unlock(this));
-            this.AddCommand("AGELOCK", new ELock(this));
-            this.AddCommand("AGEULOCK", new EUnlock(this));
+            this.AddCommand("AGMAP", new MAP(this));
             this.AddCommands(Tleslad.CA, new Tleslad(this));
             this.AddCommands(ELEL.CA, new ELEL(this));
             this.AddCommands(TleslR.CA, new TleslR(this));

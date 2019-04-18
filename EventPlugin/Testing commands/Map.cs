@@ -31,23 +31,29 @@ namespace ATTG3
             if (Server.GetPlayers().Count<1)
                 return new string[] { "The server is empty!" };
             Player caller = (sender is Player send) ? send : null;
-            if (args.Length>0)
+            if (args.Length>1)
             {
                 myPlayer=GetPlayerFromString.GetPlayer(args[0]);
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
                     string args2 = args[1].ToLower();
-                     if (args2=="reset")
+                    if (args2=="reset")
                     {
-
-
+                        plugin.ULockdownact=false;
+                        plugin.PlayerUD=null;
+                        plugin.Lockdownact=false;
+                        plugin.PlayerLD=null;
+                        plugin.ELockdownact=false;
+                        plugin.EPlayerLD=null;
+                        plugin.EULockdownact=false;
+                        plugin.EPlayerUD=null;
                         return new string[] { " " };
                     }
                     else if (args2=="lock")
                     {
                         plugin.Lockdownact=true;
-                       plugin.ULockdownact=false;
+                        plugin.ULockdownact=false;
                         plugin.PlayerUD=null;
                         plugin.PlayerLD=myPlayer.SteamId;
                         return new string[] { myPlayer.Name+" Door Lock Actavated" };
@@ -55,7 +61,7 @@ namespace ATTG3
                     else if (args2=="unlock")
                     {
                         plugin.ULockdownact=true;
-                       plugin.Lockdownact=false;
+                        plugin.Lockdownact=false;
                         plugin.PlayerLD=null;
                         plugin.PlayerUD=myPlayer.SteamId;
                         return new string[] { myPlayer.Name+" Door Unlock Actavated" };
@@ -76,18 +82,7 @@ namespace ATTG3
                         plugin.EPlayerUD=myPlayer.SteamId;
                         return new string[] { myPlayer.Name+" Elevator Unlocking Actavated" };
                     }
-                    else if (args2=="help")
-                    {
-                        return new[]
-                        {
-                        CA.First() + "Help" + " Shows this",
-                        CA.First() + "Reset" + " Deactivates everything for all players.",
-                        CA.First() +  " Player Name" + "Lock"  + " Lets player lock doors.",
-                        CA.First() +  " Player Name" + "Unlock"  + " Lets player unlock doors.",
-                        CA.First() + " Player Name" + "Elock" + " Lets player lock elevators.",
-                        CA.First() + " Player Name" + "Eunlock"  + " Lets player unlock elevators.",
-                    };
-                    }
+                    
                     else
                     {
                         return new[]
@@ -106,6 +101,7 @@ namespace ATTG3
                     return new string[] { myPlayer.Name+" is dead." };
                 }
             }
+            //if (args.Length==1){ }
             else
             {
                 return new[]

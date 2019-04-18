@@ -86,14 +86,14 @@
     <Compile Include="Help Commands\ItemH.cs" />
     <Compile Include="Help Commands\Help.cs" />
     <Compile Include="Commands\Shake.cs" />
-    <Compile Include="Player Commands\ELock.cs" />
-    <Compile Include="Player Commands\EUnlock.cs" />
-    <Compile Include="Player Commands\Unlock.cs" />
+    <Compile Include="Old Commands\ELock.cs" />
+    <Compile Include="Old Commands\EUnlock.cs" />
+    <Compile Include="Old Commands\Unlock.cs" />
     <Compile Include="Player Commands\Speed2.cs" />
     <Compile Include="Player Commands\Speed.cs" />
     <Compile Include="Commands\Tlesla.cs" />
     <Compile Include="Commands\Tleslad.cs" />
-    <Compile Include="Player Commands\Lock.cs" />
+    <Compile Include="Old Commands\Lock.cs" />
     <Compile Include="Player Commands\Up.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
