@@ -2,14 +2,6 @@
 using Smod2.Attributes;
 using Smod2.Config;
 using Smod2.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Smod2.EventHandlers;
-using Smod2;
-using Smod2.Logging;
-using Smod2.API;
-using Smod2.Commands;
 
 namespace ATTG3
 {
