@@ -46,34 +46,42 @@ namespace ATTG3
                     }
                     else if (args2=="lock")
                     {
-                        plugin.ULockdownact=false;
+                        plugin.Lockdownact=true;
+                       plugin.ULockdownact=false;
                         plugin.PlayerUD=null;
                         plugin.PlayerLD=myPlayer.SteamId;
                         return new string[] { myPlayer.Name+" Door Lock Actavated" };
-
-
                     }
                     else if (args2=="unlock")
                     {
-                        plugin.Lockdownact=false;
+                        plugin.ULockdownact=true;
+                       plugin.Lockdownact=false;
                         plugin.PlayerLD=null;
                         plugin.PlayerUD=myPlayer.SteamId;
                         return new string[] { myPlayer.Name+" Door Unlock Actavated" };
-
-
+                    }
+                    else if (args2=="elock")
+                    {
+                        plugin.ELockdownact=true;
+                        plugin.EULockdownact=false;
+                        plugin.EPlayerUD=null;
+                        plugin.EPlayerUD=myPlayer.SteamId;
+                        return new string[] { myPlayer.Name+" Elevator locking Actavated" };
                     }
                     else if (args2=="eunlock")
                     {
-
-
-                        return new string[] { " " };
+                        plugin.EULockdownact=true;
+                        plugin.ELockdownact=false;
+                        plugin.EPlayerLD=null;
+                        plugin.EPlayerUD=myPlayer.SteamId;
+                        return new string[] { myPlayer.Name+" Elevator Unlocking Actavated" };
                     }
                     else if (args2=="help")
                     {
                         return new[]
                         {
                         CA.First() + "Help" + " Shows this",
-                        CA.First() + "Reset" + " Resets ",
+                        CA.First() + "Reset" + " Deactivates everything",
                         CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
                         CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
                         CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
@@ -96,7 +104,6 @@ namespace ATTG3
                 {
                     return new string[] { myPlayer.Name+" is dead." };
                 }
-
             }
             else
             {
