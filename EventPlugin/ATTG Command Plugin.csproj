@@ -78,6 +78,7 @@
     <Compile Include="Commands\ELES.cs" />
     <Compile Include="Commands\GenSpam.cs" />
     <Compile Include="Commands\GenDisable.cs" />
+    <Compile Include="Old Commands\P079.cs" />
     <Compile Include="Events\Event Commands\O79EVENT.cs" />
     <Compile Include="Events\Event Handler\VicHandler.cs" />
     <Compile Include="Events\Event Handler\O79Handler.cs" />
@@ -101,13 +102,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Commands\E079.cs" />
-    <Compile Include="Commands\P079.cs" />
     <Compile Include="Commands\C106.cs" />
     <Compile Include="EventHandler.cs" />
     <Compile Include="GetPlayerFromString.cs" />
     <Compile Include="Player Commands\Ammo.cs" />
     <Compile Include="LevenshteinDistance.cs" />
-    <Compile Include="Player Commands\L079.cs" />
+    <Compile Include="Commands V2\SCP-079.cs" />
     <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands\GenTime.cs" />
     <Compile Include="Commands V2\Blast.cs" />
