@@ -13,8 +13,8 @@ namespace ATTG3
         public Player myPlayer;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-		public float converted;
-		public Scp939PlayerScript PlayerScript { get; private set; }
+        public float converted;
+        public Scp939PlayerScript PlayerScript { get; private set; }
         public Speed(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "Makes a player that is SCP-939 fast";
@@ -39,32 +39,42 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role==Role.SCP_939_53||myPlayer.TeamRole.Role==Role.SCP_939_89)
                 {
-					plugin.Running939P=!plugin.Running939P;
-                    if (plugin.Running939P)
+                    string args2 = args[1].ToLower();
+                    if (args2=="reset")
                     {
-						if (args.Length>1)
-						{
-							converted=float.Parse(args[1]);
-						}
-						else
-						{
-							converted=5f;
-						}
-						Timing.Run(TimingDelay(0.1f));
-                        return new string[] { myPlayer.Name+" has been given Super speed!" };
+                        plugin.Running939P=false;
+                        return new string[] { myPlayer+" speed reset" };
+                    }
+                    else if (args2=="set")
+                    {
+                        converted=float.Parse(args[2]);
+                        plugin.Running939P=true;
+                        Timing.Run(TimingDelay(0.1f));
+                        return new string[] { myPlayer+"given Super speed! at "+converted+" Speed" };
                     }
                     else
                     {
-                        return new string[] { myPlayer.Name+"Speed Reset" };
-
+                        return new[]
+                        {
+                        CA.First() + "Help" + "Shows this",
+                        CA.First() + "Reset" + "Resets all 939s speed.",
+                        CA.First() + "Set" + "Sets all 939s speed.",
+                        };
                     }
                 }
                 else
+                {
                     return new string[] { myPlayer.Name+" is not scp 939" };
+                }
             }
             else
             {
-                return new string[] { "AGSPEED: "+ GetUsage() };
+                return new[]
+                {
+                CA.First() + "Help" + "Shows this",
+                CA.First() + "Reset" + "Resets all 939s speed.",
+                CA.First() + "Set" + "Sets all 939s speed.",
+                };
             }
         }
         private IEnumerable<float> TimingDelay(float time)

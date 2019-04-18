@@ -24,7 +24,7 @@ namespace ATTG3
             // This prints when someone types HELP HELLO
             return "AGVOTEBC";
         }
-        public static readonly string[] CA = new string[] { "AGVOTEBC", "VOTEBC" };
+        public static readonly string[] CA = new string[] { "AGVOTEBC", "VOTEBC", "AGVBC" };
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&

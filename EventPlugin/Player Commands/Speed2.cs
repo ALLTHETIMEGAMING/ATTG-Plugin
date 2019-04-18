@@ -38,17 +38,31 @@ namespace ATTG3
                 return new string[] { "939 speed reset" };
 
             }
-            if (args2=="set")
+            else if (args2=="set")
             {
-                 converted = float.Parse(args[1]);
+                converted=float.Parse(args[1]);
                 plugin.Running939=true;
                 Timing.Run(TimingDelay(0.1f));
                 return new string[] { " All 939s have been given Super speed! at "+converted+" Speed" };
             }
+            else if (args2=="help")
+            {
+                return new[]
+                {
+                CA.First() + "Help" + "Shows this",
+                CA.First() + "Reset" + "Resets all 939s speed.",
+                CA.First() + "Set" + "Sets all 939s speed.",
+                };
+            }
 
             else
             {
-                return new string[] { "AGSPEEDA: "+GetUsage() };
+                return new[]
+                {
+                CA.First() + "Help" + "Shows this",
+                CA.First() + "Reset" + "Resets all 939s speed.",
+                CA.First() + "Set" + "Sets all 939s speed.",
+                };
             }
         }
 

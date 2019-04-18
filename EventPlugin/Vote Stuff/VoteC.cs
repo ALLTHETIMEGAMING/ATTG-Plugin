@@ -23,7 +23,7 @@ namespace ATTG3
             // This prints when someone types HELP HELLO
             return "AGVOTEC";
         }
-        public static readonly string[] CA = new string[] { "AGVOTEC", "VOTEC" };
+        public static string[] CA = new string[] { "AGVOTEC", "VOTEC" };
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
@@ -37,6 +37,7 @@ namespace ATTG3
             }
             plugin.Yes=0;
             plugin.No=0;
+            Vote.Voted.Clear();
             return new[]
             {
                 $"Votes are cleared."

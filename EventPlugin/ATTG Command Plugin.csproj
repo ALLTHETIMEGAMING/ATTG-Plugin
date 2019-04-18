@@ -113,7 +113,7 @@
     <Compile Include="Commands V2\Blast.cs" />
     <Compile Include="Commands V2\Genm.cs" />
     <Compile Include="Testing commands\Locker.cs" />
-    <Compile Include="Testing commands\Fakedea.cs" />
+    <Compile Include="Commands V2\Fakedea.cs" />
     <Compile Include="Commands V2\Work.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />

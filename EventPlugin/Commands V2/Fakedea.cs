@@ -59,6 +59,7 @@ namespace ATTG3
                     Count++;
                     NetworkServer.Destroy(game);
                 }
+                wipe.Clear();
                 return new string[] { Count+" Bodys Wiped" };
             }
 

@@ -44,6 +44,7 @@ namespace ATTG3
 			Player caller = (sender is Player send) ? send : null;
             if (args.Length>0)
             {
+                Count=0;
                 Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
@@ -71,7 +72,7 @@ namespace ATTG3
                     Count++;
                     NetworkServer.Destroy(game);
                 }
-				Count=0;
+				
 
                 return new string[] { Count + " Work Stations Wiped" };
             }
