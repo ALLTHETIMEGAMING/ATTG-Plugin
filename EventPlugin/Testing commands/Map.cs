@@ -35,55 +35,79 @@ namespace ATTG3
             {
                 myPlayer=GetPlayerFromString.GetPlayer(args[0]);
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
-                string args2 = args[1].ToLower();
-                if (args2=="reset")
+                if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-
-
-                    return new string[] { " " };
-
-                }
-                else if (args2=="eunlock")
-                {
-
-
-                    return new string[] { " " };
-                }
-                else if (args2=="help")
-                {
-                    return new[]
+                    string args2 = args[1].ToLower();
+                     if (args2=="reset")
                     {
+
+
+                        return new string[] { " " };
+                    }
+                    else if (args2=="lock")
+                    {
+                        plugin.ULockdownact=false;
+                        plugin.PlayerUD=null;
+                        plugin.PlayerLD=myPlayer.SteamId;
+                        return new string[] { myPlayer.Name+" Door Lock Actavated" };
+
+
+                    }
+                    else if (args2=="unlock")
+                    {
+                        plugin.Lockdownact=false;
+                        plugin.PlayerLD=null;
+                        plugin.PlayerUD=myPlayer.SteamId;
+                        return new string[] { myPlayer.Name+" Door Unlock Actavated" };
+
+
+                    }
+                    else if (args2=="eunlock")
+                    {
+
+
+                        return new string[] { " " };
+                    }
+                    else if (args2=="help")
+                    {
+                        return new[]
+                        {
                         CA.First() + "Help" + " Shows this",
+                        CA.First() + "Reset" + " Resets ",
                         CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
                         CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
                         CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
                         CA.First() + "Eunlock" + " Player Name" + " Lets player unlock elevators.",
                     };
-                }
-                else
-                {
-                    return new[]
+                    }
+                    else
                     {
+                        return new[]
+                        {
                         CA.First() + "Help" + " Shows this",
                         CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
                         CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
                         CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
                         CA.First() + "Eunlock" + " Player Name" + " Lets player unlock elevators.",
                         };
+                    }
                 }
-
+                else
+                {
+                    return new string[] { myPlayer.Name+" is dead." };
+                }
 
             }
             else
             {
                 return new[]
-                {
-                CA.First() + "Help" + " Shows this",
-                CA.First() + "Lock" + " Player Name",
-                CA.First() + "Unlock" + " Player Name",
-                CA.First() + "Elock" + " Player Name",
-                CA.First() + "Eunlock" + " Player Name" + "",
-                };
+                        {
+                        CA.First() + "Help" + " Shows this",
+                        CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
+                        CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
+                        CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
+                        CA.First() + "Eunlock" + " Player Name" + " Lets player unlock elevators.",
+                        };
             }
         }
     }
