@@ -81,11 +81,11 @@ namespace ATTG3
                         return new[]
                         {
                         CA.First() + "Help" + " Shows this",
-                        CA.First() + "Reset" + " Deactivates everything",
-                        CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
-                        CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
-                        CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
-                        CA.First() + "Eunlock" + " Player Name" + " Lets player unlock elevators.",
+                        CA.First() + "Reset" + " Deactivates everything for all players.",
+                        CA.First() +  " Player Name" + "Lock"  + " Lets player lock doors.",
+                        CA.First() +  " Player Name" + "Unlock"  + " Lets player unlock doors.",
+                        CA.First() + " Player Name" + "Elock" + " Lets player lock elevators.",
+                        CA.First() + " Player Name" + "Eunlock"  + " Lets player unlock elevators.",
                     };
                     }
                     else
@@ -93,10 +93,11 @@ namespace ATTG3
                         return new[]
                         {
                         CA.First() + "Help" + " Shows this",
-                        CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
-                        CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
-                        CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
-                        CA.First() + "Eunlock" + " Player Name" + " Lets player unlock elevators.",
+                        CA.First() +  " Player Name" + "Reset" + " Deactivates everything.",
+                        CA.First() +  " Player Name" + "Lock"  + " Lets player lock doors.",
+                        CA.First() +  " Player Name" + "Unlock"  + " Lets player unlock doors.",
+                        CA.First() + " Player Name" + "Elock" + " Lets player lock elevators.",
+                        CA.First() + " Player Name" + "Eunlock"  + " Lets player unlock elevators.",
                         };
                     }
                 }
@@ -110,10 +111,11 @@ namespace ATTG3
                 return new[]
                         {
                         CA.First() + "Help" + " Shows this",
-                        CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
-                        CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
-                        CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
-                        CA.First() + "Eunlock" + " Player Name" + " Lets player unlock elevators.",
+                        CA.First() + "Reset" + " Deactivates everything for all players.",
+                        CA.First() +  " Player Name" + "Lock"  + " Lets player lock doors.",
+                        CA.First() +  " Player Name" + "Unlock"  + " Lets player unlock doors.",
+                        CA.First() + " Player Name" + "Elock" + " Lets player lock elevators.",
+                        CA.First() + " Player Name" + "Eunlock"  + " Lets player unlock elevators.",
                         };
             }
         }
