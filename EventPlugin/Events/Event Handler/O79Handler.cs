@@ -40,9 +40,20 @@ namespace ATTG3
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
-					 if (player.TeamRole.Team!=Smod2.API.Team.SCP)
+					if (player.TeamRole.Team!=Smod2.API.Team.SCP)
 					{
 						player.ChangeRole(Role.NTF_LIEUTENANT, true, false, true, true);
+						player.SetAmmo(AmmoType.DROPPED_5, 100000);
+						player.SetAmmo(AmmoType.DROPPED_7, 100000);
+						player.SetAmmo(AmmoType.DROPPED_9, 100000);
+						player.PersonalBroadcast(10, "You are a MTF. Your goal is to turn on the Generators", false);
+					}
+
+					if (player.TeamRole.Team==Smod2.API.Team.SCP)
+					{
+						player.PersonalBroadcast(10, "You are a SCP. Your goal is to Guard the Generators", false);
+						player.AddHealth(10000);
+
 					}
 				}
 			}
@@ -117,20 +128,30 @@ namespace ATTG3
 		{
 			if (plugin.O79Event)
 			{
-				ev.Allow=false;
+				if (ev.Generator.TimeLeft<30)
+				{
+					ev.Player.PersonalBroadcast(10, "You can not stop a Generator after the time remaining is less than 30 sec. ", false);
+					ev.Allow=false;
+				}
 			}
 		}
 		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
 		{
 			if (plugin.O79Event)
 			{
+				foreach (Player player in ev.PlayerList)
+				{
+					player.SetAmmo(AmmoType.DROPPED_5, 100000);
+					player.SetAmmo(AmmoType.DROPPED_7, 100000);
+					player.SetAmmo(AmmoType.DROPPED_9, 100000);
+
+				}
 				ev.SpawnChaos=false;
 				if (gen==5)
 				{
 					foreach (Player play in ev.PlayerList)
 					{
 						play.GiveItem(ItemType.MICROHID);
-
 					}
 				}
 			}
