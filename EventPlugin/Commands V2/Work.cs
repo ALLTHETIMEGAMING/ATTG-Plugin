@@ -1,17 +1,10 @@
 ﻿using Smod2;
 using Smod2.API;
 using Smod2.Commands;
-using Smod2.Events;
-using Smod2.EventSystem.Events;
 using System.Linq;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using TMPro;
-using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
-using Smod2.EventHandlers;
 
 namespace ATTG3
 {
