@@ -1,17 +1,7 @@
 ﻿using Smod2;
 using Smod2.API;
 using Smod2.Commands;
-using Smod2.Events;
-using Smod2.EventSystem.Events;
 using System.Linq;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using TMPro;
-using Unity;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-using Smod2.EventHandlers;
 
 namespace ATTG3
 {
@@ -25,6 +15,7 @@ namespace ATTG3
         public string GetUsage() => "";
         //Variables Below
         public static readonly string[] CA = new string[] { "MAP", "AGMAP" };
+        public Player myPlayer;
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
@@ -37,32 +28,52 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-            string args2 = args[0].ToLower();
-            if (args2=="reset")
+            if (Server.GetPlayers().Count<1)
+                return new string[] { "The server is empty!" };
+            Player caller = (sender is Player send) ? send : null;
+            if (args.Length>0)
             {
-                
-
-                return new string[] { " " };
-
-            }
-            else if (args2=="set")
-            {
-                
-                
-                return new string[] { " " };
-            }
-            else if (args2=="help")
-            {
-                return new[]
+                myPlayer=GetPlayerFromString.GetPlayer(args[0]);
+                if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
+                string args2 = args[1].ToLower();
+                if (args2=="reset")
                 {
-                CA.First() + "Help" + " Shows this",
-                CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
-                CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
-                CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
-                CA.First() + "Eunlock" + " Player Name" + " Lets player unlock elevators.",
-                };
-            }
 
+
+                    return new string[] { " " };
+
+                }
+                else if (args2=="eunlock")
+                {
+
+
+                    return new string[] { " " };
+                }
+                else if (args2=="help")
+                {
+                    return new[]
+                    {
+                        CA.First() + "Help" + " Shows this",
+                        CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
+                        CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
+                        CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
+                        CA.First() + "Eunlock" + " Player Name" + " Lets player unlock elevators.",
+                    };
+                }
+                else
+                {
+                    return new[]
+                    {
+                        CA.First() + "Help" + " Shows this",
+                        CA.First() + "Lock" + " Player Name" + " Lets player lock doors.",
+                        CA.First() + "Unlock" + " Player Name" + " Lets player unlock doors.",
+                        CA.First() + "Elock" + " Player Name" + " Lets player lock elevators.",
+                        CA.First() + "Eunlock" + " Player Name" + " Lets player unlock elevators.",
+                        };
+                }
+
+
+            }
             else
             {
                 return new[]
