@@ -43,6 +43,7 @@ namespace ATTG3
 			plugin.EPlayerLD=null;
 			plugin.EPlayerUD=null;
 			plugin.GenSpam=false;
+			Vote.Voted.Clear();
             plugin.RoundStarted=true;
 
 		}
