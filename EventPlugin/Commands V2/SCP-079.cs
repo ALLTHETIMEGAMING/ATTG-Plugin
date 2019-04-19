@@ -70,11 +70,11 @@ namespace ATTG3
                 {
                     foreach (Player myPlayer in PluginManager.Manager.Server.GetPlayers())
                     {
-                        myPlayer.Scp079Data.ShowLevelUp(5);
-                        myPlayer.Scp079Data.APPerSecond=1000;
-                        myPlayer.Scp079Data.MaxAP=100000;
-                        myPlayer.Scp079Data.Level=4;
-                        
+                        if (myPlayer.TeamRole.Role==Role.SCP_079)
+                        {
+                            myPlayer.Scp079Data.ShowLevelUp(5);
+                            myPlayer.Scp079Data.Level=4;
+                        }
                     }
                     return new string[] { "ALL SCP-079s are now Level 5" };
                 }
