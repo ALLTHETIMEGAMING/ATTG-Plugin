@@ -40,22 +40,12 @@ namespace ATTG3
                     string args2 = args[1].ToLower();
                     if (args2=="reset")
                     {
-                        plugin.ULockdownact=false;
-                        plugin.PlayerUD=null;
-                        plugin.Lockdownact=false;
-                        plugin.PlayerLD=null;
-                        plugin.ELockdownact=false;
-                        plugin.EPlayerLD=null;
-                        plugin.EULockdownact=false;
-                        plugin.EPlayerUD=null;
+                        Vars.Lock.Remove(myPlayer.SteamId);
                         return new string[] { " " };
                     }
                     else if (args2=="lock")
                     {
-                        plugin.Lockdownact=true;
-                        plugin.ULockdownact=false;
-                        plugin.PlayerUD=null;
-                        plugin.PlayerLD=myPlayer.SteamId;
+                        Vars.Lock.Add(myPlayer.SteamId, true);
                         return new string[] { myPlayer.Name+" Door Lock Actavated" };
                     }
                     else if (args2=="unlock")
