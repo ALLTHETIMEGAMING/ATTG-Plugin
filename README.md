@@ -60,7 +60,7 @@ Place the "ATTG_Command.dll" file in your sm_plugins folder.
 | attg_card_hand | Bool | True | Makes all players able to open keycard doors with out a keycard in hand |
 | attg_gen_hand | Bool | True | Allows all players able to open Generators without a keycard in hand |
 | attg_command_disable | Bool | false | Disables ATTG Command Plugin |
-
+| attg_elevator_speed | Float | 1f | Default Elevator speed |
 # Thanks
 Some of the code that I am using was made by 
 
