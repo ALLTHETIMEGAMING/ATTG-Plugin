@@ -6,12 +6,12 @@ using scp4aiur;
 
 namespace ATTG3
 {
-	class L079 : ICommandHandler
+	class SCP079 : ICommandHandler
 	{
 		private readonly ATTG3Plugin plugin;
 		Server Server => PluginManager.Manager.Server;
 		IConfigFile Config => ConfigManager.Manager.Config;
-		public L079(ATTG3Plugin plugin) => this.plugin=plugin;
+		public SCP079(ATTG3Plugin plugin) => this.plugin=plugin;
 		public string GetCommandDescription() => "";
 		public string GetUsage() => "All SCP-079 Commands";
 		public static readonly string[] CA = new string[] { "AG079", "079" };
@@ -98,6 +98,19 @@ namespace ATTG3
 						return new string[] { "You need to type a number." };
 					}
 				}
+				else if (args2=="eject")
+				{
+					foreach (Smod2.API.Generator Generator in Smod2.PluginManager.Manager.Server.Map.GetGenerators())
+					{
+						Generator.HasTablet=false;
+						Generator.Open=false;
+					}
+					return new[]
+					{
+					$"Generator tablets ejected"
+					};
+				}
+				
 				else
 				{
 					return new[]
@@ -107,6 +120,7 @@ namespace ATTG3
 						CA.First() + " Open"  + " Opens all of 079s generators",
 						CA.First() + " Close" + " Closes all of 079s generators",
 						CA.First() + " Level"  + " Makes 079 Level 5",
+						CA.First() + " Eject"  + " Ejects all Tablets",
 						CA.First() + " Time" + " Number" + " Sets starting time for generators.",
 					};
 				}
@@ -120,6 +134,7 @@ namespace ATTG3
 						CA.First() + " Open"  + " Opens all of 079s generators",
 						CA.First() + " Close" + " Closes all of 079s generators",
 						CA.First() + " Level"  + " Makes 079 Level 5",
+						CA.First() + " Eject"  + " Ejects all Tablets",
 						CA.First() + " Time" + " Number" + " Sets starting time for generators.",
 					};
 			}
