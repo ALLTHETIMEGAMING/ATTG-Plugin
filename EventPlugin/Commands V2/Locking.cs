@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace ATTG3
 {
-    class MAP : ICommandHandler
+    class Locking : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public MAP(ATTG3Plugin plugin) => this.plugin=plugin;
+        public Locking(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
         //Variables Below
@@ -40,39 +40,65 @@ namespace ATTG3
                     string args2 = args[1].ToLower();
                     if (args2=="reset")
                     {
-                        Vars.Lock.Remove(myPlayer.SteamId);
-                        return new string[] { " " };
+						if (Vars.Lock.ContainsKey(myPlayer.SteamId))
+						{
+							Vars.Lock.Remove(myPlayer.SteamId);
+						}
+						if (Vars.Elock.ContainsKey(myPlayer.SteamId))
+						{
+							Vars.Elock.Remove(myPlayer.SteamId);
+						}
+							
+						return new string[] { "Elevator locking and door locking Deactivated." };
                     }
                     else if (args2=="lock")
                     {
-                        Vars.Lock.Add(myPlayer.SteamId, true);
+						if (Vars.Lock.ContainsKey(myPlayer.SteamId))
+						{
+							Vars.Lock[myPlayer.SteamId]=true;
+						}
+						else
+						{
+							Vars.Lock.Add(myPlayer.SteamId, true);
+						}
                         return new string[] { myPlayer.Name+" Door Lock Actavated" };
                     }
                     else if (args2=="unlock")
                     {
-                        plugin.ULockdownact=true;
-                        plugin.Lockdownact=false;
-                        plugin.PlayerLD=null;
-                        plugin.PlayerUD=myPlayer.SteamId;
-                        return new string[] { myPlayer.Name+" Door Unlock Actavated" };
+						if (Vars.Lock.ContainsKey(myPlayer.SteamId))
+						{
+							Vars.Lock[myPlayer.SteamId]=false;
+						}
+						else
+						{
+							Vars.Lock.Add(myPlayer.SteamId, false);
+						}
+						return new string[] { myPlayer.Name+" Door Unlock Actavated" };
                     }
                     else if (args2=="elock")
                     {
-                        plugin.ELockdownact=true;
-                        plugin.EULockdownact=false;
-                        plugin.EPlayerUD=null;
-                        plugin.EPlayerUD=myPlayer.SteamId;
-                        return new string[] { myPlayer.Name+" Elevator locking Actavated" };
+						if (Vars.Elock.ContainsKey(myPlayer.SteamId))
+						{
+							Vars.Elock[myPlayer.SteamId]=true;
+						}
+						else
+						{
+							Vars.Elock.Add(myPlayer.SteamId, true);
+						}
+						return new string[] { myPlayer.Name+" Elevator locking Actavated" };
                     }
                     else if (args2=="eunlock")
                     {
-                        plugin.EULockdownact=true;
-                        plugin.ELockdownact=false;
-                        plugin.EPlayerLD=null;
-                        plugin.EPlayerUD=myPlayer.SteamId;
-                        return new string[] { myPlayer.Name+" Elevator Unlocking Actavated" };
+						if (Vars.Elock.ContainsKey(myPlayer.SteamId))
+						{
+							Vars.Elock[myPlayer.SteamId]=false;
+						}
+						else
+						{
+							Vars.Elock.Add(myPlayer.SteamId, false);
+						}
+						return new string[] { myPlayer.Name+" Elevator Unlocking Actavated" };
                     }
-                    
                     else
                     {
                         return new[]
@@ -91,13 +117,12 @@ namespace ATTG3
                     return new string[] { myPlayer.Name+" is dead." };
                 }
             }
-            //if (args.Length==1){ }
             else
             {
                 return new[]
                         {
                         CA.First() + "Help" + " Shows this",
-                        CA.First() + "Reset" + " Deactivates everything for all players.",
+                        CA.First() + "Reset" + " Deactivates everything",
                         CA.First() +  " Player Name" + "Lock"  + " Lets player lock doors.",
                         CA.First() +  " Player Name" + "Unlock"  + " Lets player unlock doors.",
                         CA.First() + " Player Name" + "Elock" + " Lets player lock elevators.",

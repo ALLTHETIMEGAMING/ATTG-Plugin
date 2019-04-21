@@ -37,15 +37,6 @@ namespace ATTG3
 		public bool O96Door { get; set; }
 		public bool NoCHand { get; set; }
 		public float Elevatord { get; set; }
-		public string PlayerLD { get; set; }
-		public bool Lockdownact { get; set; }
-		public string PlayerUD { get; set; }
-		public bool ULockdownact { get; set; }
-		public string EPlayerLD { get; set; }
-		public bool ELockdownact { get; set; }
-		public string EPlayerUD { get; set; }
-		public bool EULockdownact { get; set; }
-		public bool Gthrow { get; set; }
 		public bool GenSpam { get; set; }
 		public bool O79Event { get; set; }
         public bool VicEvent { get; set; }
@@ -71,14 +62,12 @@ namespace ATTG3
 
 			ReloadConfig();
             //SCP-079/Genorator Commands
-            this.AddCommands(GenDisable.CA, new GenDisable(this));
             this.AddCommands(GenTime.CA, new GenTime(this));
             this.AddCommands(GenSpam1.CA, new GenSpam1(this));
-            this.AddCommands(P079.CA, new P079(this));
             this.AddCommands(E079.CA, new E079(this));
             this.AddCommands(L079.CA, new L079(this));
             // lock / TeslaGate Commands 
-            this.AddCommand("AGMAP", new MAP(this));
+            this.AddCommand("AGMM", new Locking(this));
             this.AddCommands(Tleslad.CA, new Tleslad(this));
             this.AddCommands(ELEL.CA, new ELEL(this));
             this.AddCommands(TleslR.CA, new TleslR(this));
@@ -89,8 +78,8 @@ namespace ATTG3
             this.AddCommands(VoteA.CA, new VoteA(this));
             this.AddCommands(VoteBC.CA, new VoteBC(this));
             //Help Commands
-            this.AddCommand("AGTH", new ItemH(this));
-            this.AddCommand("AGIH", new Teams(this));
+            this.AddCommand("AGIH", new ItemH(this));
+            this.AddCommand("AGTH", new Teams(this));
             this.AddCommand("AGHELP", new Help(this));
             this.AddCommands(RS.CA, new RS(this));
             //Other
