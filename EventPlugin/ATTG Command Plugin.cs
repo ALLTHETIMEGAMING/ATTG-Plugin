@@ -10,11 +10,11 @@ namespace ATTG3
 		author = "All The Time Gaming",
 		description = "COMMAND MOD",
 		id = "ATTG.ADMIN.COMMAND",
-		name = "",
+		name = "ATTG Admin",
 		SmodMajor = 3,
 		SmodMinor = 4,
 		SmodRevision = 0,
-		version = "1.5.0"
+		version = "2.0.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
 	{
@@ -62,10 +62,8 @@ namespace ATTG3
 
 			ReloadConfig();
             //SCP-079/Genorator Commands
-            this.AddCommands(GenTime.CA, new GenTime(this));
             this.AddCommands(GenSpam1.CA, new GenSpam1(this));
-            this.AddCommands(E079.CA, new E079(this));
-            this.AddCommands(L079.CA, new L079(this));
+            this.AddCommands(SCP079.CA, new SCP079(this));
             // lock / TeslaGate Commands 
             this.AddCommand("AGMM", new Locking(this));
             this.AddCommands(Tleslad.CA, new Tleslad(this));
@@ -73,10 +71,7 @@ namespace ATTG3
             this.AddCommands(TleslR.CA, new TleslR(this));
             this.AddCommands(ELELS.CA, new ELELS(this));
             //Vote Commands
-            this.AddCommands(VoteAD.CA, new VoteAD(this));
             this.AddCommands(VoteC.CA, new VoteC(this));
-            this.AddCommands(VoteA.CA, new VoteA(this));
-            this.AddCommands(VoteBC.CA, new VoteBC(this));
             //Help Commands
             this.AddCommand("AGIH", new ItemH(this));
             this.AddCommand("AGTH", new Teams(this));

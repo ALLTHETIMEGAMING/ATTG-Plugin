@@ -26,12 +26,10 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-			if (Server.GetPlayers().Count<1)
-				return new string[] { "The server is empty!" };
-			Player caller = (sender is Player send) ? send : null;
+			
 			if (args.Length>0)
 			{
-				string args2 = args[1].ToLower();
+				string args2 = args[0].ToLower();
 				if (args2=="elock")
 				{
 					plugin.GenLock=!plugin.GenLock;
@@ -50,7 +48,7 @@ namespace ATTG3
 							Generator.Open=false;
 						}
 					}
-					return new string[] { " " };
+					return new string[] { "Generator Doors closed." };
 				}
 				else if (args2=="open")
 				{
@@ -62,7 +60,7 @@ namespace ATTG3
 							Generator.Open=true;
 						}
 					}
-					return new string[] { " " };
+					return new string[] { "Generator Doors opened." };
 				}
 				else if (args2=="level")
 				{
@@ -78,9 +76,9 @@ namespace ATTG3
 				}
 				else if (args2=="time")
 				{
-					if (args.Length>1)
+					if (args.Length>=1)
 					{
-						float converted = float.Parse(args[2]);
+						float converted = float.Parse(args[1]);
 
 						foreach (Generator079 gen in Generator079.generators)
 						{

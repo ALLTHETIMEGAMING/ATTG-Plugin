@@ -31,13 +31,13 @@ namespace ATTG3
             if (Server.GetPlayers().Count<1)
                 return new string[] { "The server is empty!" };
             Player caller = (sender is Player send) ? send : null;
-            if (args.Length>1)
+            if (args.Length>0)
             {
                 myPlayer=GetPlayerFromString.GetPlayer(args[0]);
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-                    string args2 = args[1].ToLower();
+                    string args2 = args[0].ToLower();
                     if (args2=="reset")
                     {
 						if (Vars.Lock.ContainsKey(myPlayer.SteamId))
