@@ -14,7 +14,7 @@ namespace ATTG3
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
         //Variables Below
-        public static readonly string[] CA = new string[] { "MAP", "AGMAP" };
+        public static readonly string[] CA = new string[] { "MM", "AGMM" };
         public Player myPlayer;
 
         public string[] OnCall(ICommandSender sender, string[] args)

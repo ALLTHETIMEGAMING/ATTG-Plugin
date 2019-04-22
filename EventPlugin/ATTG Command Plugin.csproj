@@ -103,12 +103,12 @@
     <Compile Include="Commands V2\SCP-079.cs" />
     <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands V2\Blast.cs" />
-    <Compile Include="Commands V2\Genm.cs" />
+    <Compile Include="Network Commands\Genm.cs" />
     <Compile Include="Testing commands\Player vars.cs" />
     <Compile Include="Commands V2\Locking.cs" />
     <Compile Include="Testing commands\Locker.cs" />
-    <Compile Include="Commands V2\Fakedea.cs" />
-    <Compile Include="Commands V2\Work.cs" />
+    <Compile Include="Network Commands\Fakedea.cs" />
+    <Compile Include="Network Commands\Work.cs" />
     <Compile Include="Timing2.cs" />
     <Compile Include="Vote Stuff\PublicVote.cs" />
     <Compile Include="Commands V2\Vote Commands.cs" />
@@ -126,8 +126,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Old Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

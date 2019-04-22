@@ -65,7 +65,7 @@ namespace ATTG3
             this.AddCommands(GenSpam1.CA, new GenSpam1(this));
             this.AddCommands(SCP079.CA, new SCP079(this));
             // lock / TeslaGate Commands 
-            this.AddCommand("AGMM", new Locking(this));
+            this.AddCommands(Locking.CA, new Locking(this));
             this.AddCommands(Tleslad.CA, new Tleslad(this));
             this.AddCommands(ELEL.CA, new ELEL(this));
             this.AddCommands(TleslR.CA, new TleslR(this));
