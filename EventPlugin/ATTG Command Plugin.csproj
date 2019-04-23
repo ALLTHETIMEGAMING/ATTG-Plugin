@@ -74,8 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\ELEL.cs" />
-    <Compile Include="Commands\ELES.cs" />
+    <Compile Include="Commands V2\MAP.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />
     <Compile Include="Events\Event Commands\O79EVENT.cs" />
     <Compile Include="Events\Event Handler\VicHandler.cs" />
@@ -84,11 +83,8 @@
     <Compile Include="Help Commands\Teams.cs" />
     <Compile Include="Help Commands\ItemH.cs" />
     <Compile Include="Help Commands\Help.cs" />
-    <Compile Include="Commands\Shake.cs" />
     <Compile Include="Player Commands\Speed2.cs" />
     <Compile Include="Player Commands\Speed.cs" />
-    <Compile Include="Commands\Tlesla.cs" />
-    <Compile Include="Commands\Tleslad.cs" />
     <Compile Include="Player Commands\Up.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

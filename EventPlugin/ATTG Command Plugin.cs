@@ -66,10 +66,7 @@ namespace ATTG3
             this.AddCommands(SCP079.CA, new SCP079(this));
             // lock / TeslaGate Commands 
             this.AddCommands(Locking.CA, new Locking(this));
-            this.AddCommands(Tleslad.CA, new Tleslad(this));
-            this.AddCommands(ELEL.CA, new ELEL(this));
-            this.AddCommands(TleslR.CA, new TleslR(this));
-            this.AddCommands(ELELS.CA, new ELELS(this));
+            this.AddCommands(MAP.CA, new MAP(this));
             //Vote Commands
             this.AddCommands(VoteC.CA, new VoteC(this));
             //Help Commands
@@ -82,7 +79,6 @@ namespace ATTG3
             this.AddCommands(Up.CA, new Up(this));
             this.AddCommands(Speed2.CA, new Speed2(this));
             this.AddCommands(Speed.CA, new Speed(this));
-            this.AddCommands(Shake.CA, new Shake(this));
             this.AddCommands(Overcharge.CA, new Overcharge(this));
             this.AddCommand("AGSGOD", new O79EVENT(this));
 			this.AddCommand("AGFAKE", new Fakedea(this));
