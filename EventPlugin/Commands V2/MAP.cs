@@ -19,7 +19,6 @@ namespace ATTG3
             return "All Map Commands";
         }
         public static readonly string[] CA = new string[] { "AGMAP", "MAP" };
-
         bool Shake;
         bool Tleslad;
         bool Tleslas;
@@ -74,7 +73,6 @@ namespace ATTG3
                     Tleslad=!Tleslad;
                     if (Tleslad)
                     {
-
                         foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
                         {
                             TeslaGate.TriggerDistance=0;
@@ -97,7 +95,6 @@ namespace ATTG3
                     Tleslas=!Tleslas;
                     if (Tleslas)
                     {
-
                         foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
                         {
                             TeslaGate.TriggerDistance=0;
@@ -154,13 +151,13 @@ namespace ATTG3
             {
                 return new[]
                     {
-                        CA.First() + " Help" + " Shows this",
-                        CA.First() + " Lock"  + " Lets player lock doors.",
-                        CA.First() + " Open"  + " Opens all of 079s generators",
-                        CA.First() + " Close" + " Closes all of 079s generators",
-                        CA.First() + " Level"  + " Makes 079 Level 5",
-                        CA.First() + " Eject"  + " Ejects all Tablets",
-                        CA.First() + " Time" + " Number" + " Sets starting time for generators.",
+                    CA.First() + " Help" + " Shows this",
+                    CA.First() + " Lock"  + " Lets player lock doors.",
+                    CA.First() + " Open"  + " Opens all of 079s generators",
+                    CA.First() + " Close" + " Closes all of 079s generators",
+                    CA.First() + " Level"  + " Makes 079 Level 5",
+                    CA.First() + " Eject"  + " Ejects all Tablets",
+                    CA.First() + " Time" + " Number" + " Sets starting time for generators.",
                     };
             }
         }
@@ -169,7 +166,6 @@ namespace ATTG3
             while (Shake)
             {
                 plugin.Server.Map.Shake();
-
                 yield return 3f;
             }
         }
@@ -181,7 +177,6 @@ namespace ATTG3
                 {
                     TeslaGate.Activate(true);
                 }
-
                 yield return 0.5f;
             }
         }
