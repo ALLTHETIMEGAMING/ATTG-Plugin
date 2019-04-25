@@ -7,7 +7,7 @@ namespace ATTG3
     class RS : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        public static readonly string[] CA = new string[] { "RS", "ROUNDSTATS", "AGRS", "AGROUNDSTATS" };
+        public static readonly string[] CA = new string[] { "RI", "ROUNDSINFO", "AGRI", "AGROUNDINFO" };
         public RS(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class

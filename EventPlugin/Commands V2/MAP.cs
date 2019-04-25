@@ -150,14 +150,14 @@ namespace ATTG3
             else
             {
                 return new[]
-                    {
-                    CA.First() + " Help" + " Shows this",
-                    CA.First() + " Lock"  + " Lets player lock doors.",
-                    CA.First() + " Open"  + " Opens all of 079s generators",
-                    CA.First() + " Close" + " Closes all of 079s generators",
-                    CA.First() + " Level"  + " Makes 079 Level 5",
-                    CA.First() + " Eject"  + " Ejects all Tablets",
-                    CA.First() + " Time" + " Number" + " Sets starting time for generators.",
+                     {
+                     CA.First() + " Help" + " Shows this",
+                     CA.First() + " Lae" + " Locks all Elevator.",
+                     CA.First() + " Uae" + " Unlocks all Elevators.",
+                     CA.First() + " Shake" + " Shakes Map.",
+                     CA.First() + " TR" + " Actavates/Deactavates all Tesla gates.",
+                     CA.First() + " TS" + " Spams the tlesla gates.",
+                     CA.First() + " ES" + " Number" + " Sets speed for all elevators.",
                     };
             }
         }
