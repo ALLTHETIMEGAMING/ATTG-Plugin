@@ -88,7 +88,7 @@ namespace ATTG3
 			this.AddCommand("AGWORK", new Work(this));
 			this.AddCommand("AGGENM", new Genm(this));
 			//Event Handlers
-			this.AddEventHandlers(new EventHandler(this), Priority.Highest);
+			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.Normal);
             this.AddEventHandlers(new Vote(this));
 		}

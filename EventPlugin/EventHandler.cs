@@ -64,7 +64,7 @@ namespace ATTG3
 					}
 				}
 			}
-			if (Vars.Lock.TryGetValue(ev.Player.SteamId, out bool Lock)&&Lock==true)
+			/*if (Vars.Lock.TryGetValue(ev.Player.SteamId, out bool Lock)&&Lock==true)
 			{
 				ev.Door.Locked=true;
 				ev.Door.Open=false;
@@ -73,8 +73,8 @@ namespace ATTG3
 			{
 				ev.Door.Locked=false;
 				ev.Door.Open=true;
-			}
-			if (plugin.NoCHand)
+			}*/
+			if (plugin.NoCHand == true)
 			{
 				if (ev.Door.Permission=="CONT_LVL_3"&&ev.Door.Locked==false)
 				{
@@ -216,7 +216,13 @@ namespace ATTG3
 			{
 				ev.AllowBan=false;
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
-				ev.Admin.PersonalBroadcast(10, "You Can Not Ban This Person", false);
+				Player steamadmin = ev.Admin;
+				if (ev.Admin.SteamId!="76561198126860363")
+				{
+					steamadmin.Ban(1);
+					PluginManager.Manager.Server.Map.ClearBroadcasts();
+					PluginManager.Manager.Server.Map.Broadcast(10, ev.Admin.Name+" Was uno reverse carded", false);
+				}
 			}
 		}
 		public void OnWarheadKeycardAccess(Smod2.Events.WarheadKeycardAccessEvent ev)
@@ -243,7 +249,7 @@ namespace ATTG3
 		}
 		public void OnElevatorUse(Smod2.Events.PlayerElevatorUseEvent ev)
 		{
-			if (Vars.Elock.TryGetValue(ev.Player.SteamId, out bool elock)&&elock==true)
+			/*if (Vars.Elock.TryGetValue(ev.Player.SteamId, out bool elock)&&elock==true)
 			{
 				ev.Elevator.Locked=true;
 
@@ -251,7 +257,7 @@ namespace ATTG3
 			else if (Vars.Elock.TryGetValue(ev.Player.SteamId, out elock)&&elock==false)
 			{
 				ev.Elevator.Locked=false;
-			}
+			{*/
 		}
 		public void OnRoundEnd(Smod2.Events.RoundEndEvent ev)
 		{

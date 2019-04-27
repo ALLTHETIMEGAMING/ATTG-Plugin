@@ -90,26 +90,24 @@ namespace ATTG3
                      $"all Tleslas are now {(Tleslad ? "DEACTAVATED" : "ACTAVATED")}."
                     };
                 }
-                else if (args2=="ts")
-                {
-                    Tleslas=!Tleslas;
-                    if (Tleslas)
-                    {
-                        foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
-                        {
-                            TeslaGate.TriggerDistance=0;
-                        }
-                    }
-                    if (!Tleslas)
-                    {
-                        foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
-                        {
-                            TeslaGate.TriggerDistance=5.5f;
-                        }
-                    }
-                    return new[] { " " };
-                }
-                else if (args2=="es")
+				else if (args2=="ts")
+				{
+					Tleslas=!Tleslas;
+					if (Tleslas)
+					{
+						Timing.Run(TimingDelay2(0.1f));
+					}
+					return new[]
+					{
+					 $"Tlesla spam {(Tleslad ? "ACTAVATED" : "DEACTAVATED")}."
+					};
+				}
+				else if (args2=="in")
+				{
+					
+					return new[] { " " };
+				}
+				else if (args2=="es")
                 {
                     if (args.Length>1)
                     {

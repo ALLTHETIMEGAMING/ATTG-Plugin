@@ -50,15 +50,16 @@ namespace ATTG3
                         converted=float.Parse(args[2]);
                         plugin.Running939P=true;
                         Timing.Run(TimingDelay(0.1f));
-                        return new string[] { myPlayer+"given Super speed! at "+converted+" Speed" };
+                        return new string[] { myPlayer.Name+"given Super speed! at "+converted+" Speed" };
                     }
                     else
                     {
                         return new[]
                         {
-                        CA.First() + "Help" + " Shows this",
-                        CA.First() + "Reset" + " Resets all 939s speed.",
-                        CA.First() + "Set" + " Sets all 939s speed.",
+							"",
+                        CA.First() + " Help" + " Shows this",
+                        CA.First() + " Reset" + " Resets all 939s speed.",
+                        CA.First() + " Set" + " Sets all 939s speed.",
                         };
                     }
                 }
