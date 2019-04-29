@@ -38,7 +38,7 @@ namespace ATTG3
                 };
             }
 
-            if (!plugin.RoundStarted)
+            if (plugin.RoundStarted == false)
             {
                 plugin.O79Event=true;
                 return new string[] { "079 Event started" };
