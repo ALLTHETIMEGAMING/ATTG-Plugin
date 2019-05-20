@@ -51,7 +51,11 @@ namespace ATTG3
                     
 					converted=3f;
 				}
-				Timing.Run(TimingDelay(converted));
+				foreach (Player player2 in PluginManager.Manager.Server.GetPlayers())
+				{
+					player2.GiveItem(ItemType.FLASHLIGHT);
+				}
+					Timing.Run(TimingDelay(converted));
 			}
 			return new[]
 			{

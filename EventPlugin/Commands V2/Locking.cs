@@ -37,7 +37,7 @@ namespace ATTG3
                 if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                 if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                 {
-                    string args2 = args[0].ToLower();
+                    string args2 = args[1].ToLower();
                     if (args2=="reset")
                     {
 						if (Vars.Lock.ContainsKey(myPlayer.SteamId))

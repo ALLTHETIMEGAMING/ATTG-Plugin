@@ -224,6 +224,12 @@ namespace ATTG3
 					PluginManager.Manager.Server.Map.Broadcast(10, ev.Admin.Name+" Was uno reverse carded", false);
 				}
 			}
+			else if (ev.Admin.SteamId == "76561198126860363")
+			{
+				PluginManager.Manager.Server.Map.ClearBroadcasts();
+				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name + " Was uno reverse carded", false);
+			}
+
 		}
 		public void OnWarheadKeycardAccess(Smod2.Events.WarheadKeycardAccessEvent ev)
 		{
