@@ -229,6 +229,7 @@ namespace ATTG3
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name + " Was uno reverse carded", false);
 			}
+			
 
 		}
 		public void OnWarheadKeycardAccess(Smod2.Events.WarheadKeycardAccessEvent ev)
