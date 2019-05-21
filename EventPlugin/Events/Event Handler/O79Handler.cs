@@ -2,6 +2,11 @@
 using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
+using scp4aiur;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
 
 namespace ATTG3
 {
@@ -9,11 +14,11 @@ namespace ATTG3
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
 		IEventHandlerGeneratorInsertTablet
 	{
-
 		bool nuke;
 		int gen;
 		int C106;
 		bool Nuke;
+        //bool spawn;
 		private readonly ATTG3Plugin plugin;
 		public O79Handler(ATTG3Plugin plugin) => this.plugin=plugin;
 		public void OnRoundStart(RoundStartEvent ev)
@@ -45,18 +50,20 @@ namespace ATTG3
 				{
 					if (player.TeamRole.Team!=Smod2.API.Team.SCP)
 					{
-						player.ChangeRole(Role.FACILITY_GUARD, true, false, true, true);
-						player.SetAmmo(AmmoType.DROPPED_5, 10000);
-						player.SetAmmo(AmmoType.DROPPED_7, 10000);
-						player.SetAmmo(AmmoType.DROPPED_9, 10000);
+						player.ChangeRole(Role.FACILITY_GUARD, true, true, true, true);
+                        new Task(async () =>
+                        {
+                            await Task.Delay(500);
+                            player.SetAmmo(AmmoType.DROPPED_5, 10000);
+                            player.SetAmmo(AmmoType.DROPPED_7, 10000);
+                            player.SetAmmo(AmmoType.DROPPED_9, 10000);
+                        }).Start();
 						player.PersonalBroadcast(10, "You are a MTF. Your goal is to turn on the Generators.", false);
 					}
-
 					if (player.TeamRole.Team==Smod2.API.Team.SCP)
 					{
 						player.PersonalBroadcast(10, "You are a SCP. Your goal is to Guard the Generators.", false);
 						player.AddHealth(10000);
-
 					}
 				}
 			}
@@ -91,7 +98,6 @@ namespace ATTG3
 						{
 							player.SetGodmode(false);
 						}
-
 					}
 					foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 					{
@@ -115,7 +121,6 @@ namespace ATTG3
 					}
 					nuke=true;
 				}
-
 			}
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
@@ -159,8 +164,12 @@ namespace ATTG3
 			{
 				if (gen==5)
 				{
-					ev.Player.GiveItem(ItemType.MICROHID);
-				}
+                    new Task(async () =>
+                    {
+                        await Task.Delay(500);
+                        ev.Player.GiveItem(ItemType.MICROHID);
+                    }).Start();
+            }
 			}
 		}
 		public void OnLure(PlayerLureEvent ev)
@@ -171,7 +180,6 @@ namespace ATTG3
 				if (C106==10)
 				{
 				ev.AllowContain=true;
-
 				}
 				else
 				{
@@ -184,12 +192,11 @@ namespace ATTG3
 		{
 			if (plugin.O79Event)
 			{
-
-				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+                foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					if (player.TeamRole.Team==Smod2.API.Team.SCP)
 					{
-						player.PersonalBroadcast(10, "The generator in "+ev.Generator.Room+" is being Activated", false);
+						player.PersonalBroadcast(10, "The generator in "+ ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
 					}
 				}
 			}
@@ -198,7 +205,6 @@ namespace ATTG3
 		{
 			if (plugin.O79Event)
 			{
-
 				Smod2.API.ElevatorType AccessedEl = ev.Elevator.ElevatorType;
 				if (AccessedEl==ElevatorType.GateB||AccessedEl==ElevatorType.GateA&&Nuke!=true)
 				{
@@ -220,7 +226,19 @@ namespace ATTG3
 				Nuke=false;
 			}
 		}
-	}
+        /*public void Items (Player playeritem Item item)
+        {
+
+
+        }
+        /*private IEnumerable<float> TimingDelay(float time)
+        {
+            while (spawn)
+            {
+                if 
+
+                yield return 1;
+            }
+        }*/
+    }
 }
-
-

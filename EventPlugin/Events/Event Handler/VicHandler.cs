@@ -7,7 +7,7 @@ namespace ATTG3
 {
     internal class VicHandler : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
         IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet,
-        IEventHandlerUpdate
+        IEventHandlerUpdate 
     {
         
         bool nuke;
@@ -74,10 +74,7 @@ namespace ATTG3
             int stats = PluginManager.Manager.Server.Round.Duration;
             if (stats==60)
             {
-                foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-                {  
-                    player.ChangeRole(Role.FACILITY_GUARD, true, true, true, true);
-                }
+                
 
 
             }
