@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\MAP.cs" />
+    <Compile Include="Network Commands\PlaybackLobby.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />
     <Compile Include="Events\Event Commands\O79EVENT.cs" />
     <Compile Include="Events\Event Handler\VicHandler.cs" />
