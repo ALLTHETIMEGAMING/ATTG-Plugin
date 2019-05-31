@@ -6,12 +6,13 @@ using Smod2.Events;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerRoundStart, IEventHandlerWarheadStopCountdown,
 		IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
-		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd
+		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -36,6 +37,34 @@ namespace ATTG3
 			plugin.GenSpam=false;
 			Vote.Voted.Clear();
 			plugin.RoundStarted=true;
+			MAP.Shake = false;
+			MAP.Tleslad = false;
+			MAP.Tleslas = false;
+
+
+		}
+		public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
+		{
+			if (plugin.Disable)
+			{
+				this.plugin.PluginManager.DisablePlugin(this.plugin);
+			}
+			foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
+			{
+				Elevator.MovingSpeed = plugin.Elevatord;
+			}
+			plugin.Voteopen = false;
+			plugin.Yes = 0;
+			plugin.No = 0;
+			plugin.Lights = false;
+			plugin.GenSpam = false;
+			Vote.Voted.Clear();
+			plugin.RoundStarted = false;
+			MAP.Shake = false;
+			MAP.Shake = false;
+			MAP.Tleslad = false;
+			MAP.Tleslas = false;
+
 
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)

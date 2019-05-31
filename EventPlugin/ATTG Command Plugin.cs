@@ -39,7 +39,8 @@ namespace ATTG3
 		public float Elevatord { get; set; }
 		public bool GenSpam { get; set; }
 		public bool O79Event { get; set; }
-        public bool VicEvent { get; set; }
+		public bool ClassD { get; set; }
+		public bool VicEvent { get; set; }
         public bool GenHand { get; set; }
         public bool Running939P { get; set; }
         public bool Running939 { get; set; }

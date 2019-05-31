@@ -53,7 +53,10 @@ namespace ATTG3
 				}
 				foreach (Player player2 in PluginManager.Manager.Server.GetPlayers())
 				{
-					player2.GiveItem(ItemType.FLASHLIGHT);
+					if (!player2.HasItem(ItemType.FLASHLIGHT))
+					{
+						player2.GiveItem(ItemType.FLASHLIGHT);
+					}
 				}
 					Timing.Run(TimingDelay(converted));
 			}

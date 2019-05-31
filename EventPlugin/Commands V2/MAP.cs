@@ -19,10 +19,10 @@ namespace ATTG3
             return "All Map Commands";
         }
         public static readonly string[] CA = new string[] { "AGMAP", "MAP" };
-        bool Shake;
-        bool Tleslad;
-        bool Tleslas;
-        float Desplay2;
+		public static bool Shake;
+		public static bool Tleslad;
+		public static bool Tleslas;
+		public static float Desplay2;
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
