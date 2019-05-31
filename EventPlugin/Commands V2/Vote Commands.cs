@@ -17,7 +17,7 @@ namespace ATTG3
         public string GetCommandDescription()
         {
             // This prints when someone types HELP HELLO
-            return "All Voteing Commands";
+            return "All Voting Commands";
         }
         public string GetUsage()
         {
@@ -43,12 +43,12 @@ namespace ATTG3
 				{
 					plugin.Voteopen=true;
 
-					return new string[] { "Voteing Opened." };
+					return new string[] { "Voting Opened." };
 				}
 				else if (args2=="Close")
 				{
 					plugin.Voteopen=false;
-					return new string[] { "Voteing Closed" };
+					return new string[] { "Voting Closed" };
 				}
 				else if (args2=="BC")
 				{
@@ -78,8 +78,8 @@ namespace ATTG3
 					return new[]
 					{
 						CA.First() + " Help" + " Shows this.",
-						CA.First() + " Open"  + " Opens voteing.",
-						CA.First() + " Close" + " Closes voteing.",
+						CA.First() + " Open"  + " Opens voting.",
+						CA.First() + " Close" + " Closes voting.",
 						CA.First() + " See"  + " Displays Vote.",
 						CA.First() + " Clear"  + " Clears votes.",
 					};
@@ -90,8 +90,8 @@ namespace ATTG3
 				return new[]
 				{
 					CA.First() + " Help" + " Shows this.",
-					CA.First() + " Open"  + " Opens voteing.",
-					CA.First() + " Close" + " Closes voteing.",
+					CA.First() + " Open"  + " Opens voting.",
+					CA.First() + " Close" + " Closes voting.",
 					CA.First() + " See"  + " Displays Vote.",
 					CA.First() + " Clear"  + " Clears votes.",
 				};
