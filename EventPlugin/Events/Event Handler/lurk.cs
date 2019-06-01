@@ -12,7 +12,7 @@ namespace ATTG3
 {
 	internal class lerk : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerPlayerTriggerTesla
+		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess
 	{
 
 		bool nuke;
@@ -48,12 +48,17 @@ namespace ATTG3
 					if (player.TeamRole.Team != Smod2.API.Team.SCP)
 					{
 						player.ChangeRole(Role.CLASSD, true, true, true, true);
+						player.PersonalBroadcast(10, "ESCAPE", false);
 						new Task(async () =>
 						{
 							await Task.Delay(500);
 							player.GiveItem(ItemType.FLASHLIGHT);
+							player.GiveItem(ItemType.JANITOR_KEYCARD);
 						}).Start();
-						player.PersonalBroadcast(10, "ESCAPE", false);
+					}
+					if (player.TeamRole.Role == Smod2.API.Role.SCP_173)
+					{
+						player.ChangeRole(Role.SCP_939_53, true, true, true, true);
 					}
 					if (player.TeamRole.Team == Smod2.API.Team.SCP)
 					{
@@ -61,17 +66,24 @@ namespace ATTG3
 						
 					}
 				}
-				Timing.Run(TimingDelay(3));
+				Timing.Run(TimingDelay(20));
+
+				foreach (Generator079 gen in Generator079.generators)
+				{
+					gen.NetworkremainingPowerup = (gen.startDuration = 30f);
+				}
 			}
 		}
 		public void OnDoorAccess(PlayerDoorAccessEvent ev)
 		{
 			if (plugin.Lerk)
 			{
-				if (ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
+				if (ev.Player.TeamRole.Role == Smod2.API.Role.CLASSD)
 				{
+					
 					if (ev.Door.Name == "CHECKPOINT_ENT")
 					{
+						
 						float x = 187;
 						float y = 994;
 						float z = -30;
@@ -79,10 +91,12 @@ namespace ATTG3
 						ev.Player.Teleport(teleport, true);
 						ev.Allow = false;
 						ev.Door.Open = false;
+					
 					}
 				}
 			}
 		}
+
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
 		{
 			if (plugin.Lerk)
@@ -133,7 +147,17 @@ namespace ATTG3
 			{
 				if (ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
 				{
-					ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
+					if (ev.Player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+					{
+						new Task(async () =>
+						{
+							await Task.Delay(500);
+							ev.Player.GiveItem(ItemType.RADIO);
+							ev.Player.GiveItem(ItemType.FLASHLIGHT);
+							ev.Player.GiveItem(ItemType.E11_STANDARD_RIFLE);
+						}).Start();
+						ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
+					}
 				}
 			}
 		}
@@ -148,7 +172,13 @@ namespace ATTG3
 		{
 			if (plugin.Lerk)
 			{
-
+				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+				{
+					if (player.TeamRole.Team == Smod2.API.Team.SCP)
+					{
+						player.PersonalBroadcast(10, "The generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
+					}
+				}
 			}
 		}
 		public void OnElevatorUse(PlayerElevatorUseEvent ev)
@@ -189,7 +219,6 @@ namespace ATTG3
 		{
 			if (plugin.Lerk)
 			{
-				ev.AllowSummon = true;
 				ev.IsCI = true;
 			}
 		}
@@ -221,7 +250,7 @@ namespace ATTG3
 					room.FlickerLights();
 				}
 
-				yield return 3;
+				yield return 20;
 			}
 		}
 	}
