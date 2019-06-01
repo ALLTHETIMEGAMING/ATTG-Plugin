@@ -40,6 +40,7 @@ namespace ATTG3
 		public bool GenSpam { get; set; }
 		public bool O79Event { get; set; }
 		public bool ClassD { get; set; }
+		public bool Lerk { get; set; }
 		public bool VicEvent { get; set; }
         public bool GenHand { get; set; }
         public bool Running939P { get; set; }
@@ -82,17 +83,18 @@ namespace ATTG3
             this.AddCommands(Speed.CA, new Speed(this));
             this.AddCommands(Overcharge.CA, new Overcharge(this));
             this.AddCommand("AGSGOD", new O79EVENT(this));
+			this.AddCommand("AGLURK", new Lurkcom(this));
 			this.AddCommand("AGFAKE", new Fakedea(this));
             this.AddCommand("AGAMMO", new Ammo(this));
             this.AddCommand("AGBLAST", new Blast(this));
             this.AddCommand("AGLOCKER", new Locker1(this));
 			this.AddCommand("AGWORK", new Work(this));
-            this.AddCommand("AGPLAY", new PlaybackLobby(this));
             this.AddCommand("AGGENM", new Genm(this));
 			//Event Handlers
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.High);
-            this.AddEventHandlers(new Vote(this));
+			this.AddEventHandlers(new lerk(this), Priority.High);
+			this.AddEventHandlers(new Vote(this));
 		}
 		public void ReloadConfig()
 		{

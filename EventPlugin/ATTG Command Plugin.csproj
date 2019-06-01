@@ -75,6 +75,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\MAP.cs" />
+    <Compile Include="Events\Event Commands\lurkcom.cs" />
+    <Compile Include="Events\Event Handler\lurk.cs" />
     <Compile Include="Events\Event Handler\Clasd.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />
     <Compile Include="Events\Event Commands\O79EVENT.cs" />

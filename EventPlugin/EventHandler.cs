@@ -58,6 +58,7 @@ namespace ATTG3
 			plugin.No = 0;
 			plugin.Lights = false;
 			plugin.GenSpam = false;
+			plugin.Lerk = false;
 			Vote.Voted.Clear();
 			plugin.RoundStarted = false;
 			MAP.Shake = false;
