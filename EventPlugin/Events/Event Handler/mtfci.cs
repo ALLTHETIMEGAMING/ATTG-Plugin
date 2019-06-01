@@ -13,7 +13,8 @@ namespace ATTG3
 {
 	internal class MTFCI : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess
+		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerPlayerTriggerTesla,
+		IEventHandlerDoorAccess, IEventHandlerPlayerDie
 	{
 
 
@@ -164,7 +165,11 @@ namespace ATTG3
 		}
 		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
 		{
-
+			if (plugin.MTFCI)
+			{
+				ev.Server.Map.ClearBroadcasts();
+				ev.Server.Map.Broadcast(10, "There are " + plugin.Round.Stats.CiAlive + " Chaos alive, and " + plugin.Round.Stats.NTFAlive + " NTF alive.", false);
+			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{
@@ -183,6 +188,14 @@ namespace ATTG3
 		{
 			if (plugin.MTFCI)
 			{
+				
+			}
+		}
+		public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
+		{
+			if (plugin.MTFCI)
+			{
+				ev.SpawnRagdoll = false;
 				
 			}
 		}

@@ -60,6 +60,10 @@ namespace ATTG3
 					{
 						player.ChangeRole(Role.SCP_939_53, true, true, true, true);
 					}
+					if (player.TeamRole.Role == Smod2.API.Role.SCP_049)
+					{
+						player.ChangeRole(Role.SCP_939_53, true, true, true, true);
+					}
 					if (player.TeamRole.Team == Smod2.API.Team.SCP)
 					{
 						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
