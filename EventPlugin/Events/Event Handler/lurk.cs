@@ -41,7 +41,7 @@ namespace ATTG3
 					{
 						door.Locked = true;
 					}
-					plugin.Lights = true;
+
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
@@ -61,6 +61,7 @@ namespace ATTG3
 						
 					}
 				}
+				Timing.Run(TimingDelay(3));
 			}
 		}
 		public void OnDoorAccess(PlayerDoorAccessEvent ev)
@@ -130,7 +131,10 @@ namespace ATTG3
 		{
 			if (plugin.Lerk)
 			{
-				ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
+				if (ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
+				{
+					ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
+				}
 			}
 		}
 		public void OnLure(PlayerLureEvent ev)
@@ -185,7 +189,8 @@ namespace ATTG3
 		{
 			if (plugin.Lerk)
 			{
-				ev.AllowSummon = false;
+				ev.AllowSummon = true;
+				ev.IsCI = true;
 			}
 		}
 		public void OnDecideTeamRespawnQueue(DecideRespawnQueueEvent ev)
@@ -203,6 +208,20 @@ namespace ATTG3
 				{
 					ev.Triggerable = false;
 				}
+			}
+		}
+		private IEnumerable<float> TimingDelay(float time)
+		{
+			while (plugin.Lerk)
+			{
+				Generator079.generators[0].CallRpcOvercharge();
+				foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).ToArray())
+
+				{
+					room.FlickerLights();
+				}
+
+				yield return 3;
 			}
 		}
 	}
