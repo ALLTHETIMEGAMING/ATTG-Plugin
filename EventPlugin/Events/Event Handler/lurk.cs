@@ -63,7 +63,6 @@ namespace ATTG3
 					if (player.TeamRole.Team == Smod2.API.Team.SCP)
 					{
 						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
-						
 					}
 				}
 				Timing.Run(TimingDelay(20));

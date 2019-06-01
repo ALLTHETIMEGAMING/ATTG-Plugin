@@ -46,7 +46,10 @@ namespace ATTG3
         public bool Running939P { get; set; }
         public bool Running939 { get; set; }
         public bool RoundStarted { get; set; }
-        public override void Register()
+		public bool MTFCI { get; set; }
+		public bool INFECT { get; set; }
+
+		public override void Register()
 		{
 			Instance=this;
 			Timing.Init(this);
@@ -84,6 +87,8 @@ namespace ATTG3
             this.AddCommands(Overcharge.CA, new Overcharge(this));
             this.AddCommand("AGSGOD", new O79EVENT(this));
 			this.AddCommand("AGLURK", new Lurkcom(this));
+			this.AddCommand("AGMTFCI", new MTFCICOM(this));
+			this.AddCommand("AGINFECT", new Infectcom(this));
 			this.AddCommand("AGFAKE", new Fakedea(this));
             this.AddCommand("AGAMMO", new Ammo(this));
             this.AddCommand("AGBLAST", new Blast(this));
@@ -94,7 +99,9 @@ namespace ATTG3
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.High);
 			this.AddEventHandlers(new lerk(this), Priority.High);
-			this.AddEventHandlers(new Vote(this));
+			this.AddEventHandlers(new MTFCI(this), Priority.High);
+			this.AddEventHandlers(new INFECT(this), Priority.High);
+			this.AddEventHandlers(new Vote(this)); 
 		}
 		public void ReloadConfig()
 		{

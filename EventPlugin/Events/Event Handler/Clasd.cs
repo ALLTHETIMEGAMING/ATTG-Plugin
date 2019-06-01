@@ -11,18 +11,12 @@ namespace ATTG3
 		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue
 	{
 
-		bool nuke;
-		int gen;
-		int C106;
-		bool Nuke;
 		private readonly ATTG3Plugin plugin;
 		public ClassD(ATTG3Plugin plugin) => this.plugin = plugin;
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			if (plugin.ClassD)
 			{
-				nuke = false;
-				gen = 0;
 				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
 					if (door.Name == "106_SECONDARY")
@@ -66,7 +60,7 @@ namespace ATTG3
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
 		{
-			if (plugin.ClassD && !nuke)
+			if (plugin.ClassD)
 			{
 				ev.Allow = false;
 				ev.Player.PersonalBroadcast(10, "Nuke cannot be activated", false);
