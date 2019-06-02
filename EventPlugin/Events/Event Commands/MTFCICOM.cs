@@ -1,17 +1,8 @@
 ﻿using Smod2;
 using Smod2.API;
 using Smod2.Commands;
-using Smod2.Events;
-using Smod2.EventSystem.Events;
 using System.Linq;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using TMPro;
-using Unity;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-using Smod2.EventHandlers;
+
 
 namespace ATTG3
 {
@@ -38,7 +29,10 @@ namespace ATTG3
 
             if (plugin.RoundStarted == false)
             {
-                plugin.MTFCI = true;
+				// #0080FF Is Blue
+				// #0B7A00 Is Green
+				PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100><color=#0080FF>MTF</Color> VS <color=#0B7A00>CI</Color> Event Starting</SIZE>", false);
+				plugin.MTFCI = true;
                 return new string[] { "MTF VS CI Event started" };
             }
             else

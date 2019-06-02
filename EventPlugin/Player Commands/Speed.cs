@@ -43,7 +43,7 @@ namespace ATTG3
                     if (args2=="reset")
                     {
                         plugin.Running939P=false;
-                        return new string[] { myPlayer+" speed reset" };
+                        return new string[] { myPlayer.Name+" speed reset" };
                     }
                     else if (args2=="set")
                     {

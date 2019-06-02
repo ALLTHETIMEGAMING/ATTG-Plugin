@@ -38,15 +38,16 @@ namespace ATTG3
                 };
             }
 
-            if (plugin.RoundStarted == false)
-            {
-                plugin.Lerk=true;
-                return new string[] { "Lerk Event started" };
-            }
-            else
-            {
-                return new string[] { "Event must be started before the round starts." };
-            }
+			if (plugin.RoundStarted == false)
+			{
+				PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100><color=#3e4144>BLACKOUT</Color> Event Starting</SIZE>", false);
+				plugin.Lerk = true;
+				return new string[] { "Lerk Event started" };
+			}
+			else
+			{
+				return new string[] { "Event must be started before the round starts." };
+			}
         }
     }
 }

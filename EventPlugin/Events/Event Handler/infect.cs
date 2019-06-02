@@ -11,10 +11,9 @@ using UnityEngine;
 
 namespace ATTG3
 {
-	internal class INFECT : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
-		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerPlayerTriggerTesla,
-		IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerPlayerJoin
+	internal class INFECT : IEventHandlerRoundStart,
+		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSummonVehicle,
+		IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerCheckEscape, IEventHandlerPlayerHurt
 	{
 
 
@@ -26,54 +25,60 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
-				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
-					if (player.TeamRole.Team != Smod2.API.Team.SCP)
+					if (door.Name == "106_SECONDARY")
 					{
-						player.ChangeRole(Role.CLASSD, true, true, true, true);
-						player.PersonalBroadcast(10, "ESCAPE SCP-049-2", false);
-						new Task(async () =>
-						{
-							await Task.Delay(500);
-							player.GiveItem(ItemType.JANITOR_KEYCARD);
-						}).Start();
+						door.Locked = true;
+						door.Open = true;
 					}
-					if (player.TeamRole.Team == Smod2.API.Team.SCP)
+					else if (door.Name == "106_BOTTOM")
 					{
-						player.ChangeRole(Role.SCP_049_2, true, true, true, true);
-						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
+						door.Locked = true;
+						door.Open = true;
+					}
+					else if (door.Name == "106_PRIMARY")
+					{
+						door.Open = true;
+						door.Locked = true;
 					}
 				}
-			}
-		}
-		public void OnDoorAccess(PlayerDoorAccessEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-
-			}
-		}
-
-		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
-		{
-			if (plugin.INFECT)
-			{
 				
 			}
 		}
-		public void OnGeneratorFinish(GeneratorFinishEvent ev)
+		public void OnSpawn(PlayerSpawnEvent ev)
 		{
 			if (plugin.INFECT)
 			{
-
-
+				if (ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
+				{
+					ev.Player.ChangeRole(Role.CLASSD, true, true, true, true);
+					ev.Player.PersonalBroadcast(10, "ESCAPE SCP-049-2", false);
+					new Task(async () =>
+						{
+						await Task.Delay(500);
+						foreach (Smod2.API.Item item in ev.Player.GetInventory())
+						{
+							item.Remove();
+						}
+						ev.Player.GiveItem(ItemType.JANITOR_KEYCARD);
+					}).Start();
+					ev.Player.AddHealth(100);
+				}
+				if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
+				{
+					ev.Player.ChangeRole(Role.SCP_049_2, true, true, true, true);
+					ev.Player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
+					ev.Player.AddHealth(400);
+				}
 			}
 		}
 		public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
 		{
 			if (plugin.INFECT)
 			{
-				ev.Player.ChangeRole(Role.SCP_049_2, true, true, false, true);
+				ev.Player.ChangeRole(Role.SCP_049_2, true, true, true, true);
+				ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
 			}
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
@@ -84,26 +89,19 @@ namespace ATTG3
 				ev.Player.PersonalBroadcast(10, "Nuke cannot be activated", false);
 			}
 		}
-		public void OnGeneratorEjectTablet(Smod2.Events.PlayerGeneratorEjectTabletEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-
-			}
-		}
 		public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
 		{
 			if (plugin.INFECT)
 			{
+				ev.Player.PersonalBroadcast(10, "You will respawn in 30 seconds", false);
 				ev.SpawnRagdoll = false;
-				ev.Player.ChangeRole(Role.SCP_049_2, true, true, false, true);
-			}
-		}
-		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-
+				new Task(async () =>
+				{
+					await Task.Delay(30000);
+					ev.Player.ChangeRole(Role.SCP_049_2, true, true, true, true);
+					ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+				}).Start();
+				
 			}
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
@@ -113,64 +111,11 @@ namespace ATTG3
 				plugin.INFECT = false;
 			}
 		}
-		public void OnSpawn(PlayerSpawnEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-				
-			}
-		}
-		public void OnLure(PlayerLureEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-
-			}
-		}
-		public void OnGeneratorInsertTablet(PlayerGeneratorInsertTabletEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-
-			}
-		}
-		public void OnElevatorUse(PlayerElevatorUseEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-			
-			}
-		}
-		public void OnStartCountdown(WarheadStartEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-
-			}
-		}
-		public void OnStopCountdown(WarheadStopEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-
-			}
-		}
-		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
-		{
-
-		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{
 			if (plugin.INFECT)
 			{
 				ev.AllowSummon = false;
-			}
-		}
-		public void OnDecideTeamRespawnQueue(DecideRespawnQueueEvent ev)
-		{
-			if (plugin.INFECT)
-			{
-				
 			}
 		}
 		public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
@@ -180,6 +125,37 @@ namespace ATTG3
 				if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
 				{
 					ev.Triggerable = false;
+				}
+			}
+		}
+		public void OnCheckEscape(Smod2.Events.PlayerCheckEscapeEvent ev)
+		{
+			if (plugin.INFECT)
+			{
+				if (ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
+				{
+					ev.AllowEscape = true;
+					ev.ChangeRole = Role.SCP_049_2;
+				}
+			}
+		}
+		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
+		{
+			if (plugin.O79Event)
+			{
+				if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
+				{
+					ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+				}
+			}
+		}
+		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
+		{
+			if (plugin.O79Event)
+			{
+				if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP)
+				{
+					ev.Player.ChangeRole(Role.SCP_049_2, true, false, false, true);
 				}
 			}
 		}

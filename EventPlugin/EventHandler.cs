@@ -12,7 +12,7 @@ namespace ATTG3
 	internal class EventHandler : IEventHandlerWarheadStopCountdown,
 		IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
-		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet
+		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -36,6 +36,8 @@ namespace ATTG3
 			plugin.Lights = false;
 			plugin.GenSpam = false;
 			plugin.Lerk = false;
+			plugin.INFECT = false;
+			plugin.MTFCI = false;
 			Vote.Voted.Clear();
 			plugin.RoundStarted = false;
 			MAP.Shake = false;
@@ -44,6 +46,10 @@ namespace ATTG3
 			MAP.Tleslas = false;
 
 
+		}
+		public void OnRoundStart(RoundStartEvent ev)
+		{
+			plugin.RoundStarted = true;
 		}
 		public void OnNicknameSet(Smod2.Events.PlayerNicknameSetEvent ev)
 		{
@@ -115,7 +121,7 @@ namespace ATTG3
 						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
 						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD)||
 						player.HasItem(ItemType.GUARD_KEYCARD)||player.HasItem(ItemType.JANITOR_KEYCARD)||
-						player.HasItem(ItemType.SCIENTIST_KEYCARD))
+						player.HasItem(ItemType.SCIENTIST_KEYCARD)|| player.HasItem(ItemType.ZONE_MANAGER_KEYCARD))
 					{
 						ev.Allow=true;
 					}
@@ -126,7 +132,7 @@ namespace ATTG3
 						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
 						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
 						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD)||
-						player.HasItem(ItemType.GUARD_KEYCARD))
+						player.HasItem(ItemType.GUARD_KEYCARD)||player.HasItem(ItemType.ZONE_MANAGER_KEYCARD))
 					{
 						ev.Allow=true;
 					}

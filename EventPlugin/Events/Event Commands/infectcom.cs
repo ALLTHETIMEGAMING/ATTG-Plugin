@@ -40,7 +40,8 @@ namespace ATTG3
 
             if (plugin.RoundStarted == false)
             {
-                plugin.INFECT=true;
+				PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100><color=#FF0000>Infection Event Starting</Color></SIZE>", false);
+				plugin.INFECT=true;
                 return new string[] { "Infect Event started" };
             }
             else

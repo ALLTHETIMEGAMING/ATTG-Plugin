@@ -15,10 +15,8 @@ namespace ATTG3
 		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess
 	{
 
-		bool nuke;
-		int gen;
-		int C106;
-		bool Nuke;
+
+
 
 		private readonly ATTG3Plugin plugin;
 		public lerk(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -28,8 +26,7 @@ namespace ATTG3
 			if (plugin.Lerk)
 			{
 
-				nuke = false;
-				gen = 0;
+
 				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
 					
@@ -117,7 +114,7 @@ namespace ATTG3
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
 		{
-			if (plugin.Lerk && !nuke)
+			if (plugin.Lerk)
 			{
 				ev.Allow = false;
 				ev.Player.PersonalBroadcast(10, "Nuke cannot be activated", false);
@@ -155,9 +152,7 @@ namespace ATTG3
 						new Task(async () =>
 						{
 							await Task.Delay(500);
-							ev.Player.GiveItem(ItemType.RADIO);
 							ev.Player.GiveItem(ItemType.FLASHLIGHT);
-							ev.Player.GiveItem(ItemType.E11_STANDARD_RIFLE);
 						}).Start();
 						ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
 					}

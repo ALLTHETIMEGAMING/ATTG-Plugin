@@ -86,6 +86,7 @@
     <Compile Include="Events\Event Handler\mtfci.cs" />
     <Compile Include="Events\Event Handler\lurk.cs" />
     <Compile Include="Events\Event Handler\Clasd.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />
     <Compile Include="Events\Event Commands\O79EVENT.cs" />
     <Compile Include="Events\Event Handler\VicHandler.cs" />

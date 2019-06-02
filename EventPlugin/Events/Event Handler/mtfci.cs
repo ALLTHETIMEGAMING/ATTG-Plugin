@@ -11,17 +11,16 @@ using UnityEngine;
 
 namespace ATTG3
 {
-	internal class MTFCI : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
-		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerPlayerTriggerTesla,
-		IEventHandlerDoorAccess, IEventHandlerPlayerDie
+	internal class MTFCI : IEventHandlerRoundStart,
+		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle
 	{
 
 
 
 		private readonly ATTG3Plugin plugin;
 		public MTFCI(ATTG3Plugin plugin) => this.plugin = plugin;
-
+		public int MTFKill = 0;
+		public int CIKills = 0;
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			if (plugin.MTFCI)
@@ -51,14 +50,6 @@ namespace ATTG3
 				}
 			}
 		}
-		public void OnDoorAccess(PlayerDoorAccessEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-
-			}
-		}
-
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
 		{
 			if (plugin.MTFCI)
@@ -66,6 +57,11 @@ namespace ATTG3
 				if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP || ev.Player.TeamRole.Team == Smod2.API.Team.CLASSD)
 				{
 					ev.Player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+					new Task(async () =>
+					{
+						await Task.Delay(500);
+						ev.Player.GiveItem(ItemType.MEDKIT);
+					}).Start();
 				}
 				else if (ev.Player.TeamRole.Role == Smod2.API.Role.FACILITY_GUARD || ev.Player.TeamRole.Team == Smod2.API.Team.SCIENTIST)
 				{
@@ -82,14 +78,19 @@ namespace ATTG3
 						}
 					}).Start();
 				}
-			}
-		}
-		public void OnGeneratorFinish(GeneratorFinishEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-
-
+				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX) {
+					new Task(async () =>
+					{
+						await Task.Delay(500);
+						foreach (Smod2.API.Item item in ev.Player.GetInventory())
+						{
+							if (item.ItemType == ItemType.DISARMER)
+							{
+								item.Remove();
+							}
+						}
+					}).Start();
+				}
 			}
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
@@ -100,95 +101,58 @@ namespace ATTG3
 				ev.Player.PersonalBroadcast(10, "Nuke cannot be activated", false);
 			}
 		}
-		public void OnGeneratorEjectTablet(Smod2.Events.PlayerGeneratorEjectTabletEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-
-			}
-		}
-		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-
-			}
-		}
 		public void OnRoundEnd(RoundEndEvent ev)
 		{
 			if (plugin.MTFCI)
 			{
+				MTFKill = 0;
+				CIKills = 0;
 				plugin.MTFCI = false;
-			}
-		}
-		public void OnSpawn(PlayerSpawnEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-				
-			}
-		}
-		public void OnLure(PlayerLureEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-
-			}
-		}
-		public void OnGeneratorInsertTablet(PlayerGeneratorInsertTabletEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-
-			}
-		}
-		public void OnElevatorUse(PlayerElevatorUseEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-			
-			}
-		}
-		public void OnStartCountdown(WarheadStartEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-
-			}
-		}
-		public void OnStopCountdown(WarheadStopEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-
 			}
 		}
 		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
 		{
 			if (plugin.MTFCI)
 			{
-				ev.Server.Map.ClearBroadcasts();
-				ev.Server.Map.Broadcast(10, "There are " + plugin.Round.Stats.CiAlive + " Chaos alive, and " + plugin.Round.Stats.NTFAlive + " NTF alive.", false);
-			}
-		}
-		public void OnSummonVehicle(SummonVehicleEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-			}
-		}
-		public void OnDecideTeamRespawnQueue(DecideRespawnQueueEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-				
-			}
-		}
-		public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
-		{
-			if (plugin.MTFCI)
-			{
-				
+				if (MTFKill != 50 && CIKills != 50)
+				{
+					if (ATTG3Plugin.TUTCOUNT(Role.TUTORIAL) > 0)
+					{
+						ev.Server.Map.ClearBroadcasts();
+						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>TIME OUT. DO NOT SHOOT</Color></SIZE>", false);
+						foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+						{
+							player.SetCurrentItem(ItemType.NULL);
+						}
+					}
+					else
+					{
+						ev.Server.Map.ClearBroadcasts();
+						PluginManager.Manager.Server.Map.Broadcast(10, "<color=#0080FF>MTF Has " + MTFKill + " Kills out of 50</Color> <color=#0B7A00>CI Has " + CIKills + " Kills out of 50</Color>", false);
+						ev.Status = ROUND_END_STATUS.ON_GOING;
+					}
+				}
+				else
+				{
+					if (MTFKill == 50)
+					{
+						ev.Server.Map.ClearBroadcasts();
+						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#0080FF>MTF WIN</Color></SIZE>", false);
+						ev.Status = ROUND_END_STATUS.MTF_VICTORY;
+					}
+					else if(CIKills == 50)
+					{
+						ev.Server.Map.ClearBroadcasts();
+						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#0B7A00>CI WIN</Color></SIZE>", false);
+						ev.Status = ROUND_END_STATUS.CI_VICTORY;
+					}
+					else
+					{
+						ev.Server.Map.ClearBroadcasts();
+						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#FFFF00>STALEMATE</Color></SIZE>", false);
+						ev.Status = ROUND_END_STATUS.NO_VICTORY;
+					}
+				}
 			}
 		}
 		public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
@@ -196,7 +160,37 @@ namespace ATTG3
 			if (plugin.MTFCI)
 			{
 				ev.SpawnRagdoll = false;
-				
+				if (ev.Killer.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
+				{
+					MTFKill++;
+					ev.Player.PersonalBroadcast(10, "You will respawn in 10 seconds", false);
+					
+					new Task(async () =>
+					{
+						await Task.Delay(10000);
+						ev.Player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+						ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CHAOS_INSURGENCY), true);
+					}).Start();
+					
+				}
+				else if (ev.Killer.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+				{
+					CIKills++;
+					ev.Player.PersonalBroadcast(10, "You will respawn in 10 seconds", false);
+					new Task(async () =>
+					{
+						await Task.Delay(10000);
+						ev.Player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
+						ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.NTF_COMMANDER), true);
+					}).Start();
+				}
+			}
+		}
+		public void OnSummonVehicle(SummonVehicleEvent ev)
+		{
+			if (plugin.INFECT)
+			{
+				ev.AllowSummon = false;
 			}
 		}
 	}
