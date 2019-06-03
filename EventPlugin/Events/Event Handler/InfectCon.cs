@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace ATTG3
 {
-	internal class INFECT : IEventHandlerRoundStart,
+	internal class INFECTCon : IEventHandlerRoundStart,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSummonVehicle,
 		IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerCheckEscape, IEventHandlerPlayerHurt
 	{
@@ -19,11 +19,11 @@ namespace ATTG3
 
 
 		private readonly ATTG3Plugin plugin;
-		public INFECT(ATTG3Plugin plugin) => this.plugin = plugin;
+		public INFECTCon(ATTG3Plugin plugin) => this.plugin = plugin;
 
 		public void OnRoundStart(RoundStartEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{
 				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
@@ -73,14 +73,14 @@ namespace ATTG3
 		}
 		public void OnSpawn(PlayerSpawnEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{
 				
 			}
 		}
 		public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
 		{
-			if (plugin.INFECT && plugin.RoundStarted)
+			if (plugin.Infectcontain && plugin.RoundStarted)
 			{
 				ev.Player.ChangeRole(Role.SCP_049_2, true, true, true, true);
 				ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
@@ -88,7 +88,7 @@ namespace ATTG3
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{ 
 				ev.Allow = false;
 				ev.Player.PersonalBroadcast(10, "Nuke cannot be activated", false);
@@ -96,38 +96,37 @@ namespace ATTG3
 		}
 		public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{
 				ev.Player.PersonalBroadcast(10, "You will respawn in 30 seconds", false);
 				ev.SpawnRagdoll = false;
 				new Task(async () =>
 				{
 					await Task.Delay(30000);
-					ev.Player.ChangeRole(Role.SCP_049_2, true, true, true, true);
-					ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+					ev.Player.ChangeRole(Role.NTF_COMMANDER, true, true, true, true);
 				}).Start();
 				
 			}
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{
-				plugin.INFECT = false;
+				plugin.Infectcontain = false;
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{
 				ev.AllowSummon = false;
 			}
 		}
 		public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{
-				if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
+				if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
 					ev.Triggerable = false;
 				}
@@ -135,7 +134,7 @@ namespace ATTG3
 		}
 		public void OnCheckEscape(Smod2.Events.PlayerCheckEscapeEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{
 				if (ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
 				{
@@ -146,14 +145,14 @@ namespace ATTG3
 		}
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{
 				
 			}
 		}
 		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.Infectcontain)
 			{
 				if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP)
 				{

@@ -15,12 +15,12 @@ using Smod2.EventHandlers;
 
 namespace ATTG3
 {
-    class INFECTCONTAINCOM : ICommandHandler
+    class Infectcom : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public INFECTCONTAINCOM(ATTG3Plugin plugin) => this.plugin=plugin;
+        public Infectcom(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
         //Variables Below
@@ -40,9 +40,9 @@ namespace ATTG3
 
             if (plugin.RoundStarted == false)
             {
-				PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>Infection Containment Event Starting</Color></SIZE>", false);
-				plugin.Infectcontain=true;
-                return new string[] { "Infect Containment Event started" };
+				PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100><color=#FF0000>Infection Event Starting</Color></SIZE>", false);
+				plugin.INFECT=true;
+                return new string[] { "Infect Event started" };
             }
             else
             {

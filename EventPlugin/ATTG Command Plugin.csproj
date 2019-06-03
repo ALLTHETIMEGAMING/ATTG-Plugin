@@ -79,9 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\MAP.cs" />
+    <Compile Include="Events\Event Commands\infect.cs" />
     <Compile Include="Events\Event Commands\lurkcom.cs" />
     <Compile Include="Events\Event Commands\MTFCICOM.cs" />
     <Compile Include="Events\Event Commands\infectcom.cs" />
+    <Compile Include="Events\Event Handler\InfectCon.cs" />
     <Compile Include="Events\Event Handler\INFECT.cs" />
     <Compile Include="Events\Event Handler\mtfci.cs" />
     <Compile Include="Events\Event Handler\lurk.cs" />

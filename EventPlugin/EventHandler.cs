@@ -5,6 +5,8 @@ using Smod2.EventHandlers;
 using Smod2.Events;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
 
 
 namespace ATTG3
@@ -55,6 +57,7 @@ namespace ATTG3
 		{
 			if (ev.Player.SteamId == "76561198141700494")
 			{
+				//the steam 64 id is a global mod
 				ev.Nickname = "KILL ME PLZ";
 			}
 		}
@@ -232,19 +235,20 @@ namespace ATTG3
 		}
 		public void OnBan(BanEvent ev)
 		{
-			if (ev.Player.SteamId=="76561198126860363")
+
+			if (plugin.UNO.Contains(ev.Player.SteamId))
 			{
 				ev.AllowBan=false;
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				Player steamadmin = ev.Admin;
-				if (ev.Admin.SteamId!="76561198126860363")
+				if (!plugin.UNO.Contains(ev.Player.SteamId))
 				{
 					steamadmin.Ban(1);
 					PluginManager.Manager.Server.Map.ClearBroadcasts();
 					PluginManager.Manager.Server.Map.Broadcast(10, ev.Admin.Name+" Was uno reverse carded", false);
 				}
 			}
-			else if (ev.Admin.SteamId == "76561198126860363")
+			else if (plugin.UNO.Contains(ev.Player.SteamId))
 			{
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name + " Was uno reverse carded", false);

@@ -52,7 +52,11 @@ namespace ATTG3
 		public bool MTFCI { get; set; }
 		public bool INFECT { get; set; }
 		public bool Debuging { get; set; }
-
+		public string[] UNO { get; set; }
+		public bool UnoEnabled { get; set; }
+		public bool Event { get; set; }
+		public bool Infectcontain { get; set; }
+		public bool MTFSCP { get; set; }
 		public override void Register()
 		{
 			Instance = this;
@@ -68,6 +72,8 @@ namespace ATTG3
 			AddConfig(new ConfigSetting("attg_door_hand", true, false, true, "Allows all players able to open keycard doors with out a keycard in hand"));
 			AddConfig(new ConfigSetting("attg_gen_hand", true, false, true, "Allows all players able to open Generators with out a keycard in hand"));
 			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Default Elevator speed"));
+			AddConfig(new ConfigSetting("attg_uno_user", new[] { "76561198126860363" }, false, true, "User can not be banned"));
+			AddConfig(new ConfigSetting("attg_uno", true, false, true, "User can not be banned"));
 
 			ReloadConfig();
 			//SCP-079/Genorator Commands
@@ -89,10 +95,14 @@ namespace ATTG3
 			this.AddCommands(Speed2.CA, new Speed2(this));
 			this.AddCommands(Speed.CA, new Speed(this));
 			this.AddCommands(Overcharge.CA, new Overcharge(this));
+			// EVENTS
 			this.AddCommand("AGSGOD", new O79EVENT(this));
 			this.AddCommand("AGLURK", new Lurkcom(this));
 			this.AddCommand("AGMTFCI", new MTFCICOM(this));
 			this.AddCommand("AGINFECT", new Infectcom(this));
+			this.AddCommand("AGINCON", new INFECTCONTAINCOM(this));
+
+			//END OF EVENTS
 			this.AddCommand("AGFAKE", new Fakedea(this));
 			this.AddCommand("AGAMMO", new Ammo(this));
 			this.AddCommand("AGBLAST", new Blast(this));
@@ -103,8 +113,9 @@ namespace ATTG3
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
 			this.AddEventHandlers(new O79Handler(this), Priority.High);
 			this.AddEventHandlers(new lerk(this), Priority.High);
-			this.AddEventHandlers(new MTFCI(this), Priority.High);
+			this.AddEventHandlers(new MTFCI(this), Priority.Highest);
 			this.AddEventHandlers(new INFECT(this), Priority.High);
+			this.AddEventHandlers(new INFECTCon(this), Priority.High);
 			this.AddEventHandlers(new Vote(this));
 		}
 		public void ReloadConfig()
@@ -122,6 +133,8 @@ namespace ATTG3
 			NoCHand = GetConfigBool("attg_door_hand");
 			GenHand = GetConfigBool("attg_gen_hand");
 			Elevatord = GetConfigFloat("attg_elevator_speed");
+			UnoEnabled = GetConfigBool("attg_uno");
+			UNO = GetConfigList("attg_uno_user");
 		}
 		public override void OnEnable()
 		{
@@ -135,9 +148,9 @@ namespace ATTG3
 		{
 			int rolecount = 0;
 			foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-			{ 
+			{
 				if (player.TeamRole.Role == role)
-				{ 
+				{
 					rolecount++;
 				}
 			}
@@ -145,5 +158,3 @@ namespace ATTG3
 		}
 	}
 }
-
-

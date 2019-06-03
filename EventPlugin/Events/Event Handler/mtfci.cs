@@ -12,7 +12,7 @@ using UnityEngine;
 namespace ATTG3
 {
 	internal class MTFCI : IEventHandlerRoundStart,
-		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle
+		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle,IEventHandlerPlayerDie
 	{
 
 
@@ -48,37 +48,49 @@ namespace ATTG3
 				{
 					
 				}
+				/*foreach (Smod2.API.Player player in plugin.Server.GetPlayers())
+				{
+					if (player.TeamRole.Team != Smod2.API.Team.SCP)
+					{
+						((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = true;
+					}
+				}*/
+				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+				{
+					if (player.TeamRole.Team == Smod2.API.Team.SCP || player.TeamRole.Team == Smod2.API.Team.CLASSD)
+					{
+						player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+						new Task(async () =>
+						{
+							await Task.Delay(500);
+							player.GiveItem(ItemType.MEDKIT);
+							player.GiveItem(ItemType.E11_STANDARD_RIFLE);
+						}).Start();
+					}
+					else if (player.TeamRole.Role == Smod2.API.Role.FACILITY_GUARD || player.TeamRole.Team == Smod2.API.Team.SCIENTIST)
+					{
+						player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
+						new Task(async () =>
+						{
+							await Task.Delay(500);
+							foreach (Smod2.API.Item item in player.GetInventory())
+							{
+								if (item.ItemType == ItemType.DISARMER)
+								{
+									item.Remove();
+								}
+							}
+						}).Start();
+					}
+				}
 			}
 		}
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
 		{
 			if (plugin.MTFCI)
 			{
-				if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP || ev.Player.TeamRole.Team == Smod2.API.Team.CLASSD)
+				if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
-					ev.Player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
-					new Task(async () =>
-					{
-						await Task.Delay(500);
-						ev.Player.GiveItem(ItemType.MEDKIT);
-					}).Start();
-				}
-				else if (ev.Player.TeamRole.Role == Smod2.API.Role.FACILITY_GUARD || ev.Player.TeamRole.Team == Smod2.API.Team.SCIENTIST)
-				{
-					ev.Player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
-					new Task(async () =>
-					{
-						await Task.Delay(500);
-						foreach (Smod2.API.Item item in ev.Player.GetInventory())
-						{
-							if (item.ItemType == ItemType.DISARMER)
-							{
-								item.Remove();
-							}
-						}
-					}).Start();
-				}
-				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX) {
 					new Task(async () =>
 					{
 						await Task.Delay(500);
@@ -114,33 +126,27 @@ namespace ATTG3
 		{
 			if (plugin.MTFCI)
 			{
-				if (MTFKill != 50 && CIKills != 50)
+				if (MTFKill <= 25 && CIKills <= 25)
 				{
 					if (ATTG3Plugin.TUTCOUNT(Role.TUTORIAL) > 0)
 					{
 						ev.Server.Map.ClearBroadcasts();
-						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>TIME OUT. DO NOT SHOOT</Color></SIZE>", false);
-						foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-						{
-							player.SetCurrentItem(ItemType.NULL);
-						}
+						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>NUKE ESCAPE ACTAVATED</Color></SIZE>", false);
 					}
 					else
 					{
-						ev.Server.Map.ClearBroadcasts();
-						PluginManager.Manager.Server.Map.Broadcast(10, "<color=#0080FF>MTF Has " + MTFKill + " Kills out of 50</Color> <color=#0B7A00>CI Has " + CIKills + " Kills out of 50</Color>", false);
 						ev.Status = ROUND_END_STATUS.ON_GOING;
 					}
 				}
 				else
 				{
-					if (MTFKill == 50)
+					if (MTFKill >= 25)
 					{
 						ev.Server.Map.ClearBroadcasts();
 						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#0080FF>MTF WIN</Color></SIZE>", false);
 						ev.Status = ROUND_END_STATUS.MTF_VICTORY;
 					}
-					else if(CIKills == 50)
+					else if (CIKills >= 25)
 					{
 						ev.Server.Map.ClearBroadcasts();
 						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#0B7A00>CI WIN</Color></SIZE>", false);
@@ -160,35 +166,37 @@ namespace ATTG3
 			if (plugin.MTFCI)
 			{
 				ev.SpawnRagdoll = false;
-				if (ev.Killer.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
+				if (ev.Player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
 				{
 					MTFKill++;
-					ev.Player.PersonalBroadcast(10, "You will respawn in 10 seconds", false);
-					
 					new Task(async () =>
 					{
 						await Task.Delay(10000);
 						ev.Player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
-						ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CHAOS_INSURGENCY), true);
 					}).Start();
-					
+					PluginManager.Manager.Server.Map.ClearBroadcasts();
+					PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFKill + " Kills out of 25</Color> <color=#0B7A00>CI Has " + CIKills + " Kills out of 25</Color>", false);
+					ev.Player.PersonalClearBroadcasts();
+					ev.Player.PersonalBroadcast(5, "You will respawn in 10 seconds", false);
 				}
-				else if (ev.Killer.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+				else if (ev.Player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
 				{
 					CIKills++;
-					ev.Player.PersonalBroadcast(10, "You will respawn in 10 seconds", false);
 					new Task(async () =>
 					{
 						await Task.Delay(10000);
 						ev.Player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
-						ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.NTF_COMMANDER), true);
 					}).Start();
+					PluginManager.Manager.Server.Map.ClearBroadcasts();
+					PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFKill + " Kills out of 25</Color> <color=#0B7A00>CI Has " + CIKills + " Kills out of 25</Color>", false);
+					ev.Player.PersonalClearBroadcasts();
+					ev.Player.PersonalBroadcast(5, "You will respawn in 10 seconds", false);
 				}
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{
-			if (plugin.INFECT)
+			if (plugin.MTFCI)
 			{
 				ev.AllowSummon = false;
 			}
