@@ -55,6 +55,10 @@ namespace ATTG3
 						((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = true;
 					}
 				}*/
+				foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
+				{
+					Elevator.Locked = true;
+				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					if (player.TeamRole.Team == Smod2.API.Team.SCP || player.TeamRole.Team == Smod2.API.Team.CLASSD)

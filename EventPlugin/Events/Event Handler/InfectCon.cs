@@ -13,7 +13,7 @@ namespace ATTG3
 {
 	internal class INFECTCon : IEventHandlerRoundStart,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSummonVehicle,
-		IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerCheckEscape, IEventHandlerPlayerHurt
+		IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerCheckEscape, IEventHandlerPlayerHurt
 	{
 
 
@@ -48,25 +48,14 @@ namespace ATTG3
 				{
 					if (player.TeamRole.Team != Smod2.API.Team.SCP)
 					{
-						player.ChangeRole(Role.CLASSD, true, true, true, true);
-						player.PersonalBroadcast(10, "ESCAPE SCP-049-2", false);
-						new Task(async () =>
-						{
-							await Task.Delay(500);
-							foreach (Smod2.API.Item item in player.GetInventory())
-							{
-								item.Remove();
-							}
-							player.GiveItem(ItemType.JANITOR_KEYCARD);
-						}).Start();
-						player.AddHealth(100);
+						player.ChangeRole(Role.NTF_COMMANDER, true, true, true, true);
+						player.PersonalBroadcast(10, "Kill All SCP-049-2", false);
 					}
 					if (player.TeamRole.Team == Smod2.API.Team.SCP)
 					{
 						player.ChangeRole(Role.SCP_049_2, true, true, true, true);
-						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
+						player.PersonalBroadcast(10, "Hide From MTF", false);
 						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-						player.AddHealth(400);
 					}
 				}
 			}
@@ -122,25 +111,11 @@ namespace ATTG3
 				ev.AllowSummon = false;
 			}
 		}
-		public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
-		{
-			if (plugin.Infectcontain)
-			{
-				if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
-				{
-					ev.Triggerable = false;
-				}
-			}
-		}
 		public void OnCheckEscape(Smod2.Events.PlayerCheckEscapeEvent ev)
 		{
 			if (plugin.Infectcontain)
 			{
-				if (ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
-				{
-					ev.AllowEscape = true;
-					ev.ChangeRole = Role.SCP_049_2;
-				}
+				
 			}
 		}
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
@@ -154,7 +129,7 @@ namespace ATTG3
 		{
 			if (plugin.Infectcontain)
 			{
-				if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP)
+				if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP && ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
 					ev.Player.ChangeRole(Role.SCP_049_2, true, false, false, true);
 				}
