@@ -101,6 +101,7 @@ namespace ATTG3
 			this.AddCommand("AGMTFCI", new MTFCICOM(this));
 			this.AddCommand("AGINFECT", new Infectcom(this));
 			this.AddCommand("AGINCON", new INFECTCONTAINCOM(this));
+			this.AddCommand("AGMTFSCP", new MTFSCPCOM(this));
 
 			//END OF EVENTS
 			this.AddCommand("AGFAKE", new Fakedea(this));
@@ -113,9 +114,10 @@ namespace ATTG3
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
 			this.AddEventHandlers(new O79Handler(this), Priority.High);
 			this.AddEventHandlers(new lerk(this), Priority.High);
-			this.AddEventHandlers(new MTFCI(this), Priority.Highest);
+			this.AddEventHandlers(new MTFCI(this), Priority.High);
 			this.AddEventHandlers(new INFECT(this), Priority.High);
 			this.AddEventHandlers(new INFECTCon(this), Priority.High);
+			this.AddEventHandlers(new SCPMTF(this), Priority.High);
 			this.AddEventHandlers(new Vote(this));
 		}
 		public void ReloadConfig()

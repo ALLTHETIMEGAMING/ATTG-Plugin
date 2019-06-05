@@ -12,7 +12,8 @@ using UnityEngine;
 namespace ATTG3
 {
 	internal class MTFCI : IEventHandlerRoundStart,
-		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle,IEventHandlerPlayerDie
+		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle,
+		IEventHandlerPlayerDie, IEventHandlerPlayerJoin
 	{
 
 
@@ -61,7 +62,7 @@ namespace ATTG3
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
-					if (player.TeamRole.Team == Smod2.API.Team.SCP || player.TeamRole.Team == Smod2.API.Team.CLASSD)
+					if (player.TeamRole.Team == Smod2.API.Team.SCP || player.TeamRole.Role == Smod2.API.Role.FACILITY_GUARD)
 					{
 						player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
 						new Task(async () =>
@@ -71,7 +72,7 @@ namespace ATTG3
 							player.GiveItem(ItemType.E11_STANDARD_RIFLE);
 						}).Start();
 					}
-					else if (player.TeamRole.Role == Smod2.API.Role.FACILITY_GUARD || player.TeamRole.Team == Smod2.API.Team.SCIENTIST)
+					else if (player.TeamRole.Team == Smod2.API.Team.CLASSD || player.TeamRole.Team == Smod2.API.Team.SCIENTIST)
 					{
 						player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 						new Task(async () =>
@@ -89,11 +90,37 @@ namespace ATTG3
 				}
 			}
 		}
+		public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
+		{
+			if (plugin.Infectcontain && plugin.RoundStarted)
+			{
+				if (ATTG3Plugin.TUTCOUNT(Role.NTF_COMMANDER) > ATTG3Plugin.TUTCOUNT(Role.CHAOS_INSURGENCY)) {
+					ev.Player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+				}
+				else if (ATTG3Plugin.TUTCOUNT(Role.NTF_COMMANDER) < ATTG3Plugin.TUTCOUNT(Role.CHAOS_INSURGENCY))
+				{
+					ev.Player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
+				}
+				else
+				{
+					ev.Player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+				}
+			}
+		}
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
 		{
 			if (plugin.MTFCI)
 			{
-				if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
+				if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
+				{
+					new Task(async () =>
+					{
+						await Task.Delay(500);
+						ev.Player.GiveItem(ItemType.MEDKIT);
+						ev.Player.GiveItem(ItemType.E11_STANDARD_RIFLE);
+					}).Start();
+				}
+				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
 					new Task(async () =>
 					{
@@ -135,7 +162,7 @@ namespace ATTG3
 					if (ATTG3Plugin.TUTCOUNT(Role.TUTORIAL) > 0)
 					{
 						ev.Server.Map.ClearBroadcasts();
-						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>NUKE ESCAPE ACTAVATED</Color></SIZE>", false);
+						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>TIME OUT. DO NOT SHOOT</Color></SIZE>", false);
 					}
 					else
 					{

