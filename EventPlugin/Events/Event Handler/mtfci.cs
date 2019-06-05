@@ -45,10 +45,6 @@ namespace ATTG3
 				{
 					blast.NetworkisClosed = true;
 				}
-				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-				{
-					
-				}
 				/*foreach (Smod2.API.Player player in plugin.Server.GetPlayers())
 				{
 					if (player.TeamRole.Team != Smod2.API.Team.SCP)
