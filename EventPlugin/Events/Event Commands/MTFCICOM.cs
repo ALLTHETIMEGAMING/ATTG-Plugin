@@ -26,7 +26,6 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-
             if (plugin.RoundStarted == false)
             {
 				// #0080FF Is Blue
