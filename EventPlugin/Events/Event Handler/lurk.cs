@@ -78,12 +78,12 @@ namespace ATTG3
 		{
 			if (plugin.Lerk)
 			{
-				if (ev.Player.TeamRole.Role == Smod2.API.Role.CLASSD)
+				if (ev.Door.Name == "CHECKPOINT_ENT")
 				{
-					
-					if (ev.Door.Name == "CHECKPOINT_ENT")
+					if (ev.Player.TeamRole.Role == Smod2.API.Role.CLASSD)
 					{
-						
+
+
 						float x = 187;
 						float y = 994;
 						float z = -30;
@@ -92,6 +92,11 @@ namespace ATTG3
 						ev.Allow = false;
 						ev.Door.Open = false;
 					
+					}
+					else
+					{
+						ev.Allow = false;
+						ev.Door.Open = false;
 					}
 				}
 			}

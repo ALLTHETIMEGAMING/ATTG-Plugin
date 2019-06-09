@@ -14,7 +14,8 @@ namespace ATTG3
 	internal class EventHandler : IEventHandlerWarheadStopCountdown,
 		IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
-		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart
+		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
+		IEventHandlerSummonVehicle
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -42,6 +43,7 @@ namespace ATTG3
 			plugin.MTFCI = false;
 			plugin.Event = false;
 			plugin.MTFSCP = false;
+			plugin.Infectcontain = false;
 			Vote.Voted.Clear();
 			plugin.RoundStarted = false;
 			MAP.Shake = false;
@@ -83,7 +85,7 @@ namespace ATTG3
 				{
 					GameObject Obj = (GameObject)ev.Player.GetGameObject();
 					PlayerScript=Obj.GetComponent<Scp096PlayerScript>();
-					if (PlayerScript.Networkenraged==Scp096PlayerScript.RageState.Enraged)
+					if (PlayerScript.Networkenraged == Scp096PlayerScript.RageState.Enraged && ev.Door.Locked == false)
 					{
 						ev.Door.Open=true;
 					}
@@ -295,6 +297,13 @@ namespace ATTG3
 		public void OnRoundEnd(Smod2.Events.RoundEndEvent ev)
 		{
 			plugin.RoundStarted=false;
+		}
+		public void OnSummonVehicle(SummonVehicleEvent ev)
+		{
+			if (ev.AllowSummon == true && ev.IsCI == true && plugin.Event == false)
+			{
+				PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
+			}
 		}
 		private IEnumerable<float> TimingDelay(float time)
 		{

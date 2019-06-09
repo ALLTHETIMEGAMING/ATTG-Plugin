@@ -12,7 +12,7 @@ namespace ATTG3
 {
 	internal class SCPMTF : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess
+		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerPlayerHurt
 	{
 
 
@@ -20,6 +20,7 @@ namespace ATTG3
 		int C106;
 		int gen;
 		bool nuke;
+
 		private readonly ATTG3Plugin plugin;
 		public SCPMTF(ATTG3Plugin plugin) => this.plugin = plugin;
 
@@ -58,7 +59,7 @@ namespace ATTG3
 						}
 						else if (player.TeamRole.Role == Role.SCP_173)
 						{
-							player.AddHealth(100000);
+							player.AddHealth(70000);
 						}
 						else if (player.TeamRole.Role == Role.SCP_939_53 || player.TeamRole.Role == Role.SCP_939_89)
 						{
@@ -74,7 +75,7 @@ namespace ATTG3
 				}
 				foreach (Generator079 gen in Generator079.generators)
 				{
-					gen.NetworkremainingPowerup = (gen.startDuration = 30f);
+					gen.NetworkremainingPowerup = (gen.startDuration = 300f);
 				}
 			}
 		}
@@ -118,7 +119,11 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				ev.Allow = false;
+				if (ev.Generator.TimeLeft <= 30)
+				{
+					ev.Allow = false;
+					ev.Player.PersonalBroadcast(10, "You can not stop a Generator after the time remaining is less than 30 sec. ", false);
+				}
 			}
 		}
 		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
@@ -199,6 +204,7 @@ namespace ATTG3
 				}
 			}
 		}
+
 		public void OnStartCountdown(WarheadStartEvent ev)
 		{
 			if (plugin.MTFSCP)
@@ -225,6 +231,20 @@ namespace ATTG3
 			if (plugin.MTFSCP)
 			{
 
+			}
+		}
+		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
+		{
+			if (plugin.MTFSCP)
+			{
+				if (ev.Player.GetHealth().ToString() == "1000" || ev.Player.GetHealth().ToString() == "5000" || ev.Player.GetHealth().ToString() == "10000")
+				{
+					if (ev.Attacker.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
+					{
+						ev.Attacker.PersonalClearBroadcasts();
+						ev.Attacker.PersonalBroadcast(3, ev.Player.TeamRole.Role.ToString() + " has " + ev.Player.GetHealth().ToString() + " HP Remaining", false);
+					}
+				}
 			}
 		}
 	}

@@ -30,11 +30,7 @@ namespace ATTG3
 				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
 					
-					if (door.Name == "ESCAPE")
-					{
-						door.Locked = true;
-					}
-					else if (door.Name == "SURFACE_GATE")
+					if (door.Name == "SURFACE_GATE")
 					{
 						door.Locked = true;
 						door.Open = true;

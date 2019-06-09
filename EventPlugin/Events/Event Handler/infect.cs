@@ -59,14 +59,13 @@ namespace ATTG3
 							}
 							player.GiveItem(ItemType.JANITOR_KEYCARD);
 						}).Start();
-						player.AddHealth(100);
+						
 					}
-					if (player.TeamRole.Team == Smod2.API.Team.SCP)
+					else if (player.TeamRole.Team == Smod2.API.Team.SCP)
 					{
 						player.ChangeRole(Role.SCP_049_2, true, true, true, true);
 						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
 						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-						player.AddHealth(400);
 					}
 				}
 			}
