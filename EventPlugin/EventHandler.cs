@@ -43,6 +43,7 @@ namespace ATTG3
 			plugin.MTFCI = false;
 			plugin.Event = false;
 			plugin.MTFSCP = false;
+			plugin.VIP = false;
 			plugin.Infectcontain = false;
 			Vote.Voted.Clear();
 			plugin.RoundStarted = false;
@@ -50,8 +51,6 @@ namespace ATTG3
 			MAP.Shake = false;
 			MAP.Tleslad = false;
 			MAP.Tleslas = false;
-
-
 		}
 		public void OnRoundStart(RoundStartEvent ev)
 		{

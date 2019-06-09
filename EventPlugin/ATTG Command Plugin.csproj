@@ -79,13 +79,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\MAP.cs" />
-    <Compile Include="Commands\SCPFF.cs" />
-    <Compile Include="Events\Event Commands\infect.cs" />
-    <Compile Include="Events\Event Commands\lurkcom.cs" />
-    <Compile Include="Events\Event Commands\MTFSCP.cs" />
-    <Compile Include="Events\Event Commands\MTFCICOM.cs" />
-    <Compile Include="Events\Event Commands\infectcom.cs" />
-    <Compile Include="Events\Event Handler\Clasd - Copy.cs" />
+    <Compile Include="Events\Event Commands\Main Event Commands.cs" />
+    <Compile Include="Events\Event Handler\VIPESCAPE.cs" />
     <Compile Include="Events\Event Handler\InfectCon.cs" />
     <Compile Include="Events\Event Handler\INFECT.cs" />
     <Compile Include="Events\Event Handler\SCPMTF.cs" />
@@ -94,7 +89,6 @@
     <Compile Include="Events\Event Handler\Clasd.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />
-    <Compile Include="Events\Event Commands\O79EVENT.cs" />
     <Compile Include="Events\Event Handler\VicHandler.cs" />
     <Compile Include="Events\Event Handler\O79Handler.cs" />
     <Compile Include="Help Commands\Round Info.cs" />

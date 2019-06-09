@@ -17,7 +17,7 @@ namespace ATTG3
 		SmodMajor = 3,
 		SmodMinor = 4,
 		SmodRevision = 0,
-		version = "2.0.0"
+		version = "3.0.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
 	{
@@ -41,23 +41,27 @@ namespace ATTG3
 		public bool NoCHand { get; set; }
 		public float Elevatord { get; set; }
 		public bool GenSpam { get; set; }
-		public bool O79Event { get; set; }
-		public bool ClassD { get; set; }
-		public bool Lerk { get; set; }
-		public bool VicEvent { get; set; }
 		public bool GenHand { get; set; }
 		public bool Running939P { get; set; }
 		public bool Running939 { get; set; }
 		public bool RoundStarted { get; set; }
-		public bool MTFCI { get; set; }
-		public bool INFECT { get; set; }
 		public bool Debuging { get; set; }
 		public string[] UNO { get; set; }
 		public bool UnoEnabled { get; set; }
+
+		//Events Below
 		public bool Event { get; set; }
 		public bool Infectcontain { get; set; }
 		public bool MTFSCP { get; set; }
 		public bool VIP { get; set; }
+		public bool O79Event { get; set; }
+		public bool ClassD { get; set; }
+		public bool Lerk { get; set; }
+		public bool VicEvent { get; set; }
+		public bool MTFCI { get; set; }
+		public bool INFECT { get; set; }
+
+		//End of Events
 		public override void Register()
 		{
 			Instance = this;
@@ -74,7 +78,7 @@ namespace ATTG3
 			AddConfig(new ConfigSetting("attg_gen_hand", true, false, true, "Allows all players able to open Generators with out a keycard in hand"));
 			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Default Elevator speed"));
 			AddConfig(new ConfigSetting("attg_uno_user", new[] { "76561198126860363" }, false, true, "User can not be banned"));
-			AddConfig(new ConfigSetting("attg_uno", true, false, true, "User can not be banned"));
+			AddConfig(new ConfigSetting("attg_uno", true, false, true, "if uno user can not be banned"));
 
 			ReloadConfig();
 			//SCP-079/Genorator Commands
@@ -97,12 +101,8 @@ namespace ATTG3
 			this.AddCommands(Speed.CA, new Speed(this));
 			this.AddCommands(Overcharge.CA, new Overcharge(this));
 			// EVENTS
-			this.AddCommand("AGSGOD", new O79EVENT(this));
-			this.AddCommand("AGLURK", new Lurkcom(this));
-			this.AddCommand("AGMTFCI", new MTFCICOM(this));
-			this.AddCommand("AGINFECT", new Infectcom(this));
-			this.AddCommand("AGINCON", new INFECTCONTAINCOM(this));
-			this.AddCommand("AGMTFSCP", new MTFSCPCOM(this));
+			this.AddCommands(EventMainCommand.CA, new EventMainCommand(this));
+
 
 			//END OF EVENTS
 			this.AddCommand("AGFAKE", new Fakedea(this));
@@ -111,7 +111,6 @@ namespace ATTG3
 			this.AddCommand("AGLOCKER", new Locker1(this));
 			this.AddCommand("AGWORK", new Work(this));
 			this.AddCommand("AGGENM", new Genm(this));
-			this.AddCommand("AGSCPFF", new SCPFF(this));
 			//Event Handlers
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
 			this.AddEventHandlers(new O79Handler(this), Priority.High);
@@ -120,6 +119,7 @@ namespace ATTG3
 			this.AddEventHandlers(new INFECT(this), Priority.High);
 			this.AddEventHandlers(new INFECTCon(this), Priority.High);
 			this.AddEventHandlers(new SCPMTF(this), Priority.High);
+			this.AddEventHandlers(new VIPESCAPE(this), Priority.High);
 			this.AddEventHandlers(new Vote(this));
 		}
 		public void ReloadConfig()
