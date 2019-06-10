@@ -81,8 +81,10 @@ namespace ATTG3
 					else if (args2 == "question")
 					{
 						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>Question Event Starting</Color></SIZE>", false);
-						plugin.Questionevent = true;
+						plugin.QEvent = true;
 						plugin.Event = true;
+						plugin.Info("Question EVENT ACTAVATED");
+						plugin.Info("Question" + plugin.QEvent.ToString());
 						return new[] { "Question Event Started" };
 					}
 					else if (args2 == "mtfci")

@@ -60,7 +60,7 @@ namespace ATTG3
 		public bool VicEvent { get; set; }
 		public bool MTFCI { get; set; }
 		public bool INFECT { get; set; }
-		public bool Questionevent { get; set; }
+		public bool QEvent { get; set; }
 
 		//End of Events
 		public override void Register()
@@ -123,6 +123,7 @@ namespace ATTG3
 			this.AddEventHandlers(new INFECTCon(this), Priority.High);
 			this.AddEventHandlers(new SCPMTF(this), Priority.High);
 			this.AddEventHandlers(new VIPESCAPE(this), Priority.High);
+			this.AddEventHandlers(new Question(this), Priority.High);
 			this.AddEventHandlers(new Vote(this));
 		}
 		public void ReloadConfig()

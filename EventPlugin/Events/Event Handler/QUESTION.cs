@@ -2,25 +2,23 @@
 using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
-using Smod2.EventSystem.Events;
-using scp4aiur;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ATTG3
 {
-	internal class Question : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerSpawn, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt
+	internal class Question : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt
 	{
-		public static Dictionary<Player, int> Level;
 		private readonly ATTG3Plugin plugin;
 		public Question(ATTG3Plugin plugin) => this.plugin = plugin;
 		public int CurrentCount;
-		public int UpdatedCount;
+		public int Levelvalue;
+        public Dictionary<Player, int> Level { get; set; } = new Dictionary<Player, int>();
+
 		public void OnRoundStart(RoundStartEvent ev)
 		{
-			if (plugin.Questionevent)
+			if (plugin.QEvent)
 			{
+				plugin.Info("Question Round Started");
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					Level.Add(player, 1);
@@ -30,21 +28,14 @@ namespace ATTG3
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
 		{
-			if (plugin.Questionevent)
+			if (plugin.QEvent)
 			{
-				plugin.Questionevent = false;
-			}
-		}
-		public void OnSpawn(PlayerSpawnEvent ev)
-		{
-			if (plugin.Questionevent)
-			{
-				ev.Player.ChangeRole(Role.CLASSD, true, true, false, true);
+				plugin.QEvent = false;
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{
-			if (plugin.Questionevent)
+			if (plugin.QEvent)
 			{
 				ev.IsCI = false;
 				ev.AllowSummon = false;
@@ -52,25 +43,27 @@ namespace ATTG3
 		}
 		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
 		{
-			if (plugin.Questionevent)
+			if (plugin.QEvent)
 			{
-				if (ev.Attacker.SteamId == "76561198126860363")
+				if (ev.Attacker.TeamRole.Role == Role.TUTORIAL)
 				{
 					if (ev.DamageType == DamageType.COM15)
 					{
+						ev.Damage = 0;
 						Level.TryGetValue(ev.Player, out CurrentCount);
 						Level[ev.Player] = CurrentCount + 1;
-						UpdatedCount = CurrentCount + 1;
-						ev.Player.AddHealth((int)ev.Damage);
-						ev.Player.SetRank("green", UpdatedCount.ToString(), null);
+						Level.TryGetValue(ev.Player, out Levelvalue);
+						ev.Player.SetRank("green", "Level: " + Levelvalue.ToString(), null);
+						plugin.Info("PLAYER LEVEL UP");
 					}
 					else if (ev.DamageType == DamageType.USP)
 					{
+						ev.Damage = 0;
 						Level.TryGetValue(ev.Player, out CurrentCount);
-						Level[ev.Player] = CurrentCount - 1;
-						ev.Player.AddHealth((int)ev.Damage);
-						UpdatedCount = CurrentCount - 1;
-						ev.Player.SetRank("green", UpdatedCount.ToString(), null);
+						Level[ev.Player] = CurrentCount -1;
+						Level.TryGetValue(ev.Player, out Levelvalue);
+						ev.Player.SetRank("green", "Level: " + Levelvalue.ToString(), null);
+						plugin.Info("PLAYER LEVEL DOWN");
 					}
 				}
 			}
