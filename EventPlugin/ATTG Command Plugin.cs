@@ -165,4 +165,11 @@ namespace ATTG3
 			return rolecount;
 		}
 	}
+	/*public class Events
+	{
+		public static Inventorygive(Player,ItemType)
+		{
+			return;
+		}
+	}*/
 }
