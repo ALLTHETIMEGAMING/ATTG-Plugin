@@ -6,12 +6,13 @@ using System.Collections.Generic;
 
 namespace ATTG3
 {
-	internal class Question : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt
-	{
+	internal class Question : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt,
+        IEventHandlerSetRole
+    {
 		private readonly ATTG3Plugin plugin;
 		public Question(ATTG3Plugin plugin) => this.plugin = plugin;
 		public int CurrentCount;
-		public int Levelvalue;
+		public int Level0check;
         public Dictionary<Player, int> Level { get; set; } = new Dictionary<Player, int>();
 
 		public void OnRoundStart(RoundStartEvent ev)
@@ -26,7 +27,17 @@ namespace ATTG3
 				}
 			}
 		}
-		public void OnRoundEnd(RoundEndEvent ev)
+        public void OnSetRole(PlayerSetRoleEvent ev)
+        {
+            if (plugin.QEvent)
+            {
+                if (ev.Player.TeamRole.Role == Role.CLASSD && ev.Player.SteamId == "76561198141700494")
+                {
+                    ev.Player.ChangeRole(Role.TUTORIAL,true,false,false);
+                }
+            }
+        }
+        public void OnRoundEnd(RoundEndEvent ev)
 		{
 			if (plugin.QEvent)
 			{
@@ -50,20 +61,23 @@ namespace ATTG3
 					if (ev.DamageType == DamageType.COM15)
 					{
 						ev.Damage = 0;
-						Level.TryGetValue(ev.Player, out CurrentCount);
-						Level[ev.Player] = CurrentCount + 1;
-						Level.TryGetValue(ev.Player, out Levelvalue);
-						ev.Player.SetRank("green", "Level: " + Levelvalue.ToString(), null);
-						plugin.Info("PLAYER LEVEL UP");
+                        Level[ev.Player]++;
+                        Level.TryGetValue(ev.Player, out CurrentCount);
+                        ev.Player.SetRank("green", "Level: " + CurrentCount.ToString(), null);
+                        plugin.Info("PLAYER LEVEL UP");
 					}
 					else if (ev.DamageType == DamageType.USP)
 					{
-						ev.Damage = 0;
-						Level.TryGetValue(ev.Player, out CurrentCount);
-						Level[ev.Player] = CurrentCount -1;
-						Level.TryGetValue(ev.Player, out Levelvalue);
-						ev.Player.SetRank("green", "Level: " + Levelvalue.ToString(), null);
-						plugin.Info("PLAYER LEVEL DOWN");
+                        ev.Damage = 0;
+                        Level.TryGetValue(ev.Player, out Level0check);
+                        if (Level0check != 0)
+                        {
+                            ev.Damage = 0;
+                            Level[ev.Player]--;
+                            Level.TryGetValue(ev.Player, out CurrentCount);
+                            ev.Player.SetRank("green", "Level: " + CurrentCount.ToString(), null);
+                            plugin.Info("PLAYER LEVEL DOWN");
+                        }
 					}
 				}
 			}
