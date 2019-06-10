@@ -15,7 +15,7 @@ namespace ATTG3
 		IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
-		IEventHandlerSummonVehicle
+		IEventHandlerSummonVehicle, IEventHandlerPlayerDropItem
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -303,6 +303,9 @@ namespace ATTG3
 			{
 				PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
 			}
+		}
+		public void OnPlayerDropItem(Smod2.Events.PlayerDropItemEvent ev)
+		{
 		}
 		private IEnumerable<float> TimingDelay(float time)
 		{

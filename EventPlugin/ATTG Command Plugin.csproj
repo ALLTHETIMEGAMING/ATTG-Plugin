@@ -88,6 +88,8 @@
     <Compile Include="Events\Event Handler\lurk.cs" />
     <Compile Include="Events\Event Handler\Clasd.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Player Commands\Rank.cs" />
+    <Compile Include="Player Commands\Target FF.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />
     <Compile Include="Events\Event Handler\VicHandler.cs" />
     <Compile Include="Events\Event Handler\O79Handler.cs" />

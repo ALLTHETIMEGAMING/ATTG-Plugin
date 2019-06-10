@@ -20,6 +20,7 @@ namespace ATTG3
 		int C106;
 		int gen;
 		bool nuke;
+		List<int> SCPHP;
 
 		private readonly ATTG3Plugin plugin;
 		public SCPMTF(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -71,7 +72,16 @@ namespace ATTG3
 							player.ChangeRole(Role.NTF_LIEUTENANT, true, true, true, true);
 						}
 					}
-					
+					if (SCPHP == null)
+					{
+						SCPHP.Add(1000);
+						SCPHP.Add(10000);
+						SCPHP.Add(20000);
+						SCPHP.Add(30000);
+						SCPHP.Add(40000);
+						SCPHP.Add(15000);
+						SCPHP.Add(5000);
+					}	
 				}
 				foreach (Generator079 gen in Generator079.generators)
 				{
@@ -237,12 +247,11 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				if (ev.Player.GetHealth().ToString() == "1000" || ev.Player.GetHealth().ToString() == "5000" || ev.Player.GetHealth().ToString() == "10000")
+				if (SCPHP.Contains(ev.Player.GetHealth()))
 				{
 					if (ev.Attacker.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 					{
-						ev.Attacker.PersonalClearBroadcasts();
-						ev.Attacker.PersonalBroadcast(3, ev.Player.TeamRole.Role.ToString() + " has " + ev.Player.GetHealth().ToString() + " HP Remaining", false);
+						ev.Player.SetRank("Red", ev.Player.GetHealth().ToString(), null);
 					}
 				}
 			}

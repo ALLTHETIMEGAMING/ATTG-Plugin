@@ -46,7 +46,7 @@ namespace ATTG3
 					}
 					else if (args2 == "scpmtf")
 					{
-						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100><color=#0080FF>MTF</Color> VS <color=#ff0000>SCP</Color> Event Starting</SIZE>", false);
+						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=95><color=#0080FF>MTF</Color> VS <color=#ff0000>SCP</Color> Event Starting</SIZE>", false);
 						plugin.MTFSCP = true;
 						plugin.Event = true;
 						return new string[] { "MTF VS SCP Event started" };
@@ -73,7 +73,9 @@ namespace ATTG3
 					}
 					else if (args2 == "vip")
 					{
-
+						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>VIP Event Starting</Color></SIZE>", false);
+						plugin.VIP = true;
+						plugin.Event = true;
 						return new[] { " " };
 					}
 					else if (args2 == "mtfci")
