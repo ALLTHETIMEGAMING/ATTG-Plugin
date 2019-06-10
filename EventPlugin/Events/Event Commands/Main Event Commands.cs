@@ -76,7 +76,14 @@ namespace ATTG3
 						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>VIP Event Starting</Color></SIZE>", false);
 						plugin.VIP = true;
 						plugin.Event = true;
-						return new[] { " " };
+						return new[] { "VIP Event Started" };
+					}
+					else if (args2 == "question")
+					{
+						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>Question Event Starting</Color></SIZE>", false);
+						plugin.Questionevent = true;
+						plugin.Event = true;
+						return new[] { "Question Event Started" };
 					}
 					else if (args2 == "mtfci")
 					{
@@ -96,6 +103,7 @@ namespace ATTG3
 					 CA.First() + " INFECTCON" + " ",
 					 CA.First() + " VIP" + " ",
 					 CA.First() + " MTFCI" + " ",
+					 CA.First() + " QUESTION" + " ",
 					};
 					}
 				}
@@ -110,6 +118,7 @@ namespace ATTG3
 					 CA.First() + " INFECTCON" + " ",
 					 CA.First() + " VIP" + " ",
 					 CA.First() + " MTFCI" + " ",
+					 CA.First() + " QUESTION" + " ",
 					};
 				}
 			}

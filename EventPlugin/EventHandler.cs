@@ -44,6 +44,7 @@ namespace ATTG3
 			plugin.Event = false;
 			plugin.MTFSCP = false;
 			plugin.VIP = false;
+			plugin.Questionevent = false;
 			plugin.Infectcontain = false;
 			Vote.Voted.Clear();
 			plugin.RoundStarted = false;

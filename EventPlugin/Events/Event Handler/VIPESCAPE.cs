@@ -134,6 +134,10 @@ namespace ATTG3
 				{
 					ev.Status = ROUND_END_STATUS.CI_VICTORY;
 				}
+				else if (VIPplayer.TeamRole.Role != Role.CLASSD && Vipescape == false)
+				{
+					ev.Status = ROUND_END_STATUS.MTF_VICTORY;
+				}
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)

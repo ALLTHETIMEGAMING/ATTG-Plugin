@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Commands V2\MAP.cs" />
     <Compile Include="Events\Event Commands\Main Event Commands.cs" />
+    <Compile Include="Events\Event Handler\QUESTION.cs" />
     <Compile Include="Events\Event Handler\VIPESCAPE.cs" />
     <Compile Include="Events\Event Handler\InfectCon.cs" />
     <Compile Include="Events\Event Handler\INFECT.cs" />

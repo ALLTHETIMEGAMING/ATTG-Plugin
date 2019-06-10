@@ -12,7 +12,7 @@ namespace ATTG3
 {
 	internal class SCPMTF : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerPlayerHurt
+		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess
 	{
 
 
@@ -72,16 +72,6 @@ namespace ATTG3
 							player.ChangeRole(Role.NTF_LIEUTENANT, true, true, true, true);
 						}
 					}
-					if (SCPHP == null)
-					{
-						SCPHP.Add(1000);
-						SCPHP.Add(10000);
-						SCPHP.Add(20000);
-						SCPHP.Add(30000);
-						SCPHP.Add(40000);
-						SCPHP.Add(15000);
-						SCPHP.Add(5000);
-					}	
 				}
 				foreach (Generator079 gen in Generator079.generators)
 				{
@@ -241,19 +231,6 @@ namespace ATTG3
 			if (plugin.MTFSCP)
 			{
 
-			}
-		}
-		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
-		{
-			if (plugin.MTFSCP)
-			{
-				if (SCPHP.Contains(ev.Player.GetHealth()))
-				{
-					if (ev.Attacker.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
-					{
-						ev.Player.SetRank("Red", ev.Player.GetHealth().ToString(), null);
-					}
-				}
 			}
 		}
 	}
