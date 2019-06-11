@@ -4,7 +4,8 @@ using Smod2.Config;
 using Smod2.Events;
 using Smod2;
 using Smod2.API;
-
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ATTG3
 {
@@ -62,6 +63,7 @@ namespace ATTG3
 		public bool INFECT { get; set; }
 		public bool QEvent { get; set; }
 
+		public static List<ItemType> Randoimitem = new List<ItemType>();
 		//End of Events
 		public override void Register()
 		{
@@ -147,6 +149,13 @@ namespace ATTG3
 		public override void OnEnable()
 		{
 			Info("ATTG Command Plugin enabled.");
+			Randoimitem.Add(ItemType.COM15);
+			Randoimitem.Add(ItemType.E11_STANDARD_RIFLE);
+			Randoimitem.Add(ItemType.LOGICER);
+			Randoimitem.Add(ItemType.MICROHID);
+			Randoimitem.Add(ItemType.MP4);
+			Randoimitem.Add(ItemType.P90);
+			Randoimitem.Add(ItemType.USP);
 		}
 		public override void OnDisable()
 		{
@@ -165,11 +174,43 @@ namespace ATTG3
 			return rolecount;
 		}
 	}
-	/*public class Events
+	public class Events
 	{
-		public static Inventorygive(Player,ItemType)
+		public static ItemType invrandgive()
 		{
-			return;
+			int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
+			return ATTG3Plugin.Randoimitem[RandomInt];
 		}
-	}*/
+		public static void MTFCIRESPAWN(Player player)
+		{
+			foreach (Smod2.API.Item item in player.GetInventory())
+			{
+				item.Remove();
+			}
+			
+			if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+			{
+				MTFCI.MTFKill++;
+				new Task(async () =>
+				{
+					await Task.Delay(10000);
+					player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+				}).Start();
+				PluginManager.Manager.Server.Map.ClearBroadcasts();
+				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of 25</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of 25</Color>", false);
+			}
+			else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
+			{
+				MTFCI.CIKills++;
+				new Task(async () =>
+				{
+					await Task.Delay(10000);
+					player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
+				}).Start();
+				PluginManager.Manager.Server.Map.ClearBroadcasts();
+				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of 25</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of 25</Color>", false);
+			}
+
+		}
+	}
 }

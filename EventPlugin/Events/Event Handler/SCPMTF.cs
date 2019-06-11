@@ -21,7 +21,7 @@ namespace ATTG3
 		int gen;
 		bool nuke;
 		List<int> SCPHP;
-
+		public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;
 		public SCPMTF(ATTG3Plugin plugin) => this.plugin = plugin;
 
@@ -119,10 +119,14 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				if (ev.Generator.TimeLeft <= 30)
+				if (ev.Generator.TimeLeft <= 60)
 				{
 					ev.Allow = false;
-					ev.Player.PersonalBroadcast(10, "You can not stop a Generator after the time remaining is less than 30 sec. ", false);
+					ev.Player.PersonalBroadcast(10, "You can not stop a Generator after the time remaining is less than 60 sec. ", false);
+				}
+				else
+				{
+					//ev.Generator.TimeLeft
 				}
 			}
 		}
@@ -195,6 +199,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
+
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					if (player.TeamRole.Team == Smod2.API.Team.SCP)
