@@ -12,7 +12,7 @@ namespace ATTG3
 {
 	internal class lerk : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess
+		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerDoorAccess
 	{
 
 
@@ -230,16 +230,6 @@ namespace ATTG3
 			if (plugin.Lerk)
 			{
 				
-			}
-		}
-		public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
-		{
-			if (plugin.Lerk)
-			{
-				if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
-				{
-					ev.Triggerable = false;
-				}
 			}
 		}
 		private IEnumerable<float> TimingDelay(float time)
