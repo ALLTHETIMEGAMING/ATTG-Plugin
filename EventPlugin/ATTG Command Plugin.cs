@@ -176,7 +176,7 @@ namespace ATTG3
 	}
 	public class Events
 	{
-		public static ItemType invrandgive()
+		public static ItemType Invrandgive()
 		{
 			int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
 			return ATTG3Plugin.Randoimitem[RandomInt];

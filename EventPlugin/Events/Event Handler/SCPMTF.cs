@@ -20,7 +20,6 @@ namespace ATTG3
 		int C106;
 		int gen;
 		bool nuke;
-		List<int> SCPHP;
 		public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;
 		public SCPMTF(ATTG3Plugin plugin) => this.plugin = plugin;

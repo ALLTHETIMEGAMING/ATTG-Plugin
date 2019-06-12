@@ -12,12 +12,11 @@ namespace ATTG3
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
-        IConfigFile Config => ConfigManager.Manager.Config;
         public Sniper(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "Changes EL2 Gun";
         public static readonly string[] CA = new string[] { "snipe", "agsnipe" };
-		private WeaponManager weaponManager;
+		//private WeaponManager weaponManager;
 		public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
@@ -44,9 +43,8 @@ namespace ATTG3
                         GameObject sniper = (GameObject)myPlayer.GetGameObject();
 						Inventory sniperinv = sniper.GetComponent<Inventory>();
                         WeaponManager manager = sniper.GetComponent<WeaponManager>();
-                        int i = WeaponManagerIndex(manager, 20);
-                        sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 4,3,1);
-                        sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 0, 0, 0);
+                        sniperinv.AddNewItem(20, manager.weapons[20].maxAmmo, 4,3,1);
+                        sniperinv.AddNewItem(20, manager.weapons[20].maxAmmo, 0, 0, 0);
 
 
                         //sniperinv.AddNewItem(20, -1f, 4, 3, 1);
@@ -67,19 +65,6 @@ namespace ATTG3
                     return new string[] { "SNIPE: " + GetUsage() };
                 }
             }
-        }
-        public static int WeaponManagerIndex(WeaponManager manager, int item)
-        {
-            // Get weapon index in WeaponManager
-            int weapon = -1;
-            for (int i = 0; i < manager.weapons.Length; i++)
-            {
-                if (manager.weapons[i].inventoryID == item)
-                {
-                    weapon = i;
-                }
-            }
-            return weapon;
         }
     }
 }

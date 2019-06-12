@@ -62,13 +62,13 @@ namespace ATTG3
 				if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
 				{
 					ev.Items.Clear();
-					ev.Items.Add(Events.invrandgive());
+					ev.Items.Add(Events.Invrandgive());
 					ev.Items.Add(ItemType.COM15);
 				}
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
 					ev.Items.Clear();
-					ev.Items.Add(Events.invrandgive());
+					ev.Items.Add(Events.Invrandgive());
 					ev.Items.Add(ItemType.COM15);
 				}
 			}
