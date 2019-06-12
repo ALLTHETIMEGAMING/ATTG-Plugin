@@ -149,7 +149,6 @@ namespace ATTG3
 		public override void OnEnable()
 		{
 			Info("ATTG Command Plugin enabled.");
-			Randoimitem.Add(ItemType.COM15);
 			Randoimitem.Add(ItemType.E11_STANDARD_RIFLE);
 			Randoimitem.Add(ItemType.LOGICER);
 			Randoimitem.Add(ItemType.MICROHID);

@@ -63,13 +63,13 @@ namespace ATTG3
 				{
 					ev.Items.Clear();
 					ev.Items.Add(Events.invrandgive());
+					ev.Items.Add(ItemType.COM15);
 				}
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
 					ev.Items.Clear();
 					ev.Items.Add(Events.invrandgive());
-					
-
+					ev.Items.Add(ItemType.COM15);
 				}
 			}
 		}
@@ -84,7 +84,6 @@ namespace ATTG3
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
 					ev.SpawnPos = new Vector(170, 984, 36);
-
 				}
 			}
 		}

@@ -41,9 +41,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="ItemManager">
-      <HintPath>..\References\ItemManager.dll</HintPath>
-    </Reference>
     <Reference Include="Smod2">
       <HintPath>..\References\Smod2.dll</HintPath>
     </Reference>
