@@ -38,31 +38,48 @@ namespace ATTG3
                 {
                     Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
                     if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
-                    if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
+                    if (myPlayer.TeamRole.Role!=Role.SPECTATOR && myPlayer.TeamRole.Team != Smod2.API.Team.SCP)
                     {
-						GameObject sniper = (GameObject)myPlayer.GetGameObject();
+                        
+                        GameObject sniper = (GameObject)myPlayer.GetGameObject();
 						Inventory sniperinv = sniper.GetComponent<Inventory>();
-						SetPickup(num, -4.65664672E+11f, component.get_transform().get_position(), component.get_transform().get_rotation(), 0, 0, 0).GetComponent<Pickup>();
+                        WeaponManager manager = sniper.GetComponent<WeaponManager>();
+                        int i = WeaponManagerIndex(manager, 20);
+                        sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 4,3,1);
+                        sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 0, 0, 0);
 
 
-
-						//sniperinv.AddNewItem(20,-4.65664672E+11f,4,3,1);
-						/*Inventory.SyncItemInfo syncItem = sniperinv.items[20];
+                        //sniperinv.AddNewItem(20, -1f, 4, 3, 1);
+                        //SetPickup(num, -4.65664672E+11f, component.get_transform().get_position(), component.get_transform().get_rotation(), 0, 0, 0).GetComponent<Pickup>();
+                        /*Inventory.SyncItemInfo syncItem = sniperinv.items[20];
 						syncItem.modSight = 4;
 						syncItem.modBarrel = 3;
 						syncItem.modOther = 1;*/
 
 
-						return new string[] { myPlayer.Name+" Sniper Added" };
+                        return new string[] { myPlayer.Name+" Sniper Added" };
                     }
                     else
-                        return new string[] { myPlayer.Name+" is dead!" };
+                        return new string[] { myPlayer.Name+" is dead or is a SCP" };
                 }
                 else
                 {
                     return new string[] { "SNIPE: " + GetUsage() };
                 }
             }
+        }
+        public static int WeaponManagerIndex(WeaponManager manager, int item)
+        {
+            // Get weapon index in WeaponManager
+            int weapon = -1;
+            for (int i = 0; i < manager.weapons.Length; i++)
+            {
+                if (manager.weapons[i].inventoryID == item)
+                {
+                    weapon = i;
+                }
+            }
+            return weapon;
         }
     }
 }
