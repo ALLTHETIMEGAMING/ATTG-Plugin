@@ -3,7 +3,7 @@ using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using Smod2.EventSystem.Events;
-using scp4aiur;
+using MEC;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -141,7 +141,7 @@ namespace ATTG3
 			if (plugin.MTFCI)
 			{
 				ev.SpawnRagdoll = false;
-				Events.MTFCIRESPAWN(ev.Player);
+				Timing.RunCoroutine(Events.MTFCIRESPAWN(ev.Player));
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)

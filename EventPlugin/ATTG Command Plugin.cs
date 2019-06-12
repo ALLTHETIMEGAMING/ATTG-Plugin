@@ -6,6 +6,7 @@ using Smod2;
 using Smod2.API;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MEC;
 
 namespace ATTG3
 {
@@ -68,8 +69,7 @@ namespace ATTG3
 		public override void Register()
 		{
 			Instance = this;
-			Timing.Init(this);
-			Timing2.Init(this);
+			scp4aiur.Timing.Init(this);
 			// Configs
 			AddConfig(new ConfigSetting("attg_ranks", new[] { "owner", "coowner", "o51" }, false, true, ""));
 			AddConfig(new ConfigSetting("attg_event_ranks", new[] { "owner", "coowner" }, false, true, "Ranks for all SCP Commands"));
@@ -116,6 +116,7 @@ namespace ATTG3
 			this.AddCommand("AGGENM", new Genm(this));
 			this.AddCommand("AGRANK", new Rank(this));
 			this.AddCommand("AGTFF", new TFF(this));
+			this.AddCommands(Sniper.CA, new Sniper(this));
 			//Event Handlers
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
 			this.AddEventHandlers(new O79Handler(this), Priority.High);
@@ -180,36 +181,28 @@ namespace ATTG3
 			int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
 			return ATTG3Plugin.Randoimitem[RandomInt];
 		}
-		public static void MTFCIRESPAWN(Player player)
+		public static IEnumerator<float> MTFCIRESPAWN(Player player)
 		{
 			foreach (Smod2.API.Item item in player.GetInventory())
 			{
 				item.Remove();
 			}
-			
 			if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
 			{
 				MTFCI.MTFKill++;
-				new Task(async () =>
-				{
-					await Task.Delay(10000);
-					player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
-				}).Start();
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of 25</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of 25</Color>", false);
+				yield return MEC.Timing.WaitForSeconds(10);
+				player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
 			}
 			else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
 			{
 				MTFCI.CIKills++;
-				new Task(async () =>
-				{
-					await Task.Delay(10000);
-					player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
-				}).Start();
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of 25</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of 25</Color>", false);
+				yield return MEC.Timing.WaitForSeconds(10);
+				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 			}
-
 		}
 	}
 }
