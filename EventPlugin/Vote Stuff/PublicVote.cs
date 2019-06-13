@@ -52,6 +52,10 @@ namespace ATTG3
                 }
                 return;
             }
+            else if (command.StartsWith("invintory1"))
+            {
+
+            }
         }
     }
 }
