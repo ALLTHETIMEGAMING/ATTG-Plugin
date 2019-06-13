@@ -152,7 +152,6 @@ namespace ATTG3
 			Info("ATTG Command Plugin enabled.");
 			Randoimitem.Add(ItemType.E11_STANDARD_RIFLE);
 			Randoimitem.Add(ItemType.LOGICER);
-			Randoimitem.Add(ItemType.MICROHID);
 			Randoimitem.Add(ItemType.MP4);
 			Randoimitem.Add(ItemType.P90);
 			Randoimitem.Add(ItemType.USP);
@@ -161,18 +160,7 @@ namespace ATTG3
 		{
 			Info("ATTG Command Plugin disabled.");
 		}
-		public static int TUTCOUNT(Role role)
-		{
-			int rolecount = 0;
-			foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-			{
-				if (player.TeamRole.Role == role)
-				{
-					rolecount++;
-				}
-			}
-			return rolecount;
-		}
+		
 	}
 	public class Events
 	{
@@ -203,6 +191,25 @@ namespace ATTG3
 				yield return MEC.Timing.WaitForSeconds(10);
 				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 			}
+		}
+		public static IEnumerator<float> GiveAmmo(Player player)
+		{
+			yield return MEC.Timing.WaitForSeconds(0.1f);
+			player.SetAmmo(AmmoType.DROPPED_5, 10000);
+			player.SetAmmo(AmmoType.DROPPED_7, 10000);
+			player.SetAmmo(AmmoType.DROPPED_9, 10000);
+		}
+		public static int TUTCOUNT(Role role)
+		{
+			int rolecount = 0;
+			foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+			{
+				if (player.TeamRole.Role == role)
+				{
+					rolecount++;
+				}
+			}
+			return rolecount;
 		}
 	}
 }

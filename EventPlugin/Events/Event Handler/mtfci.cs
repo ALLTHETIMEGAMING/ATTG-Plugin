@@ -12,7 +12,7 @@ using UnityEngine;
 namespace ATTG3
 {
 	internal class MTFCI : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle,
-		IEventHandlerPlayerDie
+		IEventHandlerPlayerDie, IEventHandlerSpawn
 	{
 
 
