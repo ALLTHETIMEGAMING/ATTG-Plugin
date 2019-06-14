@@ -7,7 +7,10 @@ using Smod2.API;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MEC;
-
+using UnityEngine;
+using ServerMod2.API;
+using Smod2.EventHandlers;
+using UnityEngine.Networking;
 namespace ATTG3
 {
 
@@ -65,6 +68,7 @@ namespace ATTG3
 		public bool QEvent { get; set; }
 
 		public static List<ItemType> Randoimitem = new List<ItemType>();
+		public static List<Vector3> TPRooms = new List<Vector3>();
 		//End of Events
 		public override void Register()
 		{
@@ -116,6 +120,7 @@ namespace ATTG3
 			this.AddCommand("AGGENM", new Genm(this));
 			this.AddCommand("AGRANK", new Rank(this));
 			this.AddCommand("AGTFF", new TFF(this));
+			this.AddCommand("AGTP", new Teleport(this));
 			this.AddCommands(Sniper.CA, new Sniper(this));
 			//Event Handlers
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
@@ -195,9 +200,9 @@ namespace ATTG3
 		public static IEnumerator<float> GiveAmmo(Player player)
 		{
 			yield return MEC.Timing.WaitForSeconds(0.1f);
-			player.SetAmmo(AmmoType.DROPPED_5, 10000);
-			player.SetAmmo(AmmoType.DROPPED_7, 10000);
-			player.SetAmmo(AmmoType.DROPPED_9, 10000);
+			player.SetAmmo(AmmoType.DROPPED_5, 1000);
+			player.SetAmmo(AmmoType.DROPPED_7, 1000);
+			player.SetAmmo(AmmoType.DROPPED_9, 1000);
 		}
 		public static int TUTCOUNT(Role role)
 		{
@@ -210,6 +215,27 @@ namespace ATTG3
 				}
 			}
 			return rolecount;
+		}
+		public static void Inventoryset(Player player, int invcount)
+		{
+			List<Smod2.API.Item> inventory = player.GetInventory();
+		}
+		public static void FullRandRoomTP(Player player)
+		{
+			GameObject[] array = GameObject.FindGameObjectsWithTag("RoomID");
+			foreach (GameObject val2 in array)
+			{
+				if (val2.GetComponent<Rid>() != null)
+				{
+					ATTG3Plugin.TPRooms.Add(val2.transform.position);
+				}
+			}
+			Vector3 val4 = ATTG3Plugin.TPRooms[Random.Range(0, ATTG3Plugin.TPRooms.Count)];
+			val4.y += 2f;
+			Vector TORoom = new Vector(val4.x, val4.y, val4.z);
+			ATTG3Plugin.TPRooms.Clear();
+			
+			player.Teleport(TORoom, true);
 		}
 	}
 }

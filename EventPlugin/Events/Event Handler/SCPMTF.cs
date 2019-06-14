@@ -12,7 +12,7 @@ namespace ATTG3
 {
 	internal class SCPMTF : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess
+		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate
 	{
 
 
@@ -23,7 +23,7 @@ namespace ATTG3
 		public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;
 		public SCPMTF(ATTG3Plugin plugin) => this.plugin = plugin;
-
+		public Dictionary<string, float> GenTime = new Dictionary<string, float>();
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			if (plugin.MTFSCP)
@@ -45,6 +45,11 @@ namespace ATTG3
 						door.Locked = true;
 						door.Open = false;
 					}
+					else if (door.Name == "914")
+					{
+						door.Locked = true;
+						door.Open = false;
+					}
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
@@ -62,7 +67,8 @@ namespace ATTG3
 		public void OnDoorAccess(PlayerDoorAccessEvent ev)
 		{
 			if (plugin.MTFSCP)
-			{ 
+			{
+
 			}
 		}
 
@@ -77,7 +83,7 @@ namespace ATTG3
 					{
 						ev.Items.Add(ItemType.MICROHID);
 					}
-					if (gen == 5 && ev.Player.TeamRole.Role != Role.NTF_COMMANDER)
+					if (gen == 5 && ev.Player.TeamRole.Role != Role.NTF_COMMANDER )
 					{
 						ev.Items.Add(ItemType.MICROHID);
 					}
@@ -94,11 +100,12 @@ namespace ATTG3
 					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_106)
 					{
-						ev.Player.AddHealth(17000);
+						ev.Player.AddHealth(15000);
 					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_173)
 					{
 						ev.Player.AddHealth(70000);
+						ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
 					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_939_53 || ev.Player.TeamRole.Role == Role.SCP_939_89)
 					{
@@ -117,7 +124,19 @@ namespace ATTG3
 			if (plugin.MTFSCP)
 			{
 				gen++;
-				if (gen == 5)
+				if (gen >= 1)
+				{
+					nuke = true;
+					foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+					{
+						if (door.Name == "914")
+						{
+							door.Locked = false;
+							door.Open = false;
+						}
+					}
+				}
+				else if (gen == 5)
 				{
 					nuke = true;
 					foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
@@ -129,13 +148,18 @@ namespace ATTG3
 						}
 						else if (door.Name == "SURFACE_GATE")
 						{
-							door.Locked = true;
+							door.Locked = false;
 							door.Open = true;
 						}
 						else if (door.Name == "GATE_A")
 						{
 							door.Locked = false;
 							door.Open = false;
+						}
+						else if (door.Name == "106_PRIMARY")
+						{
+							door.Locked = false;
+							door.Open = true;
 						}
 					}
 				}
@@ -163,7 +187,15 @@ namespace ATTG3
 				}
 				else
 				{
-					//ev.Generator.TimeLeft
+					float Indicheck;
+					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
+					{
+							GenTime[ev.Generator.Room.ToString()] = ev.Generator.TimeLeft;
+					}
+					else
+					{
+						GenTime.Add(ev.Generator.Room.ToString(), ev.Generator.TimeLeft);
+					}
 					ev.Allow = true;
 				}
 			}
@@ -205,7 +237,15 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-
+				float Indicheck;
+				if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
+				{
+					ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
+				}
+				else
+				{
+					ev.Allow = true;
+				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					if (player.TeamRole.Team == Smod2.API.Team.SCP)
@@ -242,6 +282,13 @@ namespace ATTG3
 			if (plugin.MTFSCP)
 			{
 
+			}
+		}
+		public void OnDetonate()
+		{
+			if (plugin.MTFSCP)
+			{
+				gen = 5;
 			}
 		}
 	}

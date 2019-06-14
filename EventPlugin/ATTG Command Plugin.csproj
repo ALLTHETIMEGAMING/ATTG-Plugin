@@ -89,6 +89,7 @@
     <Compile Include="Player Commands\Rank.cs" />
     <Compile Include="Player Commands\Target FF.cs" />
     <Compile Include="Player Commands\sniper.cs" />
+    <Compile Include="Player Commands\Teleport.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />
     <Compile Include="Events\Event Handler\VicHandler.cs" />
     <Compile Include="Events\Event Handler\O79Handler.cs" />
@@ -118,7 +119,7 @@
     <Compile Include="Testing commands\Locker.cs" />
     <Compile Include="Network Commands\Fakedea.cs" />
     <Compile Include="Network Commands\Work.cs" />
-    <Compile Include="Vote Stuff\PublicVote.cs" />
+    <Compile Include="Player Console.cs" />
     <Compile Include="Commands V2\Vote Commands.cs" />
     <Compile Include="ATTG Command Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

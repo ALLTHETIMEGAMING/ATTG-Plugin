@@ -80,10 +80,12 @@ namespace ATTG3
 				if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
 				{
 					ev.SpawnPos = new Vector(0, 1001, 0);
+					Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
 				}
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
 					ev.SpawnPos = new Vector(170, 984, 36);
+					Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
 				}
 			}
 		}
