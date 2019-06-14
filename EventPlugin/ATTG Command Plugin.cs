@@ -216,10 +216,15 @@ namespace ATTG3
 			}
 			return rolecount;
 		}
-		public static void Inventoryset(Player player, int invcount)
+		public static void Inventoryset(Player player, int invpos)
 		{
 			List<Smod2.API.Item> inventory = player.GetInventory();
-		}
+            if (invpos == 1)
+            {
+                ItemType inv1 = inventory[0].ItemType;
+                player.SetCurrentItem(inv1);
+            }
+        }
 		public static void FullRandRoomTP(Player player)
 		{
 			GameObject[] array = GameObject.FindGameObjectsWithTag("RoomID");
