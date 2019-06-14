@@ -46,7 +46,7 @@ namespace ATTG3
 			plugin.VIP = false;
 			plugin.QEvent = false;
 			plugin.Infectcontain = false;
-			Vote.Voted.Clear();
+            PlayerConsole.Voted.Clear();
 			plugin.RoundStarted = false;
 			MAP.Shake = false;
 			MAP.Shake = false;

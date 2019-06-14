@@ -3,18 +3,17 @@ using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using Smod2.EventSystem.Events;
-using scp4aiur;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
+using MEC;
 
 namespace ATTG3
 {
-	internal class VIPESCAPE : IEventHandlerRoundStart,
-		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSpawn,
-		 IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle
+	internal class VIPESCAPE : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSetRole,
+         IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle
 	{
 
 		private readonly ATTG3Plugin plugin;
@@ -71,6 +70,7 @@ namespace ATTG3
 		{
 			if (plugin.VIP)
 			{
+                //Stops the nuke lever
 				ev.Allow = false;
 				ev.Player.PersonalBroadcast(10, "Nuke cannot be activated", false);
 			}
@@ -79,50 +79,40 @@ namespace ATTG3
 		{
 			if (plugin.VIP)
 			{
+                // Stops the event
 				plugin.VIP = false;
 				VIPplayer = null;
 				Vipescape = false;
-
 			}
 		}
-		public void OnSpawn(PlayerSpawnEvent ev)
-		{
-			if (plugin.VIP)
-			{
-				if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
-				{
-					new Task(async () =>
-					{
-						await Task.Delay(500);
-						foreach (Smod2.API.Item item in ev.Player.GetInventory())
-						{
-							item.Remove();
-						}
-						ev.Player.GiveItem(ItemType.LOGICER);
-					}).Start();
-					ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
-					ev.Player.PersonalBroadcast(5, "ESCORT THE CLASS D TO THE EXIT", false);
-				}
-				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
-				{
-					new Task(async () =>
-						{
-							await Task.Delay(500);
-							foreach (Smod2.API.Item item in ev.Player.GetInventory())
-							{
-								item.Remove();
-							}
-							ev.Player.GiveItem(ItemType.E11_STANDARD_RIFLE);
-						}).Start();
-					ev.Player.PersonalBroadcast(5, "Kill The Class-D", false);
-				}
-			}
-		}
+        public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
+        {
+            if (plugin.VIP)
+            {
+                // Give all players ammo
+                Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
+                ev.Items.Clear();
+                if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
+                {
+                    //Gives MTF items
+                    ev.Items.Add(ItemType.E11_STANDARD_RIFLE);
+                    ev.Items.Add(ItemType.MTF_COMMANDER_KEYCARD);
+                    ev.Player.PersonalBroadcast(5, "ESCORT THE CLASS D TO THE EXIT", false);
+                }
+                else if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
+                {
+                    //Gives CI items
+                    ev.Items.Add(ItemType.LOGICER);
+                    ev.Items.Add(ItemType.CHAOS_INSURGENCY_DEVICE);
+                    ev.Player.PersonalBroadcast(5, "Kill The Class-D", false);
+                }
+            }
+        }
 		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
 		{
 			if (plugin.VIP)
 			{
-				if (VIPplayer.TeamRole.Role == Role.CLASSD && Vipescape == false)
+				if (VIPplayer.TeamRole.Role != Role.SPECTATOR || VIPplayer.TeamRole.Role != Role.UNASSIGNED)
 				{
 					ev.Status = ROUND_END_STATUS.ON_GOING;
 				}
@@ -136,8 +126,9 @@ namespace ATTG3
 				}
 				else if (VIPplayer.TeamRole.Role != Role.CLASSD && Vipescape == false)
 				{
-					ev.Status = ROUND_END_STATUS.MTF_VICTORY;
+					ev.Status = ROUND_END_STATUS.FORCE_END;
 				}
+                
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)

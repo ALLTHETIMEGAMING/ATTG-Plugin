@@ -7,10 +7,10 @@ using MEC;
 
 namespace ATTG3
 {
-    class Vote : IEventHandlerCallCommand
+    class PlayerConsole : IEventHandlerCallCommand
     {
         private readonly ATTG3Plugin plugin;
-        public Vote(ATTG3Plugin plugin) => this.plugin=plugin;
+        public PlayerConsole(ATTG3Plugin plugin) => this.plugin=plugin;
 
         public static List<Player> Voted = new List<Player>();
         public void OnCallCommand(PlayerCallCommandEvent ev)

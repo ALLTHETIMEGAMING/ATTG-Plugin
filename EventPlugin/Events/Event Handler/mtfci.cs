@@ -16,11 +16,12 @@ namespace ATTG3
 	{
 
 
-
-		private readonly ATTG3Plugin plugin;
+        Server Server => PluginManager.Manager.Server;
+        private readonly ATTG3Plugin plugin;
 		public MTFCI(ATTG3Plugin plugin) => this.plugin = plugin;
 		public static int MTFKill = 0;
 		public static int CIKills = 0;
+        public static int KillGoal = 0;
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			if (plugin.MTFCI)
@@ -32,6 +33,10 @@ namespace ATTG3
 						door.Locked = true;
 						door.Open = true;
 					}
+                    else
+                    {
+                        door.Locked = true;
+                    }
 				}
 				foreach (BlastDoor blast in Object.FindObjectsOfType<BlastDoor>())
 				{
@@ -53,24 +58,26 @@ namespace ATTG3
 						player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 					}
 				}
+                KillGoal = Server.NumPlayers*2;
 			}
 		}
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
 		{
 			if (plugin.MTFCI)
 			{
-				if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
+                ev.Items.Clear();
+                if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
 				{
-					ev.Items.Clear();
 					ev.Items.Add(Events.Invrandgive());
 					ev.Items.Add(ItemType.COM15);
-				}
+                    ev.Items.Add(ItemType.COM15);
+                }
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
-					ev.Items.Clear();
 					ev.Items.Add(Events.Invrandgive());
 					ev.Items.Add(ItemType.COM15);
-				}
+                    ev.Items.Add(ItemType.MEDKIT);
+                }
 			}
 		}
 		public void OnSpawn(Smod2.Events.PlayerSpawnEvent ev)
@@ -96,14 +103,14 @@ namespace ATTG3
 				MTFKill = 0;
 				CIKills = 0;
 				plugin.MTFCI = false;
-				
+                KillGoal = 0;
 			}
 		}
 		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
 		{
 			if (plugin.MTFCI)
 			{
-				if (MTFKill < 25 && CIKills < 25)
+				if (MTFKill < KillGoal && CIKills < KillGoal)
 				{
 					if (PluginManager.Manager.Server.GetPlayers().Count <= 1)
 					{	ev.Server.Map.ClearBroadcasts();
@@ -117,13 +124,13 @@ namespace ATTG3
 				}
 				else
 				{
-					if (MTFKill >= 25)
+					if (MTFKill >= KillGoal)
 					{
 						ev.Server.Map.ClearBroadcasts();
 						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#0080FF>MTF WIN</Color></SIZE>", false);
 						ev.Status = ROUND_END_STATUS.MTF_VICTORY;
 					}
-					else if (CIKills >= 25)
+					else if (CIKills >= KillGoal)
 					{
 						ev.Server.Map.ClearBroadcasts();
 						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#0B7A00>CI WIN</Color></SIZE>", false);

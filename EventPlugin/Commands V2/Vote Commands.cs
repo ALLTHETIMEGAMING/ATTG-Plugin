@@ -63,7 +63,7 @@ namespace ATTG3
 				{
 					plugin.Yes=0;
 					plugin.No=0;
-					Vote.Voted.Clear();
+					PlayerConsole.Voted.Clear();
 					return new string[] { "Votes Cleared" };
 				}
 				else if (args2=="see")

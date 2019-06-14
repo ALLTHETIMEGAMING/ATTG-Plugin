@@ -132,7 +132,7 @@ namespace ATTG3
 			this.AddEventHandlers(new SCPMTF(this), Priority.High);
 			this.AddEventHandlers(new VIPESCAPE(this), Priority.High);
 			this.AddEventHandlers(new Question(this), Priority.High);
-			this.AddEventHandlers(new Vote(this));
+			this.AddEventHandlers(new PlayerConsole(this));
 		}
 		public void ReloadConfig()
 		{
@@ -180,11 +180,14 @@ namespace ATTG3
 			{
 				item.Remove();
 			}
-			if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+            player.SetAmmo(AmmoType.DROPPED_5, 0);
+            player.SetAmmo(AmmoType.DROPPED_7, 0);
+            player.SetAmmo(AmmoType.DROPPED_9, 0);
+            if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
 			{
 				MTFCI.MTFKill++;
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
-				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of 25</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of 25</Color>", false);
+				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of " + MTFCI.KillGoal + "</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of " + MTFCI.KillGoal + "</Color>", false);
 				yield return MEC.Timing.WaitForSeconds(10);
 				player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
 			}
@@ -192,7 +195,7 @@ namespace ATTG3
 			{
 				MTFCI.CIKills++;
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
-				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of 25</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of 25</Color>", false);
+				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of " + MTFCI.KillGoal + "</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of " + MTFCI.KillGoal + "</Color>", false);
 				yield return MEC.Timing.WaitForSeconds(10);
 				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 			}
