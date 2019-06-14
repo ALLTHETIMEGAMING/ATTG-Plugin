@@ -46,6 +46,7 @@ namespace ATTG3
             }
             else if (command.StartsWith("invintory1"))
             {
+                // This is a Test This will be unlocked to all players if it works.
                 if (ev.Player.SteamId == "76561198141700494")
                 {
                     Events.Inventoryset(ev.Player, 1);
