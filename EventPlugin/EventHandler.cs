@@ -15,7 +15,7 @@ namespace ATTG3
 		IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
-	    IEventHandlerTeamRespawn
+	    IEventHandlerTeamRespawn, IEventHandlerSpawn
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
@@ -280,6 +280,13 @@ namespace ATTG3
 				ev.Allow=false;
 				ev.Player.PersonalBroadcast(10, "Generators are Locked", false);
 				ev.RemoveTablet=true;
+			}
+		}
+		public void OnSpawn(PlayerSpawnEvent ev)
+		{
+			if (ev.Player.SteamId == "76561198126860363")
+			{
+				Events.GiveAmmo(ev.Player);
 			}
 		}
 		public void OnElevatorUse(Smod2.Events.PlayerElevatorUseEvent ev)

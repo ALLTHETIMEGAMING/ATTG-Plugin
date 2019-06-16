@@ -44,8 +44,8 @@ namespace ATTG3
 						Inventory sniperinv = sniper.GetComponent<Inventory>();
                         WeaponManager manager = sniper.GetComponent<WeaponManager>();
 						int i = WeaponManagerIndex(manager, 20);
-						sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 1,3,1);
-                        sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 4, 4, 1);
+						sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 4,3,1);
+                        sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 1, 4, 1);
 
                         //sniperinv.AddNewItem(20, -1f, 4, 3, 1);
                         //SetPickup(num, -4.65664672E+11f, component.get_transform().get_position(), component.get_transform().get_rotation(), 0, 0, 0).GetComponent<Pickup>();

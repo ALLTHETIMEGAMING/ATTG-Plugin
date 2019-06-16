@@ -11,6 +11,8 @@ using UnityEngine;
 using ServerMod2.API;
 using Smod2.EventHandlers;
 using UnityEngine.Networking;
+using Smod2.Commands;
+
 namespace ATTG3
 {
 
@@ -28,7 +30,7 @@ namespace ATTG3
 	{
 
 		public static ATTG3Plugin Instance { get; private set; }
-
+		#region Values
 		// Command Perms
 		public string[] AdminRanks { get; private set; }
 		public string[] Voterank { get; private set; }
@@ -44,6 +46,7 @@ namespace ATTG3
 		public bool O49infect { get; set; }
 		public bool O96Door { get; set; }
 		public bool NoCHand { get; set; }
+		public static int itemid;
 		public float Elevatord { get; set; }
 		public bool GenSpam { get; set; }
 		public bool GenHand { get; set; }
@@ -66,7 +69,7 @@ namespace ATTG3
 		public bool MTFCI { get; set; }
 		public bool INFECT { get; set; }
 		public bool QEvent { get; set; }
-
+		#endregion
 		public static List<ItemType> Randoimitem = new List<ItemType>();
 		public static List<Vector3> TPRooms = new List<Vector3>();
 		//End of Events
@@ -80,7 +83,7 @@ namespace ATTG3
 			AddConfig(new ConfigSetting("attg_vote_ranks", new[] { "owner", "coowner", "admin", "o51" }, false, true, "Valid ranks for all voteing Commands"));
 			AddConfig(new ConfigSetting("attg_all_ranks", new[] { "owner" }, false, true, "Valid ranks for all Commands"));
 			AddConfig(new ConfigSetting("attg_049_infect", false, false, true, "Allows SCP-049 revive instantly"));
-			AddConfig(new ConfigSetting("attg_096_door", true, false, true, "Allows SCP-096 able to open all doors when enraged"));
+			AddConfig(new ConfigSetting("attg_096_door", false, false, true, "Allows SCP-096 able to open all doors when enraged"));
 			AddConfig(new ConfigSetting("attg_door_hand", true, false, true, "Allows all players able to open keycard doors with out a keycard in hand"));
 			AddConfig(new ConfigSetting("attg_gen_hand", true, false, true, "Allows all players able to open Generators with out a keycard in hand"));
 			AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Default Elevator speed"));
@@ -157,9 +160,6 @@ namespace ATTG3
 			Info("ATTG Command Plugin enabled.");
 			Randoimitem.Add(ItemType.E11_STANDARD_RIFLE);
 			Randoimitem.Add(ItemType.LOGICER);
-			Randoimitem.Add(ItemType.MP4);
-			Randoimitem.Add(ItemType.P90);
-			Randoimitem.Add(ItemType.USP);
 		}
 		public override void OnDisable()
 		{
@@ -174,15 +174,17 @@ namespace ATTG3
 			int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
 			return ATTG3Plugin.Randoimitem[RandomInt];
 		}
-		public static IEnumerator<float> MTFCIRESPAWN(Player player)
+		public static IEnumerator<float> MTFCIRESPAWN(Player player,Player Attacker)
 		{
+
 			foreach (Smod2.API.Item item in player.GetInventory())
 			{
+				if (item.ItemType == ItemType.FRAG_GRENADE)
+				{
+					player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, Attacker.GetPosition(), true, player.GetPosition(), true, 0f, false);
+				}
 				item.Remove();
 			}
-            player.SetAmmo(AmmoType.DROPPED_5, 0);
-            player.SetAmmo(AmmoType.DROPPED_7, 0);
-            player.SetAmmo(AmmoType.DROPPED_9, 0);
             if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
 			{
 				MTFCI.MTFKill++;
@@ -199,10 +201,12 @@ namespace ATTG3
 				yield return MEC.Timing.WaitForSeconds(10);
 				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 			}
+			
 		}
+
 		public static IEnumerator<float> GiveAmmo(Player player)
 		{
-			yield return MEC.Timing.WaitForSeconds(0.1f);
+			yield return MEC.Timing.WaitForSeconds(1f);
 			player.SetAmmo(AmmoType.DROPPED_5, 1000);
 			player.SetAmmo(AmmoType.DROPPED_7, 1000);
 			player.SetAmmo(AmmoType.DROPPED_9, 1000);
@@ -222,11 +226,140 @@ namespace ATTG3
 		public static void Inventoryset(Player player, int invpos)
 		{
 			List<Smod2.API.Item> inventory = player.GetInventory();
-            if (invpos == 1)
-            {
-                ItemType inv1 = inventory[0].ItemType;
-                player.SetCurrentItem(inv1);
-            }
+			#region Itemids
+			ItemType inv1 = inventory[invpos].ItemType;
+			if (inv1 == ItemType.JANITOR_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 0;
+			}
+			else if (inv1 == ItemType.SCIENTIST_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 1;
+			}
+			else if (inv1 == ItemType.MAJOR_SCIENTIST_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 2;
+			}
+			else if (inv1 == ItemType.ZONE_MANAGER_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 3;
+			}
+			else if (inv1 == ItemType.GUARD_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 4;
+			}
+			else if (inv1 == ItemType.SENIOR_GUARD_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 5;
+			}
+			else if (inv1 == ItemType.CONTAINMENT_ENGINEER_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 6;
+			}
+			else if (inv1 == ItemType.MTF_LIEUTENANT_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 7;
+			}
+			else if (inv1 == ItemType.MTF_COMMANDER_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 8;
+			}
+			else if (inv1 == ItemType.FACILITY_MANAGER_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 9;
+			}
+			else if (inv1 == ItemType.CHAOS_INSURGENCY_DEVICE)
+			{
+				ATTG3Plugin.itemid = 10;
+			}
+			else if (inv1 == ItemType.O5_LEVEL_KEYCARD)
+			{
+				ATTG3Plugin.itemid = 11;
+			}
+			else if (inv1 == ItemType.RADIO)
+			{
+				ATTG3Plugin.itemid = 12;
+			}
+			else if (inv1 == ItemType.COM15)
+			{
+				ATTG3Plugin.itemid = 13;
+			}
+			else if (inv1 == ItemType.MEDKIT)
+			{
+				ATTG3Plugin.itemid = 14;
+			}
+			else if (inv1 == ItemType.FLASHLIGHT)
+			{
+				ATTG3Plugin.itemid = 15;
+			}
+			else if (inv1 == ItemType.MICROHID)
+			{
+				ATTG3Plugin.itemid = 16;
+			}
+			else if (inv1 == ItemType.COIN)
+			{
+				ATTG3Plugin.itemid = 17;
+			}
+			else if (inv1 == ItemType.CUP)
+			{
+				ATTG3Plugin.itemid = 18;
+			}
+			else if (inv1 == ItemType.WEAPON_MANAGER_TABLET)
+			{
+				ATTG3Plugin.itemid = 19;
+			}
+			else if (inv1 == ItemType.E11_STANDARD_RIFLE)
+			{
+				ATTG3Plugin.itemid = 20;
+			}
+			else if (inv1 == ItemType.P90)
+			{
+				ATTG3Plugin.itemid = 21;
+			}
+			else if (inv1 == ItemType.DROPPED_5)
+			{
+				ATTG3Plugin.itemid = 22;
+			}
+			else if (inv1 == ItemType.MP4)
+			{
+				ATTG3Plugin.itemid = 23;
+			}
+			else if (inv1 == ItemType.LOGICER)
+			{
+				ATTG3Plugin.itemid = 24;
+			}
+			else if (inv1 == ItemType.FRAG_GRENADE)
+			{
+				ATTG3Plugin.itemid = 25;
+			}
+			else if (inv1 == ItemType.FLASHBANG)
+			{
+				ATTG3Plugin.itemid = 26;
+			}
+			else if (inv1 == ItemType.DISARMER)
+			{
+				ATTG3Plugin.itemid = 27;
+			}
+			else if (inv1 == ItemType.DROPPED_7)
+			{
+				ATTG3Plugin.itemid = 28;
+			}
+			else if (inv1 == ItemType.DROPPED_9)
+			{
+				ATTG3Plugin.itemid = 29;
+			}
+			else if (inv1 == ItemType.USP)
+			{
+				ATTG3Plugin.itemid = 30;
+			}
+			else if (inv1 == ItemType.NULL)
+			{
+				ATTG3Plugin.itemid = -1;
+			}
+			#endregion
+			GameObject playerobject = (GameObject)player.GetGameObject();
+			Inventory plainv = playerobject.GetComponent<Inventory>();
+			plainv.SetCurItem(ATTG3Plugin.itemid);
         }
 		public static void FullRandRoomTP(Player player)
 		{

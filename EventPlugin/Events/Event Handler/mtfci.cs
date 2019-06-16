@@ -22,6 +22,8 @@ namespace ATTG3
 		public static int MTFKill = 0;
 		public static int CIKills = 0;
         public static int KillGoal = 0;
+		private Inventory inv;
+		private GrenadeManager nades;
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			if (plugin.MTFCI)
@@ -33,10 +35,6 @@ namespace ATTG3
 						door.Locked = true;
 						door.Open = true;
 					}
-                    else
-                    {
-                        door.Locked = true;
-                    }
 				}
 				foreach (BlastDoor blast in Object.FindObjectsOfType<BlastDoor>())
 				{
@@ -58,7 +56,9 @@ namespace ATTG3
 						player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 					}
 				}
-                KillGoal = Server.NumPlayers*2;
+                KillGoal = Server.NumPlayers*3;
+				inv = PlayerManager.localPlayer.GetComponent<Inventory>();
+				nades = PlayerManager.localPlayer.GetComponent<GrenadeManager>();
 			}
 		}
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
@@ -70,7 +70,7 @@ namespace ATTG3
 				{
 					ev.Items.Add(Events.Invrandgive());
 					ev.Items.Add(ItemType.COM15);
-                    ev.Items.Add(ItemType.COM15);
+                    ev.Items.Add(ItemType.MEDKIT);
                 }
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
@@ -150,7 +150,7 @@ namespace ATTG3
 			if (plugin.MTFCI)
 			{
 				ev.SpawnRagdoll = false;
-				Timing.RunCoroutine(Events.MTFCIRESPAWN(ev.Player));
+				Timing.RunCoroutine(Events.MTFCIRESPAWN(ev.Player,ev.Killer));
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)

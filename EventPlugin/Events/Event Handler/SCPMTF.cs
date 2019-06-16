@@ -180,24 +180,16 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				if (ev.Generator.TimeLeft <= 60)
+				float Indicheck;
+				if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
 				{
-					ev.Allow = false;
-					ev.Player.PersonalBroadcast(10, "You can not stop a Generator after the time remaining is less than 60 sec. ", false);
+						GenTime[ev.Generator.Room.ToString()] = ev.Generator.TimeLeft;
 				}
 				else
 				{
-					float Indicheck;
-					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
-					{
-							GenTime[ev.Generator.Room.ToString()] = ev.Generator.TimeLeft;
-					}
-					else
-					{
-						GenTime.Add(ev.Generator.Room.ToString(), ev.Generator.TimeLeft);
-					}
-					ev.Allow = true;
+					GenTime.Add(ev.Generator.Room.ToString(), ev.Generator.TimeLeft);
 				}
+				ev.Allow = true;
 			}
 		}
 		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
