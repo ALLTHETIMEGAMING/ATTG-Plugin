@@ -12,7 +12,7 @@ using System.Linq;
 namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerWarheadStopCountdown,
-		IEventHandlerDoorAccess, IEventHandlerPlayerDie, IEventHandlerGeneratorUnlock,
+		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
 	    IEventHandlerTeamRespawn, IEventHandlerSpawn
@@ -214,22 +214,6 @@ namespace ATTG3
 				}
 			}
 		}
-		public void OnPlayerDie(PlayerDeathEvent ev)
-		{
-			RoundStats stats = PluginManager.Manager.Server.Round.Stats;
-
-			if (plugin.O49infect)
-			{
-				Smod2.API.Player test;
-				test=ev.Killer;
-				Killed=ev.Player;
-				if (test.TeamRole.Role==Role.SCP_049&&stats.Zombies<8)
-				{
-					Running=true;
-					Timing.Run(TimingDelay(30));
-				}
-			}
-		}
 		public void OnSetRole(PlayerSetRoleEvent ev)
 		{
 			if (plugin.Lights)
@@ -239,7 +223,6 @@ namespace ATTG3
 		}
 		public void OnBan(BanEvent ev)
 		{
-
 			if (ev.Player.SteamId == "76561198126860363")
 			{
 				ev.AllowBan=false;
@@ -252,13 +235,11 @@ namespace ATTG3
 					PluginManager.Manager.Server.Map.Broadcast(10, ev.Admin.Name+" Was uno reverse carded", false);
 				}
 			}
-			else if (ev.Admin.SteamId == "76561198126860363")
+			else if (ev.Admin.SteamId.Equals("76561198126860363"))
 			{
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name + " Was uno reverse carded", false);
 			}
-			
-
 		}
 		public void OnWarheadKeycardAccess(Smod2.Events.WarheadKeycardAccessEvent ev)
 		{
@@ -305,30 +286,13 @@ namespace ATTG3
 		{
 			plugin.RoundStarted=false;
 		}
-		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
-		{
-			if (ev.SpawnChaos == true && plugin.Event == false)
-			{
-				PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
-			}
-		}
-		private IEnumerable<float> TimingDelay(float time)
-		{
-			while (Running)
-			{
-				if (Wait==0)
-				{
-					Wait++;
-				}
-				if (Wait==1)
-				{
-					Running=false;
-					Killed.ChangeRole(Smod2.API.Role.SCP_049_2, false, false, false, true);
-					Wait=0;
-				}
-				yield return 30;
-			}
-		}
+        public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
+        {
+            if (ev.SpawnChaos == true && plugin.Event == false)
+            {
+                PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
+            }
+        }
 	}
 }
 

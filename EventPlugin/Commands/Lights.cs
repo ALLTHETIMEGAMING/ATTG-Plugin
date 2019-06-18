@@ -71,7 +71,6 @@ namespace ATTG3
 			{
 				Generator079.generators[0].CallRpcOvercharge();
 				foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType==ZoneType.LCZ).ToArray())
-
 				{
 					room.FlickerLights();
 				}
