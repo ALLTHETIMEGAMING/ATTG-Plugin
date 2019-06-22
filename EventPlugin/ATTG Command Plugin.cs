@@ -8,14 +8,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MEC;
 using UnityEngine;
-using ServerMod2.API;
-using Smod2.EventHandlers;
-using UnityEngine.Networking;
-using Smod2.Commands;
+using System.Linq;
 
 namespace ATTG3
 {
-
 	[PluginDetails(
 		author = "All The Time Gaming",
 		description = "COMMAND MOD",
@@ -23,12 +19,11 @@ namespace ATTG3
 		name = "ATTG Admin",
 		SmodMajor = 3,
 		SmodMinor = 4,
-		SmodRevision = 0,
-		version = "3.0.0"
+		SmodRevision = 1,
+		version = "4.0.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
 	{
-
 		public static ATTG3Plugin Instance { get; private set; }
 		#region Values
 		// Command Perms
@@ -72,8 +67,10 @@ namespace ATTG3
 		#endregion
 		public static List<string> Randoimitem = new List<string>();
 		public static List<Vector3> TPRooms = new List<Vector3>();
-		//End of Events
-		public override void Register()
+        public static List<Vector3> NoRooms = new List<Vector3>();
+        public static List<Vector3> NoRoomTP = new List<Vector3>();
+        //End of Events
+        public override void Register()
 		{
 			Instance = this;
 			scp4aiur.Timing.Init(this);
@@ -166,7 +163,6 @@ namespace ATTG3
 		{
 			Info("ATTG Command Plugin disabled.");
 		}
-		
 	}
 	public class Events
 	{
@@ -362,21 +358,114 @@ namespace ATTG3
 			Inventory plainv = playerobject.GetComponent<Inventory>();
 			plainv.SetCurItem(ATTG3Plugin.itemid);
         }
-		public static void FullRandRoomTP(Player player)
+        public static void Noroom()
+        {
+            #region Noroom
+            foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).ToArray())
+            {
+                if (room.RoomType == RoomType.AIRLOCK_00)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.ENTRANCE_CHECKPOINT)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.CHECKPOINT_B)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.CHECKPOINT_A)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.GATE_A)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.GATE_B)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.NUKE)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.MICROHID)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.UNDEFINED)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.SCP_914)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+                else if (room.RoomType == RoomType.SCP_106)
+                {
+                    Vector posvect = room.Position;
+                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+                    ATTG3Plugin.NoRooms.Add(posvec3);
+                }
+            }
+            #endregion
+        }
+        public static void GetRoundStartRoom()
+        {
+            GameObject[] array = GameObject.FindGameObjectsWithTag("RoomID");
+            foreach (GameObject val2 in array)
+            {
+                if (val2.GetComponent<Rid>() != null)
+                {
+                    ATTG3Plugin.NoRoomTP.Add(val2.transform.position);
+                }
+            }
+        }
+        public static void RemoveNoRooms()
+        {
+            foreach (Vector3 vector3 in ATTG3Plugin.NoRoomTP)
+            {
+                if (ATTG3Plugin.NoRooms.Contains(vector3))
+                {
+                    ATTG3Plugin.NoRoomTP.Remove(vector3);
+                }
+            }
+        }
+        public static void RemoveRandRoomTP(Player player)
+        {
+            Vector3 val4 = ATTG3Plugin.NoRoomTP[Random.Range(0, ATTG3Plugin.NoRoomTP.Count)];
+            val4.y += 2f;
+            Vector TORoom = new Vector(val4.x, val4.y, val4.z);
+            player.Teleport(TORoom, true);
+            ATTG3Plugin.TPRooms.Remove(val4);
+        }
+        public static void FullRandRoomTP(Player player)
 		{
-			GameObject[] array = GameObject.FindGameObjectsWithTag("RoomID");
-			foreach (GameObject val2 in array)
-			{
-				if (val2.GetComponent<Rid>() != null)
-				{
-					ATTG3Plugin.TPRooms.Add(val2.transform.position);
-				}
-			}
-			Vector3 val4 = ATTG3Plugin.TPRooms[Random.Range(0, ATTG3Plugin.TPRooms.Count)];
+            Vector3 val4 = ATTG3Plugin.TPRooms[Random.Range(0, ATTG3Plugin.TPRooms.Count)];
 			val4.y += 2f;
 			Vector TORoom = new Vector(val4.x, val4.y, val4.z);
-			ATTG3Plugin.TPRooms.Clear();
-			
 			player.Teleport(TORoom, true);
 		}
 	}
