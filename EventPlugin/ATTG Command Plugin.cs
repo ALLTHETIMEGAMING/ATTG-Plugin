@@ -70,7 +70,7 @@ namespace ATTG3
 		public bool INFECT { get; set; }
 		public bool QEvent { get; set; }
 		#endregion
-		public static List<ItemType> Randoimitem = new List<ItemType>();
+		public static List<string> Randoimitem = new List<string>();
 		public static List<Vector3> TPRooms = new List<Vector3>();
 		//End of Events
 		public override void Register()
@@ -158,8 +158,9 @@ namespace ATTG3
 		public override void OnEnable()
 		{
 			Info("ATTG Command Plugin enabled.");
-			Randoimitem.Add(ItemType.E11_STANDARD_RIFLE);
-			Randoimitem.Add(ItemType.LOGICER);
+			Randoimitem.Add("sniper");
+			Randoimitem.Add("heavy");
+			Randoimitem.Add("grenade");
 		}
 		public override void OnDisable()
 		{
@@ -169,7 +170,7 @@ namespace ATTG3
 	}
 	public class Events
 	{
-		public static ItemType Invrandgive()
+		public static string Invrandgive()
 		{
 			int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
 			return ATTG3Plugin.Randoimitem[RandomInt];

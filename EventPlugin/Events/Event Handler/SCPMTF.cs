@@ -124,7 +124,7 @@ namespace ATTG3
 			if (plugin.MTFSCP)
 			{
 				gen++;
-				if (gen >= 1)
+				if (gen == 1)
 				{
 					nuke = true;
 					foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
@@ -136,7 +136,7 @@ namespace ATTG3
 						}
 					}
 				}
-				else if (gen == 5)
+				if (gen == 5)
 				{
 					nuke = true;
 					foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
@@ -229,20 +229,20 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				float Indicheck;
-				if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
+				if (ev.Allow == true)
 				{
-					ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
-				}
-				else
-				{
-					ev.Allow = true;
-				}
-				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-				{
-					if (player.TeamRole.Team == Smod2.API.Team.SCP)
+					float Indicheck;
+					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
 					{
-						player.PersonalBroadcast(10, "The generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
+						ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
+					}
+					foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+					{
+						if (player.TeamRole.Team == Smod2.API.Team.SCP)
+						{
+							PluginManager.Manager.Server.Map.ClearBroadcasts();
+							PluginManager.Manager.Server.Map.Broadcast(10, "The generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
+						}
 					}
 				}
 			}
