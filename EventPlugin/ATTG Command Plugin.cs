@@ -119,6 +119,7 @@ namespace ATTG3
 			this.AddCommand("AGTFF", new TFF(this));
 			this.AddCommand("AGTP", new Teleport(this));
 			this.AddCommands(Sniper.CA, new Sniper(this));
+			this.AddCommands(Config.CA, new Config(this));
 			//Event Handlers
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
 			this.AddEventHandlers(new O79Handler(this), Priority.High);

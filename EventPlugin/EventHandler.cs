@@ -12,7 +12,7 @@ namespace ATTG3
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
-		IEventHandlerTeamRespawn, IEventHandlerSpawn
+		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -288,6 +288,17 @@ namespace ATTG3
 			if (ev.SpawnChaos == true && plugin.Event == false)
 			{
 				PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
+			}
+		}
+		public void OnSetConfig(Smod2.Events.SetConfigEvent ev)
+		{
+			if (Config.Config1)
+			{
+				if (ev.Key == "map_seed")
+				{
+					ev.Value = 862732323;
+					Config.Config1 = false;
+				}
 			}
 		}
 	}
