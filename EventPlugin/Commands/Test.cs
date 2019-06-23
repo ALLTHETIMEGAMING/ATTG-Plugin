@@ -7,7 +7,6 @@ namespace ATTG3
     class Test : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        private bool running;
         public Test(ATTG3Plugin plugin){ this.plugin=plugin;}
         public string GetCommandDescription()
         {
