@@ -106,6 +106,8 @@ namespace ATTG3
 			this.AddCommands(Overcharge.CA, new Overcharge(this));
 			// EVENTS
 			this.AddCommands(EventMainCommand.CA, new EventMainCommand(this));
+
+
 			//END OF EVENTS
 			this.AddCommand("AGFAKE", new Fakedea(this));
 			this.AddCommand("AGAMMO", new Ammo(this));
@@ -117,7 +119,6 @@ namespace ATTG3
 			this.AddCommand("AGTFF", new TFF(this));
 			this.AddCommand("AGTP", new Teleport(this));
 			this.AddCommands(Sniper.CA, new Sniper(this));
-			this.AddCommands(Test.CA, new Test(this));
 			//Event Handlers
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);
 			this.AddEventHandlers(new O79Handler(this), Priority.High);
@@ -525,12 +526,6 @@ namespace ATTG3
 					}
 				}
 			}
-		}
-		public static IEnumerator<float> Infectrespawn(Player player)
-		{
-			yield return MEC.Timing.WaitForSeconds(30);
-			player.ChangeRole(Role.SCP_049_2, true, true, true, true);
-			player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
 		}
 
 	}

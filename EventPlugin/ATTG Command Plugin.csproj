@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\MAP.cs" />
-    <Compile Include="Commands\Test.cs" />
     <Compile Include="Events\Main Event Commands.cs" />
     <Compile Include="Events\Event Handler\QUESTION.cs" />
     <Compile Include="Events\Event Handler\VIPESCAPE.cs" />

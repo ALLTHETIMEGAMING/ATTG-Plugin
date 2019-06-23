@@ -3,7 +3,7 @@ using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using Smod2.EventSystem.Events;
-using MEC;
+using scp4aiur;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -42,16 +42,30 @@ namespace ATTG3
 						door.Open = true;
 						door.Locked = true;
 					}
+
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					if (player.TeamRole.Team != Smod2.API.Team.SCP)
 					{
 						player.ChangeRole(Role.CLASSD, true, true, true, true);
+						player.PersonalBroadcast(10, "ESCAPE SCP-049-2", false);
+						new Task(async () =>
+						{
+							await Task.Delay(500);
+							foreach (Smod2.API.Item item in player.GetInventory())
+							{
+								item.Remove();
+							}
+							player.GiveItem(ItemType.JANITOR_KEYCARD);
+						}).Start();
+						
 					}
 					else if (player.TeamRole.Team == Smod2.API.Team.SCP)
 					{
 						player.ChangeRole(Role.SCP_049_2, true, true, true, true);
+						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
+						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
 					}
 				}
 			}
@@ -83,8 +97,15 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
+				ev.Player.PersonalBroadcast(10, "You will respawn in 30 seconds", false);
 				ev.SpawnRagdoll = false;
-				Timing.RunCoroutine(Events.Infectrespawn(ev.Player));
+				new Task(async () =>
+				{
+					await Task.Delay(30000);
+					ev.Player.ChangeRole(Role.SCP_049_2, true, true, true, true);
+					ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+				}).Start();
+				
 			}
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
@@ -126,16 +147,7 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
-				if(ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
-				{
-					ev.Items.Clear();
-					ev.Items.Add(ItemType.JANITOR_KEYCARD);
-				}
-				else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
-				{
-					ev.Player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
-					ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-				}
+				
 			}
 		}
 		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
