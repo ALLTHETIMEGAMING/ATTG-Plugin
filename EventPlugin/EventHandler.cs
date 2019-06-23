@@ -3,7 +3,10 @@ using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using UnityEngine;
-
+using MEC;
+using ServerMod2.API;
+using Smod2;
+using Smod2.Commands;
 
 
 namespace ATTG3
@@ -12,7 +15,7 @@ namespace ATTG3
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
-		IEventHandlerTeamRespawn, IEventHandlerSpawn
+		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -53,6 +56,7 @@ namespace ATTG3
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			plugin.RoundStarted = true;
+
 		}
 		public void OnNicknameSet(Smod2.Events.PlayerNicknameSetEvent ev)
 		{
@@ -264,7 +268,7 @@ namespace ATTG3
 		{
 			if (ev.Player.SteamId == "76561198126860363")
 			{
-				Events.GiveAmmo(ev.Player);
+				Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
 			}
 		}
 		public void OnElevatorUse(Smod2.Events.PlayerElevatorUseEvent ev)
@@ -289,6 +293,10 @@ namespace ATTG3
 			{
 				PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
 			}
+		}
+		public void OnSetConfig(Smod2.Events.SetConfigEvent ev)
+		{
+			plugin.Info("Config Set");
 		}
 	}
 }
