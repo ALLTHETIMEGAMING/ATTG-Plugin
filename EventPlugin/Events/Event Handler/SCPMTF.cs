@@ -17,6 +17,7 @@ namespace ATTG3
 		int C106;
 		int gen;
 		bool nuke;
+		bool genunlocked;
 		public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;
 		public SCPMTF(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -146,7 +147,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				//genunlocked = false;
+				genunlocked = false;
 				gen++;
 				if (gen == 1)
 				{
@@ -229,7 +230,8 @@ namespace ATTG3
 			{
 				if (ev.Player.TeamRole.Team != Smod2.API.Team.NINETAILFOX)
 				{
-					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out float Indicheck))
+					float Indicheck;
+					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
 					{
 						GenTime[ev.Generator.Room.ToString()] = ev.Generator.TimeLeft;
 					}
@@ -285,7 +287,8 @@ namespace ATTG3
 			{
 				if (ev.Allow == true)
 				{
-					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out float Indicheck))
+					float Indicheck;
+					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
 					{
 						ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
 					}

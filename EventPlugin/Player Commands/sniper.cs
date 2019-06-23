@@ -16,6 +16,7 @@ namespace ATTG3
         public string GetCommandDescription() => "";
         public string GetUsage() => "Changes EL2 Gun";
         public static readonly string[] CA = new string[] { "snipe", "agsnipe" };
+		private WeaponManager weaponManager;
 		public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (!(sender is Server)&&
