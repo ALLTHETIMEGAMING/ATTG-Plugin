@@ -513,6 +513,20 @@ namespace ATTG3
 			door.Locked = false;
 			door.Open = false;
 		}
+		public static void SCPMTF()
+		{
+			foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+			{
+				if (player.TeamRole.Team == Smod2.API.Team.SCP)
+				{
+					if (player.GetPosition().y >= 900)
+					{
+						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(player.TeamRole.Role));
+							
+					}
+				}
+			}
+		}
 
 	}
 }

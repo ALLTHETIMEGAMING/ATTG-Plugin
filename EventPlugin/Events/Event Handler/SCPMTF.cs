@@ -10,7 +10,7 @@ namespace ATTG3
 	internal class SCPMTF : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerLure,
 		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate,
-		IEventHandlerGeneratorUnlock
+		IEventHandlerUpdate
 	{
 
 
@@ -76,7 +76,7 @@ namespace ATTG3
 				}
 				foreach (Generator079 gen in Generator079.generators)
 				{
-					gen.NetworkremainingPowerup = (gen.startDuration = 120f);
+					gen.NetworkremainingPowerup = (gen.startDuration = 300f);
 				}
 			}
 		}
@@ -324,6 +324,13 @@ namespace ATTG3
 			{
 			}
 		}
+		public void OnUpdate(Smod2.Events.UpdateEvent ev)
+		{
+			if (plugin.MTFSCP)
+			{
+				Events.SCPMTF();
+			}
+		}
 		public void OnDetonate()
 		{
 			if (plugin.MTFSCP)
@@ -331,7 +338,7 @@ namespace ATTG3
 				gen = 5;
 			}
 		}
-		public void OnGeneratorUnlock(Smod2.Events.PlayerGeneratorUnlockEvent ev)
+		/*public void OnGeneratorUnlock(Smod2.Events.PlayerGeneratorUnlockEvent ev)
 		{
 			if (plugin.MTFSCP)
 			{
@@ -345,7 +352,7 @@ namespace ATTG3
 					genunlocked = true;
 				}
 			}
-		}
+		}*/
 	}
 }
 
