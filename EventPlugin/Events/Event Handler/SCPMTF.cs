@@ -1,25 +1,23 @@
-﻿using Smod2;
+﻿using MEC;
+using Smod2;
 using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
-using Smod2.EventSystem.Events;
-using MEC;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ATTG3
 {
 	internal class SCPMTF : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate
+		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate,
+		IEventHandlerGeneratorUnlock
 	{
-
 
 
 		int C106;
 		int gen;
 		bool nuke;
+		bool genunlocked;
 		public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;
 		public SCPMTF(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -50,6 +48,24 @@ namespace ATTG3
 						door.Locked = true;
 						door.Open = false;
 					}
+					else if (door.Name == "106_PRIMARY")
+					{
+						door.Locked = true;
+						door.Open = false;
+					}
+					else if (door.Name == "106_PRIMARY")
+					{
+						door.Locked = true;
+						door.Open = false;
+					}
+					else if (door.Name == "106_SECONDARY")
+					{
+						door.Locked = true;
+						door.Open = false;
+					}
+
+					door.DontOpenOnWarhead = true;
+					door.BlockAfterWarheadDetonation = false;
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
@@ -60,7 +76,7 @@ namespace ATTG3
 				}
 				foreach (Generator079 gen in Generator079.generators)
 				{
-					gen.NetworkremainingPowerup = (gen.startDuration = 300f);
+					gen.NetworkremainingPowerup = (gen.startDuration = 120f);
 				}
 			}
 		}
@@ -68,22 +84,25 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-
+				if (ev.Player.GetCurrentItem().ItemType == ItemType.JANITOR_KEYCARD && ev.Door.Destroyed == false && ev.Door.Locked == false)
+				{
+					Timing.RunCoroutine(Events.DOORLOCK(ev.Door));
+				}
 			}
 		}
-
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
 		{
 			if (plugin.MTFSCP)
 			{
 				if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
+					ev.Player.SetRank("cyan", "TEAM: MTF", null);
 					Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
 					if (ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
 					{
 						ev.Items.Add(ItemType.MICROHID);
 					}
-					if (gen == 5 && ev.Player.TeamRole.Role != Role.NTF_COMMANDER )
+					if (gen == 5 && ev.Player.TeamRole.Role != Role.NTF_COMMANDER)
 					{
 						ev.Items.Add(ItemType.MICROHID);
 					}
@@ -92,23 +111,28 @@ namespace ATTG3
 				{
 					if (ev.Player.TeamRole.Role == Role.SCP_049)
 					{
+						ev.Player.SetRank("silver", "SCP-049", null);
 						ev.Player.AddHealth(20000);
 					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_096)
 					{
+						ev.Player.SetRank("silver", "SCP-096", null);
 						ev.Player.AddHealth(15000);
 					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_106)
 					{
+						ev.Player.SetRank("silver", "SCP-106", null);
 						ev.Player.AddHealth(15000);
 					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_173)
 					{
+						ev.Player.SetRank("silver", "SCP-173", null);
 						ev.Player.AddHealth(70000);
-						ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
+						//ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
 					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_939_53 || ev.Player.TeamRole.Role == Role.SCP_939_89)
 					{
+						ev.Player.SetRank("silver", "SCP-939", null);
 						ev.Player.AddHealth(30000);
 					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_079)
@@ -123,6 +147,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
+				genunlocked = false;
 				gen++;
 				if (gen == 1)
 				{
@@ -133,14 +158,35 @@ namespace ATTG3
 						{
 							door.Locked = false;
 							door.Open = false;
+							PluginManager.Manager.Server.Map.ClearBroadcasts();
+							PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#0B7A00>914 UNLOCKED</color></SIZE>", false);
 						}
 					}
+				}
+				if (gen == 4)
+				{
+					foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+					{
+						if (door.Name == "106_PRIMARY")
+						{
+							door.Locked = false;
+							door.Open = false;
+						}
+						else if (door.Name == "106_SECONDARY")
+						{
+							door.Locked = false;
+							door.Open = false;
+						}
+					}
+					PluginManager.Manager.Server.Map.ClearBroadcasts();
+					PluginManager.Manager.Server.Map.Broadcast(10, "<size=75><color=#0B7A00>106 DOORS UNLOCKED</color></size>", false);
 				}
 				if (gen == 5)
 				{
 					nuke = true;
 					foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 					{
+
 						if (door.Name == "NUKE_SURFACE")
 						{
 							door.Locked = false;
@@ -162,6 +208,8 @@ namespace ATTG3
 							door.Open = true;
 						}
 					}
+					PluginManager.Manager.Server.Map.ClearBroadcasts();
+					PluginManager.Manager.Server.Map.Broadcast(10, "<size=75><color=#0B7A00>NUKE CONTROL ROOM UNLOCKED</color></size>", false);
 				}
 			}
 		}
@@ -180,16 +228,23 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				float Indicheck;
-				if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
+				if (ev.Player.TeamRole.Team != Smod2.API.Team.NINETAILFOX)
 				{
+					float Indicheck;
+					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
+					{
 						GenTime[ev.Generator.Room.ToString()] = ev.Generator.TimeLeft;
+					}
+					else
+					{
+						GenTime.Add(ev.Generator.Room.ToString(), ev.Generator.TimeLeft);
+					}
+					ev.Allow = true;
 				}
 				else
 				{
-					GenTime.Add(ev.Generator.Room.ToString(), ev.Generator.TimeLeft);
+					ev.Allow = false;
 				}
-				ev.Allow = true;
 			}
 		}
 		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
@@ -221,6 +276,7 @@ namespace ATTG3
 				else
 				{
 					ev.AllowContain = false;
+					PluginManager.Manager.Server.Map.ClearBroadcasts();
 					PluginManager.Manager.Server.Map.Broadcast(10, C106 + " OUT OF 10 PEOPLE SACRIFICED TO 106", false);
 				}
 			}
@@ -236,18 +292,11 @@ namespace ATTG3
 					{
 						ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
 					}
-					foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-					{
-						if (player.TeamRole.Team == Smod2.API.Team.SCP)
-						{
-							PluginManager.Manager.Server.Map.ClearBroadcasts();
-							PluginManager.Manager.Server.Map.Broadcast(10, "The generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
-						}
-					}
+					PluginManager.Manager.Server.Map.ClearBroadcasts();
+					PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
 				}
 			}
 		}
-
 		public void OnStartCountdown(WarheadStartEvent ev)
 		{
 			if (plugin.MTFSCP)
@@ -273,7 +322,6 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-
 			}
 		}
 		public void OnDetonate()
@@ -281,6 +329,21 @@ namespace ATTG3
 			if (plugin.MTFSCP)
 			{
 				gen = 5;
+			}
+		}
+		public void OnGeneratorUnlock(Smod2.Events.PlayerGeneratorUnlockEvent ev)
+		{
+			if (plugin.MTFSCP)
+			{
+				if (genunlocked == true)
+				{
+					ev.Allow = false;
+				}
+				else
+				{
+					ev.Allow = true;
+					genunlocked = true;
+				}
 			}
 		}
 	}

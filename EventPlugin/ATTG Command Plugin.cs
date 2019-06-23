@@ -1,14 +1,11 @@
-﻿using scp4aiur;
+﻿using Smod2;
+using Smod2.API;
 using Smod2.Attributes;
 using Smod2.Config;
 using Smod2.Events;
-using Smod2;
-using Smod2.API;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using MEC;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 namespace ATTG3
 {
@@ -67,10 +64,10 @@ namespace ATTG3
 		#endregion
 		public static List<string> Randoimitem = new List<string>();
 		public static List<Vector3> TPRooms = new List<Vector3>();
-        public static List<Vector3> NoRooms = new List<Vector3>();
-        public static List<Vector3> NoRoomTP = new List<Vector3>();
-        //End of Events
-        public override void Register()
+		public static List<Vector3> NoRooms = new List<Vector3>();
+		public static List<Vector3> NoRoomTP = new List<Vector3>();
+		//End of Events
+		public override void Register()
 		{
 			Instance = this;
 			scp4aiur.Timing.Init(this);
@@ -166,12 +163,37 @@ namespace ATTG3
 	}
 	public class Events
 	{
-		public static string Invrandgive()
+		public static IEnumerator<float> Invrandgive(Player player)
 		{
+
+			// bug Gives ran item
 			int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
-			return ATTG3Plugin.Randoimitem[RandomInt];
+			if (ATTG3Plugin.Randoimitem[RandomInt] == "sniper")
+			{
+				yield return MEC.Timing.WaitForSeconds(1);
+				GameObject sniper = (GameObject)player.GetGameObject();
+				Inventory sniperinv = sniper.GetComponent<Inventory>();
+				WeaponManager manager = sniper.GetComponent<WeaponManager>();
+				int i = WeaponManagerIndex(manager, 20);
+				sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 4, 3, 1);
+			}
+			else if (ATTG3Plugin.Randoimitem[RandomInt] == "heavy")
+			{
+				yield return MEC.Timing.WaitForSeconds(1);
+				player.GiveItem(ItemType.LOGICER);
+			}
+			else if (ATTG3Plugin.Randoimitem[RandomInt] == "grenade")
+			{
+				yield return MEC.Timing.WaitForSeconds(1);
+				player.GiveItem(ItemType.FRAG_GRENADE);
+				player.GiveItem(ItemType.FRAG_GRENADE);
+				player.GiveItem(ItemType.FRAG_GRENADE);
+				player.GiveItem(ItemType.FRAG_GRENADE);
+				player.GiveItem(ItemType.FRAG_GRENADE);
+				player.GiveItem(ItemType.FRAG_GRENADE);
+			}
 		}
-		public static IEnumerator<float> MTFCIRESPAWN(Player player,Player Attacker)
+		public static IEnumerator<float> MTFCIRESPAWN(Player player, Player Attacker)
 		{
 
 			foreach (Smod2.API.Item item in player.GetInventory())
@@ -182,7 +204,7 @@ namespace ATTG3
 				}
 				item.Remove();
 			}
-            if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+			if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
 			{
 				MTFCI.MTFKill++;
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
@@ -198,7 +220,7 @@ namespace ATTG3
 				yield return MEC.Timing.WaitForSeconds(10);
 				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 			}
-			
+
 		}
 
 		public static IEnumerator<float> GiveAmmo(Player player)
@@ -357,116 +379,140 @@ namespace ATTG3
 			GameObject playerobject = (GameObject)player.GetGameObject();
 			Inventory plainv = playerobject.GetComponent<Inventory>();
 			plainv.SetCurItem(ATTG3Plugin.itemid);
-        }
-        public static void Noroom()
-        {
-            #region Noroom
-            foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).ToArray())
-            {
-                if (room.RoomType == RoomType.AIRLOCK_00)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.ENTRANCE_CHECKPOINT)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.CHECKPOINT_B)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.CHECKPOINT_A)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.GATE_A)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.GATE_B)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.NUKE)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.MICROHID)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.UNDEFINED)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.SCP_914)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-                else if (room.RoomType == RoomType.SCP_106)
-                {
-                    Vector posvect = room.Position;
-                    Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
-                    ATTG3Plugin.NoRooms.Add(posvec3);
-                }
-            }
-            #endregion
-        }
-        public static void GetRoundStartRoom()
-        {
-            GameObject[] array = GameObject.FindGameObjectsWithTag("RoomID");
-            foreach (GameObject val2 in array)
-            {
-                if (val2.GetComponent<Rid>() != null)
-                {
-                    ATTG3Plugin.NoRoomTP.Add(val2.transform.position);
-                }
-            }
-        }
-        public static void RemoveNoRooms()
-        {
-            foreach (Vector3 vector3 in ATTG3Plugin.NoRoomTP)
-            {
-                if (ATTG3Plugin.NoRooms.Contains(vector3))
-                {
-                    ATTG3Plugin.NoRoomTP.Remove(vector3);
-                }
-            }
-        }
-        public static void RemoveRandRoomTP(Player player)
-        {
-            Vector3 val4 = ATTG3Plugin.NoRoomTP[Random.Range(0, ATTG3Plugin.NoRoomTP.Count)];
-            val4.y += 2f;
-            Vector TORoom = new Vector(val4.x, val4.y, val4.z);
-            player.Teleport(TORoom, true);
-            ATTG3Plugin.TPRooms.Remove(val4);
-        }
-        public static void FullRandRoomTP(Player player)
+		}
+		public static void Noroom()
 		{
-            Vector3 val4 = ATTG3Plugin.TPRooms[Random.Range(0, ATTG3Plugin.TPRooms.Count)];
+			#region Noroom
+			foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).ToArray())
+			{
+				if (room.RoomType == RoomType.AIRLOCK_00)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.ENTRANCE_CHECKPOINT)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.CHECKPOINT_B)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.CHECKPOINT_A)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.GATE_A)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.GATE_B)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.NUKE)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.MICROHID)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.UNDEFINED)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.SCP_914)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+				else if (room.RoomType == RoomType.SCP_106)
+				{
+					Vector posvect = room.Position;
+					Vector3 posvec3 = new Vector3(posvect.x, posvect.y, posvect.z);
+					ATTG3Plugin.NoRooms.Add(posvec3);
+				}
+			}
+			#endregion
+		}
+		public static void GetRoundStartRoom()
+		{
+			GameObject[] array = GameObject.FindGameObjectsWithTag("RoomID");
+			foreach (GameObject val2 in array)
+			{
+				if (val2.GetComponent<Rid>() != null)
+				{
+					ATTG3Plugin.NoRoomTP.Add(val2.transform.position);
+				}
+			}
+		}
+		public static void RemoveNoRooms()
+		{
+			foreach (Vector3 vector3 in ATTG3Plugin.NoRoomTP)
+			{
+				if (ATTG3Plugin.NoRooms.Contains(vector3))
+				{
+					ATTG3Plugin.NoRoomTP.Remove(vector3);
+				}
+			}
+		}
+		public static void RemoveRandRoomTP(Player player)
+		{
+			Vector3 val4 = ATTG3Plugin.NoRoomTP[Random.Range(0, ATTG3Plugin.NoRoomTP.Count)];
+			val4.y += 2f;
+			Vector TORoom = new Vector(val4.x, val4.y, val4.z);
+			player.Teleport(TORoom, true);
+			ATTG3Plugin.TPRooms.Remove(val4);
+		}
+		public static void FullRandRoomTP(Player player)
+		{
+			Vector3 val4 = ATTG3Plugin.TPRooms[Random.Range(0, ATTG3Plugin.TPRooms.Count)];
 			val4.y += 2f;
 			Vector TORoom = new Vector(val4.x, val4.y, val4.z);
 			player.Teleport(TORoom, true);
 		}
+		public static int WeaponManagerIndex(WeaponManager manager, int item)
+		{
+			// Get weapon index in WeaponManager
+			int weapon = -1;
+			for (int i = 0; i < manager.weapons.Length; i++)
+			{
+				if (manager.weapons[i].inventoryID == item)
+				{
+					weapon = i;
+				}
+			}
+
+			return weapon;
+		}
+		public static IEnumerator<float> DOORLOCK(Smod2.API.Door door)
+		{
+			yield return MEC.Timing.WaitForSeconds(1);
+			door.Locked = true;
+			door.Open = false;
+			yield return MEC.Timing.WaitForSeconds(10);
+			door.Locked = false;
+			door.Open = false;
+		}
+
 	}
 }

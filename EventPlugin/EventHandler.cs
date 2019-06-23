@@ -1,11 +1,8 @@
-﻿using scp4aiur;
-using Smod2;
+﻿using Smod2;
 using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
-using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 
 
@@ -15,10 +12,10 @@ namespace ATTG3
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
-	    IEventHandlerTeamRespawn, IEventHandlerSpawn
+		IEventHandlerTeamRespawn, IEventHandlerSpawn
 	{
 		private readonly ATTG3Plugin plugin;
-		public EventHandler(ATTG3Plugin plugin) => this.plugin=plugin;
+		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
 		Player Killed;
 		public Scp096PlayerScript PlayerScript { get; private set; }
 		int Wait = 0;
@@ -46,7 +43,7 @@ namespace ATTG3
 			plugin.VIP = false;
 			plugin.QEvent = false;
 			plugin.Infectcontain = false;
-            PlayerConsole.Voted.Clear();
+			PlayerConsole.Voted.Clear();
 			plugin.RoundStarted = false;
 			MAP.Shake = false;
 			MAP.Shake = false;
@@ -81,13 +78,13 @@ namespace ATTG3
 			Player player = ev.Player;
 			if (plugin.O96Door)
 			{
-				if (ev.Player.TeamRole.Role==Role.SCP_096)
+				if (ev.Player.TeamRole.Role == Role.SCP_096)
 				{
 					GameObject Obj = (GameObject)ev.Player.GetGameObject();
-					PlayerScript=Obj.GetComponent<Scp096PlayerScript>();
+					PlayerScript = Obj.GetComponent<Scp096PlayerScript>();
 					if (PlayerScript.Networkenraged == Scp096PlayerScript.RageState.Enraged && ev.Door.Locked == false)
 					{
-						ev.Door.Open=true;
+						ev.Door.Open = true;
 					}
 				}
 			}
@@ -103,96 +100,96 @@ namespace ATTG3
 			}*/
 			if (plugin.NoCHand == true)
 			{
-				if (ev.Door.Permission=="CONT_LVL_3"&&ev.Door.Locked==false)
+				if (ev.Door.Permission == "CONT_LVL_3" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD) ||
 						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
-				else if (ev.Door.Permission=="CONT_LVL_2"&&ev.Door.Locked==false)
+				else if (ev.Door.Permission == "CONT_LVL_2" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
-						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD))
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD) ||
+						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD) || player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD) ||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD) || player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
-				else if (ev.Door.Permission=="CONT_LVL_1"&&ev.Door.Locked==false)
+				else if (ev.Door.Permission == "CONT_LVL_1" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
-						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD)||
-						player.HasItem(ItemType.GUARD_KEYCARD)||player.HasItem(ItemType.JANITOR_KEYCARD)||
-						player.HasItem(ItemType.SCIENTIST_KEYCARD)|| player.HasItem(ItemType.ZONE_MANAGER_KEYCARD))
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD) ||
+						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD) || player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD) ||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD) || player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD) ||
+						player.HasItem(ItemType.GUARD_KEYCARD) || player.HasItem(ItemType.JANITOR_KEYCARD) ||
+						player.HasItem(ItemType.SCIENTIST_KEYCARD) || player.HasItem(ItemType.ZONE_MANAGER_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
-				else if (ev.Door.Permission=="CHCKPOINT_ACC"&&ev.Door.Locked==false)
+				else if (ev.Door.Permission == "CHCKPOINT_ACC" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
-						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD)||
-						player.HasItem(ItemType.GUARD_KEYCARD)||player.HasItem(ItemType.ZONE_MANAGER_KEYCARD))
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD) ||
+						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD) || player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD) ||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD) || player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD) ||
+						player.HasItem(ItemType.GUARD_KEYCARD) || player.HasItem(ItemType.ZONE_MANAGER_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
-				else if (ev.Door.Permission=="ARMORY_LVL_1"&&ev.Door.Locked==false)
+				else if (ev.Door.Permission == "ARMORY_LVL_1" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.GUARD_KEYCARD))
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD) || player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD) ||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD) || player.HasItem(ItemType.GUARD_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
-				else if (ev.Door.Permission=="ARMORY_LVL_2"&&ev.Door.Locked==false)
+				else if (ev.Door.Permission == "ARMORY_LVL_2" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD) || player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD) ||
 						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
-				else if (ev.Door.Permission=="ARMORY_LVL_3"&&ev.Door.Locked==false)
+				else if (ev.Door.Permission == "ARMORY_LVL_3" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
 						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
-				else if (ev.Door.Permission=="ARMORY_LVL_1"&&ev.Door.Locked==false)
+				else if (ev.Door.Permission == "ARMORY_LVL_1" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD)||
-						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD)||player.HasItem(ItemType.GUARD_KEYCARD))
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD) || player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD) ||
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD) || player.HasItem(ItemType.GUARD_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
-				else if (ev.Door.Permission=="EXIT_ACC"&&ev.Door.Locked==false)
+				else if (ev.Door.Permission == "EXIT_ACC" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
-						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD)||player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD))
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
+						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD) || player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
-				else if (ev.Door.Permission=="INCOM_ACC"&&ev.Door.Locked==false)
+				else if (ev.Door.Permission == "INCOM_ACC" && ev.Door.Locked == false)
 				{
-					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
 						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
 					{
-						ev.Allow=true;
+						ev.Allow = true;
 					}
 				}
 			}
@@ -203,11 +200,11 @@ namespace ATTG3
 			Generator gen = ev.Generator;
 			if (plugin.GenLock)
 			{
-				ev.Allow=false;
+				ev.Allow = false;
 			}
-			if (plugin.GenHand&&!plugin.GenLock)
+			if (plugin.GenHand && !plugin.GenLock)
 			{
-				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE)||
+				if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
 						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD))
 				{
 					gen.Unlock();
@@ -225,14 +222,14 @@ namespace ATTG3
 		{
 			if (ev.Player.SteamId == "76561198126860363")
 			{
-				ev.AllowBan=false;
+				ev.AllowBan = false;
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				Player steamadmin = ev.Admin;
 				if (ev.Admin.SteamId != "76561198126860363")
 				{
 					steamadmin.Ban(1);
 					PluginManager.Manager.Server.Map.ClearBroadcasts();
-					PluginManager.Manager.Server.Map.Broadcast(10, ev.Admin.Name+" Was uno reverse carded", false);
+					PluginManager.Manager.Server.Map.Broadcast(10, ev.Admin.Name + " Was uno reverse carded", false);
 				}
 			}
 			else if (ev.Admin.SteamId.Equals("76561198126860363"))
@@ -244,23 +241,23 @@ namespace ATTG3
 		public void OnWarheadKeycardAccess(Smod2.Events.WarheadKeycardAccessEvent ev)
 		{
 			Player player = ev.Player;
-			if (player.HasItem(ItemType.O5_LEVEL_KEYCARD)||player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD)||
+			if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD) ||
 						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD))
 			{
-				ev.Allow=true;
+				ev.Allow = true;
 			}
-			if (player.GetBypassMode()==true)
+			if (player.GetBypassMode() == true)
 			{
-				ev.Allow=true;
+				ev.Allow = true;
 			}
 		}
 		public void OnGeneratorInsertTablet(PlayerGeneratorInsertTabletEvent ev)
 		{
 			if (plugin.GenLock)
 			{
-				ev.Allow=false;
+				ev.Allow = false;
 				ev.Player.PersonalBroadcast(10, "Generators are Locked", false);
-				ev.RemoveTablet=true;
+				ev.RemoveTablet = true;
 			}
 		}
 		public void OnSpawn(PlayerSpawnEvent ev)
@@ -284,15 +281,15 @@ namespace ATTG3
 		}
 		public void OnRoundEnd(Smod2.Events.RoundEndEvent ev)
 		{
-			plugin.RoundStarted=false;
+			plugin.RoundStarted = false;
 		}
-        public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
-        {
-            if (ev.SpawnChaos == true && plugin.Event == false)
-            {
-                PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
-            }
-        }
+		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
+		{
+			if (ev.SpawnChaos == true && plugin.Event == false)
+			{
+				PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
+			}
+		}
 	}
 }
 

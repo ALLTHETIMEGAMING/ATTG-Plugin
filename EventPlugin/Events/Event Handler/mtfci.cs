@@ -12,7 +12,7 @@ using UnityEngine;
 namespace ATTG3
 {
 	internal class MTFCI : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle,
-		IEventHandlerPlayerDie, IEventHandlerSpawn
+		IEventHandlerPlayerDie, IEventHandlerSpawn, IEventHandlerPlayerDropItem
 	{
 
 
@@ -66,18 +66,9 @@ namespace ATTG3
 			if (plugin.MTFCI)
 			{
                 ev.Items.Clear();
-                if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
-				{
-					ev.Items.Add(Events.Invrandgive());
-					ev.Items.Add(ItemType.COM15);
-                    ev.Items.Add(ItemType.MEDKIT);
-                }
-				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
-				{
-					ev.Items.Add(Events.Invrandgive());
-					ev.Items.Add(ItemType.COM15);
-                    ev.Items.Add(ItemType.MEDKIT);
-                }
+				Timing.RunCoroutine(Events.Invrandgive(ev.Player));
+				ev.Items.Add(ItemType.COM15);
+                ev.Items.Add(ItemType.MEDKIT);
 			}
 		}
 		public void OnSpawn(Smod2.Events.PlayerSpawnEvent ev)
@@ -87,13 +78,12 @@ namespace ATTG3
 				if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
 				{
 					ev.SpawnPos = new Vector(0, 1001, 0);
-					Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
 				}
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
 					ev.SpawnPos = new Vector(170, 984, 36);
-					Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
 				}
+				Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
 			}
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
@@ -158,6 +148,13 @@ namespace ATTG3
 			if (plugin.MTFCI)
 			{
 				ev.AllowSummon = false;
+			}
+		}
+		public void OnPlayerDropItem(Smod2.Events.PlayerDropItemEvent ev)
+		{
+			if (plugin.MTFCI)
+			{
+				ev.Allow = false;
 			}
 		}
 	}
