@@ -41,11 +41,11 @@ namespace ATTG3
 							GameObject player1 = (GameObject)myPlayer.GetGameObject();
 
                             door.localPos = player1.transform.position;
+                            door.transform.SetPositionAndRotation(player1.transform.position, Quaternion.identity);
                             door.UpdatePos();
                         }
 					}
 					count=0;
-                    
 				}
 			}
 			return new string[] { "Door Moved" };

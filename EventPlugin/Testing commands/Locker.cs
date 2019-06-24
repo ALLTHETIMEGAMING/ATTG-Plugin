@@ -46,7 +46,8 @@ namespace ATTG3
 								rotation=Vector3.zero,
 								scale=Vector3.one
 							};
-                            Lock.Update();
+                            Lock.transform.SetPositionAndRotation(player1.transform.position,player1.transform.rotation);
+                            Lock.up
                         }
 					}
 					count=0;
