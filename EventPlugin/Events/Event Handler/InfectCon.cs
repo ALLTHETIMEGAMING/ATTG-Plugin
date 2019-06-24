@@ -3,7 +3,7 @@ using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using Smod2.EventSystem.Events;
-using scp4aiur;
+using MEC;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -89,13 +89,8 @@ namespace ATTG3
 			{
 				ev.Player.PersonalBroadcast(10, "You will respawn in 30 seconds", false);
 				ev.SpawnRagdoll = false;
-				new Task(async () =>
-				{
-					await Task.Delay(30000);
-					ev.Player.ChangeRole(Role.NTF_COMMANDER, true, true, true, true);
-				}).Start();
-				
-			}
+                Timing.RunCoroutine(Events.RespawnSpawn(ev.Player,"infectcon"));
+            }
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
 		{

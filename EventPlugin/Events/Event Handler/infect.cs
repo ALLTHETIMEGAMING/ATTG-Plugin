@@ -3,7 +3,7 @@ using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using Smod2.EventSystem.Events;
-using scp4aiur;
+using MEC;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,9 +15,6 @@ namespace ATTG3
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSummonVehicle,
 		IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerCheckEscape, IEventHandlerPlayerHurt
 	{
-
-
-
 		private readonly ATTG3Plugin plugin;
 		public INFECT(ATTG3Plugin plugin) => this.plugin = plugin;
 
@@ -42,7 +39,6 @@ namespace ATTG3
 						door.Open = true;
 						door.Locked = true;
 					}
-
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
@@ -50,16 +46,6 @@ namespace ATTG3
 					{
 						player.ChangeRole(Role.CLASSD, true, true, true, true);
 						player.PersonalBroadcast(10, "ESCAPE SCP-049-2", false);
-						new Task(async () =>
-						{
-							await Task.Delay(500);
-							foreach (Smod2.API.Item item in player.GetInventory())
-							{
-								item.Remove();
-							}
-							player.GiveItem(ItemType.JANITOR_KEYCARD);
-						}).Start();
-						
 					}
 					else if (player.TeamRole.Team == Smod2.API.Team.SCP)
 					{
@@ -99,14 +85,8 @@ namespace ATTG3
 			{
 				ev.Player.PersonalBroadcast(10, "You will respawn in 30 seconds", false);
 				ev.SpawnRagdoll = false;
-				new Task(async () =>
-				{
-					await Task.Delay(30000);
-					ev.Player.ChangeRole(Role.SCP_049_2, true, true, true, true);
-					ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-				}).Start();
-				
-			}
+                Timing.RunCoroutine(Events.RespawnSpawn(ev.Player, "infect"));
+            }
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
 		{
@@ -147,7 +127,11 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
-				
+				if (ev.Player.TeamRole.Role == Role.CLASSD)
+                {
+                    ev.Items.Clear();
+                    ev.Items.Add(ItemType.JANITOR_KEYCARD);
+                }
 			}
 		}
 		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)

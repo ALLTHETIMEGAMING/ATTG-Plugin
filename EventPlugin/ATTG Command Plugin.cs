@@ -166,11 +166,12 @@ namespace ATTG3
 	{
 		public static IEnumerator<float> Invrandgive(Player player)
 		{
+            
 			// bug Gives ran item
 			int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
 			if (ATTG3Plugin.Randoimitem[RandomInt] == "sniper")
 			{
-				yield return MEC.Timing.WaitForSeconds(1);
+				yield return MEC.Timing.WaitForSeconds(2);
 				GameObject sniper = (GameObject)player.GetGameObject();
 				Inventory sniperinv = sniper.GetComponent<Inventory>();
 				WeaponManager manager = sniper.GetComponent<WeaponManager>();
@@ -193,33 +194,34 @@ namespace ATTG3
 				player.GiveItem(ItemType.FRAG_GRENADE);
 			}
 		}
-		public static IEnumerator<float> MTFCIRESPAWN(Player player, Player Attacker)
-		{
-			foreach (Smod2.API.Item item in player.GetInventory())
-			{
-				if (item.ItemType == ItemType.FRAG_GRENADE)
-				{
-					player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, Attacker.GetPosition(), true, player.GetPosition(), true, 0f, false);
-				}
-				item.Remove();
-			}
-			if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
-			{
-				MTFCI.MTFKill++;
-				PluginManager.Manager.Server.Map.ClearBroadcasts();
-				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of " + MTFCI.KillGoal + "</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of " + MTFCI.KillGoal + "</Color>", false);
-				yield return MEC.Timing.WaitForSeconds(10);
-				player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
-			}
-			else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
-			{
-				MTFCI.CIKills++;
-				PluginManager.Manager.Server.Map.ClearBroadcasts();
-				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of " + MTFCI.KillGoal + "</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of " + MTFCI.KillGoal + "</Color>", false);
-				yield return MEC.Timing.WaitForSeconds(10);
-				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
-			}
-		}
+        public static IEnumerator<float> MTFCIRESPAWN(Player player, Player Attacker)
+        {
+
+            foreach (Smod2.API.Item item in player.GetInventory())
+            {
+                if (item.ItemType == ItemType.FRAG_GRENADE)
+                {
+                    player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, Attacker.GetPosition(), true, player.GetPosition(), true, 0f, false);
+                }
+                item.Remove();
+            }
+            if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+            {
+                MTFCI.MTFKill++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of " + MTFCI.KillGoal + "</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of " + MTFCI.KillGoal + "</Color>", false);
+                yield return MEC.Timing.WaitForSeconds(10);
+                player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+            }
+            else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
+            {
+                MTFCI.CIKills++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + MTFCI.MTFKill + " Kills out of " + MTFCI.KillGoal + "</Color> <color=#0B7A00>CI Has " + MTFCI.CIKills + " Kills out of " + MTFCI.KillGoal + "</Color>", false);
+                yield return MEC.Timing.WaitForSeconds(10);
+                player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
+            }
+        }
 		public static IEnumerator<float> GiveAmmo(Player player)
 		{
 			yield return MEC.Timing.WaitForSeconds(1f);
@@ -377,7 +379,8 @@ namespace ATTG3
 			Inventory plainv = playerobject.GetComponent<Inventory>();
 			plainv.SetCurItem(ATTG3Plugin.itemid);
 		}
-		public static void Noroom()
+        #region Roomstuff
+        public static void Noroom()
 		{
 			#region Noroom
 			foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).ToArray())
@@ -487,7 +490,8 @@ namespace ATTG3
 			Vector TORoom = new Vector(val4.x, val4.y, val4.z);
 			player.Teleport(TORoom, true);
 		}
-		public static int WeaponManagerIndex(WeaponManager manager, int item)
+        #endregion
+        public static int WeaponManagerIndex(WeaponManager manager, int item)
 		{
 			// Get weapon index in WeaponManager
 			int weapon = -1;
@@ -518,9 +522,24 @@ namespace ATTG3
 					if (player.GetPosition().y >= 900)
 					{
 						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(player.TeamRole.Role));
+                        player.PersonalBroadcast(5, "You were teleported to your spawn for spawn camping", false);
 					}
 				}
 			}
 		}
-	}
+        public static IEnumerator<float> RespawnSpawn(Player player,string eventnum)
+        {
+            if (eventnum == "infectcon")
+            {
+                yield return MEC.Timing.WaitForSeconds(30);
+                player.ChangeRole(Role.NTF_COMMANDER, true, true, true, true);
+            }
+            else if (eventnum == "infect")
+            {
+                yield return MEC.Timing.WaitForSeconds(30);
+                player.ChangeRole(Role.SCP_049_2, true, true, true, true);
+                player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+            }
+        }
+    }
 }

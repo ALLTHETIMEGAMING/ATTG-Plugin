@@ -3,7 +3,7 @@ using Smod2.Commands;
 using System.Collections.Generic;
 using System.Linq;
 using Smod2;
-using scp4aiur;
+using MEC;
 using Smod2.EventHandlers;
 using Smod2.Events;
 namespace ATTG3
@@ -58,14 +58,14 @@ namespace ATTG3
 						player2.GiveItem(ItemType.FLASHLIGHT);
 					}
 				}
-					Timing.Run(TimingDelay(converted));
+					Timing.RunCoroutine(TimingDelay(converted));
 			}
 			return new[]
 			{
 				$"Lights {(plugin.Lights ? "Deactavated" : "Actavated")}."
 			};
 		}
-		private IEnumerable<float> TimingDelay(float time)
+        public IEnumerator<float> TimingDelay(float time)
 		{
 			while (plugin.Lights)
 			{
@@ -74,7 +74,6 @@ namespace ATTG3
 				{
 					room.FlickerLights();
 				}
-
 				yield return converted;
 			}
 		}

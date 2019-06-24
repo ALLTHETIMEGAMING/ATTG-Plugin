@@ -14,10 +14,6 @@ namespace ATTG3
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
 		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerDoorAccess
 	{
-
-
-
-
 		private readonly ATTG3Plugin plugin;
 		public lerk(ATTG3Plugin plugin) => this.plugin = plugin;
 
@@ -25,11 +21,8 @@ namespace ATTG3
 		{
 			if (plugin.Lerk)
 			{
-
-
 				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
-					
 					if (door.Name == "ESCAPE")
 					{
 						door.Locked = true;
@@ -37,8 +30,8 @@ namespace ATTG3
 					else if (door.Name == "CHECKPOINT_ENT")
 					{
 						door.Locked = true;
+                        door.DontOpenOnWarhead = true;
 					}
-
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
@@ -46,12 +39,6 @@ namespace ATTG3
 					{
 						player.ChangeRole(Role.CLASSD, true, true, true, true);
 						player.PersonalBroadcast(10, "ESCAPE", false);
-						new Task(async () =>
-						{
-							await Task.Delay(500);
-							player.GiveItem(ItemType.FLASHLIGHT);
-							player.GiveItem(ItemType.JANITOR_KEYCARD);
-						}).Start();
 					}
 					if (player.TeamRole.Role == Smod2.API.Role.SCP_173)
 					{
@@ -82,8 +69,6 @@ namespace ATTG3
 				{
 					if (ev.Player.TeamRole.Role == Smod2.API.Role.CLASSD)
 					{
-
-
 						float x = 187;
 						float y = 994;
 						float z = -30;
@@ -91,7 +76,6 @@ namespace ATTG3
 						ev.Player.Teleport(teleport, true);
 						ev.Allow = false;
 						ev.Door.Open = false;
-					
 					}
 					else
 					{
@@ -106,8 +90,18 @@ namespace ATTG3
 		{
 			if (plugin.Lerk)
 			{
-
-			}
+                if (ev.Player.TeamRole.Role == Role.CLASSD)
+                {
+                    ev.Items.Clear();
+                    ev.Items.Add(ItemType.JANITOR_KEYCARD);
+                }
+                else if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
+                {
+                    ev.Items.Clear();
+                    ev.Items.Add(ItemType.CHAOS_INSURGENCY_DEVICE);
+                    ev.Items.Add(ItemType.LOGICER);
+                }
+            }
 		}
 		public void OnGeneratorFinish(GeneratorFinishEvent ev)
 		{

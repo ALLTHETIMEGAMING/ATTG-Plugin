@@ -251,7 +251,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-
+                Events.SCPMTF();
 			}
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
@@ -301,15 +301,21 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-
-			}
+                foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
+                {
+                    Elevator.MovingSpeed = 5;
+                }
+            }
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{
 			if (plugin.MTFSCP)
 			{
-
-			}
+                foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
+                {
+                    Elevator.MovingSpeed = plugin.Elevatord;
+                }
+            }
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{

@@ -39,7 +39,6 @@ namespace ATTG3
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					player.ChangeRole(Role.CLASSD, true, false, true, true);
-
 				}
 			}
 		}
