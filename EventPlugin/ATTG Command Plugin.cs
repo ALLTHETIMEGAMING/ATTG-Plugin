@@ -123,7 +123,9 @@ namespace ATTG3
 			this.AddCommand("AGRANK", new Rank(this));
 			this.AddCommand("AGTFF", new TFF(this));
 			this.AddCommand("AGTP", new Teleport(this));
-			this.AddCommands(Sniper.CA, new Sniper(this));
+            this.AddCommand("AGTP", new Teleport(this));
+            this.AddCommand("AGDoor", new door(this));
+            this.AddCommands(Sniper.CA, new Sniper(this));
 			this.AddCommands(Config.CA, new Config(this));
 			//Event Handlers
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);

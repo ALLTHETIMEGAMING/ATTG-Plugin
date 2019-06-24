@@ -41,14 +41,14 @@ namespace ATTG3
 							GameObject player1 = (GameObject)myPlayer.GetGameObject();
 
                             door.localPos = player1.transform.position;
-
+                            door.UpdatePos();
                         }
 					}
 					count=0;
                     
 				}
 			}
-			return new string[] { "Locker Moved" };
+			return new string[] { "Door Moved" };
 		}
 	}
 }
