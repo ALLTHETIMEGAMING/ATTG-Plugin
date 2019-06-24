@@ -61,8 +61,13 @@ namespace ATTG3
 		public bool MTFCI { get; set; }
 		public bool INFECT { get; set; }
 		public bool QEvent { get; set; }
-		#endregion
-		public static List<string> Randoimitem = new List<string>();
+
+        // Custiom Item Bools
+        public static bool JanDestroy { get; set; }
+        public static  bool Jan10Lock { get; set; }
+        public static bool Jan30Lock { get; set; }
+        #endregion
+        public static List<string> Randoimitem = new List<string>();
 		public static List<Vector3> TPRooms = new List<Vector3>();
 		public static List<Vector3> NoRooms = new List<Vector3>();
 		public static List<Vector3> NoRoomTP = new List<Vector3>();
@@ -509,7 +514,7 @@ namespace ATTG3
             if (door.Locked == false) {
                 if (item == ItemType.JANITOR_KEYCARD)
                 {
-                    if (setting == "10Lock")
+                    if (setting == "10Lock" && ATTG3Plugin.Jan10Lock)
                     {
                         yield return MEC.Timing.WaitForSeconds(1);
                         door.Locked = true;
@@ -518,12 +523,12 @@ namespace ATTG3
                         door.Locked = false;
                         door.Open = false;
                     }
-                    else if (setting == "destroy")
+                    else if (setting == "destroy" && ATTG3Plugin.JanDestroy)
                     {
                         yield return MEC.Timing.WaitForSeconds(1);
                         door.Destroyed = true;
                     }
-                    else if (setting == "30Lock")
+                    else if (setting == "30Lock" && ATTG3Plugin.Jan30Lock)
                     {
                         yield return MEC.Timing.WaitForSeconds(1);
                         door.Locked = true;
