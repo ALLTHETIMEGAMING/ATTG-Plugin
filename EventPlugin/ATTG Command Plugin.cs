@@ -504,14 +504,44 @@ namespace ATTG3
 			}
 			return weapon;
 		}
-		public static IEnumerator<float> DOORLOCK(Smod2.API.Door door)
+		public static IEnumerator<float> CustomitemDoor(Smod2.API.Door door, string setting, ItemType item, Player player)
 		{
-			yield return MEC.Timing.WaitForSeconds(1);
-			door.Locked = true;
-			door.Open = false;
-			yield return MEC.Timing.WaitForSeconds(10);
-			door.Locked = false;
-			door.Open = false;
+            if (door.Locked == false) {
+                if (item == ItemType.JANITOR_KEYCARD)
+                {
+                    if (setting == "10Lock")
+                    {
+                        yield return MEC.Timing.WaitForSeconds(1);
+                        door.Locked = true;
+                        door.Open = false;
+                        yield return MEC.Timing.WaitForSeconds(10);
+                        door.Locked = false;
+                        door.Open = false;
+                    }
+                    else if (setting == "destroy")
+                    {
+                        yield return MEC.Timing.WaitForSeconds(1);
+                        door.Destroyed = true;
+                    }
+                    else if (setting == "30Lock")
+                    {
+                        yield return MEC.Timing.WaitForSeconds(1);
+                        door.Locked = true;
+                        door.Open = false;
+                        yield return MEC.Timing.WaitForSeconds(30);
+                        door.Locked = false;
+                        door.Open = false;
+                        foreach (Smod2.API.Item iteminv in player.GetInventory().Where(i => i.ItemType != ItemType.NULL))
+                        {
+                            if (iteminv.ItemType == item)
+                            {
+                                iteminv.Remove();
+                            }
+                        }
+                    }
+                }
+                // Add More Cards here
+            }
 		}
 		public static void SCPMTF()
 		{

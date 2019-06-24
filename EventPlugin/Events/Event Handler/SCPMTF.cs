@@ -84,11 +84,12 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				if (ev.Player.GetCurrentItem().ItemType == ItemType.JANITOR_KEYCARD && ev.Door.Destroyed == false && ev.Door.Locked == false)
-				{
-					Timing.RunCoroutine(Events.DOORLOCK(ev.Door));
-				}
-			}
+                if (EventPlayerItems.Itemset.ContainsKey(ev.Player))
+                {
+                    EventPlayerItems.Itemset.TryGetValue(ev.Player, out string itemset);
+                    Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, itemset, ev.Player.GetCurrentItem().ItemType, ev.Player));
+                }
+            }
 		}
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
 		{
