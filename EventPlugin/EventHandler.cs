@@ -3,6 +3,7 @@ using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
 using UnityEngine;
+using MEC;
 
 
 
@@ -264,7 +265,7 @@ namespace ATTG3
 		{
 			if (ev.Player.SteamId == "76561198126860363")
 			{
-				Events.GiveAmmo(ev.Player);
+                Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
 			}
 		}
 		public void OnElevatorUse(Smod2.Events.PlayerElevatorUseEvent ev)

@@ -39,10 +39,10 @@ namespace ATTG3
                 "(AGAMMO) (Players name) Gives player 100,000 Ammo",
                 "(AGLOCK) (Players name) Lets Player Lock Doors",
                 "(AGULOCK) (Players name) Lets Player Unlock Doors",
-                "(AGSGOD) Starts SCP God Event",
+                "(EVENT) Shows Event Menu",
                 "(AGFAKE) (Player Name) Fakes a players death",
+                "(CONFIG) Changes map seed",
                 "(AGWORK) (Player Name) Spawns a Work Station under player",
-                "(AGPLAY) (Player Name) Spawns Unknown",
                 "(AGBLAST) Closes the Nuke blast doors",
                 "----------------------------------------",
                 "Plugin created by All The Time Gaming"

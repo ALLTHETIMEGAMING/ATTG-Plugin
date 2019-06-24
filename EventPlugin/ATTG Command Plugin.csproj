@@ -119,6 +119,7 @@
     <Compile Include="Commands\Lights.cs" />
     <Compile Include="Commands V2\Blast.cs" />
     <Compile Include="Network Commands\Genm.cs" />
+    <Compile Include="Testing commands\Door.cs" />
     <Compile Include="Testing commands\Player vars.cs" />
     <Compile Include="Commands V2\Locking.cs" />
     <Compile Include="Testing commands\Locker.cs" />

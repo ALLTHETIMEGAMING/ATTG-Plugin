@@ -20,7 +20,7 @@ namespace ATTG3
 		{
 			if (!(sender is Server)&&
 				sender is Player player&&
-				!plugin.AdminRanks.Contains(player.GetRankName()))
+				!plugin.Allrank.Contains(player.GetRankName()))
 			{
 				return new[]
 				{
@@ -50,7 +50,7 @@ namespace ATTG3
 					count=0;
 				}
 			}
-			return new string[] { "Locker Moved" };
+			return new string[] { "Generator Moved" };
 		}
 	}
 }

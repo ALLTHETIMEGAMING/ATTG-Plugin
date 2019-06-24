@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace ATTG3
 {
-	class Locker1 : ICommandHandler
+	class door : ICommandHandler
 	{
 		private readonly ATTG3Plugin plugin;
 		Server Server => PluginManager.Manager.Server;
 		IConfigFile Config => ConfigManager.Manager.Config;
-		public Locker1(ATTG3Plugin plugin) => this.plugin=plugin;
+		public door(ATTG3Plugin plugin) => this.plugin=plugin;
 		public string GetCommandDescription() => "";
 		public string GetUsage() => "";
 		//Variables Below
@@ -33,23 +33,19 @@ namespace ATTG3
 				if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
 				if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
 				{
-					foreach (Locker Lock in Object.FindObjectsOfType<Locker>())
+					foreach (Door door in Object.FindObjectsOfType<Door>())
 					{
 						count++;
 						if (count==1)
 						{
 							GameObject player1 = (GameObject)myPlayer.GetGameObject();
 
-							Lock.NetworklocalPos=new Offset
-							{
-								position=player1.transform.position,
-								rotation=Vector3.zero,
-								scale=Vector3.one
-							};
-                            Lock.Update();
+                            door.localPos = player1.transform.position;
+
                         }
 					}
 					count=0;
+                    
 				}
 			}
 			return new string[] { "Locker Moved" };

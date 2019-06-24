@@ -21,8 +21,6 @@ namespace ATTG3
             this.plugin=plugin;
         }
         public float converted;
-
-
         public string GetCommandDescription()
         {
             // This prints when someone types HELP HELLO
@@ -37,7 +35,7 @@ namespace ATTG3
         {
             if (!(sender is Server)&&
                 sender is Player player&&
-                !plugin.AdminRanks.Contains(player.GetRankName()))
+                !plugin.Allrank.Contains(player.GetRankName()))
             {
                 return new[]
                 {
@@ -56,16 +54,12 @@ namespace ATTG3
                     converted=10f;
                 }
                 Timing.Run(TimingDelay(converted));
-
             }
             return new[]
             {
                 $"Generator Spam {(plugin.GenSpam ? "On" : "Off")}."
 			};
-
-
         }
-
 		private IEnumerable<float> TimingDelay(float time)
 		{
 			while (plugin.GenSpam)
@@ -76,7 +70,6 @@ namespace ATTG3
 					gen.EjectTablet();
 
 				}
-
 				yield return converted;
 			}
 		}
