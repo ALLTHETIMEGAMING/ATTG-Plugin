@@ -297,11 +297,14 @@ namespace ATTG3
 				if (ev.Key == "map_seed")
 				{
 					ev.Value = 862732323;
-					Config.Config1 = false;
+					
 				}
+                if (ev.Key == "cassie_respawn_announcements")
+                {
+                    ev.Value = false;
+                    Config.Config1 = false;
+                }
 			}
 		}
 	}
 }
-
-

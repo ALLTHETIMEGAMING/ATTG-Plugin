@@ -20,7 +20,7 @@ namespace ATTG3
 		version = "4.1.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
-	{
+    { 
 		public static ATTG3Plugin Instance { get; private set; }
 		#region Values
 		// Command Perms
@@ -166,7 +166,6 @@ namespace ATTG3
 	{
 		public static IEnumerator<float> Invrandgive(Player player)
 		{
-
 			// bug Gives ran item
 			int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
 			if (ATTG3Plugin.Randoimitem[RandomInt] == "sniper")
@@ -196,7 +195,6 @@ namespace ATTG3
 		}
 		public static IEnumerator<float> MTFCIRESPAWN(Player player, Player Attacker)
 		{
-
 			foreach (Smod2.API.Item item in player.GetInventory())
 			{
 				if (item.ItemType == ItemType.FRAG_GRENADE)
@@ -221,9 +219,7 @@ namespace ATTG3
 				yield return MEC.Timing.WaitForSeconds(10);
 				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 			}
-
 		}
-
 		public static IEnumerator<float> GiveAmmo(Player player)
 		{
 			yield return MEC.Timing.WaitForSeconds(1f);
@@ -502,7 +498,6 @@ namespace ATTG3
 					weapon = i;
 				}
 			}
-
 			return weapon;
 		}
 		public static IEnumerator<float> DOORLOCK(Smod2.API.Door door)
@@ -523,11 +518,9 @@ namespace ATTG3
 					if (player.GetPosition().y >= 900)
 					{
 						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(player.TeamRole.Role));
-							
 					}
 				}
 			}
 		}
-
 	}
 }
