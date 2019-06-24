@@ -56,7 +56,7 @@ namespace ATTG3
 						player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 					}
 				}
-                KillGoal = Server.NumPlayers*3;
+                KillGoal = Server.NumPlayers;
 				inv = PlayerManager.localPlayer.GetComponent<Inventory>();
 				nades = PlayerManager.localPlayer.GetComponent<GrenadeManager>();
 			}

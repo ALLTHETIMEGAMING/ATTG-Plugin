@@ -533,9 +533,6 @@ namespace ATTG3
                         yield return MEC.Timing.WaitForSeconds(1);
                         door.Locked = true;
                         door.Open = false;
-                        yield return MEC.Timing.WaitForSeconds(30);
-                        door.Locked = false;
-                        door.Open = false;
                         foreach (Smod2.API.Item iteminv in player.GetInventory().Where(i => i.ItemType != ItemType.NULL))
                         {
                             if (iteminv.ItemType == item)
@@ -543,6 +540,10 @@ namespace ATTG3
                                 iteminv.Remove();
                             }
                         }
+                        yield return MEC.Timing.WaitForSeconds(60);
+                        door.Locked = false;
+                        door.Open = false;
+                        
                     }
                 }
                 // Add More Cards here
