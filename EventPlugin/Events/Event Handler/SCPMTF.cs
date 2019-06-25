@@ -11,9 +11,7 @@ namespace ATTG3
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerLure,
 		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate,
 		IEventHandlerUpdate
-	{
-
-
+    {
 		int C106;
 		int gen;
 		bool nuke;
@@ -26,6 +24,9 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
+                ATTG3Plugin.Jan10Lock = true;
+                ATTG3Plugin.Jan10Lock = true;
+                ATTG3Plugin.JanDestroy = true;
 				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
 					if (door.Name == "NUKE_SURFACE")
@@ -142,7 +143,8 @@ namespace ATTG3
 						ev.Player.ChangeRole(Role.NTF_LIEUTENANT, true, true, true, true);
 					}
 				}
-			}
+                Events.SCPMTF();
+            }
 		}
 		public void OnGeneratorFinish(GeneratorFinishEvent ev)
 		{
@@ -252,7 +254,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-                Events.SCPMTF();
+                
 			}
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
@@ -360,6 +362,7 @@ namespace ATTG3
 				}
 			}
 		}*/
+
 	}
 }
 

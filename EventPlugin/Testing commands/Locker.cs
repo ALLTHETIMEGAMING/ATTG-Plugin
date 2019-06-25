@@ -39,7 +39,6 @@ namespace ATTG3
 						if (count==1)
 						{
 							GameObject player1 = (GameObject)myPlayer.GetGameObject();
-
 							Lock.NetworklocalPos=new Offset
 							{
 								position=player1.transform.position,
@@ -47,7 +46,7 @@ namespace ATTG3
 								scale=Vector3.one
 							};
                             Lock.transform.SetPositionAndRotation(player1.transform.position,player1.transform.rotation);
-                            Lock.up
+                            Lock.Update();
                         }
 					}
 					count=0;

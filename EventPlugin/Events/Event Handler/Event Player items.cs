@@ -15,7 +15,7 @@ namespace ATTG3
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventPlayerItems(ATTG3Plugin plugin) => this.plugin = plugin;
-        public static Dictionary<Player, string> Itemset;
+        public static Dictionary<Player, string> Itemset = new Dictionary<Player, string>();
 
     }
 }

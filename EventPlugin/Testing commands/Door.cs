@@ -3,6 +3,7 @@ using Smod2.API;
 using Smod2.Commands;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ATTG3
 {
@@ -14,7 +15,8 @@ namespace ATTG3
 		public door(ATTG3Plugin plugin) => this.plugin=plugin;
 		public string GetCommandDescription() => "";
 		public string GetUsage() => "";
-		//Variables Below
+        //Variables Below
+        GameObject door2;
 		int count;
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
@@ -39,7 +41,6 @@ namespace ATTG3
 						if (count==1)
 						{
 							GameObject player1 = (GameObject)myPlayer.GetGameObject();
-
                             door.localPos = player1.transform.position;
                             door.transform.SetPositionAndRotation(player1.transform.position, Quaternion.identity);
                             door.UpdatePos();

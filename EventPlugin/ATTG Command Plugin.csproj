@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events.cs" />
     <Compile Include="Commands V2\MAP.cs" />
     <Compile Include="Commands\config.cs" />
     <Compile Include="Events\Event Handler\Event Player items.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Player Commands\Rank.cs" />
     <Compile Include="Player Commands\Target FF.cs" />
     <Compile Include="Player Commands\sniper.cs" />
+    <Compile Include="Player Commands\Teleport+Remove.cs" />
     <Compile Include="Player Commands\Teleport.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />
     <Compile Include="Events\Event Handler\VicHandler.cs" />

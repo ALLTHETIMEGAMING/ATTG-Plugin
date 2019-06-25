@@ -50,7 +50,9 @@ namespace ATTG3
 			MAP.Shake = false;
 			MAP.Tleslad = false;
 			MAP.Tleslas = false;
-		}
+            ATTG3Plugin.TPRooms.Clear();
+            Events.GetRoundStartRoom();
+        }
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			plugin.RoundStarted = true;
