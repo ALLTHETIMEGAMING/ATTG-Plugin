@@ -444,5 +444,9 @@ namespace ATTG3
         {
             File.AppendAllText(ATTG3Plugin.EventSpawn, text);
         }
+        public static void CheckMap(string text)
+        {
+            File.AppendAllText(ATTG3Plugin.Mapseeds, text);
+        }
     }
 }

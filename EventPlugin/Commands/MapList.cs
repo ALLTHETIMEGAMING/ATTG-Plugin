@@ -7,11 +7,11 @@ using System;
 using UnityEngine;
 namespace ATTG3
 {
-    class GetPos : ICommandHandler
+    class MapList : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
         private bool running;
-        public GetPos(ATTG3Plugin plugin)
+        public MapList(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
             this.plugin=plugin;
@@ -30,14 +30,6 @@ namespace ATTG3
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
-            if (sender is Player player&&
-                !plugin.AdminRanks.Contains(player.GetRankName()))
-            {
-                return new[]
-                {
-                    $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
-                };
-            };
             if (sender is Player player1)
             {
                 GameObject val = GameObject.Find("Host");
@@ -47,12 +39,12 @@ namespace ATTG3
                     num = val.GetComponent<RandomSeedSync>().seed;
                 }
 
-                string pos = num.ToString() + ":" +player1.GetPosition().ToString() + Environment.NewLine;
-                Events.Setfile(pos);
+                string seed = num.ToString() + ":" +player1.Name + Environment.NewLine;
+                Events.CheckMap(seed);
             }
             return new[]
             {
-                $"Position Added to file."
+                $"Added Map to Check File."
             };
         }
     }

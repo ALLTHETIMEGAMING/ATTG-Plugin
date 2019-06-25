@@ -78,6 +78,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\MapList.cs" />
     <Compile Include="Commands\GetPos.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Commands V2\MAP.cs" />

@@ -73,6 +73,7 @@ namespace ATTG3
 		public static List<Vector3> NoRooms = new List<Vector3>();
 		public static List<Vector3> NoRoomTP = new List<Vector3>();
         public static string EventSpawn = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
+        public static string Mapseeds = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Mapseeds.txt";
         //End of Events
         public override void Register()
 		{
@@ -129,6 +130,7 @@ namespace ATTG3
             this.AddCommand("AGDoor", new door(this));
             this.AddCommand("AGTPR", new TeleportRemove(this));
             this.AddCommand("GETPOS", new GetPos(this));
+            this.AddCommand("MAPADD", new MapList(this));
             this.AddCommands(Sniper.CA, new Sniper(this));
 			this.AddCommands(Config.CA, new Config(this));
 			//Event Handlers
@@ -170,6 +172,10 @@ namespace ATTG3
             if (!File.Exists(EventSpawn))
             {
                 using (new StreamWriter(File.Create(EventSpawn))) { }
+            }
+            if (!File.Exists(Mapseeds))
+            {
+                using (new StreamWriter(File.Create(Mapseeds))) { }
             }
         }
 		public override void OnDisable()
