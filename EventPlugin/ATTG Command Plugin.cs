@@ -21,7 +21,7 @@ namespace ATTG3
 		version = "4.1.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
-    { 
+    {
 		public static ATTG3Plugin Instance { get; private set; }
 		#region Values
 		// Command Perms
