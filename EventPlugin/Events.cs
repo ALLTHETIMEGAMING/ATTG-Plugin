@@ -6,6 +6,7 @@ using Smod2.Events;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.IO;
 
 namespace ATTG3
 {
@@ -17,7 +18,7 @@ namespace ATTG3
         public Events(ATTG3Plugin plugin) => this.plugin = plugin;
         public static IEnumerator<float> Invrandgive(Player player)
         {
-
+            
             // bug Gives ran item
             int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
             if (ATTG3Plugin.Randoimitem[RandomInt] == "sniper")
@@ -369,12 +370,13 @@ namespace ATTG3
         {
             if (door.Locked == false)
             {
+                ATTG3Plugin.Instance.Info("Door is not locked");
                 if (item == ItemType.JANITOR_KEYCARD)
                 {
-
-                    if (setting == "10Lock" && ATTG3Plugin.Jan10Lock)
+                    ATTG3Plugin.Instance.Info("Item is Janitor Keycard");
+                    if (setting == "10Lock")
                     {
-
+                        ATTG3Plugin.Instance.Info("10lock");
                         yield return MEC.Timing.WaitForSeconds(1);
                         door.Locked = true;
                         door.Open = false;
@@ -382,13 +384,15 @@ namespace ATTG3
                         door.Locked = false;
                         door.Open = false;
                     }
-                    else if (setting == "destroy" && ATTG3Plugin.JanDestroy)
+                    else if (setting == "destroy")
                     {
+                        ATTG3Plugin.Instance.Info("destroy");
                         yield return MEC.Timing.WaitForSeconds(1);
                         door.Destroyed = true;
                     }
-                    else if (setting == "30Lock" && ATTG3Plugin.Jan30Lock)
+                    else if (setting == "30Lock")
                     {
+                        ATTG3Plugin.Instance.Info("30lock");
                         yield return MEC.Timing.WaitForSeconds(1);
                         door.Locked = true;
                         door.Open = false;
@@ -435,6 +439,10 @@ namespace ATTG3
                 player.ChangeRole(Role.SCP_049_2, true, true, true, true);
                 player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
             }
+        }
+        public static void Setfile(string text)
+        {
+            File.AppendAllText(ATTG3Plugin.EventSpawn, text);
         }
     }
 }

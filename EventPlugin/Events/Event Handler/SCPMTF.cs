@@ -87,8 +87,8 @@ namespace ATTG3
 			{
                 if (EventPlayerItems.Itemset.ContainsKey(ev.Player))
                 {
-                    EventPlayerItems.Itemset.TryGetValue(ev.Player, out string itemset);
-                    Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, itemset, ev.Player.GetCurrentItem().ItemType, ev.Player));
+                    
+                    Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, EventPlayerItems.Itemset[ev.Player], ev.Player.GetCurrentItem().ItemType, ev.Player));
                 }
             }
 		}

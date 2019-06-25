@@ -6,6 +6,7 @@ using Smod2.Events;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.IO;
 
 namespace ATTG3
 {
@@ -71,8 +72,9 @@ namespace ATTG3
 		public static List<Vector3> TPRooms = new List<Vector3>();
 		public static List<Vector3> NoRooms = new List<Vector3>();
 		public static List<Vector3> NoRoomTP = new List<Vector3>();
-		//End of Events
-		public override void Register()
+        public static string EventSpawn = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
+        //End of Events
+        public override void Register()
 		{
 			Instance = this;
 			scp4aiur.Timing.Init(this);
@@ -126,6 +128,7 @@ namespace ATTG3
             this.AddCommand("AGTP", new Teleport(this));
             this.AddCommand("AGDoor", new door(this));
             this.AddCommand("AGTPR", new TeleportRemove(this));
+            this.AddCommand("GETPOS", new GetPos(this));
             this.AddCommands(Sniper.CA, new Sniper(this));
 			this.AddCommands(Config.CA, new Config(this));
 			//Event Handlers
@@ -164,7 +167,11 @@ namespace ATTG3
 			Randoimitem.Add("sniper");
 			Randoimitem.Add("heavy");
 			Randoimitem.Add("grenade");
-		}
+            if (!File.Exists(EventSpawn))
+            {
+                using (new StreamWriter(File.Create(EventSpawn))) { }
+            }
+        }
 		public override void OnDisable()
 		{
 			Info("ATTG Command Plugin disabled.");
