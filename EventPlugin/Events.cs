@@ -18,7 +18,7 @@ namespace ATTG3
         public Events(ATTG3Plugin plugin) => this.plugin = plugin;
         public static IEnumerator<float> Invrandgive(Player player)
         {
-            
+
             // bug Gives ran item
             int RandomInt = new System.Random().Next(ATTG3Plugin.Randoimitem.Count);
             if (ATTG3Plugin.Randoimitem[RandomInt] == "sniper")
@@ -447,6 +447,12 @@ namespace ATTG3
         public static void CheckMap(string text)
         {
             File.AppendAllText(ATTG3Plugin.Mapseeds, text);
+        }
+        public static List<string> getfilemod()
+        {
+            var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
+            ATTG3Plugin.Maplist = new List<string>(Mapfile);
+            return ATTG3Plugin.Maplist;
         }
     }
 }

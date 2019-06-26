@@ -72,6 +72,9 @@ namespace ATTG3
 		public static List<Vector3> TPRooms = new List<Vector3>();
 		public static List<Vector3> NoRooms = new List<Vector3>();
 		public static List<Vector3> NoRoomTP = new List<Vector3>();
+        public static List<string> Maplist;
+
+
         public static string EventSpawn = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
         public static string Mapseeds = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Mapseeds.txt";
         //End of Events
@@ -177,6 +180,7 @@ namespace ATTG3
             {
                 using (new StreamWriter(File.Create(Mapseeds))) { }
             }
+            Events.getfilemod();
         }
 		public override void OnDisable()
 		{

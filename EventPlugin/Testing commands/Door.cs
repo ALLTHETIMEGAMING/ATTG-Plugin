@@ -3,6 +3,7 @@ using Smod2.API;
 using Smod2.Commands;
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.Networking;
 
 namespace ATTG3
@@ -35,19 +36,22 @@ namespace ATTG3
 				if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
 				if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
 				{
-					foreach (Door door in Object.FindObjectsOfType<Door>())
-					{
-						count++;
-						if (count==1)
-						{
-							GameObject player1 = (GameObject)myPlayer.GetGameObject();
-                            door.localPos = player1.transform.position;
-                            door.transform.SetPositionAndRotation(player1.transform.position, Quaternion.identity);
-                            door.UpdatePos();
-                        }
-					}
-					count=0;
-				}
+                    Door[] doors = Object.FindObjectsOfType<Door>();
+                    Random rnd = new Random();
+                    int index = Random.Range(0, doors.Length);
+                    Door door = doors[index];
+                    GameObject player1 = (GameObject)myPlayer.GetGameObject();
+                    // Test 1
+                    door.localPos = player1.transform.position;
+                    //door.SetLocalPos();
+                    //door.UpdatePos();
+                    // Test 2
+                    door.transform.SetPositionAndRotation(player1.transform.position, Quaternion.identity);
+                    //door.UpdatePos();
+                    // Test 3
+                    door.transform.position = player1.transform.position;
+                    //door.UpdatePos();
+                }
 			}
 			return new string[] { "Door Moved" };
 		}
