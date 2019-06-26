@@ -4,8 +4,14 @@ using Smod2.EventHandlers;
 using Smod2.Events;
 using UnityEngine;
 using MEC;
-
-
+using System.IO;
+using System.Collections.Generic;
+using Smod2.Attributes;
+using Smod2.Config;
+using System.Linq;
+using System.Threading;
+using System;
+using Smod2.Commands;
 
 namespace ATTG3
 {
@@ -16,11 +22,9 @@ namespace ATTG3
 		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig
     {
 		private readonly ATTG3Plugin plugin;
+        bool mapseed;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
-		Player Killed;
 		public Scp096PlayerScript PlayerScript { get; private set; }
-		int Wait = 0;
-		bool Running = false;
 		public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
 		{
 			if (plugin.Disable)
@@ -50,8 +54,17 @@ namespace ATTG3
 			MAP.Shake = false;
 			MAP.Tleslad = false;
 			MAP.Tleslas = false;
+            mapseed = true;
             ATTG3Plugin.TPRooms.Clear();
             Events.GetRoundStartRoom();
+            var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
+            ATTG3Plugin.Maplist = new List<string>(Mapfile);
+            Events.MapSpawnVec();
+            /*foreach(string test in ATTG3Plugin.Maplist)
+            {
+                plugin.Info(test);
+            }*/
+
         }
 		public void OnRoundStart(RoundStartEvent ev)
 		{
@@ -220,6 +233,10 @@ namespace ATTG3
 			{
 				ev.Player.GiveItem(ItemType.FLASHLIGHT);
 			}
+            if (plugin.TestingSpawn)
+            {
+                int RandomInt = new System.Random().Next(ATTG3Plugin.Maplist.Count);
+            }
 		}
 		public void OnBan(BanEvent ev)
 		{
@@ -268,6 +285,11 @@ namespace ATTG3
 			if (ev.Player.SteamId == "76561198126860363")
 			{
                 Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
+                if (Config.Config1)
+                {
+                    int RandomInt = new System.Random().Next(ATTG3Plugin.MapCusSpawn.Count);
+                    ev.SpawnPos = ATTG3Plugin.MapCusSpawn[RandomInt];
+                }
 			}
 		}
 		public void OnElevatorUse(Smod2.Events.PlayerElevatorUseEvent ev)
@@ -285,7 +307,9 @@ namespace ATTG3
 		public void OnRoundEnd(Smod2.Events.RoundEndEvent ev)
 		{
 			plugin.RoundStarted = false;
-		}
+            ConfigFile.ReloadGameConfig();
+            ATTG3Plugin.MapCusSpawn.Clear();
+        }
 		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
 		{
 			if (ev.SpawnChaos == true && plugin.Event == false)
@@ -293,22 +317,21 @@ namespace ATTG3
 				PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
 			}
 		}
-		public void OnSetConfig(Smod2.Events.SetConfigEvent ev)
-		{
-			if (Config.Config1)
-			{
-				if (ev.Key == "map_seed")
-				{
-					ev.Value = 862732323;
-					
-				}
-                if (ev.Key == "cassie_respawn_announcements")
+        public void OnSetConfig(Smod2.Events.SetConfigEvent ev)
+        {
+            if (ATTG3Plugin.Maplist.Count > 0)
+            {
+                if (ev.Key == "map_seed")
                 {
-                    ev.Value = false;
-                    Config.Config1 = false;
+                    var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
+                    ATTG3Plugin.Maplist = new List<string>(Mapfile);
+                    int RandomInt = new System.Random().Next(ATTG3Plugin.Maplist.Count);
+                    
+                    int mapseed = Int32.Parse(ATTG3Plugin.Maplist[RandomInt].ToString());
+                    plugin.Info(mapseed.ToString());
+                    ev.Value = mapseed;
                 }
-			}
-		}
-
-	}
+            }
+        }
+    }
 }

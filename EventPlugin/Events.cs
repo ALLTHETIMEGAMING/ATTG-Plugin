@@ -7,12 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System.IO;
+using System.Threading;
+using System;
+using Smod2.Commands;
 
 namespace ATTG3
 {
     public class Events
     {
-        private readonly ATTG3Plugin plugin;
+        readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
         public Events(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -339,7 +342,7 @@ namespace ATTG3
         }
         public static void RemoveRandRoomTP(Player player)
         {
-            Vector3 val4 = ATTG3Plugin.NoRoomTP[Random.Range(0, ATTG3Plugin.NoRoomTP.Count)];
+            Vector3 val4 = ATTG3Plugin.NoRoomTP[UnityEngine.Random.Range(0, ATTG3Plugin.NoRoomTP.Count)];
             val4.y += 2f;
             Vector TORoom = new Vector(val4.x, val4.y, val4.z);
             player.Teleport(TORoom, true);
@@ -347,7 +350,7 @@ namespace ATTG3
         }
         public static void FullRandRoomTP(Player player)
         {
-            Vector3 val4 = ATTG3Plugin.TPRooms[Random.Range(0, ATTG3Plugin.TPRooms.Count)];
+            Vector3 val4 = ATTG3Plugin.TPRooms[UnityEngine.Random.Range(0, ATTG3Plugin.TPRooms.Count)];
             val4.y += 2f;
             Vector TORoom = new Vector(val4.x, val4.y, val4.z);
             player.Teleport(TORoom, true);
@@ -442,17 +445,49 @@ namespace ATTG3
         }
         public static void Setfile(string text)
         {
-            File.AppendAllText(ATTG3Plugin.EventSpawn, text);
+            
+            File.AppendAllText(ATTG3Plugin.EventSpawn, text.Trim('(', ')', ' '));
         }
         public static void CheckMap(string text)
         {
             File.AppendAllText(ATTG3Plugin.Mapseeds, text);
         }
-        public static List<string> getfilemod()
+        public static void MapSpawnVec()
         {
-            var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
-            ATTG3Plugin.Maplist = new List<string>(Mapfile);
-            return ATTG3Plugin.Maplist;
+            string[] MapSpaVec = File.ReadAllLines(ATTG3Plugin.EventSpawn);
+            if (MapSpaVec.Count() > 0)
+            {
+                GameObject val = GameObject.Find("Host");
+                int num = -1;
+                if (val != null)
+                {
+                    num = val.GetComponent<RandomSeedSync>().seed;
+                }
+                ATTG3Plugin.Instance.Info("Checking map Seeds and Custom Vectors");
+                ATTG3Plugin.MapCusSpawn.Clear();
+                foreach (string spawnvec in MapSpaVec)
+                {
+                    if (spawnvec.Length > 0)
+                    {
+                        if (num == Int32.Parse(spawnvec.Split(':')[0]))
+                        {
+                            
+                            ATTG3Plugin.Instance.Info("Cheking Vectors");
+                            string line = spawnvec.Split(':')[0];
+                            ATTG3Plugin.Instance.Info(line);
+                            float x = float.Parse(line.Split(',')[0]);
+                            float y = float.Parse(line.Split(',')[1]);
+                            float z = float.Parse(line.Split(',')[2]);
+                            ATTG3Plugin.Instance.Info(x.ToString());
+                            ATTG3Plugin.Instance.Info(y.ToString());
+                            ATTG3Plugin.Instance.Info(z.ToString());
+                            Vector Posspawn = new Vector(x, y, z);
+                            ATTG3Plugin.MapCusSpawn.Add(Posspawn);
+                        }
+                    }
+                }
+                ATTG3Plugin.Instance.Info("Done Checking map Seeds and Custom Vectors");
+            }
         }
     }
 }

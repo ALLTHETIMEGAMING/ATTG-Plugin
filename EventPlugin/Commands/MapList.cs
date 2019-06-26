@@ -36,19 +36,14 @@ namespace ATTG3
                     Events.CheckMap(seed);
                     return new[]
                     {
-                    "Map List added",
-                    Events.getfilemod().ToString()
+                    "Map added to List",
                     };
                 }
                 else
-                {
                     return new[] { "Error Code 1 Map is in file" };
-                }
             }
             else
-            {
                 return new[] { "Error Code 2 player not found" };
-            }
         }
     }
 }

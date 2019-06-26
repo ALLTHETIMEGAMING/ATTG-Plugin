@@ -62,6 +62,7 @@ namespace ATTG3
 		public bool MTFCI { get; set; }
 		public bool INFECT { get; set; }
 		public bool QEvent { get; set; }
+        public bool TestingSpawn { get; set; }
 
         // Custiom Item Bools
         public static bool JanDestroy { get; set; } = true;
@@ -72,7 +73,8 @@ namespace ATTG3
 		public static List<Vector3> TPRooms = new List<Vector3>();
 		public static List<Vector3> NoRooms = new List<Vector3>();
 		public static List<Vector3> NoRoomTP = new List<Vector3>();
-        public static List<string> Maplist;
+        public static List<string> Maplist = new List<string>();
+        public static List<Vector> MapCusSpawn = new List<Vector>();
 
 
         public static string EventSpawn = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
@@ -129,7 +131,6 @@ namespace ATTG3
 			this.AddCommand("AGRANK", new Rank(this));
 			this.AddCommand("AGTFF", new TFF(this));
 			this.AddCommand("AGTP", new Teleport(this));
-            this.AddCommand("AGTP", new Teleport(this));
             this.AddCommand("AGDoor", new door(this));
             this.AddCommand("AGTPR", new TeleportRemove(this));
             this.AddCommand("GETPOS", new GetPos(this));
@@ -180,7 +181,7 @@ namespace ATTG3
             {
                 using (new StreamWriter(File.Create(Mapseeds))) { }
             }
-            Events.getfilemod();
+            
         }
 		public override void OnDisable()
 		{

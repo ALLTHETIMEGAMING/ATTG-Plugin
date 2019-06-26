@@ -35,11 +35,18 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-			Config1 = true;
-			ConfigFile.ReloadGameConfig();
+            if (Config1 == false)
+            {
+                Config1 = true;
+                Events.MapSpawnVec();
+            }
+			else
+            {
+                Config1 = false;
+            }
             return new[]
             {
-                $"Map Changed."
+                $"Debug test {(Config1 ? "Actavated" : "Deactavated")}"
             };
         }
     }

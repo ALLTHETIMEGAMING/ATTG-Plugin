@@ -51,6 +51,7 @@ namespace ATTG3
                     // Test 3
                     door.transform.position = player1.transform.position;
                     //door.UpdatePos();
+                    door.SetLocalPos();
                 }
 			}
 			return new string[] { "Door Moved" };
