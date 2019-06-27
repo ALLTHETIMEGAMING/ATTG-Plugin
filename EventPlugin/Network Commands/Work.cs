@@ -44,22 +44,18 @@ namespace ATTG3
                 {
                     GameObject player1 = (GameObject)myPlayer.GetGameObject();
                     Vector pos = myPlayer.GetPosition();
-                    
 					GameObject Work1 = NetworkManager.singleton.spawnPrefabs.First(x => x.name=="Work Station");
-
 					GameObject val = GameObject.Instantiate(Work1, player1.transform.position, player1.transform.rotation);
                         val.GetComponent<WorkStation>().Networkposition=new Offset {position=new Vector3(pos.x, pos.y, pos.z+2), scale=Vector3.one};
                         NetworkServer.Spawn(val);
                         wipe.Add(val);
                         return new string[] { "Workstation Spawned" };
-                    
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
             }
             else
             {
-                
                 foreach (GameObject game in wipe)
                 {
                     Count++;

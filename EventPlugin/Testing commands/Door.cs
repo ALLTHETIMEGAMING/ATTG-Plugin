@@ -9,17 +9,15 @@ using UnityEngine.Networking;
 
 namespace ATTG3
 {
-	class door : ICommandHandler
+	class DoorMain : ICommandHandler
 	{
 		private readonly ATTG3Plugin plugin;
 		Server Server => PluginManager.Manager.Server;
 		IConfigFile Config => ConfigManager.Manager.Config;
-		public door(ATTG3Plugin plugin) => this.plugin=plugin;
+		public DoorMain(ATTG3Plugin plugin) => this.plugin=plugin;
 		public string GetCommandDescription() => "";
 		public string GetUsage() => "";
         //Variables Below
-        GameObject door2;
-		int count;
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
 			if (!(sender is Server)&&
@@ -50,8 +48,9 @@ namespace ATTG3
                     door.transform.SetPositionAndRotation(player1.transform.position, Quaternion.identity);
                     //door.UpdatePos();
                     // Test 3
-                    door.transform.position = player1.transform.position;
-                    door.UpdatePos();
+                    //door.transform.position = player1.transform.position;
+                    //door.UpdatePos();
+                    door.transform.localPosition = player1.transform.position;
                 }
 			}
 			return new string[] { "Door Moved" };

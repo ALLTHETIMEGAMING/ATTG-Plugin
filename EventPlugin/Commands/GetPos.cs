@@ -10,7 +10,6 @@ namespace ATTG3
     class GetPos : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        private bool running;
         public GetPos(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
@@ -40,20 +39,51 @@ namespace ATTG3
             };
             if (sender is Player player1)
             {
-                GameObject val = GameObject.Find("Host");
-                int num = -1;
-                if (val != null)
+                if (args.Length > 0)
                 {
-                    num = val.GetComponent<RandomSeedSync>().seed;
+                    string pos;
+                    string args2 = args[0].ToLower();
+                    GameObject val = GameObject.Find("Host");
+                    int num = -1;
+                    if (val != null)
+                    {
+                        num = val.GetComponent<RandomSeedSync>().seed;
+                    }
+                    if (args2 == "LCZ")
+                    {
+                        pos = num.ToString() + ":" + "LCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
+                        Events.Setfile(pos);
+                    }
+                    else if (args2 == "HCZ")
+                    {
+                        pos = num.ToString() + ":" + "HCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
+                        Events.Setfile(pos);
+                    }
+                    else if (args2 == "ECZ")
+                    {
+                        pos = num.ToString() + ":"+ "ECZ" + ":"+ player1.GetPosition().ToString() + Environment.NewLine;
+                        Events.Setfile(pos);
+                    }
+                    return new[]
+{
+                        "Position Added to file."
+                    };
                 }
-
-                string pos = num.ToString() + ":" +player1.GetPosition().ToString() + Environment.NewLine;
-                Events.Setfile(pos);
+                else
+                {
+                    return new[]
+                    {
+                        $"must use LCZ/HCZ/ECZ."
+                    };
+                }
             }
-            return new[]
+            else
             {
-                $"Position Added to file."
-            };
+                return new[]
+                {
+                $"Not a player."
+                };
+            }
         }
     }
 }

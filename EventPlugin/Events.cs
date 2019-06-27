@@ -446,19 +446,18 @@ namespace ATTG3
         #region Map/file Stuff
         public static void Setfile(string text)
         {
-            
-            File.AppendAllText(ATTG3Plugin.EventSpawn, text.Trim('(', ')', ' '));
+            string text2 = text.Trim('(', ')', ' ');
+            File.AppendAllText(ATTG3Plugin.EventSpawn, text2);
         }
         public static void CheckMap(string text)
         {
-            File.AppendAllText(ATTG3Plugin.Mapseeds, text);
+            string text2 = text.Trim('(', ')', ' ');
+            File.AppendAllText(ATTG3Plugin.Mapseeds, text2);
         }
         public static void MapSpawnVec()
         {
             if (ATTG3Plugin.MapCusSpawn.Count > 0)
                 ATTG3Plugin.MapCusSpawn.Clear();
-            
-
             List<string> MapSpaVec = new List<string>();
             MapSpaVec = File.ReadAllLines(ATTG3Plugin.EventSpawn).ToList();
             if (MapSpaVec.Count() > 0)
@@ -470,41 +469,135 @@ namespace ATTG3
                     num = val.GetComponent<RandomSeedSync>().seed;
                 }
                 ATTG3Plugin.Instance.Info("Checking map Seeds and Custom Vectors");
-
                 foreach (string spawnvec in MapSpaVec)
                 {
                     if (spawnvec.Length > 0)
                     {
                         if (num == Int32.Parse(spawnvec.Split(':')[0]))
                         {
-                            
-                            ATTG3Plugin.Instance.Info("Cheking Vectors");
                             string line = spawnvec.Split(':')[0];
-                            string line1 = spawnvec.Split(':')[1];
-                            //ATTG3Plugin.Instance.Info(line);
+                            string line1 = spawnvec.Split(':')[2];
                             float x = float.Parse(line1.Split(',')[0]);
                             float y = float.Parse(line1.Split(',')[1]);
                             float z = float.Parse(line1.Split(',')[2]);
-                            //ATTG3Plugin.Instance.Info(x.ToString());
-                            //ATTG3Plugin.Instance.Info(y.ToString());
-                            //ATTG3Plugin.Instance.Info(z.ToString());
                             Vector Posspawn = new Vector(x, y, z);
                             ATTG3Plugin.MapCusSpawn.Add(Posspawn);
-                            
                         }
-                        /*else
-                        {
-                            ATTG3Plugin.Instance.Info("Error Map is not a match for vector ");
-                        }*/
                     }
                 }
                 ATTG3Plugin.Instance.Info("Done Checking map Seeds and Custom Vectors");
             }
         }
-       // public static void customfile()
-        //{
-         //   public static string MapSpawns = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "MapSpawns" + Path.DirectorySeparatorChar + +".txt";
-        //} 
+        public static void Filesetup()
+        {
+            string ATTGF = FileManager.GetAppFolder(shared: true) + "ATTG";
+            string ATTGFM = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles";
+            if (!Directory.Exists(ATTGF))
+            {
+                Directory.CreateDirectory(ATTGF);
+            }
+            if (!Directory.Exists(ATTGFM))
+            {
+                Directory.CreateDirectory(ATTGFM);
+            }
+            foreach (string mapseedfile in ATTG3Plugin.Maplist)
+            {
+                string Mapseeds = FileManager.GetAppFolder(shared:true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + mapseedfile +".txt";
+                if (!File.Exists(Mapseeds))
+                {
+                    using (new StreamWriter(File.Create(Mapseeds))) { }
+                }
+            }
+        }
         #endregion
+        public static IEnumerator<float> Fulldebug()
+        {
+            int MLC = Smod2.PluginManager.Manager.Server.Map.GetDoors().Count;
+            int MLCC = 0;
+            foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+            {
+                MLCC++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast((int)1, "DEBUGING CODE 1 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE OPENING", false);
+                yield return MEC.Timing.WaitForSeconds(0.25f);
+                door.Open = true;
+            }
+            MLCC = 0;
+            foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+            {
+                MLCC++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast((int)1, "DEBUGING CODE 2 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE LOCKED OPEN", false);
+                yield return MEC.Timing.WaitForSeconds(0.25f);
+                door.Open = true;
+                door.Locked = true;
+            }
+            MLCC = 0;
+            foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+            {
+                MLCC++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast((int)1, "DEBUGING CODE 3 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE UNLOCKED", false);
+                yield return MEC.Timing.WaitForSeconds(0.25f);
+                door.Open = true;
+                door.Locked = false;
+            }
+            MLCC = 0;
+            foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+            {
+                MLCC++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 4 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE CLOSING", false);
+                yield return MEC.Timing.WaitForSeconds(0.25f);
+                door.Open = false;
+            }
+            int MLC2 = PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).Count();
+            int MLCC2 = 0;
+            foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).ToArray())
+            {
+                MLCC2++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 5 " + "(" + MLCC2 + " / " + MLC2 + ")" + "\n" + "Light Containment Lights", false);
+                room.FlickerLights();
+                yield return MEC.Timing.WaitForSeconds(0.25f);
+            }
+            PluginManager.Manager.Server.Map.ClearBroadcasts();
+            PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 6" + "\n" + "Debuging Heavy Containment Lights", false);
+            Generator079.generators[0].CallRpcOvercharge();
+            int MLC3 = PluginManager.Manager.Server.Map.GetItems(ItemType.NULL, false).Count;
+            int MLCC3 = 0;
+            foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(ItemType.NULL, false))
+            {
+                MLCC3++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 7 " + "(" + MLCC3 + " / " + MLC3 + ")" + "\n" + "Items", false);
+                yield return MEC.Timing.WaitForSeconds(0.25f);
+            }
+            /*int MLC4 = PluginManager.Manager.Server.Map.GetSpawnPoints().Count;
+            int MLCC4 = 0;
+            foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(ItemType.NULL, false))
+            {
+                MLCC4++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 8 " + "(" + MLCC4 + " / " + MLC4 + ")" + "\n" + "Items", false);
+                yield return MEC.Timing.WaitForSeconds(0.25f);
+            }*/
+        }
+        public static void SSAIMBOT(Player player)
+        {
+            if (PluginManager.Manager.Server.GetPlayers().Count() > 1)
+            {
+                int RandomInt = new System.Random().Next(PluginManager.Manager.Server.GetPlayers().Count());
+                Player playertar = PluginManager.Manager.Server.GetPlayers()[RandomInt];
+                if (player == playertar)
+                {
+                    SSAIMBOT(player);
+                }
+                else
+                {
+                    playertar.Damage(50, DamageType.USP);
+                }
+            }
+        }
     }
 }

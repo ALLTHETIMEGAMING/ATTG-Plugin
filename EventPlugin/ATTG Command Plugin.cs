@@ -18,7 +18,7 @@ namespace ATTG3
 		SmodMajor = 3,
 		SmodMinor = 4,
 		SmodRevision = 1,
-		version = "4.1.0"
+		version = "4.5.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
     {
@@ -134,10 +134,11 @@ namespace ATTG3
 			this.AddCommand("AGTFF", new TFF(this));
 			this.AddCommand("AGTP", new Teleport(this));
             this.AddCommand("AGDEBUG", new DebugATTG(this));
-            this.AddCommand("AGDoor", new door(this));
+            this.AddCommand("AGDoor", new DoorMain(this));
             this.AddCommand("AGTPR", new TeleportRemove(this));
             this.AddCommand("GETPOS", new GetPos(this));
             this.AddCommand("MAPADD", new MapList(this));
+            this.AddCommand("SSAM", new SSAM(this));
             this.AddCommands(Sniper.CA, new Sniper(this));
 			this.AddCommands(Config.CA, new Config(this));
 			//Event Handlers
@@ -176,10 +177,10 @@ namespace ATTG3
 			Randoimitem.Add("sniper");
 			Randoimitem.Add("heavy");
 			Randoimitem.Add("grenade");
-            if (!File.Exists(EventSpawn))
+            /*if (!File.Exists(EventSpawn))
             {
                 using (new StreamWriter(File.Create(EventSpawn))) { }
-            }
+            }*/
             if (!File.Exists(Mapseeds))
             {
                 using (new StreamWriter(File.Create(Mapseeds))) { }
@@ -191,6 +192,9 @@ namespace ATTG3
             ATTG3Plugin.Banmemes.Add("Was forced to uninstall life.exe");
             ATTG3Plugin.Banmemes.Add("Was uno reverse carded");
             ATTG3Plugin.Banmemes.Add("Was Uninstalled from the server");
+            var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
+            ATTG3Plugin.Maplist = new List<string>(Mapfile);
+            Events.Filesetup();
         }
 		public override void OnDisable()
 		{

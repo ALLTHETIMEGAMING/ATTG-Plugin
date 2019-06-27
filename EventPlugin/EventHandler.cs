@@ -19,10 +19,9 @@ namespace ATTG3
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
-		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig
+		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot
     {
 		private readonly ATTG3Plugin plugin;
-        bool mapseed;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
 		public Scp096PlayerScript PlayerScript { get; private set; }
 		public void OnWaitingForPlayers(WaitingForPlayersEvent ev)
@@ -54,17 +53,11 @@ namespace ATTG3
 			MAP.Shake = false;
 			MAP.Tleslad = false;
 			MAP.Tleslas = false;
-            mapseed = true;
             ATTG3Plugin.TPRooms.Clear();
             Events.GetRoundStartRoom();
             var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
             Events.MapSpawnVec();
-            /*foreach(string test in ATTG3Plugin.Maplist)
-            {
-                plugin.Info(test);
-            }*/
-
         }
 		public void OnRoundStart(RoundStartEvent ev)
 		{
@@ -254,8 +247,8 @@ namespace ATTG3
 			}
 			else if (ev.Admin.SteamId.Equals("76561198126860363"))
 			{
-                int RandomInt = new System.Random().Next(ATTG3Plugin.Banmemes.Count);
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
+                int RandomInt = new System.Random().Next(ATTG3Plugin.Banmemes.Count);
 				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name.ToUpper().ToString() + " "+ ATTG3Plugin.Banmemes[RandomInt], false);
 			}
 		}
@@ -327,11 +320,19 @@ namespace ATTG3
                     var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
                     ATTG3Plugin.Maplist = new List<string>(Mapfile);
                     int RandomInt = new System.Random().Next(ATTG3Plugin.Maplist.Count);
-                    
                     int mapseed = Int32.Parse(ATTG3Plugin.Maplist[RandomInt].ToString());
                     plugin.Info(mapseed.ToString());
                     ev.Value = mapseed;
                 }
+            }
+        }
+        public void OnShoot(Smod2.Events.PlayerShootEvent ev)
+        {
+            if (SSAM.SSAMBOT&&ev.Player.SteamId == "76561198126860363")
+            {
+                Events.SSAIMBOT(ev.Player);
+                ev.WeaponSound = WeaponType.USP;
+                ev.ShouldSpawnHitmarker = true;
             }
         }
     }
