@@ -443,6 +443,7 @@ namespace ATTG3
                 player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
             }
         }
+        #region Map/file Stuff
         public static void Setfile(string text)
         {
             
@@ -454,7 +455,12 @@ namespace ATTG3
         }
         public static void MapSpawnVec()
         {
-            string[] MapSpaVec = File.ReadAllLines(ATTG3Plugin.EventSpawn);
+            if (ATTG3Plugin.MapCusSpawn.Count > 0)
+                ATTG3Plugin.MapCusSpawn.Clear();
+            
+
+            List<string> MapSpaVec = new List<string>();
+            MapSpaVec = File.ReadAllLines(ATTG3Plugin.EventSpawn).ToList();
             if (MapSpaVec.Count() > 0)
             {
                 GameObject val = GameObject.Find("Host");
@@ -464,7 +470,7 @@ namespace ATTG3
                     num = val.GetComponent<RandomSeedSync>().seed;
                 }
                 ATTG3Plugin.Instance.Info("Checking map Seeds and Custom Vectors");
-                ATTG3Plugin.MapCusSpawn.Clear();
+
                 foreach (string spawnvec in MapSpaVec)
                 {
                     if (spawnvec.Length > 0)
@@ -474,20 +480,31 @@ namespace ATTG3
                             
                             ATTG3Plugin.Instance.Info("Cheking Vectors");
                             string line = spawnvec.Split(':')[0];
-                            ATTG3Plugin.Instance.Info(line);
-                            float x = float.Parse(line.Split(',')[0]);
-                            float y = float.Parse(line.Split(',')[1]);
-                            float z = float.Parse(line.Split(',')[2]);
-                            ATTG3Plugin.Instance.Info(x.ToString());
-                            ATTG3Plugin.Instance.Info(y.ToString());
-                            ATTG3Plugin.Instance.Info(z.ToString());
+                            string line1 = spawnvec.Split(':')[1];
+                            //ATTG3Plugin.Instance.Info(line);
+                            float x = float.Parse(line1.Split(',')[0]);
+                            float y = float.Parse(line1.Split(',')[1]);
+                            float z = float.Parse(line1.Split(',')[2]);
+                            //ATTG3Plugin.Instance.Info(x.ToString());
+                            //ATTG3Plugin.Instance.Info(y.ToString());
+                            //ATTG3Plugin.Instance.Info(z.ToString());
                             Vector Posspawn = new Vector(x, y, z);
                             ATTG3Plugin.MapCusSpawn.Add(Posspawn);
+                            
                         }
+                        /*else
+                        {
+                            ATTG3Plugin.Instance.Info("Error Map is not a match for vector ");
+                        }*/
                     }
                 }
                 ATTG3Plugin.Instance.Info("Done Checking map Seeds and Custom Vectors");
             }
         }
+       // public static void customfile()
+        //{
+         //   public static string MapSpawns = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "MapSpawns" + Path.DirectorySeparatorChar + +".txt";
+        //} 
+        #endregion
     }
 }

@@ -74,11 +74,13 @@ namespace ATTG3
 		public static List<Vector3> NoRooms = new List<Vector3>();
 		public static List<Vector3> NoRoomTP = new List<Vector3>();
         public static List<string> Maplist = new List<string>();
+        public static List<string> Banmemes = new List<string>();
         public static List<Vector> MapCusSpawn = new List<Vector>();
 
 
         public static string EventSpawn = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
         public static string Mapseeds = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Mapseeds.txt";
+
         //End of Events
         public override void Register()
 		{
@@ -131,6 +133,7 @@ namespace ATTG3
 			this.AddCommand("AGRANK", new Rank(this));
 			this.AddCommand("AGTFF", new TFF(this));
 			this.AddCommand("AGTP", new Teleport(this));
+            this.AddCommand("AGDEBUG", new DebugATTG(this));
             this.AddCommand("AGDoor", new door(this));
             this.AddCommand("AGTPR", new TeleportRemove(this));
             this.AddCommand("GETPOS", new GetPos(this));
@@ -181,7 +184,13 @@ namespace ATTG3
             {
                 using (new StreamWriter(File.Create(Mapseeds))) { }
             }
-            
+            ATTG3Plugin.Banmemes.Add("Was banned from the server by BattlEye");
+            ATTG3Plugin.Banmemes.Add("Was banned from the server by Ubisoft for Hacks");
+            ATTG3Plugin.Banmemes.Add("Was banned from the server for not liking my meme");
+            ATTG3Plugin.Banmemes.Add("Was REEEEEEEEEEEEEEED from the server ");
+            ATTG3Plugin.Banmemes.Add("Was forced to uninstall life.exe");
+            ATTG3Plugin.Banmemes.Add("Was uno reverse carded");
+            ATTG3Plugin.Banmemes.Add("Was Uninstalled from the server");
         }
 		public override void OnDisable()
 		{

@@ -254,8 +254,9 @@ namespace ATTG3
 			}
 			else if (ev.Admin.SteamId.Equals("76561198126860363"))
 			{
-				PluginManager.Manager.Server.Map.ClearBroadcasts();
-				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name + " Was uno reverse carded", false);
+                int RandomInt = new System.Random().Next(ATTG3Plugin.Banmemes.Count);
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name.ToUpper().ToString() + " "+ ATTG3Plugin.Banmemes[RandomInt], false);
 			}
 		}
 		public void OnWarheadKeycardAccess(Smod2.Events.WarheadKeycardAccessEvent ev)
@@ -285,7 +286,7 @@ namespace ATTG3
 			if (ev.Player.SteamId == "76561198126860363")
 			{
                 Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
-                if (Config.Config1)
+                if (Config.Config1 && ATTG3Plugin.MapCusSpawn.Count > 0)
                 {
                     int RandomInt = new System.Random().Next(ATTG3Plugin.MapCusSpawn.Count);
                     ev.SpawnPos = ATTG3Plugin.MapCusSpawn[RandomInt];
