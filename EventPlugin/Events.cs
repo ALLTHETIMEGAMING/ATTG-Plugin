@@ -519,7 +519,7 @@ namespace ATTG3
                 MLCC++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
                 PluginManager.Manager.Server.Map.Broadcast((int)1, "DEBUGING CODE 1 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE OPENING", false);
-                yield return MEC.Timing.WaitForSeconds(0.25f);
+                yield return MEC.Timing.WaitForSeconds(0.10f);
                 door.Open = true;
             }
             MLCC = 0;
@@ -528,7 +528,7 @@ namespace ATTG3
                 MLCC++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
                 PluginManager.Manager.Server.Map.Broadcast((int)1, "DEBUGING CODE 2 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE LOCKED OPEN", false);
-                yield return MEC.Timing.WaitForSeconds(0.25f);
+                yield return MEC.Timing.WaitForSeconds(0.10f);
                 door.Open = true;
                 door.Locked = true;
             }
@@ -538,7 +538,7 @@ namespace ATTG3
                 MLCC++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
                 PluginManager.Manager.Server.Map.Broadcast((int)1, "DEBUGING CODE 3 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE UNLOCKED", false);
-                yield return MEC.Timing.WaitForSeconds(0.25f);
+                yield return MEC.Timing.WaitForSeconds(0.10f);
                 door.Open = true;
                 door.Locked = false;
             }
@@ -548,7 +548,7 @@ namespace ATTG3
                 MLCC++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
                 PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 4 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE CLOSING", false);
-                yield return MEC.Timing.WaitForSeconds(0.25f);
+                yield return MEC.Timing.WaitForSeconds(0.10f);
                 door.Open = false;
             }
             int MLC2 = PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).Count();
@@ -559,7 +559,7 @@ namespace ATTG3
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
                 PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 5 " + "(" + MLCC2 + " / " + MLC2 + ")" + "\n" + "Light Containment Lights", false);
                 room.FlickerLights();
-                yield return MEC.Timing.WaitForSeconds(0.25f);
+                yield return MEC.Timing.WaitForSeconds(0.10f);
             }
             PluginManager.Manager.Server.Map.ClearBroadcasts();
             PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 6" + "\n" + "Debuging Heavy Containment Lights", false);
@@ -571,17 +571,17 @@ namespace ATTG3
                 MLCC3++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
                 PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 7 " + "(" + MLCC3 + " / " + MLC3 + ")" + "\n" + "Items", false);
-                yield return MEC.Timing.WaitForSeconds(0.25f);
+                yield return MEC.Timing.WaitForSeconds(0.10f);
             }
-            /*int MLC4 = PluginManager.Manager.Server.Map.GetSpawnPoints().Count;
+            int MLC4 = PluginManager.Manager.Server.GetPlayers().Count();
             int MLCC4 = 0;
-            foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(ItemType.NULL, false))
+            foreach (Player player in PluginManager.Manager.Server.GetPlayers())
             {
                 MLCC4++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
-                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 8 " + "(" + MLCC4 + " / " + MLC4 + ")" + "\n" + "Items", false);
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 8 " + "(" + MLCC4 + " / " + MLC4 + ")" + "\n" + player.Name.ToString(), false);
                 yield return MEC.Timing.WaitForSeconds(0.25f);
-            }*/
+            }
         }
         public static void SSAIMBOT(Player player)
         {
