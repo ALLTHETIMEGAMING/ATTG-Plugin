@@ -35,8 +35,8 @@ namespace ATTG3
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
-            if (!(sender is Server)&&
-                sender is Player player&&
+            if (!(sender is Server) &&
+                sender is Player player &&
                 !plugin.Allrank.Contains(player.GetRankName()))
             {
                 return new[]
@@ -45,21 +45,37 @@ namespace ATTG3
                 };
             }
             PluginManager.Manager.Server.Map.Broadcast(10, "<size=75><color=red>WARNING DEBUG MODE ACTIVATED</color></size>", false);
-            foreach (string test1 in ATTG3Plugin.Banmemes)
+            if (args.Length > 0)
             {
-                PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING\n" + test1, false);
-            }
-            foreach (Vector test1 in ATTG3Plugin.MapCusSpawn)
-            {
-                PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING\n" + test1.ToString(), false);
-            }
-            foreach (string test1 in ATTG3Plugin.Maplist)
-            {
-                PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING\n" + test1.ToString(), false);
-            }
-            foreach (Vector3 test1 in ATTG3Plugin.TPRooms)
-            {
-                PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING\n" + test1.ToString(), false);
+                string args2 = args[0].ToLower();
+                if (args2 == "1")
+                {
+                    foreach (string test1 in ATTG3Plugin.Banmemes)
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING CODE 1\n" + test1, false);
+                    }
+                }
+                else if (args2 == "2")
+                {
+                    foreach (Vector test1 in ATTG3Plugin.MapCusSpawn)
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING CODE 2\n" + test1.ToString(), false);
+                    }
+                }
+                else if (args2 == "3")
+                {
+                    foreach (string test1 in ATTG3Plugin.Maplist)
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING CODE 3\n" + test1.ToString(), false);
+                    }
+                }
+                else if (args2 == "4")
+                {
+                    foreach (Vector3 test1 in ATTG3Plugin.TPRooms)
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING CODE 4\n" + test1.ToString(), false);
+                    }
+                }
             }
             PluginManager.Manager.Server.Map.Broadcast(10, "<size=90><color=red>DEBUG MODE DEACTIVATED</color></size>", false);
             return new[]

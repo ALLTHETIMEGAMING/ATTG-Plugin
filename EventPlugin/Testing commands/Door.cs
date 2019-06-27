@@ -6,6 +6,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
+
 namespace ATTG3
 {
 	class door : ICommandHandler
@@ -50,8 +51,7 @@ namespace ATTG3
                     //door.UpdatePos();
                     // Test 3
                     door.transform.position = player1.transform.position;
-                    //door.UpdatePos();
-                    door.SetLocalPos();
+                    door.UpdatePos();
                 }
 			}
 			return new string[] { "Door Moved" };
