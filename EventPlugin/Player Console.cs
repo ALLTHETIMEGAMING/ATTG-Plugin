@@ -47,14 +47,14 @@ namespace ATTG3
             else if (command.StartsWith("10lock"))
             {
                 plugin.Info("10lock Command Called");
-                if (EventPlayerItems.Itemset.ContainsKey(ev.Player)==true)
+                if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId) ==true)
                 {
-                    EventPlayerItems.Itemset[ev.Player] = "10lock";
+                    EventPlayerItems.Itemset[ev.Player.SteamId] = "10lock";
                     ev.ReturnMessage = "Event Item Set to 10 lock (Code 1)";
                 }
-                else if (EventPlayerItems.Itemset.ContainsKey(ev.Player) == false)
+                else if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId) == false)
                 {
-                    EventPlayerItems.Itemset.Add(ev.Player, "10lock");
+                    EventPlayerItems.Itemset.Add(ev.Player.SteamId, "10lock");
                     ev.ReturnMessage = "Event Item Set to 10 Lock (Code 2)";
                 }
                 else
@@ -66,14 +66,14 @@ namespace ATTG3
             else if (command.StartsWith("destroy"))
             {
                 plugin.Info("Destroy Command Called");
-                if (EventPlayerItems.Itemset.ContainsKey(ev.Player)==true)
+                if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId) ==true)
                 {
-                    EventPlayerItems.Itemset[ev.Player] = "destroy";
+                    EventPlayerItems.Itemset[ev.Player.SteamId] = "destroy";
                     ev.ReturnMessage = "Event Item Set to destroy (Code 1)";
                 }
-                else if (EventPlayerItems.Itemset.ContainsKey(ev.Player) == false)
+                else if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId) == false)
                 {
-                    EventPlayerItems.Itemset.Add(ev.Player, "destroy");
+                    EventPlayerItems.Itemset.Add(ev.Player.SteamId, "destroy");
                     ev.ReturnMessage = "Event Item Set to destroy (Code 2)";
                 }
                 else
@@ -85,14 +85,14 @@ namespace ATTG3
             else if (command.StartsWith("30lock"))
             {
                 plugin.Info("30lock Command Called");
-                if (EventPlayerItems.Itemset.ContainsKey(ev.Player)==true)
+                if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId) ==true)
                 {
-                    EventPlayerItems.Itemset[ev.Player] = "30lock";
+                    EventPlayerItems.Itemset[ev.Player.SteamId] = "30lock";
                     ev.ReturnMessage = "Event Item Set to 30 Lock (Code 1)";
                 }
-                else if (EventPlayerItems.Itemset.ContainsKey(ev.Player) == false)
+                else if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId) == false)
                 {
-                    EventPlayerItems.Itemset.Add(ev.Player,"30lock");
+                    EventPlayerItems.Itemset.Add(ev.Player.SteamId, "30lock");
                     ev.ReturnMessage = "Event Item Set to 30 Lock (Code 2)";
                 }
                 else

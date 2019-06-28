@@ -44,9 +44,6 @@ namespace ATTG3
                 player.GiveItem(ItemType.FRAG_GRENADE);
                 player.GiveItem(ItemType.FRAG_GRENADE);
                 player.GiveItem(ItemType.FRAG_GRENADE);
-                player.GiveItem(ItemType.FRAG_GRENADE);
-                player.GiveItem(ItemType.FRAG_GRENADE);
-                player.GiveItem(ItemType.FRAG_GRENADE);
             }
         }
         public static IEnumerator<float> MTFCIRESPAWN(Player player, Player Attacker)
@@ -369,15 +366,14 @@ namespace ATTG3
             }
             return weapon;
         }
-        public static IEnumerator<float> CustomitemDoor(Smod2.API.Door door, string setting, ItemType item, Player player)
+        public static IEnumerator<float> CustomitemDoor(Smod2.API.Door door, ItemType item, Player player)
         {
+            string setting = EventPlayerItems.Itemset[player.SteamId];
             if (door.Locked == false)
             {
-                ATTG3Plugin.Instance.Info("Door is not locked");
                 if (item == ItemType.JANITOR_KEYCARD)
                 {
-                    ATTG3Plugin.Instance.Info("Item is Janitor Keycard");
-                    if (setting == "10Lock")
+                    if (setting == "10lock")
                     {
                         ATTG3Plugin.Instance.Info("10lock");
                         yield return MEC.Timing.WaitForSeconds(1);
@@ -393,7 +389,7 @@ namespace ATTG3
                         yield return MEC.Timing.WaitForSeconds(1);
                         door.Destroyed = true;
                     }
-                    else if (setting == "30Lock")
+                    else if (setting == "30lock")
                     {
                         ATTG3Plugin.Instance.Info("30lock");
                         yield return MEC.Timing.WaitForSeconds(1);
@@ -512,6 +508,7 @@ namespace ATTG3
         #endregion
         public static IEnumerator<float> Fulldebug()
         {
+            yield return MEC.Timing.WaitForSeconds(5f);
             int MLC = Smod2.PluginManager.Manager.Server.Map.GetDoors().Count;
             int MLCC = 0;
             foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
@@ -537,7 +534,15 @@ namespace ATTG3
             {
                 MLCC++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
-                PluginManager.Manager.Server.Map.Broadcast((int)1, "DEBUGING CODE 3 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE UNLOCKED", false);
+                PluginManager.Manager.Server.Map.Broadcast((int)1, "DEBUGING CODE 3 " + "(" + MLCC + " / " + MLC + ")" + "\n" + door.Name.ToString(), false);
+                yield return MEC.Timing.WaitForSeconds(0.10f);
+            }
+            MLCC = 0;
+            foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+            {
+                MLCC++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast((int)1, "DEBUGING CODE 4 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE UNLOCKED", false);
                 yield return MEC.Timing.WaitForSeconds(0.10f);
                 door.Open = true;
                 door.Locked = false;
@@ -547,7 +552,7 @@ namespace ATTG3
             {
                 MLCC++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
-                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 4 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE CLOSING", false);
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 5 " + "(" + MLCC + " / " + MLC + ")" + "\n" + "DOORS WILL BE CLOSING", false);
                 yield return MEC.Timing.WaitForSeconds(0.10f);
                 door.Open = false;
             }
@@ -557,20 +562,21 @@ namespace ATTG3
             {
                 MLCC2++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
-                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 5 " + "(" + MLCC2 + " / " + MLC2 + ")" + "\n" + "Light Containment Lights", false);
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 6 " + "(" + MLCC2 + " / " + MLC2 + ")" + "\n" + "Light Containment Lights", false);
                 room.FlickerLights();
                 yield return MEC.Timing.WaitForSeconds(0.10f);
             }
             PluginManager.Manager.Server.Map.ClearBroadcasts();
-            PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 6" + "\n" + "Debuging Heavy Containment Lights", false);
+            PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 7 " + "\n" + "Debuging Heavy Containment Lights", false);
             Generator079.generators[0].CallRpcOvercharge();
+            yield return MEC.Timing.WaitForSeconds(5);
             int MLC3 = PluginManager.Manager.Server.Map.GetItems(ItemType.NULL, false).Count;
             int MLCC3 = 0;
             foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(ItemType.NULL, false))
             {
                 MLCC3++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
-                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 7 " + "(" + MLCC3 + " / " + MLC3 + ")" + "\n" + "Items", false);
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 8 " + "(" + MLCC3 + " / " + MLC3 + ")" + "\n" + item.ItemType.ToString(), false);
                 yield return MEC.Timing.WaitForSeconds(0.10f);
             }
             int MLC4 = PluginManager.Manager.Server.GetPlayers().Count();
@@ -579,9 +585,39 @@ namespace ATTG3
             {
                 MLCC4++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
-                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 8 " + "(" + MLCC4 + " / " + MLC4 + ")" + "\n" + player.Name.ToString(), false);
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 9 " + "(" + MLCC4 + " / " + MLC4 + ")" + "\n" + player.Name.ToString(), false);
                 yield return MEC.Timing.WaitForSeconds(0.25f);
             }
+            int MLC5 = Smod2.PluginManager.Manager.Server.Map.GetElevators().Count();
+            int MLCC5 = 0;
+            foreach (Elevator elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
+            {
+                MLCC5++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 10 " + "(" + MLCC5 + " / " + MLC5 + ")" + "\n" + elevator.ElevatorType.ToString(), false);
+                yield return MEC.Timing.WaitForSeconds(1);
+            }
+            int MLC6 = PluginManager.Manager.Server.Map.GetGenerators().Count();
+            int MLCC6 = 0;
+            foreach (Generator gen in PluginManager.Manager.Server.Map.GetGenerators())
+            {
+                MLCC6++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 11 " + "(" + MLCC6+ " / " + MLC6 + ")" + "\n" + "Debuging Generators" , false);
+                yield return MEC.Timing.WaitForSeconds(1);
+            }
+            int counting = 150;
+            int counting2 = 0;
+            while (counting2 != counting)
+            {
+                counting2++;
+                PluginManager.Manager.Server.Map.ClearBroadcasts();
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 9 " + "(" + counting2 + " / " + counting + ")" + "\n" + "Ban File", false);
+                yield return MEC.Timing.WaitForSeconds(0.25f);
+            }
+
+
+            PluginManager.Manager.Server.Map.Broadcast(10, "DEBUG MODE DEACTIVATED", false);
         }
         public static void SSAIMBOT(Player player)
         {
@@ -597,6 +633,15 @@ namespace ATTG3
                 {
                     playertar.Damage(50, DamageType.USP);
                 }
+            }
+        }
+        public static IEnumerator<float> Playerhit(Player player)
+        {
+            player.PersonalBroadcast(10, "You will be turned into a 049-2 in 30 seconds if you do not use a medkit", false);
+            yield return MEC.Timing.WaitForSeconds(30f);
+            if (EventPlayerItems.InfecPlayer.Contains(player.SteamId) == true)
+            {
+                player.ChangeRole(Role.SCP_049_2, spawnTeleport: false);
             }
         }
     }

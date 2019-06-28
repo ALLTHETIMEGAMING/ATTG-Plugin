@@ -52,17 +52,23 @@ namespace ATTG3
                     if (args2 == "LCZ")
                     {
                         pos = num.ToString() + ":" + "LCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
-                        Events.Setfile(pos);
+                        string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
+                        string text2 = pos.Trim('(', ')', ' ');
+                        File.AppendAllText(Mapseeds, text2);
                     }
                     else if (args2 == "HCZ")
                     {
                         pos = num.ToString() + ":" + "HCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
-                        Events.Setfile(pos);
+                        string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
+                        string text2 = pos.Trim('(', ')', ' ');
+                        File.AppendAllText(Mapseeds, text2);
                     }
                     else if (args2 == "ECZ")
                     {
                         pos = num.ToString() + ":"+ "ECZ" + ":"+ player1.GetPosition().ToString() + Environment.NewLine;
-                        Events.Setfile(pos);
+                        string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
+                        string text2 = pos.Trim('(', ')', ' ');
+                        File.AppendAllText(Mapseeds, text2);
                     }
                     return new[]
 {

@@ -14,7 +14,8 @@ namespace ATTG3
 	internal class INFECTCon : IEventHandlerRoundStart,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSummonVehicle,
 		IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerCheckEscape, IEventHandlerPlayerHurt
-	{
+        , IEventHandlerSetRole, IEventHandlerMedkitUse
+    {
 
 
 
@@ -117,8 +118,18 @@ namespace ATTG3
 		{
 			if (plugin.Infectcontain)
 			{
-				
-			}
+                if (ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
+                {
+                    ev.Player.ChangeRole(Role.NTF_COMMANDER, true, true, true, true);
+                    ev.Player.PersonalBroadcast(10, "Kill All SCP-049-2", false);
+                }
+                if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
+                {
+                    ev.Player.ChangeRole(Role.SCP_049_2, true, true, true, true);
+                    ev.Player.PersonalBroadcast(10, "Hide From MTF", false);
+                    ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+                }
+            }
 		}
 		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
 		{
@@ -126,11 +137,25 @@ namespace ATTG3
 			{
 				if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP && ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
 				{
-					ev.Player.ChangeRole(Role.SCP_049_2, true, false, false, true);
-				}
+                    Timing.RunCoroutine(Events.Playerhit(ev.Player));
+                    if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == false)
+                    {
+                        EventPlayerItems.InfecPlayer.Add(ev.Player.SteamId);
+                    }
+                }
 			}
 		}
-	}
+        public void OnMedkitUse(Smod2.Events.PlayerMedkitUseEvent ev)
+        {
+            if (plugin.Infectcontain)
+            {
+                if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == true)
+                {
+                    EventPlayerItems.InfecPlayer.Remove(ev.Player.SteamId);
+                }
+            }
+        }
+    }
 }
 
 

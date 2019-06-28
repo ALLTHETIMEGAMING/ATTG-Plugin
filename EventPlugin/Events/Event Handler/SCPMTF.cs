@@ -85,10 +85,10 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-                if (EventPlayerItems.Itemset.ContainsKey(ev.Player))
+                if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId))
                 {
-                    
-                    Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, EventPlayerItems.Itemset[ev.Player], ev.Player.GetCurrentItem().ItemType, ev.Player));
+                    plugin.Info("Running SCPMTF Door key test");
+                    Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, ev.Player.GetCurrentItem().ItemType, ev.Player));
                 }
             }
 		}
@@ -143,6 +143,7 @@ namespace ATTG3
 						ev.Player.ChangeRole(Role.NTF_LIEUTENANT, true, true, true, true);
 					}
 				}
+                ev.Items.Remove(ItemType.DISARMER);
                 Events.SCPMTF();
             }
 		}
@@ -314,10 +315,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-                foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
-                {
-                    Elevator.MovingSpeed = plugin.Elevatord;
-                }
+                ev.Cancel = false;
             }
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)

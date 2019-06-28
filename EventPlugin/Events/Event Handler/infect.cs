@@ -13,8 +13,9 @@ namespace ATTG3
 {
 	internal class INFECT : IEventHandlerRoundStart,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSummonVehicle,
-		IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerCheckEscape, IEventHandlerPlayerHurt
-	{
+		IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerCheckEscape, IEventHandlerPlayerHurt,
+        IEventHandlerDoorAccess, IEventHandlerSetRole, IEventHandlerMedkitUse
+    {
 		private readonly ATTG3Plugin plugin;
 		public INFECT(ATTG3Plugin plugin) => this.plugin = plugin;
 
@@ -39,21 +40,21 @@ namespace ATTG3
 						door.Open = true;
 						door.Locked = true;
 					}
-				}
-				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-				{
-					if (player.TeamRole.Team != Smod2.API.Team.SCP)
-					{
-						player.ChangeRole(Role.CLASSD, true, true, true, true);
-						player.PersonalBroadcast(10, "ESCAPE SCP-049-2", false);
-					}
-					else if (player.TeamRole.Team == Smod2.API.Team.SCP)
-					{
-						player.ChangeRole(Role.SCP_049_2, true, true, true, true);
-						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
-						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-					}
-				}
+                    foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+                    {
+                        if (player.TeamRole.Team != Smod2.API.Team.SCP)
+                        {
+                            player.ChangeRole(Role.CLASSD);
+                            player.PersonalBroadcast(10, "ESCAPE SCP-049-2", false);
+                        }
+                        else if (player.TeamRole.Team == Smod2.API.Team.SCP)
+                        {
+                            player.ChangeRole(Role.SCP_049_2, true, true, true, true);
+                            player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
+                            player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+                        }
+                    }
+                }
 			}
 		}
 		public void OnSpawn(PlayerSpawnEvent ev)
@@ -127,7 +128,7 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
-				if (ev.Player.TeamRole.Role == Role.CLASSD)
+                if (ev.Player.TeamRole.Role == Role.CLASSD)
                 {
                     ev.Items.Clear();
                     ev.Items.Add(ItemType.JANITOR_KEYCARD);
@@ -138,13 +139,37 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
-				if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP)
+				if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP && ev.Player.TeamRole.Role != Role.TUTORIAL)
 				{
-					ev.Player.ChangeRole(Role.SCP_049_2, true, false, false, true);
-				}
+                    Timing.RunCoroutine(Events.Playerhit(ev.Player));
+                    if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == false)
+                    {
+                        EventPlayerItems.InfecPlayer.Add(ev.Player.SteamId);
+                    }
+                }
 			}
 		}
-	}
+        public void OnDoorAccess(PlayerDoorAccessEvent ev)
+        {
+            if (plugin.INFECT)
+            {
+                if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId))
+                {
+                    Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, ev.Player.GetCurrentItem().ItemType, ev.Player));
+                }
+            }
+        }
+        public void OnMedkitUse(Smod2.Events.PlayerMedkitUseEvent ev)
+        {
+            if (plugin.INFECT)
+            {
+                if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == true)
+                {
+                    EventPlayerItems.InfecPlayer.Remove(ev.Player.SteamId);
+                }
+            }
+        }
+    }
 }
 
 
