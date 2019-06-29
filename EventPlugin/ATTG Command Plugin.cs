@@ -63,6 +63,7 @@ namespace ATTG3
 		public bool INFECT { get; set; }
 		public bool QEvent { get; set; }
         public bool TestingSpawn { get; set; }
+		public bool Jugevent { get; set; }
 
         // Custiom Item Bools
         public static bool JanDestroy { get; set; } = true;
@@ -151,6 +152,7 @@ namespace ATTG3
 			this.AddEventHandlers(new SCPMTF(this), Priority.High);
 			this.AddEventHandlers(new VIPESCAPE(this), Priority.High);
 			this.AddEventHandlers(new Question(this), Priority.High);
+			this.AddEventHandlers(new Jug(this), Priority.High);
 			this.AddEventHandlers(new PlayerConsole(this));
 		}
 		public void ReloadConfig()

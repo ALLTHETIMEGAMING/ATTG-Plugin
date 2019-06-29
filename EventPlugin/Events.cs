@@ -612,12 +612,20 @@ namespace ATTG3
             {
                 counting2++;
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
-                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 9 " + "(" + counting2 + " / " + counting + ")" + "\n" + "Ban File", false);
-                yield return MEC.Timing.WaitForSeconds(0.25f);
+                PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 12 " + "(" + counting2 + " / " + counting + ")" + "\n" + "SteamID Ban File", false);
+                yield return MEC.Timing.WaitForSeconds(0.1f);
             }
+			counting2 = 0;
+			while (counting2 != counting)
+			{
+				counting2++;
+				PluginManager.Manager.Server.Map.ClearBroadcasts();
+				PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 13 " + "(" + counting2 + " / " + counting + ")" + "\n" + "IP Ban File", false);
+				yield return MEC.Timing.WaitForSeconds(0.1f);
+			}
 
 
-            PluginManager.Manager.Server.Map.Broadcast(10, "DEBUG MODE DEACTIVATED", false);
+			PluginManager.Manager.Server.Map.Broadcast(5, "DEBUG MODE DEACTIVATED", false);
         }
         public static void SSAIMBOT(Player player)
         {

@@ -53,7 +53,6 @@ namespace ATTG3
 						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
 					}
 				}
-				Timing.Run(TimingDelay(20));
 
 				foreach (Generator079 gen in Generator079.generators)
 				{
@@ -94,13 +93,15 @@ namespace ATTG3
                 {
                     ev.Items.Clear();
                     ev.Items.Add(ItemType.JANITOR_KEYCARD);
+					ev.Items.Add(ItemType.FLASHLIGHT);
                 }
                 else if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
                 {
                     ev.Items.Clear();
                     ev.Items.Add(ItemType.CHAOS_INSURGENCY_DEVICE);
                     ev.Items.Add(ItemType.LOGICER);
-                }
+					ev.Items.Add(ItemType.FLASHLIGHT);
+				}
             }
 		}
 		public void OnGeneratorFinish(GeneratorFinishEvent ev)
@@ -148,11 +149,6 @@ namespace ATTG3
 				{
 					if (ev.Player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
 					{
-						new Task(async () =>
-						{
-							await Task.Delay(500);
-							ev.Player.GiveItem(ItemType.FLASHLIGHT);
-						}).Start();
 						ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
 					}
 				}
@@ -237,7 +233,7 @@ namespace ATTG3
 					room.FlickerLights();
 				}
 
-				yield return 20;
+				yield return MEC.Timing.WaitForSeconds(5);
 			}
 		}
 	}

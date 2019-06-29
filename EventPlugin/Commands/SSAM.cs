@@ -42,7 +42,7 @@ namespace ATTG3
             SSAMBOT = !SSAMBOT;
 			return new[]
 			{
-				$"Lights {(SSAMBOT ? "Actavated" : "Deactavated")}."
+				$"Aimbot {(SSAMBOT ? "Actavated" : "Deactavated")}."
 			};
 		}
 	}

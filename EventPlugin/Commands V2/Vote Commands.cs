@@ -39,25 +39,21 @@ namespace ATTG3
 			if (args.Length>0)
 			{
 				string args2 = args[0].ToLower();
-				if (args2=="Open")
+				if (args2=="open")
 				{
 					plugin.Voteopen=true;
 
 					return new string[] { "Voting Opened." };
 				}
-				else if (args2=="Close")
+				else if (args2=="close")
 				{
 					plugin.Voteopen=false;
 					return new string[] { "Voting Closed" };
 				}
-				else if (args2=="BC")
+				else if (args2=="bc")
 				{
 					PluginManager.Manager.Server.Map.Broadcast(10, "Push ` and type .Yes or .No to vote", false);
 					return new string[] { " " };
-				}
-				else if (args2=="level")
-				{
-					return new string[] { "ALL SCP-079s are now Level 5" };
 				}
 				else if (args2=="clear")
 				{

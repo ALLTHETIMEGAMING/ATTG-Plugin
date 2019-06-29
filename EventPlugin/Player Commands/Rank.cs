@@ -9,7 +9,6 @@ namespace ATTG3
     {
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
-        IConfigFile Config => ConfigManager.Manager.Config;
         public Rank(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => " Gives player 100,000 ammo";

@@ -42,15 +42,6 @@ namespace ATTG3
 			plugin.Lights=!plugin.Lights;
 			if (plugin.Lights)
 			{
-				if (args.Length>0)
-				{
-					converted=float.Parse(args[0]);
-				}
-				else
-				{
-                    
-					converted=3f;
-				}
 				foreach (Player player2 in PluginManager.Manager.Server.GetPlayers())
 				{
 					if (!player2.HasItem(ItemType.FLASHLIGHT))
@@ -58,14 +49,14 @@ namespace ATTG3
 						player2.GiveItem(ItemType.FLASHLIGHT);
 					}
 				}
-					Timing.RunCoroutine(TimingDelay(converted));
+					Timing.RunCoroutine(TimingDelay());
 			}
 			return new[]
 			{
 				$"Lights {(plugin.Lights ? "Deactavated" : "Actavated")}."
 			};
 		}
-        public IEnumerator<float> TimingDelay(float time)
+        public IEnumerator<float> TimingDelay()
 		{
 			while (plugin.Lights)
 			{
@@ -74,7 +65,7 @@ namespace ATTG3
 				{
 					room.FlickerLights();
 				}
-				yield return converted;
+				yield return MEC.Timing.WaitForSeconds(5f);
 			}
 		}
 	}

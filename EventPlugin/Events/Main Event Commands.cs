@@ -10,12 +10,9 @@ namespace ATTG3
     class EventMainCommand : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        Server Server => PluginManager.Manager.Server;
-        IConfigFile Config => ConfigManager.Manager.Config;
         public EventMainCommand(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
-		//Variables Below
 		public static readonly string[] CA = new string[] { "AGEVENT", "EVENT" };
 
 		public string[] OnCall(ICommandSender sender, string[] args)
@@ -31,8 +28,6 @@ namespace ATTG3
             }
 			if (plugin.RoundStarted == false && plugin.Event == false)
 			{
-
-
 				if (args.Length > 0)
 				{
 					string args2 = args[0].ToLower();
@@ -78,6 +73,23 @@ namespace ATTG3
 						plugin.Event = true;
 						return new[] { "VIP Event Started" };
 					}
+					else if (args2 == "jug")
+					{
+						if (args.Length > 1)
+						{
+							Player myPlayer = GetPlayerFromString.GetPlayer(args[1]);
+							if (myPlayer != null)
+								Jug.VIPplayer = myPlayer;
+						}
+						else
+						{
+
+						}
+						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>Juggernaut Event Starting</Color></SIZE>", false);
+						plugin.Jugevent = true;
+						plugin.Event = true;
+						return new[] { "JUG Event Started" };
+					}
 					else if (args2 == "question")
 					{
 						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>Question Event Starting</Color></SIZE>", false);
@@ -104,6 +116,7 @@ namespace ATTG3
 					 CA.First() + " SGOD" + " ",
 					 CA.First() + " INFECTCON" + " ",
 					 CA.First() + " VIP" + " ",
+					 CA.First() + " JUG" + " ",
 					 CA.First() + " MTFCI" + " ",
 					 CA.First() + " QUESTION" + " ",
 					};
@@ -119,6 +132,7 @@ namespace ATTG3
 					 CA.First() + " SGOD" + " ",
 					 CA.First() + " INFECTCON" + " ",
 					 CA.First() + " VIP" + " ",
+					 CA.First() + " JUG" + " ",
 					 CA.First() + " MTFCI" + " ",
 					 CA.First() + " QUESTION" + " ",
 					};
@@ -126,8 +140,21 @@ namespace ATTG3
 			}
             else
             {
-                return new string[] { "Events must be started before the round starts." };
-            }
+                
+				return new[]
+						 {
+					"Events must be started before the round starts.",
+					 CA.First() + " INFECT" + "",
+					 CA.First() + " SCPMTF" + " ",
+					 CA.First() + " LURK" + " ",
+					 CA.First() + " SGOD" + " ",
+					 CA.First() + " INFECTCON" + " ",
+					 CA.First() + " VIP" + " ",
+					 CA.First() + " JUG" + " ",
+					 CA.First() + " MTFCI" + " ",
+					 CA.First() + " QUESTION" + " ",
+					};
+			}
         }
     }
 }
