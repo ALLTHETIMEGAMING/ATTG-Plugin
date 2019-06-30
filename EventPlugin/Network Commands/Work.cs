@@ -46,7 +46,7 @@ namespace ATTG3
                     Vector pos = myPlayer.GetPosition();
 					GameObject Work1 = NetworkManager.singleton.spawnPrefabs.First(x => x.name=="Work Station");
 					GameObject val = GameObject.Instantiate(Work1, player1.transform.position, player1.transform.rotation);
-                        val.GetComponent<WorkStation>().Networkposition=new Offset {position=new Vector3(pos.x, pos.y, pos.z+2), scale=Vector3.one};
+                        val.GetComponent<WorkStation>().Networkposition=new Offset { position = new Vector3(pos.x, pos.y, pos.z + 2), scale = new Vector3(10, 10, 10) };
                         NetworkServer.Spawn(val);
                         wipe.Add(val);
                         return new string[] { "Workstation Spawned" };

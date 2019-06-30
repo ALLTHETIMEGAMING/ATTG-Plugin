@@ -33,26 +33,39 @@ namespace ATTG3
 				if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
 				if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
 				{
+					Vector pos = myPlayer.GetPosition();
+					Vector ros = myPlayer.GetRotation();
 					foreach (Locker Lock in Object.FindObjectsOfType<Locker>())
 					{
 						count++;
 						if (count==1)
 						{
 							GameObject player1 = (GameObject)myPlayer.GetGameObject();
-							Lock.NetworklocalPos=new Offset
+							/*plugin.Info(Lock.transform.position.ToString()+ "Locker Pos Code 1");
+							plugin.Info(Lock.transform.localPosition.ToString() + "Locker Pos Code 2");
+							plugin.Info(player1.transform.position.ToString() + "player for locker Pos Code 1");
+							plugin.Info(player1.transform.localPosition.ToString() + "player for locker Pos Code 2");*/
+							Vector3 playerpos = new Vector3(pos.x, pos.y, pos.z + 2);
+							Vector3 playerros = new Vector3(ros.x, ros.y, ros.z);
+							Quaternion playerqua = player1.transform.rotation;
+							Transform test = player1.transform;
+							Lock.NetworklocalPos = new Offset
 							{
-								position=player1.transform.position,
-								rotation=Vector3.zero,
-								scale=Vector3.one
+								position = test.InverseTransformPoint(playerpos),
+								rotation = playerros,
+								scale =Vector3.one
 							};
-                            Lock.transform.SetPositionAndRotation(player1.transform.position,player1.transform.rotation);
-                            Lock.Update();
-                        }
+                            //Lock.transform.SetPositionAndRotation(test.InverseTransformPoint(playerpos), playerqua);
+							//Lock.transform.position = test.InverseTransformPoint(playerpos);
+							//Lock.transform.localPosition = test.InverseTransformPoint(playerpos);
+							//Lock.transform.rotation = playerqua;
+							//Lock.transform.localRotation = playerqua;
+						}
 					}
 					count=0;
 				}
 			}
-			return new string[] { "Locker Moved" };
+			return new string[] { "Locker Moved to " };
 		}
 	}
 }

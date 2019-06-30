@@ -38,6 +38,10 @@ namespace ATTG3
 					{
 						door.Locked = true;
 					}
+					else if (door.Name == "914")
+					{
+						door.Locked = true;
+					}
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
@@ -55,6 +59,8 @@ namespace ATTG3
 				{
 					NetworkServer.Destroy(pickup.gameObject);
 				}
+				//Object 106con = Object.FindObjectOfType<LureSubjectContainer>();
+				
 			}
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
@@ -101,7 +107,7 @@ namespace ATTG3
 					ev.Items.Add(ItemType.CHAOS_INSURGENCY_DEVICE);
 					ev.Items.Add(ItemType.FRAG_GRENADE);
 					ev.Player.PersonalBroadcast(5, "Survive 25 min", false);
-					ev.Player.SetHealth(20000);
+					ev.Player.SetHealth(10000);
 				}
 			}
 		}

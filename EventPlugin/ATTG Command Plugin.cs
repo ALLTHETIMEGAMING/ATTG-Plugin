@@ -140,7 +140,8 @@ namespace ATTG3
             this.AddCommand("GETPOS", new GetPos(this));
             this.AddCommand("MAPADD", new MapList(this));
             this.AddCommand("SSAM", new SSAM(this));
-            this.AddCommands(Sniper.CA, new Sniper(this));
+			this.AddCommand("AGSIZE", new playersize(this));
+			this.AddCommands(Sniper.CA, new Sniper(this));
 			this.AddCommands(Config.CA, new Config(this));
 			//Event Handlers
 			this.AddEventHandlers(new EventHandler(this), Priority.Normal);

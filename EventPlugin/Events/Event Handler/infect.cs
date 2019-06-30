@@ -61,6 +61,10 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
+				if (ev.Player.GetHealth() > 50)
+				{
+					ev.Player.AddHealth(100);
+				}
 			}
 		}
 		public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
@@ -83,9 +87,12 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
-				ev.Player.PersonalBroadcast(10, "You will respawn in 30 seconds", false);
-				ev.SpawnRagdoll = false;
-				Timing.RunCoroutine(Events.RespawnSpawn(ev.Player, "infect"));
+				if (ev.Killer.TeamRole.Role == Role.SCP_049_2)
+				{
+					ev.Player.PersonalBroadcast(10, "You will respawn in 30 seconds", false);
+					ev.SpawnRagdoll = false;
+					Timing.RunCoroutine(Events.RespawnSpawn(ev.Player, "infect"));
+				}
 			}
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
@@ -93,6 +100,7 @@ namespace ATTG3
 			if (plugin.INFECT)
 			{
 				plugin.INFECT = false;
+				EventPlayerItems.InfecPlayer.Clear();
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
@@ -137,8 +145,10 @@ namespace ATTG3
 					if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == false)
 					{
 						EventPlayerItems.InfecPlayer.Add(ev.Player.SteamId);
+						Timing.RunCoroutine(Events.Playerhit(ev.Player));
 					}
 				}
+				ev.Damage = 0;
 			}
 		}
 		public void OnDoorAccess(PlayerDoorAccessEvent ev)

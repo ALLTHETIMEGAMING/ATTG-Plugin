@@ -100,6 +100,7 @@
     <Compile Include="Player Commands\Rank.cs" />
     <Compile Include="Player Commands\Target FF.cs" />
     <Compile Include="Player Commands\sniper.cs" />
+    <Compile Include="Player Commands\Playersize.cs" />
     <Compile Include="Player Commands\Teleport+Remove.cs" />
     <Compile Include="Player Commands\Teleport.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />

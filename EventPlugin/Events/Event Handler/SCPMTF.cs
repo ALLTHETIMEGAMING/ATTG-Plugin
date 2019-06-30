@@ -15,7 +15,6 @@ namespace ATTG3
 		int C106;
 		int gen;
 		bool nuke;
-		bool genunlocked;
 		public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;
 		public SCPMTF(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -78,6 +77,11 @@ namespace ATTG3
 				foreach (Generator079 gen in Generator079.generators)
 				{
 					gen.NetworkremainingPowerup = (gen.startDuration = 300f);
+				}
+				foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.WEAPON_MANAGER_TABLET, true))
+				{
+					Vector itemspawn = item.GetPosition();
+					PluginManager.Manager.Server.Map.SpawnItem(Smod2.API.ItemType.MTF_COMMANDER_KEYCARD, itemspawn, null);
 				}
 			}
 		}
@@ -144,14 +148,13 @@ namespace ATTG3
 					}
 				}
                 ev.Items.Remove(ItemType.DISARMER);
-                Events.SCPMTF();
+                //Events.SCPMTF();
             }
 		}
 		public void OnGeneratorFinish(GeneratorFinishEvent ev)
 		{
 			if (plugin.MTFSCP)
 			{
-				genunlocked = false;
 				gen++;
 				if (gen == 1)
 				{
@@ -335,7 +338,6 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				Events.SCPMTF();
 			}
 		}
 		public void OnDetonate()
