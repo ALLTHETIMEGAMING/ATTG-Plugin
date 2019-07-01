@@ -76,11 +76,11 @@ namespace ATTG3
 		public static List<Vector3> NoRoomTP = new List<Vector3>();
         public static List<string> Maplist = new List<string>();
         public static List<string> Banmemes = new List<string>();
-        public static List<Vector> MapCusSpawn = new List<Vector>();
+        public static Dictionary<Vector,string> MapCusSpawn = new Dictionary<Vector, string>();
 
 
-        public static string EventSpawn = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
-        public static string Mapseeds = FileManager.GetAppFolder() + "ATTG" + Path.DirectorySeparatorChar + "Mapseeds.txt";
+        public static string EventSpawn = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
+        public static string Mapseeds = FileManager.GetAppFolder(shared:true) + "ATTG" + Path.DirectorySeparatorChar + "Mapseeds.txt";
 
         //End of Events
         public override void Register()
@@ -154,7 +154,8 @@ namespace ATTG3
 			this.AddEventHandlers(new VIPESCAPE(this), Priority.High);
 			this.AddEventHandlers(new Question(this), Priority.High);
 			this.AddEventHandlers(new Jug(this), Priority.High);
-			this.AddEventHandlers(new PlayerConsole(this));
+            this.AddEventHandlers(new FFLight(this), Priority.High);
+            this.AddEventHandlers(new PlayerConsole(this));
 		}
 		public void ReloadConfig()
 		{
@@ -190,7 +191,6 @@ namespace ATTG3
             }
             ATTG3Plugin.Banmemes.Add("Was banned from the server by BattlEye");
             ATTG3Plugin.Banmemes.Add("Was banned from the server by Ubisoft for Hacks");
-            ATTG3Plugin.Banmemes.Add("Was banned from the server for not liking my meme");
             ATTG3Plugin.Banmemes.Add("Was REEEEEEEEEEEEEEED from the server ");
             ATTG3Plugin.Banmemes.Add("Was forced to uninstall life.exe");
             ATTG3Plugin.Banmemes.Add("Was uno reverse carded");

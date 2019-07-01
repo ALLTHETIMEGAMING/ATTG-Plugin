@@ -50,6 +50,7 @@ namespace ATTG3
 			PlayerConsole.Voted.Clear();
 			plugin.RoundStarted = false;
 			MAP.Shake = false;
+            FFLight.FFLightEvent = false;
 			MAP.Shake = false;
 			MAP.Tleslad = false;
 			MAP.Tleslas = false;
@@ -282,8 +283,10 @@ namespace ATTG3
                 Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
                 if (Config.Config1 && ATTG3Plugin.MapCusSpawn.Count > 0)
                 {
-                    int RandomInt = new System.Random().Next(ATTG3Plugin.MapCusSpawn.Count);
-                    ev.SpawnPos = ATTG3Plugin.MapCusSpawn[RandomInt];
+                    System.Random rand = new System.Random();
+                    List<Vector> values = Enumerable.ToList(ATTG3Plugin.MapCusSpawn.Keys);
+                    int size = ATTG3Plugin.MapCusSpawn.Count;
+                    ev.SpawnPos = values[rand.Next(size)];
                 }
 			}
 		}

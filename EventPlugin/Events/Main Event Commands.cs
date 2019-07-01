@@ -66,7 +66,14 @@ namespace ATTG3
 						plugin.Event = true;
 						return new string[] { "Infect Containment Event started" };
 					}
-					else if (args2 == "vip")
+                    else if (args2 == "fflight")
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>FF Event Starting</Color></SIZE>", false);
+                        FFLight.FFLightEvent = true;
+                        plugin.Event = true;
+                        return new string[] { "FF Event started" };
+                    }
+                    else if (args2 == "vip")
 					{
 						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>VIP Event Starting</Color></SIZE>", false);
 						plugin.VIP = true;

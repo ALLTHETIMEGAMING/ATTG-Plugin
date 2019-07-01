@@ -1,15 +1,10 @@
 ﻿using Smod2;
 using Smod2.API;
-using Smod2.Attributes;
-using Smod2.Config;
-using Smod2.Events;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using System.IO;
-using System.Threading;
 using System;
-using Smod2.Commands;
 
 namespace ATTG3
 {
@@ -19,6 +14,7 @@ namespace ATTG3
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
         public Events(ATTG3Plugin plugin) => this.plugin = plugin;
+        #region Working
         public static IEnumerator<float> Invrandgive(Player player)
         {
 
@@ -455,15 +451,16 @@ namespace ATTG3
             if (ATTG3Plugin.MapCusSpawn.Count > 0)
                 ATTG3Plugin.MapCusSpawn.Clear();
             List<string> MapSpaVec = new List<string>();
-            MapSpaVec = File.ReadAllLines(ATTG3Plugin.EventSpawn).ToList();
+            GameObject val = GameObject.Find("Host");
+            int num = -1;
+            if (val != null)
+            {
+                num = val.GetComponent<RandomSeedSync>().seed;
+            }
+            string MapFilePos = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num + ".txt";
+            MapSpaVec = File.ReadAllLines(MapFilePos).ToList();
             if (MapSpaVec.Count() > 0)
             {
-                GameObject val = GameObject.Find("Host");
-                int num = -1;
-                if (val != null)
-                {
-                    num = val.GetComponent<RandomSeedSync>().seed;
-                }
                 ATTG3Plugin.Instance.Info("Checking map Seeds and Custom Vectors");
                 foreach (string spawnvec in MapSpaVec)
                 {
@@ -472,17 +469,38 @@ namespace ATTG3
                         if (num == Int32.Parse(spawnvec.Split(':')[0]))
                         {
                             string line = spawnvec.Split(':')[0];
-                            string line1 = spawnvec.Split(':')[2];
-                            float x = float.Parse(line1.Split(',')[0]);
-                            float y = float.Parse(line1.Split(',')[1]);
-                            float z = float.Parse(line1.Split(',')[2]);
+                            string line1 = spawnvec.Split(':')[1];
+                            string line2 = spawnvec.Split(':')[2];
+                            float x = float.Parse(line2.Split(',')[0]);
+                            float y = float.Parse(line2.Split(',')[1]);
+                            float z = float.Parse(line2.Split(',')[2]);
                             Vector Posspawn = new Vector(x, y, z);
-                            ATTG3Plugin.MapCusSpawn.Add(Posspawn);
+                            ATTG3Plugin.MapCusSpawn.Add(Posspawn,line1);
                         }
                     }
                 }
                 ATTG3Plugin.Instance.Info("Done Checking map Seeds and Custom Vectors");
+                ZonePOSSet();
             }
+        }
+        public static void ZonePOSSet()
+        {
+            foreach (KeyValuePair<Vector, string> pos in ATTG3Plugin.MapCusSpawn)
+            {
+                if (pos.Value == "LCZ")
+                {
+                    EventPlayerItems.LCZPOS.Add(pos.Key.ToString());
+                }
+                else if (pos.Value == "HCZ")
+                {
+                    EventPlayerItems.HCZPOS.Add(pos.Key.ToString());
+                }
+                else if (pos.Value == "ECZ")
+                {
+                    EventPlayerItems.ECZPOS.Add(pos.Key.ToString());
+                }
+            }
+            StringtoVect();
         }
         public static void Filesetup()
         {
@@ -504,6 +522,18 @@ namespace ATTG3
                     using (new StreamWriter(File.Create(Mapseeds))) { }
                 }
             }
+        }
+        public static void GetMapSeedFile()
+        {
+            GameObject val = GameObject.Find("Host");
+            int num = -1;
+            if (val != null)
+            {
+                num = val.GetComponent<RandomSeedSync>().seed;
+            }
+            string MapFilePos = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num + ".txt";
+            var Mapfile = File.ReadAllLines(MapFilePos);
+            EventPlayerItems.MapPosEvents = new List<string>(Mapfile);
         }
         #endregion
         public static IEnumerator<float> Fulldebug()
@@ -651,6 +681,59 @@ namespace ATTG3
             {
                 player.ChangeRole(Role.SCP_049_2, spawnTeleport: false);
             }
+        }
+        #endregion
+        public static IEnumerator<float> Delay60()
+        {
+            yield return MEC.Timing.WaitForSeconds(60f);
+            foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+            {
+                ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = true;
+                if (player.TeamRole.Role == Role.CLASSD)
+                {
+                    ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = true;
+                }
+            }
+            PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>FF Activated</Color></SIZE>", false);
+        }
+        public static void StringtoVect()
+        {
+
+                foreach (string spawnvec in EventPlayerItems.LCZPOS)
+                {
+                    if (spawnvec.Length > 0)
+                    {
+                        float x = float.Parse(spawnvec.Split(',')[0]);
+                        float y = float.Parse(spawnvec.Split(',')[1]);
+                        float z = float.Parse(spawnvec.Split(',')[2]);
+                        Vector Posspawn = new Vector(x, y, z);
+                        EventPlayerItems.LCZPOSF.Add(Posspawn);
+                    }
+                }
+                foreach (string spawnvec in EventPlayerItems.HCZPOS)
+                {
+                    if (spawnvec.Length > 0)
+                    {
+                        float x = float.Parse(spawnvec.Split(',')[0]);
+                        float y = float.Parse(spawnvec.Split(',')[1]);
+                        float z = float.Parse(spawnvec.Split(',')[2]);
+                        Vector Posspawn = new Vector(x, y, z);
+                        EventPlayerItems.HCZPOSF.Add(Posspawn);
+                    }
+                }
+            
+                foreach (string spawnvec in EventPlayerItems.ECZPOS)
+                {
+                    if (spawnvec.Length > 0)
+                    {
+                        float x = float.Parse(spawnvec.Split(',')[0]);
+                        float y = float.Parse(spawnvec.Split(',')[1]);
+                        float z = float.Parse(spawnvec.Split(',')[2]);
+                        Vector Posspawn = new Vector(x, y, z);
+                        EventPlayerItems.ECZPOSF.Add(Posspawn);
+                    }
+                }
+            
         }
     }
 }

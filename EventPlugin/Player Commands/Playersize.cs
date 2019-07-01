@@ -38,11 +38,14 @@ namespace ATTG3
                     if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                     if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                     {
-						int role = (int)myPlayer.TeamRole.Role;
+                        /*int role = (int)myPlayer.TeamRole.Role;
 						Class @class = CHAR.klasy[(role >= 0) ? role : role];
 						GameObject playerobj = (GameObject)myPlayer.GetGameObject();
 						var playercom = playerobj.GetComponent<CharacterClassManager>();
 						playercom.transform.localScale = @class.model_offset.scale*4;
+                        */
+                        GameObject playerobj = (GameObject)myPlayer.GetGameObject();
+                        playerobj.transform.localScale = new Vector3(50, 50, 50);
 						return new string[] { myPlayer.Name+" size changed" };
                     }
                     else

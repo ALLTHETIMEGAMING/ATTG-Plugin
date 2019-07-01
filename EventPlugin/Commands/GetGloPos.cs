@@ -7,10 +7,10 @@ using System;
 using UnityEngine;
 namespace ATTG3
 {
-    class GetPos : ICommandHandler
+    class GetGloPos : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        public GetPos(ATTG3Plugin plugin)
+        public GetGloPos(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
             this.plugin=plugin;
@@ -30,7 +30,7 @@ namespace ATTG3
         public string[] OnCall(ICommandSender sender, string[] args)
         {
             if (sender is Player player&&
-                !plugin.AdminRanks.Contains(player.GetRankName()))
+                !plugin.Allrank.Contains(player.GetRankName()))
             {
                 return new[]
                 {
@@ -53,9 +53,7 @@ namespace ATTG3
                     {
                         pos = num.ToString() + ":" + "LCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
-                        string text2 = pos.Replace("(", "");
-                        text2 = pos.Replace(" ", "");
-                        text2 = pos.Replace(")", "");
+                        string text2 = pos.Trim('(', ')', ' ');
                         File.AppendAllText(Mapseeds, text2);
                         plugin.Info("Printing to file " + num);
                     }
@@ -63,19 +61,15 @@ namespace ATTG3
                     {
                         pos = num.ToString() + ":" + "HCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
-                        string text2 = pos.Replace("(", "");
-                        text2 = pos.Replace(" ", "");
-                        text2 = pos.Replace(")", "");
+                        string text2 = pos.Trim('(', ')', ' ');
                         File.AppendAllText(Mapseeds, text2);
-                        plugin.Info("Printing to file " + num.ToString());
+                        plugin.Info("Printing to file " + num);
                     }
                     else if (args2 == "ecz")
                     {
                         pos = num.ToString() + ":"+ "ECZ" + ":"+ player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
-                        string text2 = pos.Replace("(","");
-                        text2 = pos.Replace(" ", "");
-                        text2 = pos.Replace(")", "");
+                        string text2 = pos.Trim('(', ')', ' ');
                         File.AppendAllText(Mapseeds, text2);
                         plugin.Info("Printing to file " + num);
                     }

@@ -17,6 +17,12 @@ namespace ATTG3
 		public EventPlayerItems(ATTG3Plugin plugin) => this.plugin = plugin;
         public static Dictionary<string, string> Itemset = new Dictionary<string, string>();
         public static List<string> InfecPlayer = new List<string>();
-
+        public static List<string> MapPosEvents = new List<string>();
+        public static List<string> LCZPOS = new List<string>();
+        public static List<string> HCZPOS = new List<string>();
+        public static List<string> ECZPOS = new List<string>();
+        public static List<Vector> LCZPOSF = new List<Vector>();
+        public static List<Vector> HCZPOSF = new List<Vector>();
+        public static List<Vector> ECZPOSF = new List<Vector>();
     }
 }
