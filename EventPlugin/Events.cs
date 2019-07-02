@@ -468,7 +468,6 @@ namespace ATTG3
                     {
                         if (num == Int32.Parse(spawnvec.Split(':')[0]))
                         {
-                            string line = spawnvec.Split(':')[0];
                             string line1 = spawnvec.Split(':')[1];
                             string line2 = spawnvec.Split(':')[2];
                             float x = float.Parse(line2.Split(',')[0]);
@@ -485,22 +484,22 @@ namespace ATTG3
         }
         public static void ZonePOSSet()
         {
+            ATTG3Plugin.Instance.Info("Got ot ZONEPOSSET");
             foreach (KeyValuePair<Vector, string> pos in ATTG3Plugin.MapCusSpawn)
             {
                 if (pos.Value == "LCZ")
                 {
-                    EventPlayerItems.LCZPOS.Add(pos.Key.ToString());
+                    EventPlayerItems.LCZPOS.Add(pos.Key);
                 }
                 else if (pos.Value == "HCZ")
                 {
-                    EventPlayerItems.HCZPOS.Add(pos.Key.ToString());
+                    EventPlayerItems.HCZPOS.Add(pos.Key);
                 }
                 else if (pos.Value == "ECZ")
                 {
-                    EventPlayerItems.ECZPOS.Add(pos.Key.ToString());
+                    EventPlayerItems.ECZPOS.Add(pos.Key);
                 }
             }
-            StringtoVect();
         }
         public static void Filesetup()
         {
@@ -695,45 +694,6 @@ namespace ATTG3
                 }
             }
             PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>FF Activated</Color></SIZE>", false);
-        }
-        public static void StringtoVect()
-        {
-
-                foreach (string spawnvec in EventPlayerItems.LCZPOS)
-                {
-                    if (spawnvec.Length > 0)
-                    {
-                        float x = float.Parse(spawnvec.Split(',')[0]);
-                        float y = float.Parse(spawnvec.Split(',')[1]);
-                        float z = float.Parse(spawnvec.Split(',')[2]);
-                        Vector Posspawn = new Vector(x, y, z);
-                        EventPlayerItems.LCZPOSF.Add(Posspawn);
-                    }
-                }
-                foreach (string spawnvec in EventPlayerItems.HCZPOS)
-                {
-                    if (spawnvec.Length > 0)
-                    {
-                        float x = float.Parse(spawnvec.Split(',')[0]);
-                        float y = float.Parse(spawnvec.Split(',')[1]);
-                        float z = float.Parse(spawnvec.Split(',')[2]);
-                        Vector Posspawn = new Vector(x, y, z);
-                        EventPlayerItems.HCZPOSF.Add(Posspawn);
-                    }
-                }
-            
-                foreach (string spawnvec in EventPlayerItems.ECZPOS)
-                {
-                    if (spawnvec.Length > 0)
-                    {
-                        float x = float.Parse(spawnvec.Split(',')[0]);
-                        float y = float.Parse(spawnvec.Split(',')[1]);
-                        float z = float.Parse(spawnvec.Split(',')[2]);
-                        Vector Posspawn = new Vector(x, y, z);
-                        EventPlayerItems.ECZPOSF.Add(Posspawn);
-                    }
-                }
-            
         }
     }
 }

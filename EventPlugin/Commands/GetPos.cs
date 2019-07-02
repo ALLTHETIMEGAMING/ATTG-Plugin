@@ -54,8 +54,8 @@ namespace ATTG3
                         pos = num.ToString() + ":" + "LCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
                         string text2 = pos.Replace("(", "");
-                        text2 = pos.Replace(" ", "");
-                        text2 = pos.Replace(")", "");
+                        text2 = text2.Replace(" ", "");
+                        text2 = text2.Replace(")", "");
                         File.AppendAllText(Mapseeds, text2);
                         plugin.Info("Printing to file " + num);
                     }
@@ -64,8 +64,8 @@ namespace ATTG3
                         pos = num.ToString() + ":" + "HCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
                         string text2 = pos.Replace("(", "");
-                        text2 = pos.Replace(" ", "");
-                        text2 = pos.Replace(")", "");
+                        text2 = text2.Replace(" ", "");
+                        text2 = text2.Replace(")", "");
                         File.AppendAllText(Mapseeds, text2);
                         plugin.Info("Printing to file " + num.ToString());
                     }
@@ -74,8 +74,8 @@ namespace ATTG3
                         pos = num.ToString() + ":"+ "ECZ" + ":"+ player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
                         string text2 = pos.Replace("(","");
-                        text2 = pos.Replace(" ", "");
-                        text2 = pos.Replace(")", "");
+                        text2 = text2.Replace(" ", "");
+                        text2 = text2.Replace(")", "");
                         File.AppendAllText(Mapseeds, text2);
                         plugin.Info("Printing to file " + num);
                     }

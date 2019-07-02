@@ -36,7 +36,7 @@ namespace ATTG3
                     if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
                     if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                     {
-						Events.FullRandRoomTP(myPlayer);
+						//my;
                         return new string[] { myPlayer.Name+" has been teleported" };
                     }
                     else
