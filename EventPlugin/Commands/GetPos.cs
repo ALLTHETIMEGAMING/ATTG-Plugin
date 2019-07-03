@@ -1,6 +1,5 @@
 ﻿using Smod2.API;
 using Smod2.Commands;
-using ServerMod2;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -46,7 +45,6 @@ namespace ATTG3
                     string args2 = args[0].ToLower();
                     GameObject val = GameObject.Find("Host");
                     int num = -1;
-
                     if (val != null)
                     {
                         num = val.GetComponent<RandomSeedSync>().seed;
@@ -61,7 +59,7 @@ namespace ATTG3
                         File.AppendAllText(Mapseeds, text2);
                         plugin.Info("Printing to file " + num);
                     }
-                    else if (player1.get)
+                    else if (args2 == "hcz")
                     {
                         pos = num.ToString() + ":" + "HCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
