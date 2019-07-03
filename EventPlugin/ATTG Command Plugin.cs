@@ -16,8 +16,8 @@ namespace ATTG3
 		id = "ATTG.ADMIN.COMMAND",
 		name = "ATTG Admin",
 		SmodMajor = 3,
-		SmodMinor = 4,
-		SmodRevision = 1,
+		SmodMinor = 5,
+		SmodRevision = 0,
 		version = "4.5.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
@@ -77,8 +77,6 @@ namespace ATTG3
         public static List<string> Maplist = new List<string>();
         public static List<string> Banmemes = new List<string>();
         public static Dictionary<Vector,string> MapCusSpawn = new Dictionary<Vector, string>();
-
-
         public static string EventSpawn = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
         public static string Mapseeds = FileManager.GetAppFolder(shared:true) + "ATTG" + Path.DirectorySeparatorChar + "Mapseeds.txt";
 
@@ -204,5 +202,4 @@ namespace ATTG3
 			Info("ATTG Command Plugin disabled.");
 		}
 	}
-	
 }

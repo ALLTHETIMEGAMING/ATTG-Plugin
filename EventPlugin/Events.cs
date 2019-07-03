@@ -478,13 +478,11 @@ namespace ATTG3
                         }
                     }
                 }
-                ATTG3Plugin.Instance.Info("Done Checking map Seeds and Custom Vectors");
                 ZonePOSSet();
             }
         }
         public static void ZonePOSSet()
         {
-            ATTG3Plugin.Instance.Info("Got ot ZONEPOSSET");
             foreach (KeyValuePair<Vector, string> pos in ATTG3Plugin.MapCusSpawn)
             {
                 if (pos.Value == "LCZ")

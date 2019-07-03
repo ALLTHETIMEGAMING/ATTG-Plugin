@@ -59,7 +59,7 @@ namespace ATTG3
                         File.AppendAllText(Mapseeds, text2);
                         plugin.Info("Printing to file " + num);
                     }
-                    else if (args2 == "hcz")
+                    else if (Server.getc())
                     {
                         pos = num.ToString() + ":" + "HCZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
