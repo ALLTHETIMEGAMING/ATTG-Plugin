@@ -153,8 +153,5 @@
   <ItemGroup>
     <Folder Include="Events\Event Commands\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
