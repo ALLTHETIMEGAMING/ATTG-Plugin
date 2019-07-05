@@ -77,6 +77,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Meme.cs" />
     <Compile Include="Commands\debug.cs" />
     <Compile Include="Commands\GetGloPos.cs" />
     <Compile Include="Commands\SSAM.cs" />

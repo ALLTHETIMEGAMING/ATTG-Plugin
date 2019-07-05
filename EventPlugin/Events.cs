@@ -693,5 +693,51 @@ namespace ATTG3
             }
             PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>FF Activated</Color></SIZE>", false);
         }
+        public static IEnumerator<float> MEMETIME()
+        {
+            while (MEME.MEMETIME)
+            {
+                foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+                {
+                    door.Open = true;
+                }
+                yield return MEC.Timing.WaitForSeconds(1f);
+                foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+                {
+                    door.Open = false;
+                }
+                yield return MEC.Timing.WaitForSeconds(1f);
+                foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+                {
+                    door.Open = true;
+                }
+                yield return MEC.Timing.WaitForSeconds(1f);
+                foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+                {
+                    door.Open = false;
+                }
+                yield return MEC.Timing.WaitForSeconds(1f);
+            }
+        }
+        public static IEnumerator<float> TimingDelay()
+        {
+            while (MEME.MEMETIME)
+            {
+                ATTG3Plugin.Instance.Server.Map.Shake();
+                yield return 3f;
+            }
+            yield return MEC.Timing.WaitForSeconds(0.75f);
+        }
+        public static IEnumerator<float> TimingDelay2()
+        {
+            while (MEME.MEMETIME)
+            {
+                foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
+                {
+                    TeslaGate.Activate(true);
+                }
+                yield return MEC.Timing.WaitForSeconds(0.5f);
+            }
+        }
     }
 }

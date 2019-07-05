@@ -118,17 +118,6 @@ namespace ATTG3
 		{
 			if (plugin.Infectcontain)
 			{
-                if (ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
-                {
-                    ev.Player.ChangeRole(Role.NTF_COMMANDER, true, true, true, true);
-                    ev.Player.PersonalBroadcast(10, "Kill All SCP-049-2", false);
-                }
-                if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
-                {
-                    ev.Player.ChangeRole(Role.SCP_049_2, true, true, true, true);
-                    ev.Player.PersonalBroadcast(10, "Hide From MTF", false);
-                    ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-                }
             }
 		}
 		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)

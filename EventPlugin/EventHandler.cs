@@ -19,7 +19,7 @@ namespace ATTG3
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
-		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot
+		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin
     {
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -338,6 +338,10 @@ namespace ATTG3
                 ev.WeaponSound = WeaponType.USP;
                 ev.ShouldSpawnHitmarker = true;
             }
+        }
+        public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
+        {
+
         }
     }
 }

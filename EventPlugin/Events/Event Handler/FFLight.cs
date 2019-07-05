@@ -37,7 +37,7 @@ namespace ATTG3
                     player.ChangeRole(Role.CLASSD, true, true, true, true);
                 }
                 PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>You have 60 Seconds to hide</Color></SIZE>", false);
-                Events.Delay60();
+                Timing.RunCoroutine(Events.Delay60());
             }
         }
         
