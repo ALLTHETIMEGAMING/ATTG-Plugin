@@ -34,20 +34,21 @@
     </NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Downloads\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\References\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
-    <Reference Include="Smod2, Version=3.5.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Smod2">
       <HintPath>..\References\Smod2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,16 +80,15 @@
   <ItemGroup>
     <Compile Include="Commands\Meme.cs" />
     <Compile Include="Commands\debug.cs" />
-    <Compile Include="Commands\GetGloPos.cs" />
     <Compile Include="Commands\SSAM.cs" />
     <Compile Include="Commands\MapList.cs" />
     <Compile Include="Commands\GetPos.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Commands V2\MAP.cs" />
     <Compile Include="Commands\config.cs" />
-    <Compile Include="Events\Event List Mains.cs" />
-    <Compile Include="Events\Event Handler\Jug.cs" />
     <Compile Include="Events\Event Handler\FFLight.cs" />
+    <Compile Include="Events\Event Handler\Jug.cs" />
+    <Compile Include="Events\Event List Mains.cs" />
     <Compile Include="Events\Main Event Commands.cs" />
     <Compile Include="Events\Event Handler\QUESTION.cs" />
     <Compile Include="Events\Event Handler\VIPESCAPE.cs" />
@@ -102,7 +102,6 @@
     <Compile Include="Player Commands\Rank.cs" />
     <Compile Include="Player Commands\Target FF.cs" />
     <Compile Include="Player Commands\sniper.cs" />
-    <Compile Include="Player Commands\Playersize.cs" />
     <Compile Include="Player Commands\Teleport+Remove.cs" />
     <Compile Include="Player Commands\Teleport.cs" />
     <Compile Include="Testing commands\GenSpam.cs" />
