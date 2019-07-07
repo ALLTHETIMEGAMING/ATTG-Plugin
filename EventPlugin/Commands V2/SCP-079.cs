@@ -2,7 +2,6 @@
 using Smod2.API;
 using Smod2.Commands;
 using System.Linq;
-using scp4aiur;
 
 namespace ATTG3
 {

@@ -9,9 +9,8 @@ namespace ATTG3
 {
 	internal class SCPMTF : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerLure,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate,
-		IEventHandlerUpdate
-    {
+		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate, IEventHandlerPlayerDie
+	{
 		int C106;
 		int gen;
 		bool nuke;
@@ -91,6 +90,7 @@ namespace ATTG3
 			{
                 if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId))
                 {
+					// Testing Custom Door events
                     plugin.Info("Running SCPMTF Door key test");
                     Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, ev.Player.GetCurrentItem().ItemType, ev.Player));
                 }
@@ -319,6 +319,7 @@ namespace ATTG3
 			if (plugin.MTFSCP)
 			{
                 ev.Cancel = false;
+				
             }
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
@@ -332,12 +333,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-			}
-		}
-		public void OnUpdate(Smod2.Events.UpdateEvent ev)
-		{
-			if (plugin.MTFSCP)
-			{
+				ev.Triggerable = false;
 			}
 		}
 		public void OnDetonate()
@@ -362,7 +358,13 @@ namespace ATTG3
 				}
 			}
 		}*/
-
+		public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
+		{
+			if (plugin.MTFSCP)
+			{
+				ev.Player.SetRank(null, null, null);
+			}
+		}
 	}
 }
 

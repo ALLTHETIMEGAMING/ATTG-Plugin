@@ -66,7 +66,7 @@ namespace ATTG3
 			if (plugin.MTFCI)
 			{
                 ev.Items.Clear();
-				Timing.RunCoroutine(Events.Invrandgive(ev.Player));
+				Timing.RunCoroutine(Events.Invrandgive(ev.Items,ev.Player));
 				ev.Items.Add(ItemType.COM15);
                 ev.Items.Add(ItemType.MEDKIT);
 			}

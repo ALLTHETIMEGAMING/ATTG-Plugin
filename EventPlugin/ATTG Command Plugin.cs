@@ -84,7 +84,6 @@ namespace ATTG3
         public override void Register()
 		{
 			Instance = this;
-			scp4aiur.Timing.Init(this);
 			// Configs
 			AddConfig(new ConfigSetting("attg_ranks", new[] { "owner", "coowner", "o51" }, false, true, ""));
 			AddConfig(new ConfigSetting("attg_event_ranks", new[] { "owner", "coowner" }, false, true, "Ranks for all SCP Commands"));

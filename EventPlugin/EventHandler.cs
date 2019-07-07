@@ -19,8 +19,8 @@ namespace ATTG3
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
 		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
-		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin
-    {
+		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin, IEventHandlerPocketDimensionEnter
+	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
 		public Scp096PlayerScript PlayerScript { get; private set; }
@@ -56,7 +56,7 @@ namespace ATTG3
 			MAP.Tleslas = false;
 			plugin.Jugevent = false;
             ATTG3Plugin.TPRooms.Clear();
-            Events.GetRoundStartRoom();
+            //Events.GetRoundStartRoom();
             var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
             Events.MapSpawnVec();
@@ -343,5 +343,12 @@ namespace ATTG3
         {
 
         }
+		public void OnPocketDimensionEnter(Smod2.Events.PlayerPocketDimensionEnterEvent ev)
+		{
+			if (ev.Player.TeamRole.Role == Role.TUTORIAL)
+			{
+				ev.TargetPosition = ev.LastPosition;
+			}
+		}
     }
 }

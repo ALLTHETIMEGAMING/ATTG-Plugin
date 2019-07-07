@@ -40,7 +40,7 @@ namespace ATTG3
                     //Door[] doors = Object.FindObjectsOfType<Door>();
                     //Random rnd = new Random();
                     //int index = Random.Range(0, doors.Length);
-                    //Door door = doors[index];
+                    //Door door1 = doors[index];
                     foreach (Door door in Object.FindObjectsOfType<Door>())
                     {
                         if (door.DoorName == "096")
@@ -92,17 +92,38 @@ namespace ATTG3
                         var netid = door1.GetComponent<NetworkIdentity>();
                         netid.gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
                         netid.gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
-                        plugin.Info(door1.transform.position.ToString() + " Door POS Part doorpos 5");
+
+						plugin.Info(door1.transform.position.ToString() + " Door POS Part doorpos 5");
                         plugin.Info(netid.gameObject.transform.position.ToString() + " Door POS Part NETPOS 5");
                         door1.UpdatePos();
                     }
-                        /*if (args[2] == "1")
-                        {
-                            door1.SetLocalPos();
-                            door1.UpdatePos();
-                        }*/
-                        
-                }
+					else if (args[1] == "6")
+					{
+						door1.SetZero();
+						plugin.Info(door1.transform.position.ToString() + " Door POS Part 5");
+						plugin.Info(pos.ToString() + " Player Pos");
+						var netid = door1.GetComponent<NetworkIdentity>();
+						door1.GetComponent<NetworkTransform>().transform.position = new Vector3(pos.x, pos.y, pos.z);
+						netid.gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
+						netid.transform.position = new Vector3(pos.x, pos.y, pos.z);
+						door1.gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
+						door1.localPos = new Vector3(pos.x, pos.y, pos.z);
+						door1.GetComponent<Renderer>().transform.position = new Vector3(pos.x, pos.y, pos.z);
+						plugin.Info(door1.transform.position.ToString() + " Door POS Part doorpos 5");
+						plugin.Info(netid.gameObject.transform.position.ToString() + " Door POS Part NETPOS 5");
+						door1.UpdatePos();
+					}
+					else if (args[1] == "7")
+					{
+						door1.GetComponent<NetworkTransform>().transform.position = new Vector3(pos.x, pos.y, pos.z);
+					}
+					/*if (args[2] == "1")
+					{
+						door1.SetLocalPos();
+						door1.UpdatePos();
+					}*/
+
+				}
             }
 			return new string[] { "Door Moved" };
 		}

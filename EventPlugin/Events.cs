@@ -15,7 +15,7 @@ namespace ATTG3
         IConfigFile Config => ConfigManager.Manager.Config;
         public Events(ATTG3Plugin plugin) => this.plugin = plugin;
         #region Working
-        public static IEnumerator<float> Invrandgive(Player player)
+        public static IEnumerator<float> Invrandgive(List<ItemType> items,Player player)
         {
 
             // bug Gives ran item
@@ -31,16 +31,14 @@ namespace ATTG3
             }
             else if (ATTG3Plugin.Randoimitem[RandomInt] == "heavy")
             {
-                yield return MEC.Timing.WaitForSeconds(1);
-                player.GiveItem(ItemType.LOGICER);
-            }
+				items.Add(ItemType.LOGICER);
+			}
             else if (ATTG3Plugin.Randoimitem[RandomInt] == "grenade")
             {
-                yield return MEC.Timing.WaitForSeconds(1);
-                player.GiveItem(ItemType.FRAG_GRENADE);
-                player.GiveItem(ItemType.FRAG_GRENADE);
-                player.GiveItem(ItemType.FRAG_GRENADE);
-            }
+				items.Add(ItemType.FRAG_GRENADE);
+				items.Add(ItemType.FRAG_GRENADE);
+				items.Add(ItemType.FRAG_GRENADE);
+			}
         }
         public static IEnumerator<float> MTFCIRESPAWN(Player player, Player Attacker)
         {
@@ -672,12 +670,11 @@ namespace ATTG3
         }
         public static IEnumerator<float> Playerhit(Player player)
         {
-            player.PersonalBroadcast(10, "You will be turned into a 049-2 in 30 seconds if you do not use a medkit", false);
-            yield return MEC.Timing.WaitForSeconds(30f);
-            if (EventPlayerItems.InfecPlayer.Contains(player.SteamId) == true)
-            {
-                player.ChangeRole(Role.SCP_049_2, spawnTeleport: false);
-            }
+			while (player.GetHealth() >= 0 && EventPlayerItems.InfecPlayer.Contains(player.SteamId) == true)
+			{
+				yield return MEC.Timing.WaitForSeconds(1f);
+				player.Damage(1, DamageType.SCP_049_2);
+			}
         }
         #endregion
         public static IEnumerator<float> Delay60()
@@ -719,18 +716,18 @@ namespace ATTG3
                 yield return MEC.Timing.WaitForSeconds(1f);
             }
         }
-        public static IEnumerator<float> TimingDelay()
+        public static IEnumerator<float> MapShake()
         {
-            while (MEME.MEMETIME)
+            while (MEME.MEMETIME || MAP.Shake)
             {
                 ATTG3Plugin.Instance.Server.Map.Shake();
                 yield return 3f;
             }
             yield return MEC.Timing.WaitForSeconds(0.75f);
         }
-        public static IEnumerator<float> TimingDelay2()
+        public static IEnumerator<float> TleslaSpam()
         {
-            while (MEME.MEMETIME)
+            while (MEME.MEMETIME || MAP.Tleslas)
             {
                 foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
                 {
@@ -739,5 +736,43 @@ namespace ATTG3
                 yield return MEC.Timing.WaitForSeconds(0.5f);
             }
         }
+		public static IEnumerator<float> SpawnDelayEvcent(string Eventnum)
+		{
+			yield return MEC.Timing.WaitForSeconds(2f);
+			if (Eventnum == "infect")
+			{
+				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+				{
+					if (player.TeamRole.Team != Smod2.API.Team.SCP)
+					{
+						player.ChangeRole(Role.CLASSD);
+						player.PersonalBroadcast(10, "ESCAPE SCP-049-2", false);
+					}
+					else if (player.TeamRole.Team == Smod2.API.Team.SCP)
+					{
+						player.ChangeRole(Role.SCP_049_2, true, true, true, true);
+						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
+						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+					}
+				}
+			}
+			if (Eventnum == "infectcon")
+			{
+				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+				{
+					if (player.TeamRole.Team != Smod2.API.Team.SCP)
+					{
+						player.ChangeRole(Role.SCP_049_2);
+						player.PersonalBroadcast(10, "Hide From MTF", false);
+						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+					}
+					else if (player.TeamRole.Team == Smod2.API.Team.SCP)
+					{
+						player.ChangeRole(Role.NTF_COMMANDER);
+						player.PersonalBroadcast(10, "Kill All SCP-049-2", false);
+					}
+				}
+			}
+		}
     }
 }

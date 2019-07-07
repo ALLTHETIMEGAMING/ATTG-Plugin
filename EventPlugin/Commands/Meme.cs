@@ -40,8 +40,8 @@ namespace ATTG3
             MEMETIME = !MEMETIME;
             if (MEMETIME)
             {
-                Timing.RunCoroutine(Events.TimingDelay());
-                Timing.RunCoroutine(Events.TimingDelay2());
+                Timing.RunCoroutine(Events.MapShake());
+                Timing.RunCoroutine(Events.TleslaSpam());
                 Timing.RunCoroutine(Events.MEMETIME());
             }
 

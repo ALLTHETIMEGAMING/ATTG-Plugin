@@ -1,8 +1,8 @@
-﻿using scp4aiur;
-using Smod2.API;
+﻿using Smod2.API;
 using Smod2.Commands;
 using System.Collections.Generic;
 using System.Linq;
+using MEC;
 
 namespace ATTG3
 {
@@ -64,8 +64,8 @@ namespace ATTG3
                     Shake=!Shake;
                     if (Shake)
                     {
-                        Timing.Run(TimingDelay(0.1f));
-                    }
+						Timing.RunCoroutine(Events.MapShake());
+					}
                     return new[] { $"Map Shake is {(Shake ? "On" : "Off")}." };
                 }
                 else if (args2=="tr")
@@ -95,11 +95,11 @@ namespace ATTG3
 					Tleslas=!Tleslas;
 					if (Tleslas)
 					{
-						Timing.Run(TimingDelay2(0.1f));
+						Timing.RunCoroutine(Events.TleslaSpam());
 					}
 					return new[]
 					{
-					 $"Tlesla spam {(Tleslad ? "ACTAVATED" : "DEACTAVATED")}."
+					 $"Tlesla spam {(Tleslad ? "DEACTAVATED" : "ACTAVATED")}."
 					};
 				}
 				else if (args2=="in")
@@ -159,24 +159,6 @@ namespace ATTG3
                     };
             }
         }
-        private IEnumerable<float> TimingDelay(float time)
-        {
-            while (Shake)
-            {
-                plugin.Server.Map.Shake();
-                yield return 3f;
-            }
-        }
-        private IEnumerable<float> TimingDelay2(float time)
-        {
-            while (Tleslas)
-            {
-                foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
-                {
-                    TeslaGate.Activate(true);
-                }
-                yield return 0.5f;
-            }
-        }
+
     }
 }

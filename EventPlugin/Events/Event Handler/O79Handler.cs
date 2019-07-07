@@ -2,7 +2,6 @@
 using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
-using scp4aiur;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

@@ -9,7 +9,7 @@ namespace ATTG3
 	internal class INFECT : IEventHandlerRoundStart,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSummonVehicle,
 		IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerCheckEscape, IEventHandlerPlayerHurt,
-		IEventHandlerDoorAccess, IEventHandlerSetRole, IEventHandlerMedkitUse
+		IEventHandlerDoorAccess, IEventHandlerSetRole, IEventHandlerMedkitUse, IEventHandlerSpawn
 	{
 		private readonly ATTG3Plugin plugin;
 		public INFECT(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -36,20 +36,7 @@ namespace ATTG3
 						door.Locked = true;
 					}
 				}
-				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-				{
-					if (player.TeamRole.Team != Smod2.API.Team.SCP)
-					{
-						player.ChangeRole(Role.CLASSD);
-						player.PersonalBroadcast(10, "ESCAPE SCP-049-2", false);
-					}
-					else if (player.TeamRole.Team == Smod2.API.Team.SCP)
-					{
-						player.ChangeRole(Role.SCP_049_2, true, true, true, true);
-						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
-						player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-					}
-				}
+				Timing.RunCoroutine(Events.SpawnDelayEvcent("infect"));
 				foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.WEAPON_MANAGER_TABLET, true))
 				{
 					Vector itemspawn = item.GetPosition();
@@ -61,10 +48,6 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
-				if (ev.Player.GetHealth() > 50)
-				{
-					ev.Player.AddHealth(100);
-				}
 			}
 		}
 		public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
@@ -87,8 +70,12 @@ namespace ATTG3
 		{
 			if (plugin.INFECT)
 			{
-				if (ev.Killer.TeamRole.Role == Role.SCP_049_2)
+				if (ev.Killer.TeamRole.Role == Role.SCP_049_2 || ev.DamageTypeVar == DamageType.SCP_049_2)
 				{
+					if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == true)
+					{
+						EventPlayerItems.InfecPlayer.Remove(ev.Player.SteamId);
+					}
 					ev.Player.PersonalBroadcast(10, "You will respawn in 30 seconds", false);
 					ev.SpawnRagdoll = false;
 					Timing.RunCoroutine(Events.RespawnSpawn(ev.Player, "infect"));
@@ -141,14 +128,12 @@ namespace ATTG3
 			{
 				if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP && ev.Player.TeamRole.Role != Role.TUTORIAL)
 				{
-					Timing.RunCoroutine(Events.Playerhit(ev.Player));
 					if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == false)
 					{
 						EventPlayerItems.InfecPlayer.Add(ev.Player.SteamId);
 						Timing.RunCoroutine(Events.Playerhit(ev.Player));
 					}
 				}
-				ev.Damage = 0;
 			}
 		}
 		public void OnDoorAccess(PlayerDoorAccessEvent ev)
