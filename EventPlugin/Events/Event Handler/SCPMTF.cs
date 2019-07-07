@@ -12,7 +12,7 @@ namespace ATTG3
 		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate, IEventHandlerPlayerDie
 	{
 		int C106;
-		int gen;
+		public static int gen;
 		bool nuke;
 		public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;

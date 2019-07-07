@@ -55,6 +55,7 @@ namespace ATTG3
 			MAP.Tleslad = false;
 			MAP.Tleslas = false;
 			plugin.Jugevent = false;
+			SCPMTF.gen = 0;
             ATTG3Plugin.TPRooms.Clear();
             //Events.GetRoundStartRoom();
             var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
