@@ -4,6 +4,7 @@ using Smod2.Commands;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using MEC;
 namespace ATTG3
 {
     class Speed : ICommandHandler
@@ -48,8 +49,8 @@ namespace ATTG3
                     {
                         converted=float.Parse(args[2]);
                         plugin.Running939P=true;
-                        Timing.Run(TimingDelay(0.1f));
-                        return new string[] { myPlayer.Name+"given Super speed! at "+converted+" Speed" };
+						Timing.RunCoroutine(Events.SpeedPlayer(myPlayer, converted));
+						return new string[] { myPlayer.Name+"given Super speed! at "+converted+" Speed" };
                     }
                     else
                     {

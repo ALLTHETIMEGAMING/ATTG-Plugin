@@ -77,10 +77,9 @@ namespace ATTG3
 				{
 					gen.NetworkremainingPowerup = (gen.startDuration = 300f);
 				}
-				foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.WEAPON_MANAGER_TABLET, true))
+				foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.MTF_COMMANDER_KEYCARD, true))
 				{
-					Vector itemspawn = item.GetPosition();
-					PluginManager.Manager.Server.Map.SpawnItem(Smod2.API.ItemType.MTF_COMMANDER_KEYCARD, itemspawn, null);
+					item.Remove();
 				}
 			}
 		}
@@ -292,8 +291,16 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
+				if (Events.Gendelaybool)
+				{
+					ev.Allow = false;
+					ev.Player.PersonalBroadcast(10, "Generator Cooldown Active Plz Wait", false);
+				}
+
+
 				if (ev.Allow == true)
 				{
+					Timing.RunCoroutine(Events.GenDelay());
 					float Indicheck;
 					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
 					{

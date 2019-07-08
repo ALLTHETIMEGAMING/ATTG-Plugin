@@ -13,9 +13,11 @@ namespace ATTG3
         readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public Events(ATTG3Plugin plugin) => this.plugin = plugin;
-        #region Working
-        public static IEnumerator<float> Invrandgive(List<ItemType> items,Player player)
+		public static Scp939PlayerScript PlayerScript { get; set; }
+		public Events(ATTG3Plugin plugin) => this.plugin = plugin;
+		public static bool Gendelaybool;
+		#region Working
+		public static IEnumerator<float> Invrandgive(List<ItemType> items,Player player)
         {
 
             // bug Gives ran item
@@ -774,5 +776,24 @@ namespace ATTG3
 				}
 			}
 		}
-    }
+		public static  IEnumerator<float> SpeedPlayer(Player myPlayer, float converted)
+		{
+			while (ATTG3Plugin.Instance.Running939P)
+			{
+				GameObject playerObj = (GameObject)myPlayer.GetGameObject();
+				PlayerScript = playerObj.GetComponent<Scp939PlayerScript>();
+				PlayerScript.NetworkspeedMultiplier = converted;
+				yield return MEC.Timing.WaitForSeconds(1f);
+			}
+		}
+		public static IEnumerator<float> GenDelay()
+		{
+			if (Gendelaybool == false)
+			{
+				Gendelaybool = true;
+			}
+			yield return MEC.Timing.WaitForSeconds(60f);
+			Gendelaybool = false;
+		}
+	}
 }

@@ -1,4 +1,4 @@
-﻿using Smod2;
+﻿/*using Smod2;
 using Smod2.API;
 using Smod2.Commands;
 using System.Collections.Generic;
@@ -41,8 +41,8 @@ namespace ATTG3
             {
                 converted=float.Parse(args[1]);
                 plugin.Running939=true;
-                Timing.Run(TimingDelay(0.1f));
-                return new string[] { " All 939s have been given Super speed! at "+converted+" Speed" };
+				Timing.RunCoroutine(Events.SpeedPlayer(,converted));
+				return new string[] { " All 939s have been given Super speed! at "+converted+" Speed" };
             }
             else if (args2=="help")
             {
@@ -82,4 +82,4 @@ namespace ATTG3
             }
         }
     }
-}
+}*/

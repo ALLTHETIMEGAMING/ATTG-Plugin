@@ -99,7 +99,7 @@ namespace ATTG3
 
 			ReloadConfig();
 			//SCP-079/Genorator Commands
-			this.AddCommands(GenSpam1.CA, new GenSpam1(this));
+			//this.AddCommands(GenSpam1.CA, new GenSpam1(this));
 			this.AddCommands(SCP079.CA, new SCP079(this));
 			// lock / TeslaGate Commands 
 			this.AddCommands(Locking.CA, new Locking(this));
@@ -114,7 +114,7 @@ namespace ATTG3
 			//Other
 			this.AddCommands(C106.CA, new C106(this));
 			this.AddCommands(Up.CA, new Up(this));
-			this.AddCommands(Speed2.CA, new Speed2(this));
+			//this.AddCommands(Speed2.CA, new Speed2(this));
 			this.AddCommands(Speed.CA, new Speed(this));
 			this.AddCommands(Overcharge.CA, new Overcharge(this));
 			// EVENTS
