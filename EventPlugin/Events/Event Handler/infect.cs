@@ -158,5 +158,3 @@ namespace ATTG3
 		}
 	}
 }
-
-

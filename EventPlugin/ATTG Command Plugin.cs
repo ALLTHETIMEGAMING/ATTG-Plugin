@@ -64,6 +64,7 @@ namespace ATTG3
 		public bool QEvent { get; set; }
         public bool TestingSpawn { get; set; }
 		public bool Jugevent { get; set; }
+        public bool HoldOutEvent { get; set; }
 
         // Custiom Item Bools
         public static bool JanDestroy { get; set; } = true;

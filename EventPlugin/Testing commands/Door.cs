@@ -103,7 +103,7 @@ namespace ATTG3
 						plugin.Info(door1.transform.position.ToString() + " Door POS Part 5");
 						plugin.Info(pos.ToString() + " Player Pos");
 						var netid = door1.GetComponent<NetworkIdentity>();
-						door1.GetComponent<NetworkTransform>().transform.position = new Vector3(pos.x, pos.y, pos.z);
+						door1.GetComponent<NetworkManager>().transform.position = new Vector3(pos.x, pos.y, pos.z);
 						netid.gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
 						netid.transform.position = new Vector3(pos.x, pos.y, pos.z);
 						door1.gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
@@ -117,13 +117,29 @@ namespace ATTG3
 					{
 						door1.GetComponent<NetworkTransform>().transform.position = new Vector3(pos.x, pos.y, pos.z);
 					}
-					/*if (args[2] == "1")
+                    else if (args[1] == "8")
+                    {
+                        door1.GetComponent<NetworkManager>().gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
+                    }
+                    else if (args[1] == "9")
+                    {
+                        door1.GetComponent<NetworkTransformChild>().transform.position = new Vector3(pos.x, pos.y, pos.z);
+                    }
+                    else if (args[1] == "10")
+                    {
+                        door1.GetComponent<NetworkTransform>().gameObject.transform.position = new Vector3(pos.x, pos.y, pos.z);
+                    }
+                    else if (args[1] == "11")
+                    {
+                        door1.GetComponent<NetworkBehaviour>().transform.position = new Vector3(pos.x, pos.y, pos.z);
+                    }
+                    /*if (args[2] == "1")
 					{
 						door1.SetLocalPos();
 						door1.UpdatePos();
 					}*/
 
-				}
+                }
             }
 			return new string[] { "Door Moved" };
 		}
