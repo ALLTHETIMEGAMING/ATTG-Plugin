@@ -158,7 +158,6 @@ namespace ATTG3
                     }
                     else if (args[1] == "14")
                     {
-                        //
                         door1.localPos = new Vector3(pos.x, pos.y, pos.z);
                         door1.UpdatePos();
                     }
