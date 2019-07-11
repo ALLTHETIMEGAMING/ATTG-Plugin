@@ -12,35 +12,35 @@ namespace ATTG3
         private readonly ATTG3Plugin plugin;
         public PlayerConsole(ATTG3Plugin plugin) => this.plugin=plugin;
 
-        public static List<Player> Voted = new List<Player>();
+        public static List<string> Voted = new List<string>();
         public void OnCallCommand(PlayerCallCommandEvent ev)
         {
             string command = ev.Command.ToLower();
             if (command.StartsWith("yes"))
             {
-                if (plugin.Voteopen&&Voted.Contains(ev.Player)==false)
+                if (plugin.Voteopen&&Voted.Contains(ev.Player.SteamId)==false)
                 {
-                    Voted.Add(ev.Player);
+                    Voted.Add(ev.Player.SteamId);
                     plugin.Yes++;
                     ev.ReturnMessage="Vote Submitted";
                 }
                 else
                 {
-                    ev.ReturnMessage="Voteing is not open";
+                    ev.ReturnMessage="Voting is not open";
                 }
                 return;
             }
             else if (command.StartsWith("no"))
             {
-                if (plugin.Voteopen&&Voted.Contains(ev.Player)==false)
+                if (plugin.Voteopen&&Voted.Contains(ev.Player.SteamId)==false)
                 {
-                    Voted.Add(ev.Player);
+                    Voted.Add(ev.Player.SteamId);
                     plugin.No++;
                     ev.ReturnMessage="Vote Submitted";
                 }
                 else
                 {
-                    ev.ReturnMessage="Voteing is not open";
+                    ev.ReturnMessage="Voting is not open";
                 }
                 return;
             }
