@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace ATTG3
 {
-	internal class EventPlayerItems
+	public class EventPlayerItems
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventPlayerItems(ATTG3Plugin plugin) => this.plugin = plugin;

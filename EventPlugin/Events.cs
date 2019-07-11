@@ -682,15 +682,18 @@ namespace ATTG3
         public static IEnumerator<float> Delay60()
         {
             yield return MEC.Timing.WaitForSeconds(60f);
-            foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-            {
-                ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = true;
-                if (player.TeamRole.Role == Role.CLASSD)
+            if (FFLight.FFLightEvent)
+            { 
+                foreach (Player player in PluginManager.Manager.Server.GetPlayers())
                 {
                     ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = true;
+                    if (player.TeamRole.Role == Role.CLASSD)
+                    {
+                        ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = true;
+                    }
                 }
+                PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>FF Activated</Color></SIZE>", false);
             }
-            PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>FF Activated</Color></SIZE>", false);
         }
         public static IEnumerator<float> MEMETIME()
         {
@@ -795,5 +798,17 @@ namespace ATTG3
 			yield return MEC.Timing.WaitForSeconds(60f);
 			Gendelaybool = false;
 		}
-	}
+        public static IEnumerator<float> LightsOut()
+        {
+            while (ATTG3Plugin.Instance.Lights)
+            {
+                Generator079.generators[0].CallRpcOvercharge();
+                foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).ToArray())
+                {
+                    room.FlickerLights();
+                }
+                yield return MEC.Timing.WaitForSeconds(5f);
+            }
+        }
+    }
 }

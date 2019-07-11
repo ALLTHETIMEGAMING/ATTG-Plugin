@@ -20,7 +20,7 @@ namespace ATTG3
 				plugin.Info("Question Round Started");
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
-					Level.Add(player.SteamId, 1);
+					Level.Add(player.SteamId, 10);
 					player.ChangeRole(Role.CLASSD, true, true, false, true);
 				}
 			}
@@ -34,6 +34,10 @@ namespace ATTG3
                     ev.Player.ChangeRole(Role.TUTORIAL,true,false,false,true);
 					plugin.Info("Spawned Server Owner");
 				}
+                if (Level.ContainsKey(ev.Player.SteamId) == false)
+                {
+                    Level.Add(ev.Player.SteamId, 10);
+                }
             }
         }
         public void OnRoundEnd(RoundEndEvent ev)
@@ -82,7 +86,10 @@ namespace ATTG3
 					}
 					else
 					{
-						Level.Add(ev.Player.SteamId, 0);
+                        if (Level.ContainsKey(ev.Player.SteamId) == false)
+                        {
+                            Level.Add(ev.Player.SteamId, 10);
+                        }
 					}
 				}
 			}

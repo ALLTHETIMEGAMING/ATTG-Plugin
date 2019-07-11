@@ -6,6 +6,7 @@ using Smod2.EventSystem.Events;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MEC;
 
 namespace ATTG3
 {
@@ -20,7 +21,8 @@ namespace ATTG3
 		{
 			if (plugin.Lerk)
 			{
-				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+                plugin.Lights = true;
+                foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
 					if (door.Name == "ESCAPE")
 					{
@@ -52,8 +54,8 @@ namespace ATTG3
 						player.PersonalBroadcast(10, "STOP CLASS-D FROM ESCAPING", false);
 					}
 				}
-
-				foreach (Generator079 gen in Generator079.generators)
+                Timing.RunCoroutine(Events.LightsOut());
+                foreach (Generator079 gen in Generator079.generators)
 				{
 					gen.NetworkremainingPowerup = (gen.startDuration = 30f);
 				}
@@ -138,6 +140,7 @@ namespace ATTG3
 			if (plugin.Lerk)
 			{
 				plugin.Lerk = false;
+                plugin.Lights = false;
 			}
 		}
 		public void OnSpawn(PlayerSpawnEvent ev)
@@ -221,20 +224,7 @@ namespace ATTG3
 				
 			}
 		}
-		private IEnumerable<float> TimingDelay(float time)
-		{
-			while (plugin.Lerk)
-			{
-				Generator079.generators[0].CallRpcOvercharge();
-				foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType == ZoneType.LCZ).ToArray())
-
-				{
-					room.FlickerLights();
-				}
-
-				yield return MEC.Timing.WaitForSeconds(5);
-			}
-		}
+		
 	}
 }
 

@@ -49,24 +49,12 @@ namespace ATTG3
 						player2.GiveItem(ItemType.FLASHLIGHT);
 					}
 				}
-					Timing.RunCoroutine(TimingDelay());
+					Timing.RunCoroutine(Events.LightsOut());
 			}
 			return new[]
 			{
 				$"Lights {(plugin.Lights ? "Deactavated" : "Actavated")}."
 			};
-		}
-        public IEnumerator<float> TimingDelay()
-		{
-			while (plugin.Lights)
-			{
-				Generator079.generators[0].CallRpcOvercharge();
-				foreach (Room room in PluginManager.Manager.Server.Map.Get079InteractionRooms(Scp079InteractionType.CAMERA).Where(x => x.ZoneType==ZoneType.LCZ).ToArray())
-				{
-					room.FlickerLights();
-				}
-				yield return MEC.Timing.WaitForSeconds(5f);
-			}
 		}
 	}
 }

@@ -68,11 +68,19 @@ namespace ATTG3
 				}
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
-					if (player.TeamRole.Team != Smod2.API.Team.SCP)
+					if (player.TeamRole.Team == Smod2.API.Team.CLASSD)
 					{
-						player.ChangeRole(Role.NTF_LIEUTENANT, true, true, false, true);
+						player.ChangeRole(Role.SCP_049, true, true, false, true);
 					}
-				}
+                    else if (player.TeamRole.Team == Smod2.API.Team.SCIENTIST)
+                    {
+                        player.ChangeRole(Role.SCP_049_2, true, true, false, true);
+                    }
+                    else if (player.TeamRole.Role == Smod2.API.Role.FACILITY_GUARD)
+                    {
+                        player.ChangeRole(Role.NTF_LIEUTENANT, true, true, false, true);
+                    }
+                }
 				foreach (Generator079 gen in Generator079.generators)
 				{
 					gen.NetworkremainingPowerup = (gen.startDuration = 300f);
@@ -103,7 +111,7 @@ namespace ATTG3
 				{
 					ev.Player.SetRank("cyan", "TEAM: MTF", null);
 					Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
-                    ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD), true);
+                    ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_173), true);
 				}
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP && ev.Player.TeamRole.Role != Role.SCP_049_2)
 				{
@@ -244,9 +252,9 @@ namespace ATTG3
 		}*/
         public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
 		{
-			if (plugin.MTFSCP)
+			if (plugin.HoldOutEvent)
 			{
-				ev.Player.SetRank(null, null, null);
+				ev.Player.SetRank(null, "DEAD", null);
 			}
 		}
 	}

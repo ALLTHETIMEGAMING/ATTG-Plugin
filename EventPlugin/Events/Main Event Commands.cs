@@ -73,6 +73,13 @@ namespace ATTG3
                         plugin.Event = true;
                         return new string[] { "FF Event started" };
                     }
+                    else if (args2 == "holdout")
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>Hold Out Event Starting</Color></SIZE>", false);
+                        plugin.HoldOutEvent = true;
+                        plugin.Event = true;
+                        return new string[] { "Hold Out Event started" };
+                    }
                     else if (args2 == "vip")
 					{
 						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>VIP Event Starting</Color></SIZE>", false);
@@ -123,7 +130,9 @@ namespace ATTG3
 					 CA.First() + " SGOD" + " ",
 					 CA.First() + " INFECTCON" + " ",
 					 CA.First() + " VIP" + " ",
-					 CA.First() + " JUG" + " ",
+                     CA.First() + " FFLIGHT" + " ",
+                     CA.First() + " HOLDOUT" + " ",
+                     CA.First() + " JUG" + " ",
 					 CA.First() + " MTFCI" + " ",
 					 CA.First() + " QUESTION" + " ",
 					};
@@ -139,7 +148,9 @@ namespace ATTG3
 					 CA.First() + " SGOD" + " ",
 					 CA.First() + " INFECTCON" + " ",
 					 CA.First() + " VIP" + " ",
-					 CA.First() + " JUG" + " ",
+                     CA.First() + " FFLIGHT" + " ",
+                     CA.First() + " HOLDOUT" + " ",
+                     CA.First() + " JUG" + " ",
 					 CA.First() + " MTFCI" + " ",
 					 CA.First() + " QUESTION" + " ",
 					};
@@ -149,7 +160,7 @@ namespace ATTG3
             {
                 
 				return new[]
-						 {
+				{
 					"Events must be started before the round starts.",
 					 CA.First() + " INFECT" + "",
 					 CA.First() + " SCPMTF" + " ",
@@ -157,10 +168,12 @@ namespace ATTG3
 					 CA.First() + " SGOD" + " ",
 					 CA.First() + " INFECTCON" + " ",
 					 CA.First() + " VIP" + " ",
-					 CA.First() + " JUG" + " ",
+                     CA.First() + " FFLIGHT" + " ",
+                     CA.First() + " HOLDOUT" + " ",
+                     CA.First() + " JUG" + " ",
 					 CA.First() + " MTFCI" + " ",
 					 CA.First() + " QUESTION" + " ",
-					};
+				};
 			}
         }
     }

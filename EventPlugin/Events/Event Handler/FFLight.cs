@@ -6,22 +6,24 @@ using MEC;
 
 namespace ATTG3
 {
-    internal class FFLight : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
+    internal class FFLight : IEventHandlerRoundStart,
         IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet,
         IEventHandlerSetRole, IEventHandlerSummonVehicle
     {
         public static bool FFLightEvent;
+        bool CustomSpawn;
         private readonly ATTG3Plugin plugin;
         public FFLight(ATTG3Plugin plugin) => this.plugin=plugin;
         public void OnRoundStart(RoundStartEvent ev)
         {
             if (FFLightEvent)
             {
+                // Starts Event
                 foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
                 {
-                    if (door.Name=="914")
+                    if (door.Name == "914")
                     {
-                        door.Locked=true;
+                        door.Locked = true;
                     }
                     if (door.Name == "CHECKPOINT_LCZ_A")
                     {
@@ -32,26 +34,29 @@ namespace ATTG3
                         door.Locked = true;
                     }
                 }
+                plugin.Info(EventPlayerItems.LCZPOS.Count + "LCZ Spawn POS at Start");
+                // Changes Players Role
                 foreach (Player player in PluginManager.Manager.Server.GetPlayers())
                 {
                     player.ChangeRole(Role.CLASSD, true, true, true, true);
                 }
-                PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>You have 60 Seconds to hide</Color></SIZE>", false);
+                if (EventPlayerItems.LCZPOS.Count > 0)
+                {
+                    CustomSpawn = true;
+                }
+                else
+                {
+                    PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>You have 60 Seconds to hide</Color></SIZE>", false);
+                }
                 Timing.RunCoroutine(Events.Delay60());
-            }
-        }
-        
-        public void OnGeneratorFinish(GeneratorFinishEvent ev)
-        {
-            if (FFLightEvent)
-            {
-
+                
             }
         }
         public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
         {
             if (FFLightEvent)
             {
+                // Stops Nuke
                 ev.Allow=false;
                 ev.Player.PersonalBroadcast(10, "Nuke cannot be activated at the moment", false);
             }
@@ -60,21 +65,15 @@ namespace ATTG3
         {
             if (FFLightEvent)
             {
+                // Stops Generator eject
                 ev.Allow=false;
             }
         }
-        public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
-        {
-            if (FFLightEvent)
-            {
-                ev.SpawnChaos=false;
-            }
-        }
-        
         public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
         {
             if (FFLightEvent)
             {
+                // Sets Spawn Items
                 ev.Items.Clear();
                 Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
                 ev.Items.Add(ItemType.E11_STANDARD_RIFLE);
@@ -86,14 +85,34 @@ namespace ATTG3
         {
             if (FFLightEvent)
             {
+                // Stops Respawns
                 ev.AllowSummon = false;
+            }
+        }
+        public void OnSpawn(Smod2.Events.PlayerSpawnEvent ev)
+        {
+            if (FFLightEvent)
+            {
+                if (EventPlayerItems.LCZPOS.Count != 0 && CustomSpawn) {
+                    // Spawning Player at custom spawn point
+                    int RandomInt = new System.Random().Next(EventPlayerItems.LCZPOS.Count);
+                    Vector spawnpos = EventPlayerItems.LCZPOS[RandomInt];
+                    ev.SpawnPos = spawnpos;
+                    EventPlayerItems.LCZPOS.Remove(spawnpos);
+                }
+                Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
             }
         }
         public void OnRoundEnd(RoundEndEvent ev)
         {
             if (FFLightEvent)
             {
+                // turns off event and FF
                 FFLightEvent = false;
+                foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+                {
+                    ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = false;
+                }
             }
         }
     }

@@ -18,7 +18,7 @@ namespace ATTG3
 		SmodMajor = 3,
 		SmodMinor = 5,
 		SmodRevision = 0,
-		version = "4.5.0"
+		version = "4.7.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
     {
@@ -155,6 +155,7 @@ namespace ATTG3
 			this.AddEventHandlers(new Question(this), Priority.High);
 			this.AddEventHandlers(new Jug(this), Priority.High);
             this.AddEventHandlers(new FFLight(this), Priority.High);
+            this.AddEventHandlers(new HoldOut(this), Priority.High);
             this.AddEventHandlers(new PlayerConsole(this));
 		}
 		public void ReloadConfig()
