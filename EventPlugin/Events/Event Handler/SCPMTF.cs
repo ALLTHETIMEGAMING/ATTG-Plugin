@@ -93,6 +93,10 @@ namespace ATTG3
                     plugin.Info("Running SCPMTF Door key test");
                     Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, ev.Player.GetCurrentItem().ItemType, ev.Player));
                 }
+                if (ev.Door.Name == "914"&&gen == 0)
+                {
+                    ev.Player.PersonalBroadcast(10, "A generator must be turned on", false);
+                }
             }
 		}
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
@@ -128,12 +132,13 @@ namespace ATTG3
 					{
 						ev.Player.SetRank("silver", "SCP-106", null);
 						ev.Player.AddHealth(15000);
-					}
+                        ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
+                    }
 					else if (ev.Player.TeamRole.Role == Role.SCP_173)
 					{
 						ev.Player.SetRank("silver", "SCP-173", null);
 						ev.Player.AddHealth(70000);
-						//ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
+						ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
 					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_939_53 || ev.Player.TeamRole.Role == Role.SCP_939_89)
 					{
@@ -296,9 +301,7 @@ namespace ATTG3
 					ev.Allow = false;
 					ev.Player.PersonalBroadcast(10, "Generator Cooldown Active Plz Wait", false);
 				}
-
-
-				if (ev.Allow == true)
+				else if (ev.Allow == true)
 				{
 					Timing.RunCoroutine(Events.GenDelay());
 					float Indicheck;
@@ -306,9 +309,17 @@ namespace ATTG3
 					{
 						ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
 					}
-					PluginManager.Manager.Server.Map.ClearBroadcasts();
-					PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
-				}
+                    if (gen > 2)
+                    {
+                        PluginManager.Manager.Server.Map.ClearBroadcasts();
+                        PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
+                    }
+                    if (gen < 2)
+                    {
+                        PluginManager.Manager.Server.Map.ClearBroadcasts();
+                        PluginManager.Manager.Server.Map.Broadcast(10, "A Generator is being Activated", false);
+                    }
+                }
 			}
 		}
 		public void OnStartCountdown(WarheadStartEvent ev)
@@ -369,7 +380,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-				ev.Player.SetRank(null, null, null);
+				ev.Player.SetRank("default", "DEAD", null);
 			}
 		}
 	}

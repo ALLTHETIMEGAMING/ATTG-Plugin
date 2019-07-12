@@ -42,10 +42,12 @@ namespace ATTG3
                 }
                 if (EventPlayerItems.LCZPOS.Count > 0)
                 {
+                    plugin.Info("Custom Spawn is True");
                     CustomSpawn = true;
                 }
                 else
                 {
+                    plugin.Info("Custom Spawn is False");
                     PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>You have 60 Seconds to hide</Color></SIZE>", false);
                 }
                 Timing.RunCoroutine(Events.Delay60());

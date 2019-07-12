@@ -434,6 +434,18 @@ namespace ATTG3
                 player.ChangeRole(Role.SCP_049_2, true, true, true, true);
                 player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
             }
+            else if (eventnum == "holdout")
+            {
+                foreach (Player players in PluginManager.Manager.Server.GetPlayers())
+                {
+                    if (players.TeamRole.Role == Role.SPECTATOR)
+                    {
+                        players.ChangeRole(Role.SCP_049_2);
+                        players.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+                    }
+                }
+
+            }
         }
         #region Map/file Stuff
         public static void Setfile(string text)
@@ -798,7 +810,7 @@ namespace ATTG3
 			{
 				Gendelaybool = true;
 			}
-			yield return MEC.Timing.WaitForSeconds(60f);
+			yield return MEC.Timing.WaitForSeconds(30f);
 			Gendelaybool = false;
 		}
         public static IEnumerator<float> LightsOut()

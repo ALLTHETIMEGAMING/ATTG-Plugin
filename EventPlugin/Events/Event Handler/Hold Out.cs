@@ -7,14 +7,14 @@ using System.Collections.Generic;
 
 namespace ATTG3
 {
-	internal class HoldOut : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
-		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerLure,
+	internal class HoldOut : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn, IEventHandlerCheckRoundEnd,
+        IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerLure,
 		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate, IEventHandlerPlayerDie
 	{
-		int C106;
-		public static int gen;
 		bool nuke;
-		public Dictionary<string, int> Time = new Dictionary<string, int>();
+        public static int Wave;
+        Server Server => PluginManager.Manager.Server;
+        public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;
 		public HoldOut(ATTG3Plugin plugin) => this.plugin = plugin;
 		public Dictionary<string, float> GenTime = new Dictionary<string, float>();
@@ -42,7 +42,12 @@ namespace ATTG3
 						door.Locked = true;
 						door.Open = false;
 					}
-					else if (door.Name == "914")
+                    else if (door.Name == "GATE_B")
+                    {
+                        door.Locked = true;
+                        door.Open = false;
+                    }
+                    else if (door.Name == "914")
 					{
 						door.Locked = true;
 						door.Open = false;
@@ -50,17 +55,17 @@ namespace ATTG3
 					else if (door.Name == "106_PRIMARY")
 					{
 						door.Locked = true;
-						door.Open = false;
+						door.Open = true;
 					}
-					else if (door.Name == "106_PRIMARY")
+					else if (door.Name == "106_BOTTOM")
 					{
 						door.Locked = true;
-						door.Open = false;
+						door.Open = true;
 					}
 					else if (door.Name == "106_SECONDARY")
 					{
 						door.Locked = true;
-						door.Open = false;
+						door.Open = true;
 					}
 
 					door.DontOpenOnWarhead = true;
@@ -112,11 +117,13 @@ namespace ATTG3
 					ev.Player.SetRank("cyan", "TEAM: MTF", null);
 					Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
                     ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_173), true);
+                    ev.Player.PersonalBroadcast(10, "SURVIVE 10 MIN", false);
 				}
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP && ev.Player.TeamRole.Role != Role.SCP_049_2)
 				{
                     ev.Player.ChangeRole(Role.SCP_049_2);
                     ev.Player.SetRank("red", "TEAM: SCP", null);
+                    ev.Player.PersonalBroadcast(10, "KILL ALL MTF", false);
                     ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
                 }
                 ev.Items.Remove(ItemType.DISARMER);
@@ -176,9 +183,7 @@ namespace ATTG3
 			if (plugin.HoldOutEvent)
 			{
 				nuke = false;
-				gen = 0;
 				plugin.HoldOutEvent = false;
-				C106 = 0;
 			}
 		}
 		public void OnLure(PlayerLureEvent ev)
@@ -232,7 +237,6 @@ namespace ATTG3
 		{
 			if (plugin.HoldOutEvent)
 			{
-				gen = 5;
 			}
 		}
         /*public void OnGeneratorUnlock(Smod2.Events.PlayerGeneratorUnlockEvent ev)
@@ -257,11 +261,43 @@ namespace ATTG3
 				ev.Player.SetRank("default", "DEAD", null);
                 if (ev.Player.TeamRole.Role == Role.SCP_049_2)
                 {
-                    Timing.RunCoroutine(Events.RespawnSpawn(ev.Player, "infect"));
+                    if (Server.Round.Stats.Zombies <= 4 && Wave != 4)
+                    {
+                        Timing.RunCoroutine(Events.RespawnSpawn(ev.Player, "holdout"));
+                        Server.Map.Broadcast(10, "WAVE " + Wave + " STARTING", false);
+                        Wave++;
+                    }
                 }
 			}
 		}
-	}
+        public void OnCheckRoundEnd(CheckRoundEndEvent ev)
+        {
+            if (plugin.HoldOutEvent)
+            {
+                // Add SCP-049-2 Attack Waves and heal all players when new wave starts
+                if (Wave != 4&& Server.Round.Stats.NTFAlive != 0)
+                {
+                    ev.Status = ROUND_END_STATUS.ON_GOING;
+                }
+                else if (Server.Round.Stats.NTFAlive == 0)
+                {
+                    ev.Status = ROUND_END_STATUS.SCP_VICTORY;
+                }
+                else if (Wave == 4)
+                {
+                    ev.Status = ROUND_END_STATUS.MTF_VICTORY;
+                }
+                
+            }
+        }
+        public void OnSpawn(Smod2.Events.PlayerSpawnEvent ev)
+        {
+            if (plugin.HoldOutEvent)
+            {
+                 
+            }
+        }
+    }
 }
 
 

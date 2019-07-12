@@ -33,7 +33,8 @@ namespace ATTG3
             {
                 return new[]
                 {
-                    $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
+                    $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command.",
+                    $"Vote is Yes:{(plugin.Yes)} No:{(plugin.No)}."
                 };
             }
 			if (args.Length>0)
@@ -52,7 +53,7 @@ namespace ATTG3
 				}
 				else if (args2=="bc")
 				{
-					PluginManager.Manager.Server.Map.Broadcast(10, "Push ` and type .Yes or .No to vote", false);
+					PluginManager.Manager.Server.Map.Broadcast(10, "Push ` and type  to vote", false);
 					return new string[] { " " };
 				}
 				else if (args2=="clear")
@@ -66,7 +67,7 @@ namespace ATTG3
 				{
 					return new[]
 					{
-						$"Vote is Yes:{(plugin.Yes)} No {(plugin.No)}."
+						$"Vote is Yes:{(plugin.Yes)} No:{(plugin.No)}."
 					};
 				}
 				else
