@@ -116,8 +116,8 @@ namespace ATTG3
 				else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP && ev.Player.TeamRole.Role != Role.SCP_049_2)
 				{
                     ev.Player.ChangeRole(Role.SCP_049_2);
+                    ev.Player.SetRank("red", "TEAM: SCP", null);
                     ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
-
                 }
                 ev.Items.Remove(ItemType.DISARMER);
                 //Events.SCPMTF();
@@ -254,7 +254,11 @@ namespace ATTG3
 		{
 			if (plugin.HoldOutEvent)
 			{
-				ev.Player.SetRank(null, "DEAD", null);
+				ev.Player.SetRank("default", "DEAD", null);
+                if (ev.Player.TeamRole.Role == Role.SCP_049_2)
+                {
+                    Timing.RunCoroutine(Events.RespawnSpawn(ev.Player, "infect"));
+                }
 			}
 		}
 	}

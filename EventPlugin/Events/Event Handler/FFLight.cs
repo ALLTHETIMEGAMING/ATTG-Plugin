@@ -98,6 +98,7 @@ namespace ATTG3
                     int RandomInt = new System.Random().Next(EventPlayerItems.LCZPOS.Count);
                     Vector spawnpos = EventPlayerItems.LCZPOS[RandomInt];
                     ev.SpawnPos = spawnpos;
+                    plugin.Info(spawnpos.ToString());
                     EventPlayerItems.LCZPOS.Remove(spawnpos);
                 }
                 Timing.RunCoroutine(Events.GiveAmmo(ev.Player));

@@ -47,7 +47,7 @@ namespace ATTG3
             else if (command.StartsWith("10lock"))
             {
                 plugin.Info("10lock Command Called");
-                if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId) ==true)
+                if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId)==true)
                 {
                     EventPlayerItems.Itemset[ev.Player.SteamId] = "10lock";
                     ev.ReturnMessage = "Event Item Set to 10 lock (Code 1)";

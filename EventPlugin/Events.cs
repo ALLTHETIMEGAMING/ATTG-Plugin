@@ -483,6 +483,9 @@ namespace ATTG3
         }
         public static void ZonePOSSet()
         {
+            EventPlayerItems.ECZPOS.Clear();
+            EventPlayerItems.HCZPOS.Clear();
+            EventPlayerItems.LCZPOS.Clear();
             foreach (KeyValuePair<Vector, string> pos in ATTG3Plugin.MapCusSpawn)
             {
                 if (pos.Value == "LCZ")
