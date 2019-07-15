@@ -312,7 +312,7 @@ namespace ATTG3
         }
 		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
 		{
-			if (ev.SpawnChaos == true && plugin.Event == false)
+			if (ev.SpawnChaos == true && plugin.Event == false && ev.PlayerList.Count> 0)
 			{
 				PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
 			}
@@ -352,5 +352,6 @@ namespace ATTG3
 				ev.TargetPosition = ev.LastPosition;
 			}
 		}
+        public void 
     }
 }

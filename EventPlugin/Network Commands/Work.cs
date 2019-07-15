@@ -1,4 +1,5 @@
 ﻿using Smod2;
+using ServerMod2.API;
 using Smod2.API;
 using Smod2.Commands;
 using System.Linq;
@@ -49,7 +50,10 @@ namespace ATTG3
                         val.GetComponent<WorkStation>().Networkposition=new Offset { position = new Vector3(pos.x, pos.y, pos.z + 2), scale = new Vector3(10, 10, 10) };
                         NetworkServer.Spawn(val);
                         wipe.Add(val);
-                        return new string[] { "Workstation Spawned" };
+                    SmodPlayer.GetCurrentRoom()
+
+                    //WorkStation.WorkStationScreenGroup.SetWorkstation(val.GetComponents<WorkStation>());
+                    return new string[] { "Workstation Spawned" };
                 }
                 else
                     return new string[] { myPlayer.Name+" is dead!" };
