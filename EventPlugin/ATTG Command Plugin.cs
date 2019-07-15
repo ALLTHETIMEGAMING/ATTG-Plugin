@@ -18,7 +18,7 @@ namespace ATTG3
 		SmodMajor = 3,
 		SmodMinor = 5,
 		SmodRevision = 0,
-		version = "4.7.0"
+		version = "4.8.0"
 		)]
 	public class ATTG3Plugin : Smod2.Plugin
     {
@@ -143,6 +143,7 @@ namespace ATTG3
 			this.AddCommands(Sniper.CA, new Sniper(this));
 			this.AddCommands(Config.CA, new Config(this));
             this.AddCommand("AGRAGE", new Rage(this));
+            this.AddCommand("GAS", new Gas(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.High);

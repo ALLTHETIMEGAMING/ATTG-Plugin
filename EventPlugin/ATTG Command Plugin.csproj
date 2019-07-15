@@ -78,6 +78,7 @@
     <Compile Include="Commands\Meme.cs" />
     <Compile Include="Commands\debug.cs" />
     <Compile Include="Commands\Rage.cs" />
+    <Compile Include="Commands\Gas.cs" />
     <Compile Include="Commands\SSAM.cs" />
     <Compile Include="Commands\MapList.cs" />
     <Compile Include="Commands\GetPos.cs" />
