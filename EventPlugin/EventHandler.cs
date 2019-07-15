@@ -352,6 +352,5 @@ namespace ATTG3
 				ev.TargetPosition = ev.LastPosition;
 			}
 		}
-        public void 
     }
 }

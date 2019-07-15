@@ -90,6 +90,15 @@ namespace ATTG3
                         PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING CODE 4 "+ "("+ MLCC + " / "+MLC+")"+"\n" + test1.ToString(), false);
                     }
                 }
+                else if (args2 == "ann")
+                {
+                    var ins = new DecontaminationLCZ();
+
+                    foreach (DecontaminationLCZ.Announcement test in ins.announcements)
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(2, "DEBUGING ANN Code 1 " + test.ToString(), false);
+                    }
+                }
                 else if (args2 == "full")
                 {
                     Timing.RunCoroutine(Events.Fulldebug());

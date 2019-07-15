@@ -50,7 +50,6 @@ namespace ATTG3
                         val.GetComponent<WorkStation>().Networkposition=new Offset { position = new Vector3(pos.x, pos.y, pos.z + 2), scale = new Vector3(10, 10, 10) };
                         NetworkServer.Spawn(val);
                         wipe.Add(val);
-                    SmodPlayer.GetCurrentRoom()
 
                     //WorkStation.WorkStationScreenGroup.SetWorkstation(val.GetComponents<WorkStation>());
                     return new string[] { "Workstation Spawned" };
