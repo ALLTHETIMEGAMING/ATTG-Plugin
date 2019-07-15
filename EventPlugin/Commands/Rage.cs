@@ -11,7 +11,7 @@ namespace ATTG3
 {
 	class Rage : ICommandHandler
 	{
-        public static bool SSAMBOT;
+        public static bool SSAMBOT = false;
 		private readonly ATTG3Plugin plugin;
 		public Rage(ATTG3Plugin plugin)
 		{

@@ -9,20 +9,17 @@ namespace ATTG3
     class MEME : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        public static bool Config1;
         public MEME(ATTG3Plugin plugin)
         {
             this.plugin=plugin;
         }
         public string GetCommandDescription()
         {
-            // This prints when someone types HELP HELLO
-            return "Disables 106 Containment";
+            return "";
         }
         public string GetUsage()
         {
-            // This prints when someone types HELP HELLO
-            return "Disables 106 Containment";
+            return "";
         }
         public static readonly string[] CA = new string[] { "ATTGDEBUG", "MEME" };
         public static bool MEMETIME;
@@ -47,7 +44,7 @@ namespace ATTG3
 
             return new[]
             {
-                $"Debuging Server"
+                $"MEMEING Server"
             };
         }
     }

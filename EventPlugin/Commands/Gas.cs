@@ -61,7 +61,7 @@ namespace ATTG3
             }
 			return new[]
 			{
-				$"Aimbot {(SSAMBOT ? "Actavated" : "Deactavated")}."
+				$"Aimbot {(GASLCZ ? "Actavated" : "Deactavated")}."
 			};
 		}
 	}
