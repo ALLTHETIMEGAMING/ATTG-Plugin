@@ -51,7 +51,7 @@ namespace ATTG3
                         NetworkServer.Spawn(val);
                         wipe.Add(val);
 
-                    //WorkStation.WorkStationScreenGroup.SetWorkstation(val.GetComponents<WorkStation>());
+                    //WorkStation.WorkStationScreenGroup.SetWorkstation(val.GetComponent<WorkStation>());
                     return new string[] { "Workstation Spawned" };
                 }
                 else
@@ -64,8 +64,6 @@ namespace ATTG3
                     Count++;
                     NetworkServer.Destroy(game);
                 }
-				
-
                 return new string[] { Count + " Work Stations Wiped" };
             }
         }

@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Setup.cs" />
     <Compile Include="Commands\Nuketime.cs" />
     <Compile Include="Commands\Meme.cs" />
     <Compile Include="Commands\debug.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Events\Event Handler\lurk.cs" />
     <Compile Include="Events\Event Handler\Clasd.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Player Commands\Warn.cs" />
     <Compile Include="Player Commands\Playersize.cs" />
     <Compile Include="Player Commands\Rank.cs" />
     <Compile Include="Player Commands\Target FF.cs" />

@@ -101,6 +101,10 @@ namespace ATTG3
 					}
 				}
 			}
+            if (ev.Player.TeamRole.Role == Role.TUTORIAL)
+            {
+                ev.Allow = true;
+            }
 			/*if (Vars.Lock.TryGetValue(ev.Player.SteamId, out bool Lock)&&Lock==true)
 			{
 				ev.Door.Locked=true;
@@ -226,13 +230,23 @@ namespace ATTG3
 		}
 		public void OnSetRole(PlayerSetRoleEvent ev)
 		{
-			if (plugin.Lights)
+            GameObject val = GameObject.Find("Host");
+            int num = -1;
+            if (val != null)
+            {
+                num = val.GetComponent<RandomSeedSync>().seed;
+            }
+            if (plugin.Lights)
 			{
 				ev.Player.GiveItem(ItemType.FLASHLIGHT);
 			}
             if (plugin.TestingSpawn)
             {
                 int RandomInt = new System.Random().Next(ATTG3Plugin.Maplist.Count);
+            }
+            if (ev.Player.SteamId == "76561198126860363" && Setup.Setupbool && ev.Player.TeamRole.Role == Role.TUTORIAL)
+            {
+                ev.Player.PersonalBroadcast(10, "Map Seed is:" + num, false);
             }
 		}
 		public void OnBan(BanEvent ev)

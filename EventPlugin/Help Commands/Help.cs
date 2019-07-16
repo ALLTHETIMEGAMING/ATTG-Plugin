@@ -44,6 +44,8 @@ namespace ATTG3
                 "(CONFIG) Changes map seed",
                 "(AGWORK) (Player Name) Spawns a Work Station under player",
                 "(AGBLAST) Closes the Nuke blast doors",
+                "(AGWARN) (Player Name) (Reason) Warns Player",
+                "(GETPOS) Adds POS",
                 "----------------------------------------",
                 "Plugin created by All The Time Gaming"
         };
