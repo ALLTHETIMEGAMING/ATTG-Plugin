@@ -15,15 +15,6 @@ namespace ATTG3
         public string GetUsage() => " (Player Name) (Reason)";
         public string[] OnCall(ICommandSender sender, string[] args)
         {
-            if (!(sender is Server)&&
-                sender is Player player&&
-                !plugin.AdminRanks.Contains(player.GetRankName()))
-            {
-                return new[]
-                {
-                    $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
-                };
-            }
             if (Server.GetPlayers().Count<1)
                 return new string[] { "The server is empty!" };
             Player caller = (sender is Player send) ? send : null;
@@ -33,7 +24,7 @@ namespace ATTG3
                 if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
 
                 myPlayer.PersonalBroadcast(10, myPlayer.Name + ": " + args[1], false);
-                return new string[] { "Warned Player: " + myPlayer.Name + args[1]};
+                return new string[] { "Warned Player: " + myPlayer.Name + args.ToString()};
             }
             else
             {

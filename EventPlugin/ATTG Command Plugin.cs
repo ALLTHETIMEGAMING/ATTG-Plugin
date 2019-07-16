@@ -147,6 +147,7 @@ namespace ATTG3
             this.AddCommand("AGNUKE", new Nuketime(this));
             this.AddCommand("AGWARN", new Warn(this));
             this.AddCommand("AGSETUP", new Setup(this));
+            this.AddCommand("AGREMOVE", new PlayerDis(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.High);

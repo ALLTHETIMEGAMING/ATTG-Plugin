@@ -100,7 +100,7 @@
     <Compile Include="Events\Event Handler\mtfci.cs" />
     <Compile Include="Events\Event Handler\lurk.cs" />
     <Compile Include="Events\Event Handler\Clasd.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Player Commands\Remove.cs" />
     <Compile Include="Player Commands\Warn.cs" />
     <Compile Include="Player Commands\Playersize.cs" />
     <Compile Include="Player Commands\Rank.cs" />

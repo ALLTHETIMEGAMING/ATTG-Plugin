@@ -53,10 +53,15 @@ namespace ATTG3
 				}
 				else if (args2=="bc")
 				{
-					PluginManager.Manager.Server.Map.Broadcast(10, "Push ` and type  to vote", false);
+					PluginManager.Manager.Server.Map.Broadcast(10, "Push ` and type .YES or .NO to vote", false);
 					return new string[] { " " };
 				}
-				else if (args2=="clear")
+                else if (args2 == "show")
+                {
+                    PluginManager.Manager.Server.Map.Broadcast(10, "Yes: " + plugin.Yes + " No: " + plugin.No, false);
+                    return new string[] { " " };
+                }
+                else if (args2=="clear")
 				{
 					plugin.Yes=0;
 					plugin.No=0;

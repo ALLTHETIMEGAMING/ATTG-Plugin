@@ -244,7 +244,7 @@ namespace ATTG3
             {
                 int RandomInt = new System.Random().Next(ATTG3Plugin.Maplist.Count);
             }
-            if (ev.Player.SteamId == "76561198126860363" && Setup.Setupbool && ev.Player.TeamRole.Role == Role.TUTORIAL)
+            if (plugin.AdminRanks.Contains(ev.Player.GetRankName()) && Setup.Setupbool && ev.Player.TeamRole.Role == Role.TUTORIAL)
             {
                 ev.Player.PersonalBroadcast(10, "Map Seed is:" + num, false);
             }
