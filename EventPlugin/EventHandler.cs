@@ -17,7 +17,7 @@ namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerWarheadStopCountdown,
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
-		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
+        IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
 		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin, IEventHandlerPocketDimensionEnter
 	{

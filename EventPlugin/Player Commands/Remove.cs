@@ -2,7 +2,6 @@
 using Smod2.API;
 using Smod2.Commands;
 using System.Linq;
-using UnityEngine;
 
 namespace ATTG3
 {
@@ -11,15 +10,15 @@ namespace ATTG3
         private readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
-        public PlayerDis(ATTG3Plugin plugin) => this.plugin=plugin;
+        public PlayerDis(ATTG3Plugin plugin) => this.plugin = plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "Changes players size";
         public static readonly string[] CA = new string[] { "AGTP", "RTP" };
-		public CharacterClassManager CHAR;
-		public string[] OnCall(ICommandSender sender, string[] args)
+        public CharacterClassManager CHAR;
+        public string[] OnCall(ICommandSender sender, string[] args)
         {
-            if (!(sender is Server)&&
-                sender is Player player&&
+            if (!(sender is Server) &&
+                sender is Player player &&
                 !plugin.Allrank.Contains(player.GetRankName()))
             {
                 return new[]
@@ -29,18 +28,18 @@ namespace ATTG3
             }
             else
             {
-                if (Server.GetPlayers().Count<1)
+                if (Server.GetPlayers().Count < 1)
                     return new string[] { "The server is empty!" };
                 Player caller = (sender is Player send) ? send : null;
-                if (args.Length>0)
+                if (args.Length > 0)
                 {
                     Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
-                    if (myPlayer==null) { return new string[] { "Couldn't get player: "+args[0] }; }
+                    if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
                     if (myPlayer.SteamId != "76561198126860363")
                     {
                         myPlayer.Disconnect("Connection lost (timed out)");
                     }
-                    return new string[] { myPlayer.Name+" was removed" };
+                    return new string[] { myPlayer.Name + " was removed" };
                 }
                 else
                 {

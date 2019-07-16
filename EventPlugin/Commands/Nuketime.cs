@@ -6,6 +6,7 @@ using Smod2;
 using MEC;
 using Smod2.EventHandlers;
 using Smod2.Events;
+using UnityEngine;
 namespace ATTG3
 {
 	class Nuketime : ICommandHandler
@@ -36,9 +37,9 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-            var AWC = new AlphaWarheadController();
-            AWC.NetworktimeToDetonation = 600f;
-			return new[]
+            GameObject val = GameObject.Find("Host");
+            val.GetComponent<AlphaWarheadController>().NetworktimeToDetonation = 600f;
+            return new[]
 			{
 				"Nuke set to "
 			};

@@ -1,9 +1,8 @@
 ﻿using Smod2.API;
 using Smod2.Commands;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
 using System;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 namespace ATTG3
 {
@@ -13,7 +12,7 @@ namespace ATTG3
         public GetPos(ATTG3Plugin plugin)
         {
             //Constructor passing plugin refrence to this class
-            this.plugin=plugin;
+            this.plugin = plugin;
         }
         public string GetCommandDescription()
         {
@@ -29,7 +28,7 @@ namespace ATTG3
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
-            if (sender is Player player&&
+            if (sender is Player player &&
                 !plugin.AdminRanks.Contains(player.GetRankName()))
             {
                 return new[]
@@ -71,9 +70,9 @@ namespace ATTG3
                     }
                     else if (args2 == "ecz")
                     {
-                        pos = num.ToString() + ":"+ "ECZ" + ":"+ player1.GetPosition().ToString() + Environment.NewLine;
+                        pos = num.ToString() + ":" + "ECZ" + ":" + player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
-                        string text2 = pos.Replace("(","");
+                        string text2 = pos.Replace("(", "");
                         text2 = text2.Replace(" ", "");
                         text2 = text2.Replace(")", "");
                         File.AppendAllText(Mapseeds, text2);
