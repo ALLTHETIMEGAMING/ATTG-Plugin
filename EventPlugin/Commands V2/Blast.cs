@@ -29,11 +29,12 @@ namespace ATTG3
             }
             foreach (BlastDoor blast in Object.FindObjectsOfType<BlastDoor>())
             {
-                blast.NetworkisClosed=true;
+                blast.NetworkisClosed=!blast.NetworkisClosed;
+                blast.SetClosed(blast.NetworkisClosed);
             }
             return new[]
             {
-                $"Blast Doors Closed."
+                $"Blast Doors Changed."
             };
         }
     }

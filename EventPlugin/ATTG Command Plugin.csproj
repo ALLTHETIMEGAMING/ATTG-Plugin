@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Nuketime.cs" />
     <Compile Include="Commands\Meme.cs" />
     <Compile Include="Commands\debug.cs" />
     <Compile Include="Commands\Rage.cs" />
