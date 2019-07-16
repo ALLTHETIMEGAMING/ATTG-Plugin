@@ -144,6 +144,7 @@ namespace ATTG3
 			this.AddCommands(Config.CA, new Config(this));
             this.AddCommand("AGRAGE", new Rage(this));
             this.AddCommand("GAS", new Gas(this));
+            this.AddCommand("AGNUKE", new Nuketime(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.High);

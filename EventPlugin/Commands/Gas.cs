@@ -39,15 +39,10 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
+            GASLCZ = !GASLCZ;
             if (GASLCZ)
             {
-                foreach (DecontaminationGas gase in DecontaminationGas.gases)
-                {
-                    if (gase != null)
-                    {
-                        gase.gameObject.SetActive(true);
-                    }
-                }
+                DecontaminationGas.TurnOn();
             }
             else
             {
