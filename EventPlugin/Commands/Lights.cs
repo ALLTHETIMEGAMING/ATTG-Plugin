@@ -14,17 +14,17 @@ namespace ATTG3
 		private readonly ATTG3Plugin plugin;
 		public Overcharge(ATTG3Plugin plugin)
 		{
-			//Constructor passing plugin refrence to this class
+			
 			this.plugin=plugin;
 		}
 		public string GetCommandDescription()
 		{
-			// This prints when someone types HELP HELLO
+			
 			return "";
 		}
 		public string GetUsage()
 		{
-			// This prints when someone types HELP HELLO
+			
 			return "HCZ Overcharge";
 		}
         public static readonly string[] CA = new string[] { "AGLIGHTS", "LIGHTS" };

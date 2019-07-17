@@ -6,19 +6,19 @@ namespace ATTG3
         private readonly ATTG3Plugin plugin;
         public Teams(ATTG3Plugin plugin)
         {
-            //Constructor passing plugin refrence to this class
+            
             this.plugin=plugin;
         }
 
         public string GetCommandDescription()
         {
-            // This prints when someone types HELP HELLO
+            
             return "Prints All Teams in SCP:SL";
         }
 
         public string GetUsage()
         {
-            // This prints when someone types HELP HELLO
+            
             return "AGTH";
         }
 

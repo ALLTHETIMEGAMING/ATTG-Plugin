@@ -87,7 +87,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-                if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId))
+                if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId))
                 {
 					// Testing Custom Door events
                     plugin.Info("Running SCPMTF Door key test");

@@ -17,18 +17,18 @@ namespace ATTG3
 
         public GenSpam1(ATTG3Plugin plugin)
         {
-            //Constructor passing plugin refrence to this class
+            
             this.plugin=plugin;
         }
         public float converted;
         public string GetCommandDescription()
         {
-            // This prints when someone types HELP HELLO
+            
             return "";
         }
         public string GetUsage()
         {
-            // This prints when someone types HELP HELLO
+            
             return "Locks SCP-079S Generators";
         }
         public string[] OnCall(ICommandSender sender, string[] args)

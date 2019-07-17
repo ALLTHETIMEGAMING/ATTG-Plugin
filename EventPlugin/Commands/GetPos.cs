@@ -11,18 +11,16 @@ namespace ATTG3
         private readonly ATTG3Plugin plugin;
         public GetPos(ATTG3Plugin plugin)
         {
-            //Constructor passing plugin refrence to this class
+
             this.plugin = plugin;
         }
         public string GetCommandDescription()
         {
-            // This prints when someone types HELP HELLO
-            return "Disables 106 Containment";
+            return "Adds Players POS to file";
         }
         public string GetUsage()
         {
-            // This prints when someone types HELP HELLO
-            return "Disables 106 Containment";
+            return "GETPOS";
         }
         public static readonly string[] CA = new string[] { "AGC106", "C106" };
 
@@ -42,6 +40,7 @@ namespace ATTG3
                 {
                     string pos;
                     string args2 = args[0].ToLower();
+                    string args3 = args[1].ToUpper();
                     GameObject val = GameObject.Find("Host");
                     int num = -1;
                     if (val != null)
@@ -78,6 +77,16 @@ namespace ATTG3
                         File.AppendAllText(Mapseeds, text2);
                         plugin.Info("Printing to file " + num);
                     }
+                    else if (args2 == "custom")
+                    {
+                        pos = num.ToString() + ":" + args3 + ":" + player1.GetPosition().ToString() + Environment.NewLine;
+                        string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
+                        string text2 = pos.Replace("(", "");
+                        text2 = text2.Replace(" ", "");
+                        text2 = text2.Replace(")", "");
+                        File.AppendAllText(Mapseeds, text2);
+                        plugin.Info("Printing to file " + num);
+                    }
                     return new[]
 {
                         "Position Added to file."
@@ -87,7 +96,7 @@ namespace ATTG3
                 {
                     return new[]
                     {
-                        $"must use LCZ/HCZ/ECZ."
+                        $"must use LCZ/HCZ/ECZ/CUSTOM."
                     };
                 }
             }

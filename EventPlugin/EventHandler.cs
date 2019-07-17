@@ -57,6 +57,7 @@ namespace ATTG3
 			plugin.Jugevent = false;
             plugin.HoldOutEvent = false;
             SCPMTF.gen = 0;
+            GunGame.GunGameBool = false;
             ATTG3Plugin.TPRooms.Clear();
             //Events.GetRoundStartRoom();
             var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);

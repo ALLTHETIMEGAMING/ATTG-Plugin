@@ -10,19 +10,19 @@ namespace ATTG3
         public static readonly string[] CA = new string[] { "RI", "ROUNDSINFO", "AGRI", "AGROUNDINFO" };
         public RS(ATTG3Plugin plugin)
         {
-            //Constructor passing plugin refrence to this class
+            
             this.plugin=plugin;
         }
 
         public string GetCommandDescription()
         {
-            // This prints when someone types HELP HELLO
+            
             return "";
         }
 
         public string GetUsage()
         {
-            // This prints when someone types HELP HELLO
+            
             return "AGRS";
         }
 

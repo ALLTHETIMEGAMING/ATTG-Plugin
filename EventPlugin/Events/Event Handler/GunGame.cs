@@ -13,17 +13,16 @@ using MEC;
 namespace ATTG3
 {
 	internal class GunGame : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSetRole,
-         IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle
-	{
+         IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerPlayerDie
+    {
 
 		private readonly ATTG3Plugin plugin;
 		public GunGame(ATTG3Plugin plugin) => this.plugin = plugin;
-		Player VIPplayer = null;
-		bool Vipescape;
-
+        public static bool GunGameBool;
+        int MostKills = 0;
 		public void OnRoundStart(RoundStartEvent ev)
 		{
-			if (plugin.VIP)
+			if (GunGameBool)
 			{
 				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
@@ -39,11 +38,23 @@ namespace ATTG3
 					{
 						door.Locked = true;
 					}
-					else if (door.Name == "HID")
-					{
-						door.Locked = true;
-					}
-				}
+                    else if (door.Name == "914")
+                    {
+                        door.Locked = true;
+                    }
+                    else if (door.Name == "ESCAPE")
+                    {
+                        door.Locked = true;
+                    }
+                    else if (door.Name == "GATE_A")
+                    {
+                        door.Locked = true;
+                    }
+                    else if (door.Name == "GATE_B")
+                    {
+                        door.Locked = true;
+                    }
+                }
 				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
 				{
 					if (player.TeamRole.Role != Role.CLASSD)
@@ -59,7 +70,7 @@ namespace ATTG3
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
 		{
-			if (plugin.VIP)
+			if (GunGameBool)
 			{
                 //Stops the nuke lever
 				ev.Allow = false;
@@ -68,68 +79,73 @@ namespace ATTG3
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
 		{
-			if (plugin.VIP)
+			if (GunGameBool)
 			{
                 // Stops the event
-				plugin.VIP = false;
-				VIPplayer = null;
-				Vipescape = false;
-			}
+                GunGameBool = false;
+                EventLStorageList.PlayerKillGunGame.Clear();
+                foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+                {
+                    ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = false;
+                }
+                MostKills = 0;
+            }
 		}
         public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
         {
-            if (plugin.VIP)
-            {
-                // Give all players ammo
-                Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
+            if (GunGameBool)
+            {   
                 ev.Items.Clear();
-                if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
+                if (ev.Player.TeamRole.Team != Smod2.API.Team.CLASSD)
                 {
-                    //Gives MTF items
-                    ev.Items.Add(ItemType.E11_STANDARD_RIFLE);
-                    ev.Items.Add(ItemType.MTF_COMMANDER_KEYCARD);
-                    ev.Player.PersonalBroadcast(5, "ESCORT THE CLASS D TO THE EXIT", false);
+                    ev.Player.ChangeRole(Role.CLASSD);
                 }
-                else if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
-                {
-                    //Gives CI items
-                    ev.Items.Add(ItemType.LOGICER);
-                    ev.Items.Add(ItemType.CHAOS_INSURGENCY_DEVICE);
-                    ev.Player.PersonalBroadcast(5, "Kill The Class-D", false);
-                }
+                Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
+                ev.Items.Add(ItemType.MTF_COMMANDER_KEYCARD);
+                ev.Player.PersonalBroadcast(5, "Be the 1st to get 25 kills", false);
             }
         }
 		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
 		{
-			if (plugin.VIP)
+			if (GunGameBool)
 			{
-				if (VIPplayer.TeamRole.Role != Role.SPECTATOR || VIPplayer.TeamRole.Role != Role.UNASSIGNED)
-				{
-					ev.Status = ROUND_END_STATUS.ON_GOING;
-				}
-				else if (Vipescape == true)
-				{
-					ev.Status = ROUND_END_STATUS.CI_VICTORY;
-				}
-				else if (ev.Round.Stats.NTFAlive == 0)
-				{
-					ev.Status = ROUND_END_STATUS.CI_VICTORY;
-				}
-				else if (VIPplayer.TeamRole.Role != Role.CLASSD && Vipescape == false)
-				{
-					ev.Status = ROUND_END_STATUS.FORCE_END;
-				}
-                
+				if (!EventLStorageList.PlayerKillGunGame.ContainsValue(25))
+                {
+                    ev.Status = ROUND_END_STATUS.ON_GOING;
+                }
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{
-			if (plugin.VIP)
+			if (GunGameBool)
 			{
 				ev.AllowSummon = false;
 			}
 		}
-	}
+        public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
+        {
+            if (GunGameBool)
+            {
+                // Checking if player is in list
+                if (ev.Killer.SteamId != ev.Player.SteamId && ev.Player.TeamRole.Role != Role.TUTORIAL)
+                {
+                    if (!EventLStorageList.PlayerKillGunGame.ContainsKey(ev.Killer.SteamId))
+                    {
+                        EventLStorageList.PlayerKillGunGame.Add(ev.Killer.SteamId, 1);
+                    }
+                    else if (EventLStorageList.PlayerKillGunGame.ContainsKey(ev.Killer.SteamId))
+                    {
+                        EventLStorageList.PlayerKillGunGame[ev.Killer.SteamId]++;
+                        if (EventLStorageList.PlayerKillGunGame[ev.Killer.SteamId] > MostKills)
+                        {
+                            MostKills = EventLStorageList.PlayerKillGunGame[ev.Killer.SteamId];
+                            PluginManager.Manager.Server.Map.Broadcast(10, ev.Killer.Name + " has the most kills " + MostKills , false);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 

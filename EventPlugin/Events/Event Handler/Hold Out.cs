@@ -108,7 +108,7 @@ namespace ATTG3
 		{
 			if (plugin.HoldOutEvent)
 			{
-                if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId))
+                if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId))
                 {
                     Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, ev.Player.GetCurrentItem().ItemType, ev.Player));
                 }
@@ -195,7 +195,7 @@ namespace ATTG3
 		{
 			if (plugin.HoldOutEvent)
 			{
-                var HOLDOUTKILL = EventPlayerItems.PlayerkillsHoldOut;
+                var HOLDOUTKILL = EventLStorageList.PlayerkillsHoldOut;
                 nuke = false;
 				plugin.HoldOutEvent = false;
                 Wave = 1;
@@ -274,7 +274,7 @@ namespace ATTG3
 		{
 			if (plugin.HoldOutEvent)
 			{
-                var HOLDOUTKILL = EventPlayerItems.PlayerkillsHoldOut;
+                var HOLDOUTKILL = EventLStorageList.PlayerkillsHoldOut;
                 ev.Player.SetRank("default", "DEAD", null);
                 if (ev.Player.TeamRole.Role == Role.SCP_049_2)
                 {

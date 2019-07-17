@@ -65,9 +65,9 @@ namespace ATTG3
 			{
 				if (ev.Killer.TeamRole.Role == Role.SCP_049_2 || ev.DamageTypeVar == DamageType.SCP_049_2)
 				{
-					if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == true)
+					if (EventLStorageList.InfecPlayer.Contains(ev.Player.SteamId) == true)
 					{
-						EventPlayerItems.InfecPlayer.Remove(ev.Player.SteamId);
+						EventLStorageList.InfecPlayer.Remove(ev.Player.SteamId);
 					}
 					ev.Player.PersonalBroadcast(10, "You will respawn in 30 seconds", false);
 					ev.SpawnRagdoll = false;
@@ -80,7 +80,7 @@ namespace ATTG3
 			if (plugin.Infectcontain)
 			{
 				plugin.Infectcontain = false;
-				EventPlayerItems.InfecPlayer.Clear();
+				EventLStorageList.InfecPlayer.Clear();
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
@@ -121,9 +121,9 @@ namespace ATTG3
 			{
 				if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP && ev.Player.TeamRole.Role != Role.TUTORIAL)
 				{
-					if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == false)
+					if (EventLStorageList.InfecPlayer.Contains(ev.Player.SteamId) == false)
 					{
-						EventPlayerItems.InfecPlayer.Add(ev.Player.SteamId);
+						EventLStorageList.InfecPlayer.Add(ev.Player.SteamId);
 						Timing.RunCoroutine(Events.Playerhit(ev.Player));
 					}
 				}
@@ -133,7 +133,7 @@ namespace ATTG3
 		{
 			if (plugin.Infectcontain)
 			{
-				if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId))
+				if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId))
 				{
 					Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, ev.Player.GetCurrentItem().ItemType, ev.Player));
 				}
@@ -143,9 +143,9 @@ namespace ATTG3
 		{
 			if (plugin.Infectcontain)
 			{
-				if (EventPlayerItems.InfecPlayer.Contains(ev.Player.SteamId) == true)
+				if (EventLStorageList.InfecPlayer.Contains(ev.Player.SteamId) == true)
 				{
-					EventPlayerItems.InfecPlayer.Remove(ev.Player.SteamId);
+					EventLStorageList.InfecPlayer.Remove(ev.Player.SteamId);
 				}
 			}
 		}

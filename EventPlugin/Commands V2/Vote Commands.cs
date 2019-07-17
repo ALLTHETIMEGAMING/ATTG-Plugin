@@ -11,17 +11,17 @@ namespace ATTG3
         public float Desplay = 0f;
         public VoteC(ATTG3Plugin plugin)
         {
-            //Constructor passing plugin refrence to this class
+            
             this.plugin = plugin;
         }
         public string GetCommandDescription()
         {
-            // This prints when someone types HELP HELLO
+            
             return "All Voting Commands";
         }
         public string GetUsage()
         {
-            // This prints when someone types HELP HELLO
+            
             return "AGVOTE";
         }
         public static string[] CA = new string[] { "AGVOTE", "VOTE" };

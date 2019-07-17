@@ -159,6 +159,7 @@ namespace ATTG3
             this.AddEventHandlers(new Jug(this), Priority.High);
             this.AddEventHandlers(new FFLight(this), Priority.High);
             this.AddEventHandlers(new HoldOut(this), Priority.High);
+            this.AddEventHandlers(new GunGame(this), Priority.High);
             this.AddEventHandlers(new PlayerConsole(this));
         }
         public void ReloadConfig()

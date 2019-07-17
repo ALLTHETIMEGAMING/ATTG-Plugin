@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine;
 using System.IO;
 using System;
+using ServerMod2;
 
 namespace ATTG3
 {
@@ -364,7 +365,7 @@ namespace ATTG3
         }
         public static IEnumerator<float> CustomitemDoor(Smod2.API.Door door, ItemType item, Player player)
         {
-            string setting = EventPlayerItems.Itemset[player.SteamId];
+            string setting = EventLStorageList.Itemset[player.SteamId];
             if (door.Locked == false)
             {
                 if (item == ItemType.JANITOR_KEYCARD)
@@ -495,22 +496,22 @@ namespace ATTG3
         }
         public static void ZonePOSSet()
         {
-            EventPlayerItems.ECZPOS.Clear();
-            EventPlayerItems.HCZPOS.Clear();
-            EventPlayerItems.LCZPOS.Clear();
+            EventLStorageList.ECZPOS.Clear();
+            EventLStorageList.HCZPOS.Clear();
+            EventLStorageList.LCZPOS.Clear();
             foreach (KeyValuePair<Vector, string> pos in ATTG3Plugin.MapCusSpawn)
             {
                 if (pos.Value == "LCZ")
                 {
-                    EventPlayerItems.LCZPOS.Add(pos.Key);
+                    EventLStorageList.LCZPOS.Add(pos.Key);
                 }
                 else if (pos.Value == "HCZ")
                 {
-                    EventPlayerItems.HCZPOS.Add(pos.Key);
+                    EventLStorageList.HCZPOS.Add(pos.Key);
                 }
                 else if (pos.Value == "ECZ")
                 {
-                    EventPlayerItems.ECZPOS.Add(pos.Key);
+                    EventLStorageList.ECZPOS.Add(pos.Key);
                 }
             }
         }
@@ -545,7 +546,7 @@ namespace ATTG3
             }
             string MapFilePos = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num + ".txt";
             var Mapfile = File.ReadAllLines(MapFilePos);
-            EventPlayerItems.MapPosEvents = new List<string>(Mapfile);
+            EventLStorageList.MapPosEvents = new List<string>(Mapfile);
         }
         #endregion
         public static IEnumerator<float> Fulldebug()
@@ -687,13 +688,13 @@ namespace ATTG3
         }
         public static IEnumerator<float> Playerhit(Player player)
         {
-			while (player.GetHealth() >= 0 && EventPlayerItems.InfecPlayer.Contains(player.SteamId) == true)
+			while (player.GetHealth() >= 0 && EventLStorageList.InfecPlayer.Contains(player.SteamId) == true)
 			{
 				yield return MEC.Timing.WaitForSeconds(1f);
 				player.Damage(1, DamageType.SCP_049_2);
 			}
         }
-        #endregion
+        
         public static IEnumerator<float> Delay60()
         {
             yield return MEC.Timing.WaitForSeconds(60f);
@@ -825,5 +826,69 @@ namespace ATTG3
                 yield return MEC.Timing.WaitForSeconds(5f);
             }
         }
+        #endregion
+        public static Transform GetCurrentRoom(Player player)
+        {
+            GameObject playerobj = (GameObject)player.GetGameObject();
+            return ServerMod2.API.SmodMap.GetCurrentRoom(playerobj.transform.position);
+        }
+        public static void AllSpawns()
+        {
+            foreach(Vector vector in PluginManager.Manager.Server.Map.GetSpawnPoints(Smod2.API.Role.FACILITY_GUARD))
+            {
+                EventLStorageList.GunGameSpawns.Add(vector);
+            }
+            foreach (Vector vector in PluginManager.Manager.Server.Map.GetSpawnPoints(Smod2.API.Role.SCIENTIST))
+            {
+                EventLStorageList.GunGameSpawns.Add(vector);
+            }
+            EventLStorageList.GunGameSpawns.Add(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_939_53));
+            foreach (Vector vector in PluginManager.Manager.Server.Map.GetSpawnPoints(Smod2.API.Role.CLASSD))
+            {
+                EventLStorageList.GunGameSpawns.Add(vector);
+            }
+            EventLStorageList.GunGameSpawns.Add(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
+            EventLStorageList.GunGameSpawns.Add(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_096));
+            foreach (Vector vector in EventLStorageList.HCZPOS)
+            {
+                EventLStorageList.GunGameSpawns.Add(vector);
+            }
+            foreach (Vector vector in EventLStorageList.LCZPOS)
+            {
+                EventLStorageList.GunGameSpawns.Add(vector);
+            }
+            foreach (Vector vector in EventLStorageList.ECZPOS)
+            {
+                EventLStorageList.GunGameSpawns.Add(vector);
+            }
+        }
+        public static IEnumerator<float> GGRespawn(Player player)
+        {
+            var Klist = EventLStorageList.PlayerKillGunGame;
+            yield return MEC.Timing.WaitForSeconds(2);
+            if (!Klist.ContainsKey(player.SteamId))
+            {
+                player.ChangeRole(Role.CLASSD, true, true, false, true);
+            }
+        }
+        public static IEnumerator<float> GunGamItems(Player player)
+        {
+            WeaponManager weaponManager;
+            GameObject sniper = (GameObject)player.GetGameObject();
+            Inventory sniperinv = sniper.GetComponent<Inventory>();
+            WeaponManager manager = sniper.GetComponent<WeaponManager>();
+            var Klist = EventLStorageList.PlayerKillGunGame;
+            var KPlayer = Klist[player.SteamId];
+            if (Klist.ContainsKey(player.SteamId))
+            {
+                if (KPlayer == 1)
+                {
+                    yield return MEC.Timing.WaitForSeconds(2);
+                    int i = WeaponManagerIndex(manager, 20);
+                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 4, 3, 1);
+                }
+            }
+        }
+
     }
 }

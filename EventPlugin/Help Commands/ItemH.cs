@@ -7,19 +7,19 @@ namespace ATTG3
 
         public ItemH(ATTG3Plugin plugin)
         {
-            //Constructor passing plugin refrence to this class
+            
             this.plugin=plugin;
         }
 
         public string GetCommandDescription()
         {
-            // This prints when someone types HELP HELLO
+            
             return "Prints All Items in SCP:SL";
         }
 
         public string GetUsage()
         {
-            // This prints when someone types HELP HELLO
+            
             return "AGIH";
         }
 

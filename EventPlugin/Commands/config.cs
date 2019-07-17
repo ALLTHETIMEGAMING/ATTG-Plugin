@@ -14,12 +14,12 @@ namespace ATTG3
         }
         public string GetCommandDescription()
         {
-            // This prints when someone types HELP HELLO
+            
             return "Disables 106 Containment";
         }
         public string GetUsage()
         {
-            // This prints when someone types HELP HELLO
+            
             return "Disables 106 Containment";
         }
         public static readonly string[] CA = new string[] { "Config", "Configtest" };

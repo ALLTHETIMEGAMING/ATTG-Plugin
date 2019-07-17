@@ -37,11 +37,11 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-            GameObject val = GameObject.Find("Host");
-            val.GetComponent<AlphaWarheadController>().NetworktimeToDetonation = 600f;
+            AlphaWarheadController host = AlphaWarheadController.host;
+            host.NetworktimeToDetonation = 600;
             return new[]
 			{
-				"Nuke set to "
+				"Nuke set to 600"
 			};
 		}
 	}

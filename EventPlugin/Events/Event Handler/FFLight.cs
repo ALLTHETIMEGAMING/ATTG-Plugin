@@ -34,13 +34,13 @@ namespace ATTG3
                         door.Locked = true;
                     }
                 }
-                plugin.Info(EventPlayerItems.LCZPOS.Count + "LCZ Spawn POS at Start");
+                plugin.Info(EventLStorageList.LCZPOS.Count + "LCZ Spawn POS at Start");
                 // Changes Players Role
                 foreach (Player player in PluginManager.Manager.Server.GetPlayers())
                 {
                     player.ChangeRole(Role.CLASSD, true, true, true, true);
                 }
-                if (EventPlayerItems.LCZPOS.Count > 0)
+                if (EventLStorageList.LCZPOS.Count > 0)
                 {
                     plugin.Info("Custom Spawn is True");
                     CustomSpawn = true;
@@ -95,13 +95,13 @@ namespace ATTG3
         {
             if (FFLightEvent)
             {
-                if (EventPlayerItems.LCZPOS.Count != 0 && CustomSpawn) {
+                if (EventLStorageList.LCZPOS.Count != 0 && CustomSpawn) {
                     // Spawning Player at custom spawn point
-                    int RandomInt = new System.Random().Next(EventPlayerItems.LCZPOS.Count);
-                    Vector spawnpos = EventPlayerItems.LCZPOS[RandomInt];
+                    int RandomInt = new System.Random().Next(EventLStorageList.LCZPOS.Count);
+                    Vector spawnpos = EventLStorageList.LCZPOS[RandomInt];
                     ev.SpawnPos = spawnpos;
                     plugin.Info(spawnpos.ToString());
-                    EventPlayerItems.LCZPOS.Remove(spawnpos);
+                    EventLStorageList.LCZPOS.Remove(spawnpos);
                 }
                 Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
             }
