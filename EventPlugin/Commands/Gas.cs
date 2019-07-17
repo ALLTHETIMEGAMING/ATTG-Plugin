@@ -40,7 +40,13 @@ namespace ATTG3
             }
             else
             {
-                NetworkCRC.
+                foreach (DecontaminationGas gase in DecontaminationGas.gases)
+                {
+                    if (gase != null)
+                    {
+                        gase.gameObject.SetActive(true);
+                    }
+                }
             }
             return new[]
             {

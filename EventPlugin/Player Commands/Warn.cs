@@ -23,7 +23,7 @@ namespace ATTG3
                 if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
 
                 myPlayer.PersonalBroadcast(10, myPlayer.Name + ": " + args[1], false);
-                return new string[] { "Warned Player: " + myPlayer.Name + args.ToString() };
+                return new string[] { "Warned Player: " + myPlayer.Name + " "+args.ToString() };
             }
             else
             {

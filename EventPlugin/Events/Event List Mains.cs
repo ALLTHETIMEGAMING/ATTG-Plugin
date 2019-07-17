@@ -14,6 +14,7 @@ namespace ATTG3
 	{
 		private readonly ATTG3Plugin plugin;
 		public EventPlayerItems(ATTG3Plugin plugin) => this.plugin = plugin;
+        public static Dictionary<string, int> PlayerkillsHoldOut = new Dictionary<string, int>();
         public static Dictionary<string, string> Itemset = new Dictionary<string, string>();
         public static List<string> InfecPlayer = new List<string>();
         public static List<string> MapPosEvents = new List<string>();

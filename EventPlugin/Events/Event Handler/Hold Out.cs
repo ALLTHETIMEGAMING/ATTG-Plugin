@@ -12,7 +12,7 @@ namespace ATTG3
 		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate, IEventHandlerPlayerDie
 	{
 		bool nuke;
-        public static int Wave;
+        public static int Wave = 1;
         Server Server => PluginManager.Manager.Server;
         public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;
@@ -47,6 +47,21 @@ namespace ATTG3
                         door.Locked = true;
                         door.Open = false;
                     }
+                    else if (door.Name == "CHECKPOINT_ENT")
+                    {
+                        door.Locked = true;
+                        door.Open = false;
+                    }
+                    else if (door.Name == "CHECKPOINT_LCZ_A")
+                    {
+                        door.Locked = true;
+                        door.Open = false;
+                    }
+                    else if (door.Name == "CHECKPOINT_LCZ_B")
+                    {
+                        door.Locked = true;
+                        door.Open = false;
+                    }
                     else if (door.Name == "914")
 					{
 						door.Locked = true;
@@ -67,7 +82,6 @@ namespace ATTG3
 						door.Locked = true;
 						door.Open = true;
 					}
-
 					door.DontOpenOnWarhead = true;
 					door.BlockAfterWarheadDetonation = false;
 				}
@@ -102,8 +116,6 @@ namespace ATTG3
 			{
                 if (EventPlayerItems.Itemset.ContainsKey(ev.Player.SteamId))
                 {
-					// Testing Custom Door events
-                    plugin.Info("Running SCPMTF Door key test");
                     Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, ev.Player.GetCurrentItem().ItemType, ev.Player));
                 }
             }
@@ -117,17 +129,21 @@ namespace ATTG3
 					ev.Player.SetRank("cyan", "TEAM: MTF", null);
 					Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
                     ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_173), true);
+                    ev.Player.PersonalClearBroadcasts();
                     ev.Player.PersonalBroadcast(10, "SURVIVE 10 MIN", false);
-				}
-				else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP && ev.Player.TeamRole.Role != Role.SCP_049_2)
-				{
-                    ev.Player.ChangeRole(Role.SCP_049_2);
-                    ev.Player.SetRank("red", "TEAM: SCP", null);
-                    ev.Player.PersonalBroadcast(10, "KILL ALL MTF", false);
-                    ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
+                    ev.Items.Remove(ItemType.DISARMER);
                 }
-                ev.Items.Remove(ItemType.DISARMER);
-                //Events.SCPMTF();
+                else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
+                {
+                    if (ev.Player.TeamRole.Role != Role.SCP_049_2)
+                    {
+                        ev.Player.ChangeRole(Role.SCP_049_2);
+                    }
+                    ev.Player.SetRank("red", "TEAM: SCP", null);
+                    ev.Player.PersonalClearBroadcasts();
+                    ev.Player.PersonalBroadcast(10, "KILL ALL MTF", false);
+                    ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD));
+                }
             }
 		}
 		public void OnGeneratorFinish(GeneratorFinishEvent ev)
@@ -182,8 +198,11 @@ namespace ATTG3
 		{
 			if (plugin.HoldOutEvent)
 			{
-				nuke = false;
+                var HOLDOUTKILL = EventPlayerItems.PlayerkillsHoldOut;
+                nuke = false;
 				plugin.HoldOutEvent = false;
+                Wave = 1;
+                HOLDOUTKILL.Clear();
 			}
 		}
 		public void OnLure(PlayerLureEvent ev)
@@ -258,7 +277,8 @@ namespace ATTG3
 		{
 			if (plugin.HoldOutEvent)
 			{
-				ev.Player.SetRank("default", "DEAD", null);
+                var HOLDOUTKILL = EventPlayerItems.PlayerkillsHoldOut;
+                ev.Player.SetRank("default", "DEAD", null);
                 if (ev.Player.TeamRole.Role == Role.SCP_049_2)
                 {
                     if (Server.Round.Stats.Zombies <= 4 && Wave != 4)
@@ -266,6 +286,28 @@ namespace ATTG3
                         Timing.RunCoroutine(Events.RespawnSpawn(ev.Player, "holdout"));
                         Server.Map.Broadcast(10, "WAVE " + Wave + " STARTING", false);
                         Wave++;
+                    }
+                    if (ev.Killer != null)
+                    {
+                        if (!HOLDOUTKILL.ContainsKey(ev.Killer.SteamId))
+                        {
+                            HOLDOUTKILL.Add(ev.Killer.SteamId, 1);
+                        }
+                        else if (HOLDOUTKILL.ContainsKey(ev.Killer.SteamId))
+                        {
+                            HOLDOUTKILL[ev.Killer.SteamId]++;
+                            if ((HOLDOUTKILL[ev.Killer.SteamId] % 3) == 0)
+                            {
+                                ev.Killer.GiveItem(ItemType.FRAG_GRENADE);
+                                ev.Killer.PersonalBroadcast(5, "Grenade Added", false);
+                            }
+                            else if (HOLDOUTKILL[ev.Killer.SteamId] == 10)
+                            {
+                                ev.Killer.GiveItem(ItemType.LOGICER);
+                                ev.Killer.PersonalBroadcast(5, "LOGICER Added", false);
+                                ev.Player.PersonalClearBroadcasts();
+                            }
+                        }
                     }
                 }
 			}
@@ -287,17 +329,24 @@ namespace ATTG3
                 {
                     ev.Status = ROUND_END_STATUS.MTF_VICTORY;
                 }
-                
             }
         }
         public void OnSpawn(Smod2.Events.PlayerSpawnEvent ev)
         {
             if (plugin.HoldOutEvent)
             {
-                 
+                if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
+                {
+                    if (ev.Player.TeamRole.Role != Role.SCP_049_2)
+                    {
+                        ev.Player.ChangeRole(Role.SCP_049_2);
+                    }
+                    ev.Player.SetRank("red", "TEAM: SCP", null);
+                    ev.Player.PersonalClearBroadcasts();
+                    ev.Player.PersonalBroadcast(10, "KILL ALL MTF", false);
+                    ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD));
+                }
             }
         }
     }
 }
-
-
