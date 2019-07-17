@@ -6,6 +6,7 @@ using UnityEngine;
 using System.IO;
 using System;
 using ServerMod2;
+using MEC;
 
 namespace ATTG3
 {
@@ -868,8 +869,10 @@ namespace ATTG3
             yield return MEC.Timing.WaitForSeconds(2);
             if (!Klist.ContainsKey(player.SteamId))
             {
-                player.ChangeRole(Role.CLASSD, true, true, false, true);
+                Klist.Add(player.SteamId, 0);
             }
+            player.ChangeRole(Role.CLASSD, true, true, false, true);
+            Timing.RunCoroutine(Events.GunGamItems(player));
         }
         public static IEnumerator<float> GunGamItems(Player player)
         {
@@ -878,17 +881,30 @@ namespace ATTG3
             Inventory sniperinv = sniper.GetComponent<Inventory>();
             WeaponManager manager = sniper.GetComponent<WeaponManager>();
             var Klist = EventLStorageList.PlayerKillGunGame;
-            var KPlayer = Klist[player.SteamId];
+            yield return Timing.WaitForSeconds(2);
             if (Klist.ContainsKey(player.SteamId))
             {
-                if (KPlayer == 1)
+                var KPlayer = Klist[player.SteamId];
+                if (KPlayer == 0)
                 {
-                    yield return MEC.Timing.WaitForSeconds(2);
+                    player.GiveItem(ItemType.LOGICER);
+                }
+                else if (KPlayer == 1)
+                {
                     int i = WeaponManagerIndex(manager, 20);
-                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 4, 3, 1);
+                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 1, 2, 4);
+                }
+                else if (KPlayer == 2)
+                {
+                    int i = WeaponManagerIndex(manager, 20);
+                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 4, 2, 4);
                 }
             }
+            else
+            {
+                player.GiveItem(ItemType.LOGICER);
+                Klist.Add(player.SteamId, 0);
+            }
         }
-
     }
 }

@@ -62,11 +62,12 @@ namespace ATTG3
 						player.ChangeRole(Role.CLASSD, true, true, true, true);
 					}
 				}
-				foreach (Pickup pickup in Object.FindObjectsOfType<Pickup>())
-				{
-					NetworkServer.Destroy(pickup.gameObject);
-				}
-			}
+                foreach (Pickup pickup in Object.FindObjectsOfType<Pickup>())
+                {
+                    NetworkServer.Destroy(pickup.gameObject);
+                }
+                Events.AllSpawns();
+            }
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
 		{
@@ -102,14 +103,15 @@ namespace ATTG3
                 }
                 Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
                 ev.Items.Add(ItemType.MTF_COMMANDER_KEYCARD);
-                ev.Player.PersonalBroadcast(5, "Be the 1st to get 25 kills", false);
+                Timing.RunCoroutine(Events.GunGamItems(ev.Player));
+                ev.Player.PersonalBroadcast(5, "Be the 1st to get 10 kills", false);
             }
         }
 		public void OnCheckRoundEnd(CheckRoundEndEvent ev)
 		{
 			if (GunGameBool)
 			{
-				if (!EventLStorageList.PlayerKillGunGame.ContainsValue(25))
+				if (!EventLStorageList.PlayerKillGunGame.ContainsValue(10))
                 {
                     ev.Status = ROUND_END_STATUS.ON_GOING;
                 }
@@ -135,6 +137,7 @@ namespace ATTG3
                     }
                     else if (EventLStorageList.PlayerKillGunGame.ContainsKey(ev.Killer.SteamId))
                     {
+
                         EventLStorageList.PlayerKillGunGame[ev.Killer.SteamId]++;
                         if (EventLStorageList.PlayerKillGunGame[ev.Killer.SteamId] > MostKills)
                         {
@@ -142,7 +145,17 @@ namespace ATTG3
                             PluginManager.Manager.Server.Map.Broadcast(10, ev.Killer.Name + " has the most kills " + MostKills , false);
                         }
                     }
+                    Timing.RunCoroutine(Events.GGRespawn(ev.Player));
                 }
+            }
+        }
+        public void OnSpawn(Smod2.Events.PlayerSpawnEvent ev)
+        {
+            if (GunGameBool)
+            {
+                int RandomInt = new System.Random().Next(EventLStorageList.GunGameSpawns.Count);
+                Vector spawnpos = EventLStorageList.GunGameSpawns[RandomInt];
+                ev.SpawnPos = spawnpos;
             }
         }
     }
