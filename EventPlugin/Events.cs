@@ -844,10 +844,6 @@ namespace ATTG3
                 EventLStorageList.GunGameSpawns.Add(vector);
             }
             EventLStorageList.GunGameSpawns.Add(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_939_53));
-            foreach (Vector vector in PluginManager.Manager.Server.Map.GetSpawnPoints(Smod2.API.Role.CLASSD))
-            {
-                EventLStorageList.GunGameSpawns.Add(vector);
-            }
             EventLStorageList.GunGameSpawns.Add(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
             EventLStorageList.GunGameSpawns.Add(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_096));
             foreach (Vector vector in EventLStorageList.HCZPOS)
@@ -866,13 +862,21 @@ namespace ATTG3
         public static IEnumerator<float> GGRespawn(Player player)
         {
             var Klist = EventLStorageList.PlayerKillGunGame;
-            yield return MEC.Timing.WaitForSeconds(2);
+            yield return MEC.Timing.WaitForSeconds(5);
             if (!Klist.ContainsKey(player.SteamId))
             {
                 Klist.Add(player.SteamId, 0);
             }
             player.ChangeRole(Role.CLASSD, true, true, false, true);
             Timing.RunCoroutine(Events.GunGamItems(player));
+            Timing.RunCoroutine(Events.GGTeleport(player));
+        }
+        public static IEnumerator<float> GGTeleport(Player player)
+        {
+            yield return MEC.Timing.WaitForSeconds(3);
+            int RandomInt = new System.Random().Next(EventLStorageList.GunGameSpawns.Count);
+            Vector spawnpos = EventLStorageList.GunGameSpawns[RandomInt];
+            player.Teleport(spawnpos);
         }
         public static IEnumerator<float> GunGamItems(Player player)
         {
@@ -881,7 +885,7 @@ namespace ATTG3
             Inventory sniperinv = sniper.GetComponent<Inventory>();
             WeaponManager manager = sniper.GetComponent<WeaponManager>();
             var Klist = EventLStorageList.PlayerKillGunGame;
-            yield return Timing.WaitForSeconds(2);
+            yield return Timing.WaitForSeconds(1);
             if (Klist.ContainsKey(player.SteamId))
             {
                 var KPlayer = Klist[player.SteamId];
@@ -891,13 +895,135 @@ namespace ATTG3
                 }
                 else if (KPlayer == 1)
                 {
-                    int i = WeaponManagerIndex(manager, 20);
-                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 1, 2, 4);
+                    int i = WeaponManagerIndex(manager, 21);
+                    sniperinv.AddNewItem(21, manager.weapons[i].maxAmmo, 2, 3, 2);
                 }
                 else if (KPlayer == 2)
                 {
+                    int i = WeaponManagerIndex(manager, 21);
+                    sniperinv.AddNewItem(21, manager.weapons[i].maxAmmo, 2, 2, 1);
+                }
+                else if (KPlayer == 3)
+                {
                     int i = WeaponManagerIndex(manager, 20);
-                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 4, 2, 4);
+                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 1, 3, 3);
+                }
+                else if (KPlayer == 4)
+                {
+                    int i = WeaponManagerIndex(manager, 20);
+                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 2, 3, 4);
+                }
+                else if (KPlayer == 5)
+                {
+                    int i = WeaponManagerIndex(manager, 23);
+                    sniperinv.AddNewItem(23, manager.weapons[i].maxAmmo, 2, 1, 1);
+                }
+                else if (KPlayer == 6)
+                {
+                    int i = WeaponManagerIndex(manager, 23);
+                    sniperinv.AddNewItem(23, manager.weapons[i].maxAmmo, 1, 0, 0);
+                }
+                else if (KPlayer == 7)
+                {
+                    int i = WeaponManagerIndex(manager, 30);
+                    sniperinv.AddNewItem(30, manager.weapons[i].maxAmmo, 1, 2, 1);
+                }
+                else if (KPlayer == 8)
+                {
+                    int i = WeaponManagerIndex(manager, 30);
+                    sniperinv.AddNewItem(30, manager.weapons[i].maxAmmo, 0, 0, 1);
+                }
+                else if (KPlayer == 9)
+                {
+                    int i = WeaponManagerIndex(manager, 13);
+                    sniperinv.AddNewItem(13, manager.weapons[i].maxAmmo, 0, 1, 1);
+                }
+                else if (KPlayer == 10)
+                {
+                    int i = WeaponManagerIndex(manager, 13);
+                    sniperinv.AddNewItem(13, manager.weapons[i].maxAmmo, 0, 0, 1);
+                }
+            }
+            else
+            {
+                player.GiveItem(ItemType.LOGICER);
+                Klist.Add(player.SteamId, 0);
+            }
+        }
+        public static IEnumerator<float> UpdateItems(Player player)
+        {
+            WeaponManager weaponManager;
+            GameObject sniper = (GameObject)player.GetGameObject();
+            Inventory sniperinv = sniper.GetComponent<Inventory>();
+            WeaponManager manager = sniper.GetComponent<WeaponManager>();
+            var Klist = EventLStorageList.PlayerKillGunGame;
+            player.SetCurrentItem(ItemType.NULL);
+            foreach(Smod2.API.Item item in player.GetInventory())
+            {
+                if(item.ItemType == ItemType.LOGICER || item.ItemType == ItemType.E11_STANDARD_RIFLE 
+                || item.ItemType == ItemType.USP || item.ItemType == ItemType.COM15 || item.ItemType == ItemType.P90 
+                || item.ItemType == ItemType.MP4)
+                {
+                    item.Remove();
+                }
+            }
+            yield return Timing.WaitForSeconds(1);
+            if (Klist.ContainsKey(player.SteamId))
+            {
+                var KPlayer = Klist[player.SteamId];
+                if (KPlayer == 0)
+                {
+                    player.GiveItem(ItemType.LOGICER);
+                }
+                else if (KPlayer == 1)
+                {
+                    int i = WeaponManagerIndex(manager, 21);
+                    sniperinv.AddNewItem(21, manager.weapons[i].maxAmmo, 2, 3, 2);
+                }
+                else if (KPlayer == 2)
+                {
+                    int i = WeaponManagerIndex(manager, 21);
+                    sniperinv.AddNewItem(21, manager.weapons[i].maxAmmo, 2, 2, 1);
+                }
+                else if (KPlayer == 3)
+                {
+                    int i = WeaponManagerIndex(manager, 20);
+                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 1, 3, 3);
+                }
+                else if (KPlayer == 4)
+                {
+                    int i = WeaponManagerIndex(manager, 20);
+                    sniperinv.AddNewItem(20, manager.weapons[i].maxAmmo, 2, 3, 4);
+                }
+                else if (KPlayer == 5)
+                {
+                    int i = WeaponManagerIndex(manager, 23);
+                    sniperinv.AddNewItem(23, manager.weapons[i].maxAmmo, 2, 1, 1);
+                }
+                else if (KPlayer == 6)
+                {
+                    int i = WeaponManagerIndex(manager, 23);
+                    sniperinv.AddNewItem(23, manager.weapons[i].maxAmmo, 1, 0, 0);
+                }
+                else if (KPlayer == 7)
+                {
+                    int i = WeaponManagerIndex(manager, 30);
+                    sniperinv.AddNewItem(30, manager.weapons[i].maxAmmo, 1, 2, 1);
+                }
+                else if (KPlayer == 8)
+                {
+                    int i = WeaponManagerIndex(manager, 30);
+                    sniperinv.AddNewItem(30, manager.weapons[i].maxAmmo, 0, 0, 1);
+                }
+                else if (KPlayer == 9)
+                {
+                    int i = WeaponManagerIndex(manager, 13);
+                    sniperinv.AddNewItem(13, manager.weapons[i].maxAmmo, 0, 1, 1);
+                }
+                else if (KPlayer == 10)
+                {
+                    int i = WeaponManagerIndex(manager, 13);
+                    sniperinv.AddNewItem(13, manager.weapons[i].maxAmmo, 0, 0, 1);
                 }
             }
             else

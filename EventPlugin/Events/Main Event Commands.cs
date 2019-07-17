@@ -87,7 +87,14 @@ namespace ATTG3
 						plugin.Event = true;
 						return new[] { "VIP Event Started" };
 					}
-					else if (args2 == "jug")
+                    else if (args2 == "gg")
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>Gun Game Event Starting</Color></SIZE>", false);
+                        GunGame.GunGameBool = true;
+                        plugin.Event = true;
+                        return new[] { "Gun Game Event Started" };
+                    }
+                    else if (args2 == "jug")
 					{
 						if (args.Length > 1)
 						{
