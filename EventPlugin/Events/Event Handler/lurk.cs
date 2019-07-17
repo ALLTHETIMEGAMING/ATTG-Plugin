@@ -10,12 +10,12 @@ using MEC;
 
 namespace ATTG3
 {
-	internal class lerk : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
+	internal class Lerk : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
 		IEventHandlerGeneratorInsertTablet, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerDecideTeamRespawnQueue, IEventHandlerDoorAccess
 	{
 		private readonly ATTG3Plugin plugin;
-		public lerk(ATTG3Plugin plugin) => this.plugin = plugin;
+		public Lerk(ATTG3Plugin plugin) => this.plugin = plugin;
 
 		public void OnRoundStart(RoundStartEvent ev)
 		{

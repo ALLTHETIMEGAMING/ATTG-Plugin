@@ -90,6 +90,7 @@
     <Compile Include="Events\Event Handler\FFLight.cs" />
     <Compile Include="Events\Event Handler\Jug.cs" />
     <Compile Include="Events\Event Handler\Hold Out.cs" />
+    <Compile Include="Events\Event Handler\GunGame.cs" />
     <Compile Include="Events\Event List Mains.cs" />
     <Compile Include="Events\Main Event Commands.cs" />
     <Compile Include="Events\Event Handler\QUESTION.cs" />

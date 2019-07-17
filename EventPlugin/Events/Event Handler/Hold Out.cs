@@ -52,16 +52,6 @@ namespace ATTG3
                         door.Locked = true;
                         door.Open = false;
                     }
-                    else if (door.Name == "CHECKPOINT_LCZ_A")
-                    {
-                        door.Locked = true;
-                        door.Open = false;
-                    }
-                    else if (door.Name == "CHECKPOINT_LCZ_B")
-                    {
-                        door.Locked = true;
-                        door.Open = false;
-                    }
                     else if (door.Name == "914")
 					{
 						door.Locked = true;
@@ -82,6 +72,10 @@ namespace ATTG3
 						door.Locked = true;
 						door.Open = true;
 					}
+                    else if (door.Position.y >= 15f && door.Position.y <=  25f)
+                    {
+                        door.Open = true;
+                    }
 					door.DontOpenOnWarhead = true;
 					door.BlockAfterWarheadDetonation = false;
 				}
@@ -132,6 +126,9 @@ namespace ATTG3
                     ev.Player.PersonalClearBroadcasts();
                     ev.Player.PersonalBroadcast(10, "SURVIVE 10 MIN", false);
                     ev.Items.Remove(ItemType.DISARMER);
+                    ev.Items.Remove(ItemType.MTF_COMMANDER_KEYCARD);
+                    ev.Items.Remove(ItemType.MTF_LIEUTENANT_KEYCARD);
+                    ev.Items.Remove(ItemType.RADIO);
                 }
                 else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
                 {

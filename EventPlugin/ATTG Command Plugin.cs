@@ -149,7 +149,7 @@ namespace ATTG3
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.High);
-            this.AddEventHandlers(new lerk(this), Priority.High);
+            this.AddEventHandlers(new Lerk(this), Priority.High);
             this.AddEventHandlers(new MTFCI(this), Priority.High);
             this.AddEventHandlers(new INFECT(this), Priority.High);
             this.AddEventHandlers(new INFECTCon(this), Priority.High);
