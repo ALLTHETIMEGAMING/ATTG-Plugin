@@ -9,7 +9,8 @@ using UnityEngine.Networking;
 namespace ATTG3
 {
     internal class GunGame : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSetRole,
-         IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerPlayerDie, IEventHandlerSpawn
+         IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerPlayerDie, IEventHandlerSpawn, IEventHandlerPlayerTriggerTesla,
+        IEventHandlerPlayerHurt, IEventHandlerPlayerDropItem
     {
 
         private readonly ATTG3Plugin plugin;
@@ -45,17 +46,19 @@ namespace ATTG3
                     else if (door.Name == "GATE_A")
                     {
                         door.Locked = true;
+                        door.Open = true;
                     }
                     else if (door.Name == "GATE_B")
                     {
                         door.Locked = true;
+                        door.Open = true;
                     }
-                }
-                foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-                {
-                    if (player.TeamRole.Role != Role.CLASSD)
+                    foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
                     {
-                        player.ChangeRole(Role.CLASSD, true, true, true, true);
+                        if (Elevator.ElevatorType == ElevatorType.GateA || Elevator.ElevatorType == ElevatorType.GateB)
+                        {
+                            Elevator.Locked = true;
+                        }
                     }
                 }
                 foreach (Pickup pickup in Object.FindObjectsOfType<Pickup>())
@@ -67,7 +70,7 @@ namespace ATTG3
                 {
                     ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = true;
                 }
-                PluginManager.Manager.Server.Map.Broadcast(10, "BE THE 1ST PERSON TO GET 10 KILLS TO WIN.\n<color=#FFD700>NOTE THIS EVENT IS NOT DONE</color>", false);
+                PluginManager.Manager.Server.Map.Broadcast(10, "BE THE 1ST PERSON TO GET 20 KILLS TO WIN.\n<color=#FFD700>NOTE THIS EVENT IS NOT DONE</color>", false);
             }
         }
         public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
@@ -86,6 +89,7 @@ namespace ATTG3
                 // Stops the event
                 GunGameBool = false;
                 EventLStorageList.PlayerKillGunGame.Clear();
+                EventLStorageList.GunGameSpawns.Clear();
                 foreach (Player player in PluginManager.Manager.Server.GetPlayers())
                 {
                     ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = false;
@@ -98,21 +102,22 @@ namespace ATTG3
             if (GunGameBool)
             {
                 ev.Items.Clear();
-                if (ev.Player.TeamRole.Team != Smod2.API.Team.CLASSD)
+                if (ev.Player.TeamRole.Role != Smod2.API.Role.CLASSD)
                 {
                     ev.Player.ChangeRole(Role.CLASSD);
                 }
-                Timing.RunCoroutine(Events.GunGamItems(ev.Player));
-                Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
-                Timing.RunCoroutine(Events.GGTeleport(ev.Player));
-                ev.Items.Add(ItemType.MTF_COMMANDER_KEYCARD);
+                else if (ev.Player.TeamRole.Role == Role.CLASSD)
+                {
+                    Timing.RunCoroutine(Events.GunGamItems(ev.Player));
+                    ev.Items.Add(ItemType.MTF_COMMANDER_KEYCARD);
+                }
             }
         }
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
         {
             if (GunGameBool)
             {
-                if (!EventLStorageList.PlayerKillGunGame.ContainsValue(10))
+                if (!EventLStorageList.PlayerKillGunGame.ContainsValue(20))
                 {
                     ev.Status = ROUND_END_STATUS.ON_GOING;
                 }
@@ -147,19 +152,49 @@ namespace ATTG3
                         }
                     }
                     ev.Killer.SetRank("Green", EventLStorageList.PlayerKillGunGame[ev.Killer.SteamId] + " Kills", null);
-                    Timing.RunCoroutine(Events.GGRespawn(ev.Player));
+                    
                     Timing.RunCoroutine(Events.UpdateItems(ev.Killer));
                 }
+                Timing.RunCoroutine(Events.GGRespawn(ev.Player));
+                ev.SpawnRagdoll = false;
             }
         }
-        public void OnSpawn(Smod2.Events.PlayerSpawnEvent ev)
+        public void OnSpawn(PlayerSpawnEvent ev)
         {
             if (GunGameBool)
             {
-                int RandomInt = new System.Random().Next(EventLStorageList.GunGameSpawns.Count);
-                Vector spawnpos = EventLStorageList.GunGameSpawns[RandomInt];
-                ev.SpawnPos = spawnpos;
-                Timing.RunCoroutine(Events.GunGamItems(ev.Player));
+                if (ev.Player.TeamRole.Role == Role.CLASSD)
+                {
+                    Vector spawnpos = EventLStorageList.GunGameSpawns[UnityEngine.Random.Range(0, EventLStorageList.GunGameSpawns.Count)];
+                    ev.SpawnPos = spawnpos;
+                }
+            }
+        }
+        public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
+        {
+            if (GunGameBool)
+            {
+                ev.Triggerable = false;
+            }
+        }
+        public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
+        {
+            if (GunGameBool)
+            {
+                if (ev.DamageType == DamageType.COM15)
+                {
+                    if (EventLStorageList.PlayerKillGunGame[ev.Attacker.SteamId] > 18)
+                    {
+                        ev.Damage = 10;
+                    }
+                }
+            }
+        }
+        public void OnPlayerDropItem(Smod2.Events.PlayerDropItemEvent ev)
+        {
+            if (GunGameBool)
+            {
+                ev.Allow = false;
             }
         }
     }

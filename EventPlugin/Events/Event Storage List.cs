@@ -1,19 +1,12 @@
-﻿using Smod2;
-using Smod2.API;
-using Smod2.EventHandlers;
-using Smod2.Events;
-using Smod2.EventSystem.Events;
+﻿using Smod2.API;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace ATTG3
 {
-	public class EventLStorageList
-	{
-		private readonly ATTG3Plugin plugin;
-		public EventLStorageList(ATTG3Plugin plugin) => this.plugin = plugin;
+    public class EventLStorageList
+    {
+        private readonly ATTG3Plugin plugin;
+        public EventLStorageList(ATTG3Plugin plugin) => this.plugin = plugin;
         public static Dictionary<string, int> PlayerkillsHoldOut = new Dictionary<string, int>();
         public static Dictionary<string, int> PlayerKillGunGame = new Dictionary<string, int>();
         public static Dictionary<string, string> Itemset = new Dictionary<string, string>();
@@ -23,5 +16,7 @@ namespace ATTG3
         public static List<Vector> HCZPOS = new List<Vector>();
         public static List<Vector> ECZPOS = new List<Vector>();
         public static List<Vector> GunGameSpawns = new List<Vector>();
+        public static Vector Shop1;
+
     }
 }

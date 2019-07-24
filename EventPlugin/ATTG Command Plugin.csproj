@@ -75,6 +75,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Feedingpit.cs" />
+    <Compile Include="Commands\Shop.cs" />
     <Compile Include="Commands\Setup.cs" />
     <Compile Include="Commands\Nuketime.cs" />
     <Compile Include="Commands\Meme.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Events\Event Handler\mtfci.cs" />
     <Compile Include="Events\Event Handler\lurk.cs" />
     <Compile Include="Events\Event Handler\Clasd.cs" />
+    <Compile Include="Events\Event Commands\GunGameNerf.cs" />
     <Compile Include="Player Commands\Remove.cs" />
     <Compile Include="Player Commands\Warn.cs" />
     <Compile Include="Player Commands\Playersize.cs" />
@@ -154,8 +157,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Events\Event Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

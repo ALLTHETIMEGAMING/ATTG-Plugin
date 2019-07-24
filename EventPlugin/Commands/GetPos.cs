@@ -40,7 +40,7 @@ namespace ATTG3
                 {
                     string pos;
                     string args2 = args[0].ToLower();
-                    string args3 = args[1].ToUpper();
+                    
                     GameObject val = GameObject.Find("Host");
                     int num = -1;
                     if (val != null)
@@ -79,6 +79,7 @@ namespace ATTG3
                     }
                     else if (args2 == "custom")
                     {
+                        string args3 = args[1].ToUpper();
                         pos = num.ToString() + ":" + args3 + ":" + player1.GetPosition().ToString() + Environment.NewLine;
                         string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "MapFiles" + Path.DirectorySeparatorChar + num.ToString() + ".txt";
                         string text2 = pos.Replace("(", "");

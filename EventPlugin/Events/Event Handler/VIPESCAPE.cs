@@ -128,7 +128,6 @@ namespace ATTG3
 				{
 					ev.Status = ROUND_END_STATUS.FORCE_END;
 				}
-                
 			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)

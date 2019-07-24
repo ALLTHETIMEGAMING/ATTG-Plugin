@@ -89,10 +89,11 @@ namespace ATTG3
 					}
                     else if (args2 == "gg")
                     {
-                        PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>Gun Game Event Starting</Color></SIZE>", false);
+                        PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=50><color=#FFD700>Arms Race Event Starting</Color></SIZE>\n<color=#FF0000>NOTE: THIS EVENT IS NOT DONE</color>", false);
                         GunGame.GunGameBool = true;
                         plugin.Event = true;
-                        return new[] { "Gun Game Event Started" };
+                        Events.AllSpawns();
+                        return new[] { "Arms Race Event Started" };
                     }
                     else if (args2 == "jug")
 					{

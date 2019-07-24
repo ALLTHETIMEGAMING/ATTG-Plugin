@@ -19,8 +19,8 @@ namespace ATTG3
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
         IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
-		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin, IEventHandlerPocketDimensionEnter
-	{
+		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerDie
+    {
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
 		public Scp096PlayerScript PlayerScript { get; private set; }
@@ -55,7 +55,10 @@ namespace ATTG3
 			MAP.Tleslad = false;
 			MAP.Tleslas = false;
 			plugin.Jugevent = false;
+            Feed.Feedbool = false;
             plugin.HoldOutEvent = false;
+            EventLStorageList.PlayerKillGunGame.Clear();
+            EventLStorageList.GunGameSpawns.Clear();
             SCPMTF.gen = 0;
             GunGame.GunGameBool = false;
             ATTG3Plugin.TPRooms.Clear();
@@ -367,5 +370,12 @@ namespace ATTG3
 				ev.TargetPosition = ev.LastPosition;
 			}
 		}
+        public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
+        {
+            if (Feed.Feedbool)
+            {
+                Timing.RunCoroutine(Events.FEED(ev.Player));
+            }
+        }
     }
 }

@@ -146,6 +146,9 @@ namespace ATTG3
             this.AddCommand("AGWARN", new Warn(this));
             this.AddCommand("AGSETUP", new Setup(this));
             this.AddCommand("AGREMOVE", new PlayerDis(this));
+            this.AddCommand("AGR", new GunGameNerf(this));
+            this.AddCommand("SHOP", new Shop(this));
+            this.AddCommand("FEED", new Feed(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.High);
@@ -200,6 +203,8 @@ namespace ATTG3
             ATTG3Plugin.Banmemes.Add("Was forced to uninstall life.exe");
             ATTG3Plugin.Banmemes.Add("Was uno reverse carded");
             ATTG3Plugin.Banmemes.Add("Was Uninstalled from the server");
+            ATTG3Plugin.Banmemes.Add("Was Snaped");
+            ATTG3Plugin.Banmemes.Add("Was Bamed from the server");
             var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
             Events.Filesetup();

@@ -54,10 +54,22 @@ namespace ATTG3
             }
             else
             {
-                foreach (GameObject game in wipe)
+                if (!(sender is Server) &&
+                sender is Player player1 &&
+                !plugin.Allrank.Contains(player1.GetRankName()))
                 {
-                    Count++;
-                    NetworkServer.Destroy(game);
+                    return new[]
+                    {
+                    $"You (rank {player1.GetRankName() ?? "Server"}) do not have permissions to that command."
+                };
+                }
+                else
+                {
+                    foreach (GameObject game in wipe)
+                    {
+                        Count++;
+                        NetworkServer.Destroy(game);
+                    }
                 }
                 wipe.Clear();
                 return new string[] { Count+" Bodys Wiped" };
