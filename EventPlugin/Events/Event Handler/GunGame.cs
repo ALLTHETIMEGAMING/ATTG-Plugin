@@ -43,6 +43,10 @@ namespace ATTG3
                     {
                         door.Locked = true;
                     }
+                    else if (door.Name == "INTERCOM")
+                    {
+                        door.Locked = true;
+                    }
                     else if (door.Name == "GATE_A")
                     {
                         door.Locked = true;
@@ -110,6 +114,7 @@ namespace ATTG3
                 {
                     Timing.RunCoroutine(Events.GunGamItems(ev.Player));
                     ev.Items.Add(ItemType.MTF_COMMANDER_KEYCARD);
+                    
                 }
             }
         }
@@ -167,6 +172,7 @@ namespace ATTG3
                 {
                     Vector spawnpos = EventLStorageList.GunGameSpawns[UnityEngine.Random.Range(0, EventLStorageList.GunGameSpawns.Count)];
                     ev.SpawnPos = spawnpos;
+                    ev.Player.SetHealth(250);
                 }
             }
         }

@@ -896,10 +896,6 @@ namespace ATTG3
             WeaponManager manager = sniper.GetComponent<WeaponManager>();
             var Klist = EventLStorageList.PlayerKillGunGame;
             yield return Timing.WaitForSeconds(1);
-            if (player.SteamId != "76561198189378293")
-            {
-                player.SetHealth(250);
-            }
             if (Klist.ContainsKey(player.SteamId))
             {
                 var KPlayer = Klist[player.SteamId];

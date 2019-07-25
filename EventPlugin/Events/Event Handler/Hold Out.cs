@@ -87,7 +87,7 @@ namespace ATTG3
 					}
                     else if (player.TeamRole.Team == Smod2.API.Team.SCIENTIST)
                     {
-                        player.ChangeRole(Role.SCP_049_2, true, true, false, true);
+                        player.ChangeRole(Role.NTF_LIEUTENANT, true, true, false, true);
                     }
                     else if (player.TeamRole.Role == Smod2.API.Role.FACILITY_GUARD)
                     {
@@ -281,8 +281,8 @@ namespace ATTG3
                     if (Server.Round.Stats.Zombies <= 4 && Wave != 4)
                     {
                         Timing.RunCoroutine(Events.RespawnSpawn(ev.Player, "holdout"));
-                        Server.Map.Broadcast(10, "WAVE " + Wave + " STARTING", false);
                         Wave++;
+                        Server.Map.Broadcast(10, "WAVE " + Wave + " STARTING", false);
                     }
                     if (ev.Killer != null)
                     {

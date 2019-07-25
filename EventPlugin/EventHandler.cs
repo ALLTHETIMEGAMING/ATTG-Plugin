@@ -272,6 +272,7 @@ namespace ATTG3
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
                 int RandomInt = new System.Random().Next(ATTG3Plugin.Banmemes.Count);
 				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name.ToUpper().ToString() + " "+ ATTG3Plugin.Banmemes[RandomInt], false);
+                ev.Reason = "";
 			}
 		}
 		public void OnWarheadKeycardAccess(Smod2.Events.WarheadKeycardAccessEvent ev)

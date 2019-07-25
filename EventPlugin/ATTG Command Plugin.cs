@@ -203,7 +203,6 @@ namespace ATTG3
             ATTG3Plugin.Banmemes.Add("Was forced to uninstall life.exe");
             ATTG3Plugin.Banmemes.Add("Was uno reverse carded");
             ATTG3Plugin.Banmemes.Add("Was Uninstalled from the server");
-            ATTG3Plugin.Banmemes.Add("Was Snaped");
             ATTG3Plugin.Banmemes.Add("Was Bamed from the server");
             var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
