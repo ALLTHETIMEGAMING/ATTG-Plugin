@@ -109,16 +109,22 @@ namespace ATTG3
             {
                 ev.Allow = true;
             }
-			/*if (Vars.Lock.TryGetValue(ev.Player.SteamId, out bool Lock)&&Lock==true)
-			{
-				ev.Door.Locked=true;
-				ev.Door.Open=false;
-			}
-			if (Vars.Lock.TryGetValue(ev.Player.SteamId, out Lock)&&Lock==false)
-			{
-				ev.Door.Locked=false;
-				ev.Door.Open=true;
-			}*/
+            if (plugin.SCPPRO && !plugin.Event && ev.Player.TeamRole.Role != Role.TUTORIAL)
+            {
+                if (PluginManager.Manager.Server.Round.Duration > 180)
+                {
+                    if (ev.Door.Name == "106_PRIMARY")
+                    {
+                        ev.Allow = false;
+                        ev.Player.PersonalBroadcast(10, "You can not open this door yet", false);
+                    }
+                    else if (ev.Door.Name == "106_SECONDARY")
+                    {
+                        ev.Allow = false;
+                        ev.Player.PersonalBroadcast(10, "You can not open this door yet", false);
+                    }
+                }
+            }
 			if (plugin.NoCHand == true)
 			{
 				if (ev.Door.Permission == "CONT_LVL_3" && ev.Door.Locked == false)
@@ -252,6 +258,10 @@ namespace ATTG3
             {
                 ev.Player.PersonalBroadcast(10, "Map Seed is:" + num, false);
             }
+            /*if (PluginManager.Manager.Server.Round.Stats.ClassDAlive == 0)
+            {
+                ev.Items.Remove(ItemType.DISARMER);
+            }*/
 		}
 		public void OnBan(BanEvent ev)
 		{

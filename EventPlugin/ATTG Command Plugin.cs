@@ -29,6 +29,7 @@ namespace ATTG3
         public string[] Eventrank { get; private set; }
         // Command Vars
         public bool Voteopen { get; set; }
+        public bool SCPPRO { get; set; }
         public bool Disable { get; set; } = false;
         public int Yes { get; set; }
         public int No { get; set; }
@@ -93,6 +94,7 @@ namespace ATTG3
             AddConfig(new ConfigSetting("attg_door_hand", true, false, true, "Allows all players able to open keycard doors with out a keycard in hand"));
             AddConfig(new ConfigSetting("attg_gen_hand", true, false, true, "Allows all players able to open Generators with out a keycard in hand"));
             AddConfig(new ConfigSetting("attg_elevator_speed", 1f, false, true, "Default Elevator speed"));
+            AddConfig(new ConfigSetting("attg_scp_pro", true, false, true, "Locks scps doors"));
             AddConfig(new ConfigSetting("attg_uno_user", new[] { "76561198126860363" }, false, true, "User can not be banned"));
             AddConfig(new ConfigSetting("attg_uno", true, false, true, "if uno user can not be banned"));
 
@@ -181,6 +183,7 @@ namespace ATTG3
             GenHand = GetConfigBool("attg_gen_hand");
             Elevatord = GetConfigFloat("attg_elevator_speed");
             UnoEnabled = GetConfigBool("attg_uno");
+            SCPPRO = GetConfigBool("attg_scp_pro");
             UNO = GetConfigList("attg_uno_user");
         }
         public override void OnEnable()

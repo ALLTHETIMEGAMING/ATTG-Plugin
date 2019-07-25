@@ -99,6 +99,7 @@ namespace ATTG3
                     ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = false;
                 }
                 MostKills = 0;
+                ev.Round.Stats.ClassDEscaped = ev.Round.Stats.ClassDStart;
             }
         }
         public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
@@ -114,7 +115,6 @@ namespace ATTG3
                 {
                     Timing.RunCoroutine(Events.GunGamItems(ev.Player));
                     ev.Items.Add(ItemType.MTF_COMMANDER_KEYCARD);
-                    
                 }
             }
         }
