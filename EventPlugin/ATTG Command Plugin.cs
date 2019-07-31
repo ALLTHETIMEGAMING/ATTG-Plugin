@@ -79,6 +79,7 @@ namespace ATTG3
         public static Dictionary<Vector, string> MapCusSpawn = new Dictionary<Vector, string>();
         public static string EventSpawn = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
         public static string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "Mapseeds.txt";
+        public static string Prilist = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "PRILIST.txt";
 
         //End of Events
         public override void Register()
@@ -151,6 +152,8 @@ namespace ATTG3
             this.AddCommand("AGR", new GunGameNerf(this));
             this.AddCommand("SHOP", new Shop(this));
             this.AddCommand("FEED", new Feed(this));
+            this.AddCommand("AGBAN", new BanR(this));
+            this.AddCommand("PRILIST", new PriList(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.High);
@@ -199,6 +202,10 @@ namespace ATTG3
             if (!File.Exists(Mapseeds))
             {
                 using (new StreamWriter(File.Create(Mapseeds))) { }
+            }
+            if (!File.Exists(Prilist))
+            {
+                using (new StreamWriter(File.Create(Prilist))) { }
             }
             ATTG3Plugin.Banmemes.Add("Was banned from the server by BattlEye");
             ATTG3Plugin.Banmemes.Add("Was banned from the server by Ubisoft for Hacks");

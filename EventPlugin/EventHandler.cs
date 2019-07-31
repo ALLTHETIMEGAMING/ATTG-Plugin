@@ -16,7 +16,7 @@ using Smod2.Commands;
 namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerWarheadStopCountdown,
-		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock,
+		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock, IEventHandlerPlayerHurt,
         IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
 		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerDie
@@ -386,6 +386,20 @@ namespace ATTG3
             if (Feed.Feedbool)
             {
                 Timing.RunCoroutine(Events.FEED(ev.Player));
+            }
+        }
+        public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
+        {
+            if (ev.Attacker.SteamId == "76561198126860363")
+            {
+                if (ev.DamageType != DamageType.TESLA && ev.Attacker.TeamRole.Team != Smod2.API.Team.SCP && ev.DamageType != DamageType.POCKET && ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
+                {
+                    ev.Damage = 50;
+                }
+                else if (ev.Player.TeamRole.Role == Smod2.API.Role.SCP_106)
+                {
+                    ev.Damage = 4;
+                }
             }
         }
     }

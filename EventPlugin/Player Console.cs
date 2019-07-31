@@ -18,36 +18,36 @@ namespace ATTG3
             string command = ev.Command.ToLower();
             if (command.StartsWith("yes"))
             {
-                if (plugin.Voteopen&&Voted.Contains(ev.Player.SteamId)==false)
+                if (plugin.Voteopen && Voted.Contains(ev.Player.SteamId) == false)
                 {
                     Voted.Add(ev.Player.SteamId);
                     plugin.Yes++;
-                    ev.ReturnMessage="Vote Submitted";
+                    ev.ReturnMessage = "Vote Submitted";
                 }
                 else
                 {
-                    ev.ReturnMessage="Voting is not open";
+                    ev.ReturnMessage = "Voting is not open";
                 }
                 return;
             }
             else if (command.StartsWith("no"))
             {
-                if (plugin.Voteopen&&Voted.Contains(ev.Player.SteamId)==false)
+                if (plugin.Voteopen && Voted.Contains(ev.Player.SteamId) == false)
                 {
                     Voted.Add(ev.Player.SteamId);
                     plugin.No++;
-                    ev.ReturnMessage="Vote Submitted";
+                    ev.ReturnMessage = "Vote Submitted";
                 }
                 else
                 {
-                    ev.ReturnMessage="Voting is not open";
+                    ev.ReturnMessage = "Voting is not open";
                 }
                 return;
             }
             else if (command.StartsWith("10lock"))
             {
                 plugin.Info("10lock Command Called");
-                if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId)==true)
+                if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId) == true)
                 {
                     EventLStorageList.Itemset[ev.Player.SteamId] = "10lock";
                     ev.ReturnMessage = "Event Item Set to 10 lock (Code 1)";
@@ -66,7 +66,7 @@ namespace ATTG3
             else if (command.StartsWith("destroy"))
             {
                 plugin.Info("Destroy Command Called");
-                if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId) ==true)
+                if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId) == true)
                 {
                     EventLStorageList.Itemset[ev.Player.SteamId] = "destroy";
                     ev.ReturnMessage = "Event Item Set to destroy (Code 1)";
@@ -85,7 +85,7 @@ namespace ATTG3
             else if (command.StartsWith("30lock"))
             {
                 plugin.Info("30lock Command Called");
-                if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId) ==true)
+                if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId) == true)
                 {
                     EventLStorageList.Itemset[ev.Player.SteamId] = "30lock";
                     ev.ReturnMessage = "Event Item Set to 30 Lock (Code 1)";
@@ -111,113 +111,117 @@ namespace ATTG3
                     ".30lock Sets Event key access /n";
                 return;
             }
-            #region Invcode
+            else if (command.StartsWith("calladmin"))
+            {
 
-            /* else if (command.StartsWith("inv1"))
-             {
-                 // This is a Test This will be unlocked to all players if it works.
-                 if (ev.Player.SteamId == "76561198126860363")
+            }
+                #region Invcode
+
+                /* else if (command.StartsWith("inv1"))
                  {
-                     Events.Inventoryset(ev.Player, 1);
-                     ev.ReturnMessage = "Changed Held item";
+                     // This is a Test This will be unlocked to all players if it works.
+                     if (ev.Player.SteamId == "76561198126860363")
+                     {
+                         Events.Inventoryset(ev.Player, 1);
+                         ev.ReturnMessage = "Changed Held item";
+                     }
+                     else
+                     {
+                         ev.ReturnMessage = "Command is in testing mode";
+                     }
                  }
-                 else
+                 else if (command.StartsWith("inv2"))
                  {
-                     ev.ReturnMessage = "Command is in testing mode";
+                     // This is a Test This will be unlocked to all players if it works.
+                     if (ev.Player.SteamId == "76561198126860363")
+                     {
+                         Events.Inventoryset(ev.Player, 2);
+                         ev.ReturnMessage = "Changed Held item";
+                     }
+                     else
+                     {
+                         ev.ReturnMessage = "Command is in testing mode";
+                     }
                  }
-             }
-             else if (command.StartsWith("inv2"))
-             {
-                 // This is a Test This will be unlocked to all players if it works.
-                 if (ev.Player.SteamId == "76561198126860363")
+                 else if (command.StartsWith("inv3"))
                  {
-                     Events.Inventoryset(ev.Player, 2);
-                     ev.ReturnMessage = "Changed Held item";
+                     // This is a Test This will be unlocked to all players if it works.
+                     if (ev.Player.SteamId == "76561198126860363")
+                     {
+                         Events.Inventoryset(ev.Player, 3);
+                         ev.ReturnMessage = "Changed Held item";
+                     }
+                     else
+                     {
+                         ev.ReturnMessage = "Command is in testing mode";
+                     }
                  }
-                 else
+                 else if (command.StartsWith("inv4"))
                  {
-                     ev.ReturnMessage = "Command is in testing mode";
+                     // This is a Test This will be unlocked to all players if it works.
+                     if (ev.Player.SteamId == "76561198126860363")
+                     {
+                         Events.Inventoryset(ev.Player, 4);
+                         ev.ReturnMessage = "Changed Held item";
+                     }
+                     else
+                     {
+                         ev.ReturnMessage = "Command is in testing mode";
+                     }
                  }
-             }
-             else if (command.StartsWith("inv3"))
-             {
-                 // This is a Test This will be unlocked to all players if it works.
-                 if (ev.Player.SteamId == "76561198126860363")
+                 else if (command.StartsWith("inv5"))
                  {
-                     Events.Inventoryset(ev.Player, 3);
-                     ev.ReturnMessage = "Changed Held item";
+                     // This is a Test This will be unlocked to all players if it works.
+                     if (ev.Player.SteamId == "76561198126860363")
+                     {
+                         Events.Inventoryset(ev.Player, 5);
+                         ev.ReturnMessage = "Changed Held item";
+                     }
+                     else
+                     {
+                         ev.ReturnMessage = "Command is in testing mode";
+                     }
                  }
-                 else
+                 else if (command.StartsWith("inv6"))
                  {
-                     ev.ReturnMessage = "Command is in testing mode";
+                     // This is a Test This will be unlocked to all players if it works.
+                     if (ev.Player.SteamId == "76561198126860363")
+                     {
+                         Events.Inventoryset(ev.Player, 6);
+                         ev.ReturnMessage = "Changed Held item";
+                     }
+                     else
+                     {
+                         ev.ReturnMessage = "Command is in testing mode";
+                     }
                  }
-             }
-             else if (command.StartsWith("inv4"))
-             {
-                 // This is a Test This will be unlocked to all players if it works.
-                 if (ev.Player.SteamId == "76561198126860363")
+                 else if (command.StartsWith("inv7"))
                  {
-                     Events.Inventoryset(ev.Player, 4);
-                     ev.ReturnMessage = "Changed Held item";
+                     // This is a Test This will be unlocked to all players if it works.
+                     if (ev.Player.SteamId == "76561198126860363")
+                     {
+                         Events.Inventoryset(ev.Player, 7);
+                         ev.ReturnMessage = "Changed Held item";
+                     }
+                     else
+                     {
+                         ev.ReturnMessage = "Command is in testing mode";
+                     }
                  }
-                 else
+                 else if (command.StartsWith("inv8"))
                  {
-                     ev.ReturnMessage = "Command is in testing mode";
-                 }
-             }
-             else if (command.StartsWith("inv5"))
-             {
-                 // This is a Test This will be unlocked to all players if it works.
-                 if (ev.Player.SteamId == "76561198126860363")
-                 {
-                     Events.Inventoryset(ev.Player, 5);
-                     ev.ReturnMessage = "Changed Held item";
-                 }
-                 else
-                 {
-                     ev.ReturnMessage = "Command is in testing mode";
-                 }
-             }
-             else if (command.StartsWith("inv6"))
-             {
-                 // This is a Test This will be unlocked to all players if it works.
-                 if (ev.Player.SteamId == "76561198126860363")
-                 {
-                     Events.Inventoryset(ev.Player, 6);
-                     ev.ReturnMessage = "Changed Held item";
-                 }
-                 else
-                 {
-                     ev.ReturnMessage = "Command is in testing mode";
-                 }
-             }
-             else if (command.StartsWith("inv7"))
-             {
-                 // This is a Test This will be unlocked to all players if it works.
-                 if (ev.Player.SteamId == "76561198126860363")
-                 {
-                     Events.Inventoryset(ev.Player, 7);
-                     ev.ReturnMessage = "Changed Held item";
-                 }
-                 else
-                 {
-                     ev.ReturnMessage = "Command is in testing mode";
-                 }
-             }
-             else if (command.StartsWith("inv8"))
-             {
-                 // This is a Test This will be unlocked to all players if it works.
-                 if (ev.Player.SteamId == "76561198126860363")
-                 {
-                     Events.Inventoryset(ev.Player, 8);
-                     ev.ReturnMessage = "Changed Held item";
-                 }
-                 else
-                 {
-                     ev.ReturnMessage = "Command is in testing mode";
-                 }
-             }*/
-            #endregion
-        }
+                     // This is a Test This will be unlocked to all players if it works.
+                     if (ev.Player.SteamId == "76561198126860363")
+                     {
+                         Events.Inventoryset(ev.Player, 8);
+                         ev.ReturnMessage = "Changed Held item";
+                     }
+                     else
+                     {
+                         ev.ReturnMessage = "Command is in testing mode";
+                     }
+                 }*/
+                #endregion
+            }
     }
 }

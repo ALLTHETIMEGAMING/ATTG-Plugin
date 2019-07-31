@@ -34,7 +34,6 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-
             Feedbool = !Feedbool;
             if (Feedbool)
             {
@@ -76,7 +75,6 @@ namespace ATTG3
                     }
                 }
             }
-
             return new[]
             {
                 $"Feedint pit {(Feedbool ? "Actavated" : "Deactavated")}"

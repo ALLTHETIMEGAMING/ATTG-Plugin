@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands V2\BanR.cs" />
     <Compile Include="Commands\Feedingpit.cs" />
     <Compile Include="Commands\Shop.cs" />
     <Compile Include="Commands\Setup.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Events\Event Handler\lurk.cs" />
     <Compile Include="Events\Event Handler\Clasd.cs" />
     <Compile Include="Events\Event Commands\GunGameNerf.cs" />
+    <Compile Include="Player Commands\PriList.cs" />
     <Compile Include="Player Commands\Remove.cs" />
     <Compile Include="Player Commands\Warn.cs" />
     <Compile Include="Player Commands\Playersize.cs" />

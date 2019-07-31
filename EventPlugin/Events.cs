@@ -455,6 +455,10 @@ namespace ATTG3
             string text2 = text.Trim('(', ')', ' ');
             File.AppendAllText(ATTG3Plugin.EventSpawn, text2);
         }
+        public static void Setfilepri(string text)
+        {
+            File.AppendAllText(ATTG3Plugin.Prilist, text);
+        }
         public static void CheckMap(string text)
         {
             string text2 = text.Trim('(', ')', ' ');
@@ -708,7 +712,6 @@ namespace ATTG3
                 player.Teleport(Smod2.PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_939_53));
             }
         }
-
         public static IEnumerator<float> Delay60()
         {
             yield return MEC.Timing.WaitForSeconds(60f);
@@ -1093,6 +1096,20 @@ namespace ATTG3
                 player.GiveItem(ItemType.LOGICER);
                 Klist.Add(player.SteamId, 0);
             }
+        }
+        public static string StringArrayToString(string[] array, int startPos)
+        {
+            string saveText = null;
+            if (array.Length > 0)
+            {
+                for (int i = startPos; i < array.Length; i++)
+                {
+                    saveText += array[i];
+                    if (i != array.Length - 1)
+                        saveText += " ";
+                }
+            }
+            return saveText;
         }
     }
 }
