@@ -105,6 +105,7 @@
     <Compile Include="Events\Event Handler\lurk.cs" />
     <Compile Include="Events\Event Handler\Clasd.cs" />
     <Compile Include="Events\Event Commands\GunGameNerf.cs" />
+    <Compile Include="Player Commands\Nerfplayer.cs" />
     <Compile Include="Player Commands\PriList.cs" />
     <Compile Include="Player Commands\Remove.cs" />
     <Compile Include="Player Commands\Warn.cs" />

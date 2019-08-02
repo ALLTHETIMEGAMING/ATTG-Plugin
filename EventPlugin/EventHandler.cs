@@ -111,16 +111,18 @@ namespace ATTG3
             }
             if (plugin.SCPPRO && !plugin.Event && ev.Player.TeamRole.Role != Role.TUTORIAL)
             {
-                if (PluginManager.Manager.Server.Round.Duration > 180)
+                if (PluginManager.Manager.Server.Round.Duration < 180)
                 {
                     if (ev.Door.Name == "106_PRIMARY")
                     {
                         ev.Allow = false;
+                        ev.Door.Open = false;
                         ev.Player.PersonalBroadcast(10, "You can not open this door yet", false);
                     }
                     else if (ev.Door.Name == "106_SECONDARY")
                     {
                         ev.Allow = false;
+                        ev.Door.Open = false;
                         ev.Player.PersonalBroadcast(10, "You can not open this door yet", false);
                     }
                 }

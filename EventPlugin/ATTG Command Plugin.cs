@@ -80,6 +80,7 @@ namespace ATTG3
         public static string EventSpawn = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
         public static string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "Mapseeds.txt";
         public static string Prilist = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "PRILIST.txt";
+        public static string Nerflist = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "PRILIST.txt";
 
         //End of Events
         public override void Register()
@@ -206,6 +207,10 @@ namespace ATTG3
             if (!File.Exists(Prilist))
             {
                 using (new StreamWriter(File.Create(Prilist))) { }
+            }
+            if (!File.Exists(Nerflist))
+            {
+                using (new StreamWriter(File.Create(Nerflist))) { }
             }
             ATTG3Plugin.Banmemes.Add("Was banned from the server by BattlEye");
             ATTG3Plugin.Banmemes.Add("Was banned from the server by Ubisoft for Hacks");
