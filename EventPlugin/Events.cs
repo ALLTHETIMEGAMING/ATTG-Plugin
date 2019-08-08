@@ -1174,7 +1174,7 @@ namespace ATTG3
                 {
                     if (players.TeamRole.Role == Role.SPECTATOR)
                     {
-                        players.ChangeRole();
+                        players.ChangeRole(Role.SCP_049);
                     }
                 }
             }
