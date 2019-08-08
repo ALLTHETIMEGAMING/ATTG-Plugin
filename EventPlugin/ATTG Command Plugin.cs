@@ -162,13 +162,14 @@ namespace ATTG3
             this.AddEventHandlers(new MTFCI(this), Priority.High);
             this.AddEventHandlers(new INFECT(this), Priority.High);
             this.AddEventHandlers(new INFECTCon(this), Priority.High);
-            this.AddEventHandlers(new SCPMTF(this), Priority.High);
+            this.AddEventHandlers(new SCPMTFEVENT(this), Priority.High);
             this.AddEventHandlers(new VIPESCAPE(this), Priority.High);
             this.AddEventHandlers(new Question(this), Priority.High);
             this.AddEventHandlers(new Jug(this), Priority.High);
             this.AddEventHandlers(new FFLight(this), Priority.High);
             this.AddEventHandlers(new HoldOut(this), Priority.High);
             this.AddEventHandlers(new GunGame(this), Priority.High);
+            this.AddEventHandlers(new Breach(this), Priority.High);
             this.AddEventHandlers(new PlayerConsole(this));
         }
         public void ReloadConfig()

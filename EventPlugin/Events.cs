@@ -10,9 +10,9 @@ using MEC;
 
 namespace ATTG3
 {
-    public class Events
+    internal class Events
     {
-        readonly ATTG3Plugin plugin;
+        public readonly ATTG3Plugin plugin;
         Server Server => PluginManager.Manager.Server;
         IConfigFile Config => ConfigManager.Manager.Config;
 		public static Scp939PlayerScript PlayerScript { get; set; }
@@ -679,8 +679,6 @@ namespace ATTG3
 				PluginManager.Manager.Server.Map.Broadcast(1, "DEBUGING CODE 13 " + "(" + counting2 + " / " + counting + ")" + "\n" + "IP Ban File", false);
 				yield return MEC.Timing.WaitForSeconds(0.1f);
 			}
-
-
 			PluginManager.Manager.Server.Map.Broadcast(5, "DEBUG MODE DEACTIVATED", false);
         }
         public static void SSAIMBOT(Player player)
@@ -1114,6 +1112,58 @@ namespace ATTG3
                 }
             }
             return saveText;
+        }
+        public static void RestartRound()
+        {
+            ATTG3Plugin.Instance.Voteopen = false;
+            ATTG3Plugin.Instance.Yes = 0;
+            ATTG3Plugin.Instance.No = 0;
+            ATTG3Plugin.Instance.Lights = false;
+            ATTG3Plugin.Instance.GenSpam = false;
+            ATTG3Plugin.Instance.Lerk = false;
+            ATTG3Plugin.Instance.INFECT = false;
+            ATTG3Plugin.Instance.MTFCI = false;
+            ATTG3Plugin.Instance.Event = false;
+            ATTG3Plugin.Instance.MTFSCP = false;
+            ATTG3Plugin.Instance.VIP = false;
+            ATTG3Plugin.Instance.QEvent = false;
+            ATTG3Plugin.Instance.Infectcontain = false;
+            PlayerConsole.Voted.Clear();
+            ATTG3Plugin.Instance.RoundStarted = false;
+            Breach.Breachevent = false;
+            Breach.gen = 0;
+            Breach.Nuke = false;
+            Breach.FreeSCPS.Clear();
+            MAP.Shake = false;
+            FFLight.FFLightEvent = false;
+            MAP.Shake = false;
+            MAP.Tleslad = false;
+            MAP.Tleslas = false;
+            ATTG3Plugin.Instance.Jugevent = false;
+            Feed.Feedbool = false;
+            ATTG3Plugin.Instance.HoldOutEvent = false;
+            EventLStorageList.PlayerKillGunGame.Clear();
+            EventLStorageList.GunGameSpawns.Clear();
+            SCPMTFEVENT.gen = 0;
+            GunGame.GunGameBool = false;
+            ATTG3Plugin.TPRooms.Clear();
+            //Events.GetRoundStartRoom();
+            var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
+            ATTG3Plugin.Maplist = new List<string>(Mapfile);
+            Events.MapSpawnVec();
+        }
+        public static IEnumerator<float> BREACHRESPAWN(Player player, Player Attacker)
+        {
+            if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+            {
+                yield return MEC.Timing.WaitForSeconds(10);
+                player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+            }
+            else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
+            {
+                yield return MEC.Timing.WaitForSeconds(10);
+                player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
+            }
         }
     }
 }

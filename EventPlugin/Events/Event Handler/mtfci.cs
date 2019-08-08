@@ -119,12 +119,14 @@ namespace ATTG3
 						ev.Server.Map.ClearBroadcasts();
 						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#0080FF>MTF WIN</Color></SIZE>", false);
 						ev.Status = ROUND_END_STATUS.MTF_VICTORY;
+                        ev.Round.Stats.ScientistsEscaped = 6;
 					}
 					else if (CIKills >= KillGoal)
 					{
 						ev.Server.Map.ClearBroadcasts();
 						ev.Server.Map.Broadcast(10, "<SIZE=75><color=#0B7A00>CI WIN</Color></SIZE>", false);
 						ev.Status = ROUND_END_STATUS.CI_VICTORY;
+                        ev.Round.Stats.ClassDEscaped = 6;
 					}
 					else
 					{

@@ -80,6 +80,13 @@ namespace ATTG3
                         plugin.Event = true;
                         return new string[] { "Hold Out Event started" };
                     }
+                    else if (args2 == "breach")
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FF0000>Breach Event Starting</Color></SIZE>", false);
+                        Breach.Breachevent = true;
+                        plugin.Event = true;
+                        return new string[] { "Breach Event started" };
+                    }
                     else if (args2 == "vip")
 					{
 						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>VIP Event Starting</Color></SIZE>", false);

@@ -34,38 +34,7 @@ namespace ATTG3
 			{
 				Elevator.MovingSpeed = plugin.Elevatord;
 			}
-			plugin.Voteopen = false;
-			plugin.Yes = 0;
-			plugin.No = 0;
-			plugin.Lights = false;
-			plugin.GenSpam = false;
-			plugin.Lerk = false;
-			plugin.INFECT = false;
-			plugin.MTFCI = false;
-			plugin.Event = false;
-			plugin.MTFSCP = false;
-			plugin.VIP = false;
-			plugin.QEvent = false;
-			plugin.Infectcontain = false;
-			PlayerConsole.Voted.Clear();
-			plugin.RoundStarted = false;
-			MAP.Shake = false;
-            FFLight.FFLightEvent = false;
-			MAP.Shake = false;
-			MAP.Tleslad = false;
-			MAP.Tleslas = false;
-			plugin.Jugevent = false;
-            Feed.Feedbool = false;
-            plugin.HoldOutEvent = false;
-            EventLStorageList.PlayerKillGunGame.Clear();
-            EventLStorageList.GunGameSpawns.Clear();
-            SCPMTF.gen = 0;
-            GunGame.GunGameBool = false;
-            ATTG3Plugin.TPRooms.Clear();
-            //Events.GetRoundStartRoom();
-            var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
-            ATTG3Plugin.Maplist = new List<string>(Mapfile);
-            Events.MapSpawnVec();
+            Events.RestartRound();
         }
 		public void OnRoundStart(RoundStartEvent ev)
 		{
@@ -73,11 +42,7 @@ namespace ATTG3
 		}
 		public void OnNicknameSet(Smod2.Events.PlayerNicknameSetEvent ev)
 		{
-			if (ev.Player.SteamId == "76561198141700494")
-			{
-				//the steam 64 id is a global mod
-				ev.Nickname = "KILL ME PLZ";
-			}
+			
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{

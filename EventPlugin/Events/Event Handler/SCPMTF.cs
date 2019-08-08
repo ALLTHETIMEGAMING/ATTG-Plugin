@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace ATTG3
 {
-	internal class SCPMTF : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
+	internal class SCPMTFEVENT : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerLure,
 		IEventHandlerGeneratorInsertTablet, IEventHandlerSummonVehicle, IEventHandlerPlayerTriggerTesla, IEventHandlerDoorAccess, IEventHandlerWarheadDetonate, IEventHandlerPlayerDie
 	{
@@ -16,7 +16,7 @@ namespace ATTG3
 		bool nuke;
 		public Dictionary<string, int> Time = new Dictionary<string, int>();
 		private readonly ATTG3Plugin plugin;
-		public SCPMTF(ATTG3Plugin plugin) => this.plugin = plugin;
+		public SCPMTFEVENT(ATTG3Plugin plugin) => this.plugin = plugin;
 		public Dictionary<string, float> GenTime = new Dictionary<string, float>();
 		public void OnRoundStart(RoundStartEvent ev)
 		{
