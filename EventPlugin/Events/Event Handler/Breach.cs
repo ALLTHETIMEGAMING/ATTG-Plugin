@@ -8,7 +8,7 @@ using MEC;
 
 namespace ATTG3
 {
-    internal class Breach : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerTeamRespawn,
+    internal class Breach : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt,
         IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure,
         IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerDoorAccess, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie
 
@@ -80,7 +80,7 @@ namespace ATTG3
         {
             if (Breachevent)
             {
-                if (ev.Server.Round.Duration >= 900)
+                if (ev.Server.Round.Duration >= 1200)
                 {
                     ev.Status = ROUND_END_STATUS.MTF_VICTORY;
                     ev.Round.Stats.ScientistsEscaped = 6;
@@ -180,13 +180,6 @@ namespace ATTG3
                 }
             }
         }
-        public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
-        {
-            if (Breachevent)
-            {
-                ev.SpawnChaos = true;
-            }
-        }
         public void OnRoundEnd(RoundEndEvent ev)
         {
             if (Breachevent)
@@ -256,9 +249,23 @@ namespace ATTG3
         }
         public void OnUpdate(Smod2.Events.UpdateEvent ev)
         {
-            if (Breachevent && GameObject.Find("Host").GetComponent<DecontaminationLCZ>().time != 0)
-            {
-                GameObject.Find("Host").GetComponent<DecontaminationLCZ>().time = 0;
+            if (Breachevent) {
+                if (GameObject.Find("Host").GetComponent<DecontaminationLCZ>().time != 0)
+                {
+                    GameObject.Find("Host").GetComponent<DecontaminationLCZ>().time = 0;
+                }
+                /*if(PluginManager.Manager.Server.Round.Duration == 300)
+                {
+                    PluginManager.Manager.Server.Map.Broadcast(10, "15 MIN REMAIN", false);
+                }
+                if (PluginManager.Manager.Server.Round.Duration == 600)
+                {
+                    PluginManager.Manager.Server.Map.Broadcast(10, "10 MIN REMAIN", false);
+                }
+                if (PluginManager.Manager.Server.Round.Duration == 900)
+                {
+                    PluginManager.Manager.Server.Map.Broadcast(10, "5 MIN REMAIN", false);
+                }*/
             }
         }
         public void OnDoorAccess(PlayerDoorAccessEvent ev)
@@ -315,6 +322,23 @@ namespace ATTG3
             {
                 ev.SpawnRagdoll = false;
                 Timing.RunCoroutine(Events.BREACHRESPAWN(ev.Player, ev.Killer));
+            }
+        }
+        public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
+        {
+            if (Breachevent)
+            {
+                if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP)
+                {
+                    ev.Damage = 0;
+                }
+            }
+        }
+        public void OnSummonVehicle(SummonVehicleEvent ev)
+        {
+            if (Breachevent)
+            {
+                ev.AllowSummon = false;
             }
         }
     }

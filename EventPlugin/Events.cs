@@ -1165,5 +1165,20 @@ namespace ATTG3
                 player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
             }
         }
+        public static Player BreachSCP(Player player,Player doorPlayer,string SCP)
+        {
+            Player player1;
+            if (TUTCOUNT(Role.SPECTATOR) != 0)
+            {
+                foreach (Player players in PluginManager.Manager.Server.GetPlayers())
+                {
+                    if (players.TeamRole.Role == Role.SPECTATOR)
+                    {
+                        players.ChangeRole();
+                    }
+                }
+            }
+            
+            return player1;
     }
 }
