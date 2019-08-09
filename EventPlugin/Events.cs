@@ -1131,6 +1131,7 @@ namespace ATTG3
 			ATTG3Plugin.Instance.RoundStarted = false;
 			Breach.Breachevent = false;
 			Breach.gen = 0;
+            Breach.GenTime.Clear();
 			Breach.Nuke = false;
 			Breach.FreeSCPS.Clear();
 			MAP.Shake = false;
@@ -1187,6 +1188,42 @@ namespace ATTG3
 				player.ChangeRole(Role.SCP_939_53);
 			}
 		}
+        public static void IsEvan(string Event,int Team1,int Team2,Role Team1Role,Role Team2Role)
+        {
+            Player player1 = null;
+            if ((PluginManager.Manager.Server.NumPlayers % 2) == 0)
+            {
+                if (TUTCOUNT(Role.SPECTATOR) == 0)
+                {
+                    if (Team1 > Team2)
+                    {
+                        foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+                        {
+                            if (player1 != null && player.TeamRole.Role != Team2Role)
+                            {
+                                player.ChangeRole(Team2Role);
+                                player1 = player;
+                                Team1 = TUTCOUNT(Team1Role);
+                                Team2 = TUTCOUNT(Team2Role);
+                            }
+                        }
+                    }
+                    else if (Team2 > Team1)
+                    {
+                        foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+                        {
+                            if (player1 != null && player.TeamRole.Role != Team1Role)
+                            {
+                                player.ChangeRole(Team1Role);
+                                player1 = player;
+                                Team1 = TUTCOUNT(Team1Role);
+                                Team2 = TUTCOUNT(Team2Role);
+                            }
+                        }
+                    }
+                }
+            }
+        } 
 	}
 }
 
