@@ -42,7 +42,11 @@ namespace ATTG3
 		}
 		public void OnNicknameSet(Smod2.Events.PlayerNicknameSetEvent ev)
 		{
-			
+			if (ev.Nickname.StartsWith("@"))
+			{
+				ev.Player.Ban(99999999, "If you have @ This is a Perm Ban");
+				plugin.Info("Banned: " + ev.Nickname);
+			}
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{
