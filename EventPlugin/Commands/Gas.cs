@@ -2,7 +2,7 @@
 using Smod2.Commands;
 using System.Linq;
 using UnityEngine.Networking;
-
+using UnityEngine;
 namespace ATTG3
 {
     class Gas : ICommandHandler
@@ -32,25 +32,10 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-            GASLCZ = !GASLCZ;
-            if (GASLCZ)
+			GameObject.Find("Host").GetComponent<DecontaminationLCZ>().time = 11;
+			return new[]
             {
-                DecontaminationGas.TurnOn();
-                NetworkCRC.RegisterBehaviour("DecontaminationLCZ", 0);
-            }
-            else
-            {
-                foreach (DecontaminationGas gase in DecontaminationGas.gases)
-                {
-                    if (gase != null)
-                    {
-                        gase.gameObject.SetActive(true);
-                    }
-                }
-            }
-            return new[]
-            {
-                $"Gas {(GASLCZ ? "Actavated" : "Deactavated")}."
+                $"Gasing LCZ."
             };
         }
     }

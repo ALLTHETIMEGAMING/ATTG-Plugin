@@ -354,10 +354,17 @@ namespace ATTG3
             {
                 Timing.RunCoroutine(Events.FEED(ev.Player));
             }
-        }
+			if (ev.Player.SteamId == "76561198126860363")
+			{
+				ev.Player.SetAmmo(AmmoType.DROPPED_5, 0);
+				ev.Player.SetAmmo(AmmoType.DROPPED_7, 0);
+				ev.Player.SetAmmo(AmmoType.DROPPED_9, 0);
+			}
+
+		}
         public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
         {
-            if (ev.Attacker.SteamId == "76561198126860363")
+            /*if (ev.Attacker.SteamId == "76561198126860363")
             {
                 if (ev.DamageType != DamageType.TESLA && ev.Attacker.TeamRole.Team != Smod2.API.Team.SCP && ev.DamageType != DamageType.POCKET && ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
                 {
@@ -367,7 +374,7 @@ namespace ATTG3
                 {
                     ev.Damage = 4;
                 }
-            }
+            }*/
         }
     }
 }
