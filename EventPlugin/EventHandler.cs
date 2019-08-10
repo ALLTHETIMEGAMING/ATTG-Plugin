@@ -358,7 +358,7 @@ namespace ATTG3
             {
                 Timing.RunCoroutine(Events.FEED(ev.Player));
             }
-			if (ev.Player.SteamId == "76561198126860363")
+			else if (ev.Player.SteamId == "76561198126860363")
 			{
 				ev.Player.SetAmmo(AmmoType.DROPPED_5, 0);
 				ev.Player.SetAmmo(AmmoType.DROPPED_7, 0);
