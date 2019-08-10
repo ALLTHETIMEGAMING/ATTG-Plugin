@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace ATTG3
 {
-    internal class Breach : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt, IEventHandlerCheckEscape, IEventHandler106Teleport,
-        IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure, IEventHandlerSetRoleMaxHP,
-        IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerDoorAccess, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerJoin
+    internal class Breach : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt, IEventHandlerCheckEscape, IEventHandler106Teleport, IEventHandlerGeneratorUnlock,
+		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure, IEventHandlerSetRoleMaxHP, IEventHandlerPlayerDropItem,
+		IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerDoorAccess, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerJoin
     {
         public static bool Nuke;
         public static int gen;
@@ -62,7 +62,11 @@ namespace ATTG3
                     {
                         door.Locked = true;
                     }
-                    else if (door.Position.y < -1010)
+					else if (door.Name == "914")
+					{
+						door.Locked = true;
+					}
+					else if (door.Position.y < -1010)
                     {
                         door.Locked = true;
                     }
@@ -253,14 +257,15 @@ namespace ATTG3
         {
             if (Breachevent)
             {
-                if (GenTime.ContainsKey(ev.Generator.Room.ToString()))
-                {
-                    ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
-                }
+                
                 if ((ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY || ev.Player.TeamRole.Role == Role.TUTORIAL) && ev.Player.HasItem(ItemType.WEAPON_MANAGER_TABLET))
                 {
                     ev.Allow = true;
-                    PluginManager.Manager.Server.Map.ClearBroadcasts();
+					if (GenTime.ContainsKey(ev.Generator.Room.ToString()))
+					{
+						ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
+					}
+					PluginManager.Manager.Server.Map.ClearBroadcasts();
                     PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
                 }
                 else
@@ -504,5 +509,15 @@ namespace ATTG3
                 ev.Position = ev.Player.GetPosition();
             }
         }
-    }
+		public void OnPlayerDropItem(Smod2.Events.PlayerDropItemEvent ev)
+		{
+			if (Breachevent)
+			{
+				if (ev.Item.ItemType == ItemType.RADIO)
+				{
+					ev.Allow = false;
+				}
+			}
+		}
+	}
 }

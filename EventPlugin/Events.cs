@@ -1154,8 +1154,20 @@ namespace ATTG3
 		}
 		public static IEnumerator<float> BREACHRESPAWN(Player player, Player Attacker)
 		{
+			foreach (Smod2.API.Item item in player.GetInventory())
+			{
+				if (item.ItemType == ItemType.WEAPON_MANAGER_TABLET)
+				{
+					item.Remove();
+				}
+				else if (item.ItemType == ItemType.RADIO)
+				{
+					item.Remove();
+				}
+			}
 			if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
 			{
+				
 				yield return MEC.Timing.WaitForSeconds(10);
 				player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
 			}
