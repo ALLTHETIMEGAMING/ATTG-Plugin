@@ -42,6 +42,10 @@ namespace ATTG3
                     {
                         door.Locked = true;
                     }
+                    else if (door.Name == "GATE_B")
+                    {
+                        door.Locked = true;
+                    }
                     else if (door.Position.y <= -730 && door.Position.y >= -740 && door.Name != "049_ARMORY")
                     {
                         door.Locked = true;
@@ -165,6 +169,10 @@ namespace ATTG3
                             door.Locked = false;
                         }
                         else if (door.Name == "173")
+                        {
+                            door.Locked = false;
+                        }
+                        else if (door.Name == "GATE_B")
                         {
                             door.Locked = false;
                         }
