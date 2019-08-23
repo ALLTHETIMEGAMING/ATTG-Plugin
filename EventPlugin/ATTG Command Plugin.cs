@@ -155,6 +155,10 @@ namespace ATTG3
             this.AddCommand("FEED", new Feed(this));
             this.AddCommand("AGBAN", new BanR(this));
             this.AddCommand("PRILIST", new PriList(this));
+
+            // Commands added after 8/23/2019
+            this.AddCommands(Gate.CA, new Gate(this));
+            this.AddCommands(BreachCamp.CA, new BreachCamp(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);
             this.AddEventHandlers(new O79Handler(this), Priority.High);

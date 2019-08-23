@@ -76,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\BanR.cs" />
+    <Compile Include="Commands\Gate.cs" />
+    <Compile Include="Commands\Command Template.cs" />
+    <Compile Include="Commands\Breach Camp.cs" />
     <Compile Include="Commands\Feedingpit.cs" />
     <Compile Include="Commands\Shop.cs" />
     <Compile Include="Commands\Setup.cs" />

@@ -4,7 +4,7 @@ using Smod2.Commands;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
-
+using System.Collections.Generic;
 namespace ATTG3
 {
     class DoorMain : ICommandHandler
@@ -28,13 +28,16 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
+            
             Player player1 = sender as Player;
-            GameObject door = Object.FindObjectOfType<Door>().gameObject;
+            List<Door> door = Object.FindObjectsOfType<Door>().ToList();
+            var i = Random.Range(0, door.Count);
+            GameObject door1 = door[i].gameObject;
             Vector pos = player1.GetPosition();
-            NetworkServer.UnSpawn(door);
-            GameObject door1 = door;
-            door1.transform.position = new Vector3(pos.x, pos.y, pos.z);
-            NetworkServer.Spawn(door1);
+            NetworkServer.UnSpawn(door1);
+            GameObject door2 = door1;
+            door1.transform.position = new Vector3(pos.x + 2, pos.y, pos.z);
+            NetworkServer.Spawn(door2);
             return new string[] { "Door Moved" };
         }
     }

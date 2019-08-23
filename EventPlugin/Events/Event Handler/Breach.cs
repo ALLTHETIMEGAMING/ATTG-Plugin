@@ -79,6 +79,10 @@ namespace ATTG3
                         door.Locked = true;
                     }
                 }
+                foreach (Generator079 gen in Generator079.generators)
+                {
+                    gen.NetworkremainingPowerup = (gen.startDuration = 180f);
+                }
                 foreach (Player player in PluginManager.Manager.Server.GetPlayers())
                 {
                     if (player.TeamRole.Team == Smod2.API.Team.SCP || player.TeamRole.Role == Smod2.API.Role.FACILITY_GUARD)
@@ -184,6 +188,11 @@ namespace ATTG3
                         {
                             door.Locked = false;
                         }
+                        else if (door.Name == "SURFACE_GATE")
+                        {
+                            door.Locked = false;
+                            door.Open = true;
+                        }
                     }
                     foreach (Player player in PluginManager.Manager.Server.GetPlayers())
                     {
@@ -215,7 +224,7 @@ namespace ATTG3
             {
                 if (ev.Player.TeamRole.Role != Role.CHAOS_INSURGENCY)
                 {
-                    if (GenTime.ContainsKey(ev.Generator.Room.ToString()))
+                    if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out float Indicheck))
                     {
                         GenTime[ev.Generator.Room.ToString()] = ev.Generator.TimeLeft;
                     }
@@ -224,6 +233,7 @@ namespace ATTG3
                         GenTime.Add(ev.Generator.Room.ToString(), ev.Generator.TimeLeft);
                     }
                     ev.Allow = true;
+                    ev.SpawnTablet = false;
                 }
                 else
                 {
@@ -246,7 +256,7 @@ namespace ATTG3
             {
                 if (ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
                 {
-                    ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
+                    ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCIENTIST);
                 }
                 else if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
                 {
@@ -269,11 +279,11 @@ namespace ATTG3
                 if ((ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY || ev.Player.TeamRole.Role == Role.TUTORIAL) && ev.Player.HasItem(ItemType.WEAPON_MANAGER_TABLET))
                 {
                     ev.Allow = true;
-					if (GenTime.ContainsKey(ev.Generator.Room.ToString()))
-					{
-						ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
-					}
-					PluginManager.Manager.Server.Map.ClearBroadcasts();
+                    if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out float Indicheck))
+                    {
+                        ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
+                    }
+                    PluginManager.Manager.Server.Map.ClearBroadcasts();
                     PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
                 }
                 else
@@ -421,7 +431,6 @@ namespace ATTG3
         {
             if (Breachevent)
             {
-                ev.SpawnRagdoll = false;
                 Timing.RunCoroutine(Events.BREACHRESPAWN(ev.Player, ev.Killer));
                 //Events.IsEvan("Breach", MTF, CI, Role.NTF_COMMANDER, Role.CHAOS_INSURGENCY);
             }
@@ -504,7 +513,11 @@ namespace ATTG3
         {
             if (Breachevent)
             {
-                if (ev.Player.TeamRole.Role != Role.CHAOS_INSURGENCY)
+                if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
+                {
+                    ev.Allow = true;
+                }
+                else
                 {
                     ev.Allow = false;
                 }
@@ -521,7 +534,7 @@ namespace ATTG3
 		{
 			if (Breachevent)
 			{
-				if (ev.Item.ItemType == ItemType.RADIO)
+				if (ev.Item.ItemType == ItemType.RADIO || ev.Item.ItemType == ItemType.LOGICER)
 				{
 					ev.Allow = false;
 				}
