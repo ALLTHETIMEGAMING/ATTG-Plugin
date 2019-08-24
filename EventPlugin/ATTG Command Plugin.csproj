@@ -34,6 +34,9 @@
     </NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>..\References\0Harmony.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\References\Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -76,7 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\BanR.cs" />
-    <Compile Include="Commands\Gate.cs" />
+    <Compile Include="Network Commands\Con106.cs" />
+    <Compile Include="Network Commands\Heli.cs" />
+    <Compile Include="Network Commands\BlastR.cs" />
+    <Compile Include="Network Commands\CallCar.cs" />
+    <Compile Include="Network Commands\Gate.cs" />
     <Compile Include="Commands\Command Template.cs" />
     <Compile Include="Commands\Breach Camp.cs" />
     <Compile Include="Commands\Feedingpit.cs" />
@@ -164,6 +171,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Harmony\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

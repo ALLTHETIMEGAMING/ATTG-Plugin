@@ -38,7 +38,7 @@ namespace ATTG3
             GameObject Gate = UnityEngine.Object.FindObjectOfType<TeslaGate>().gameObject;
             NetworkServer.UnSpawn(Gate);
             GameObject Gate1 = Gate;
-            Gate1.transform.position = new Vector3(pos.x + 2, pos.y, pos.z);
+            Gate1.transform.position = new Vector3(pos.x, pos.y, pos.z+2);
             NetworkServer.Spawn(Gate1);
 
             return new[] { "Gate Teleported" };

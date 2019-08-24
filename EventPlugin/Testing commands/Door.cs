@@ -36,7 +36,7 @@ namespace ATTG3
             Vector pos = player1.GetPosition();
             NetworkServer.UnSpawn(door1);
             GameObject door2 = door1;
-            door1.transform.position = new Vector3(pos.x + 2, pos.y, pos.z);
+            door1.transform.position = new Vector3(pos.x, pos.y, pos.z +2);
             NetworkServer.Spawn(door2);
             return new string[] { "Door Moved" };
         }
