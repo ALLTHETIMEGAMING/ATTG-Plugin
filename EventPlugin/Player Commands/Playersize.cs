@@ -3,6 +3,7 @@ using Smod2.API;
 using Smod2.Commands;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace ATTG3
 {
@@ -45,8 +46,12 @@ namespace ATTG3
 						playercom.transform.localScale = @class.model_offset.scale*4;
                         */
                         GameObject playerobj = (GameObject)myPlayer.GetGameObject();
-                        playerobj.transform.localScale = new Vector3(50, 50, 50);
-						return new string[] { myPlayer.Name+" size changed" };
+                        NetworkServer.UnSpawn(playerobj);
+                        var playerobj1 = playerobj;
+                        playerobj1.transform.localScale = new Vector3(50, 50, 50);
+                        NetworkServer.UnSpawn(playerobj1);
+
+                        return new string[] { myPlayer.Name+" size changed" };
                     }
                     else
                         return new string[] { myPlayer.Name+" is dead!" };

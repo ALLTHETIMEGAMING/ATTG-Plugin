@@ -35,12 +35,20 @@ namespace ATTG3
             }
             Player player1 = sender as Player;
             Vector pos = player1.GetPosition();
-            GameObject Gate = UnityEngine.Object.FindObjectOfType<TeslaGate>().gameObject;
-            NetworkServer.UnSpawn(Gate);
-            GameObject Gate1 = Gate;
-            Gate1.transform.position = new Vector3(pos.x, pos.y, pos.z+2);
-            NetworkServer.Spawn(Gate1);
-
+            GameObject[] objects = UnityEngine.Object.FindObjectsOfType<GameObject>();
+            foreach (GameObject go in objects)
+            {
+                if (go.activeInHierarchy && go.GetComponent<NetworkIdentity>() != null)
+                {
+                    if (go.name.Contains("Gate"))
+                    {
+                        NetworkServer.UnSpawn(go);
+                        GameObject ngo = go;
+                        ngo.gameObject.transform.localPosition = new Vector3(pos.x, pos.y, pos.z +2);
+                        NetworkServer.Spawn(ngo);
+                    }
+                }
+            }
             return new[] { "Gate Teleported" };
         }
     }

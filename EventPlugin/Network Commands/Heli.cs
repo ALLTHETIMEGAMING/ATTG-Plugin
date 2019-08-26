@@ -49,7 +49,7 @@ namespace ATTG3
                     }
                 }
             }
-            return new[] { "Gate Teleported" };
+            return new[] { "Heli Teleported" };
         }
     }
 }
