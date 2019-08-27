@@ -160,7 +160,7 @@ namespace ATTG3
             this.AddCommands(Gate.CA, new Gate(this));
             this.AddCommands(Con106.CA, new Con106(this));
             this.AddCommands(Heli.CA, new Heli(this));
-            this.AddCommands(CarCall.CA, new CarCall(this));
+            //this.AddCommands(CarCall.CA, new CarCall(this));
             this.AddCommands(BreachCamp.CA, new BreachCamp(this));
             //Event Handlers
             this.AddEventHandlers(new EventHandler(this), Priority.Normal);

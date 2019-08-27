@@ -82,7 +82,6 @@
     <Compile Include="Network Commands\Con106.cs" />
     <Compile Include="Network Commands\Heli.cs" />
     <Compile Include="Network Commands\BlastR.cs" />
-    <Compile Include="Network Commands\CallCar.cs" />
     <Compile Include="Network Commands\Gate.cs" />
     <Compile Include="Commands\Command Template.cs" />
     <Compile Include="Commands\Breach Camp.cs" />
