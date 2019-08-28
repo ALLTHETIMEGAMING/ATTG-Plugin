@@ -1147,9 +1147,10 @@ namespace ATTG3
             GunGame.GunGameBool = false;
             ATTG3Plugin.TPRooms.Clear();
             //Events.GetRoundStartRoom();
-            var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
+            /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
             Events.MapSpawnVec();
+			*/
         }
         public static IEnumerator<float> BREACHRESPAWN(Player player, Player Attacker)
         {

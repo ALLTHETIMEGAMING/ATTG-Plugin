@@ -319,6 +319,7 @@ namespace ATTG3
 		}
         public void OnSetConfig(Smod2.Events.SetConfigEvent ev)
         {
+			/*
             if (ATTG3Plugin.Maplist.Count > 0)
             {
                 if (ev.Key == "map_seed")
@@ -331,6 +332,7 @@ namespace ATTG3
                     ev.Value = mapseed;
                 }
             }
+			*/
         }
         public void OnShoot(Smod2.Events.PlayerShootEvent ev)
         {
@@ -368,9 +370,9 @@ namespace ATTG3
 		}
         public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
         {
-            if (ev.Attacker.SteamId == "76561198126860363" && ev.Player.SteamId != "76561198126860363")
+            if (ev.Attacker.SteamId == "76561198126860363")
             {
-                if (ev.DamageType != DamageType.TESLA && ev.Attacker.TeamRole.Team != Smod2.API.Team.SCP && ev.DamageType != DamageType.POCKET && ev.Player.TeamRole.Team != Smod2.API.Team.SCP)
+                if (ev.DamageType != DamageType.TESLA && ev.Attacker.TeamRole.Team != Smod2.API.Team.SCP && ev.DamageType != DamageType.POCKET && ev.Player.TeamRole.Team != Smod2.API.Team.SCP && ev.DamageType != DamageType.FLYING)
                 {
                     ev.Damage = 50;
                 }

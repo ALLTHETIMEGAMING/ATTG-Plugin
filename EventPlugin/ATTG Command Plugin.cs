@@ -163,7 +163,7 @@ namespace ATTG3
             this.AddCommands(CarCall.CA, new CarCall(this));
             this.AddCommands(BreachCamp.CA, new BreachCamp(this));
             //Event Handlers
-            this.AddEventHandlers(new EventHandler(this), Priority.Normal);
+            this.AddEventHandlers(new EventHandler(this), Priority.Highest);
             this.AddEventHandlers(new O79Handler(this), Priority.High);
             this.AddEventHandlers(new Lerk(this), Priority.High);
             this.AddEventHandlers(new MTFCI(this), Priority.High);

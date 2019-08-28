@@ -115,7 +115,7 @@ namespace ATTG3
                 {
                     ev.Status = ROUND_END_STATUS.CI_VICTORY;
                     ev.Round.Stats.ClassDEscaped = 6;
-                }
+				}
                 else if (ev.Server.NumPlayers == 0)
                 {
                     ev.Status = ROUND_END_STATUS.FORCE_END;
