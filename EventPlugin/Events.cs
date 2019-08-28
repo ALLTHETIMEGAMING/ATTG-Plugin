@@ -798,7 +798,7 @@ namespace ATTG3
                     }
                 }
             }
-            if (Eventnum == "infectcon")
+            else if (Eventnum == "infectcon")
             {
                 foreach (Player player in PluginManager.Manager.Server.GetPlayers())
                 {
@@ -812,6 +812,23 @@ namespace ATTG3
                     {
                         player.ChangeRole(Role.NTF_COMMANDER);
                         player.PersonalBroadcast(10, "Kill All SCP-049-2", false);
+                    }
+                }
+            }
+            else if (Eventnum == "173Army")
+            {
+                foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+                {
+                    if (player.TeamRole.Team != Smod2.API.Team.SCP)
+                    {
+                        player.ChangeRole(Role.SCP_173);
+                        player.PersonalBroadcast(10, "Kill Everyone", false);
+                        player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
+                    }
+                    else if (player.TeamRole.Team == Smod2.API.Team.SCP)
+                    {
+                        player.ChangeRole(Role.NTF_COMMANDER);
+                        player.PersonalBroadcast(10, "Kill SCP-173", false);
                     }
                 }
             }
@@ -1150,6 +1167,7 @@ namespace ATTG3
             SCPMTFEVENT.gen = 0;
             GunGame.GunGameBool = false;
             ATTG3Plugin.TPRooms.Clear();
+            Army173.Army173event = false;
             //Events.GetRoundStartRoom();
             /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
@@ -1172,7 +1190,6 @@ namespace ATTG3
                 {
                     item.Remove();
                 }
-
             }
             if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
             {

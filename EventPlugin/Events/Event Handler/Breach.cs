@@ -258,9 +258,9 @@ namespace ATTG3
                 {
                     ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCIENTIST);
                 }
-                else if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
+                else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
                 {
-
+                    ev.SpawnPos = new Vector(170, 984, 36);
                 }
             }
         }
@@ -443,6 +443,11 @@ namespace ATTG3
                 {
                     ev.Damage = 0;
                 }
+                else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP && ev.Attacker.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
+                {
+                    ev.Damage = 0;
+                }
+
             }
         }
         public void OnSummonVehicle(SummonVehicleEvent ev)
