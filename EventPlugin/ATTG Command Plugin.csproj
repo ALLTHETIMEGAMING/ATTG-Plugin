@@ -80,6 +80,8 @@
   <ItemGroup>
     <Compile Include="Commands V2\BanR.cs" />
     <Compile Include="Events\Event Handler\Hide.cs" />
+    <Compile Include="Events\Event Handler\Hostage.cs" />
+    <Compile Include="Events\Event Handler\173Army.cs" />
     <Compile Include="Network Commands\Con106.cs" />
     <Compile Include="Network Commands\Heli.cs" />
     <Compile Include="Network Commands\BlastR.cs" />

@@ -34,10 +34,12 @@ namespace ATTG3
                 if (!(ATTG3Plugin.Maplist.Contains(num.ToString())))
                 {
                     Events.CheckMap(seed);
+                    ATTG3Plugin.Maplist.Add(seed);
                     return new[]
                     {
                     "Map added to List",
                     };
+                    
                 }
                 else
                     return new[] { "Error Code 1 Map is in file" };
