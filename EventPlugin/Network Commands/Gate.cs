@@ -43,9 +43,8 @@ namespace ATTG3
                     if (go.name.Contains("Gate"))
                     {
                         NetworkServer.UnSpawn(go);
-                        GameObject ngo = go;
-                        ngo.gameObject.transform.localPosition = new Vector3(pos.x, pos.y, pos.z +2);
-                        NetworkServer.Spawn(ngo);
+                        go.gameObject.transform.localPosition = new Vector3(pos.x, pos.y, pos.z +2);
+                        NetworkServer.Spawn(go);
                     }
                 }
             }

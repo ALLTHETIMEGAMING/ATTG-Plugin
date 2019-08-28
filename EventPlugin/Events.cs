@@ -1150,6 +1150,7 @@ namespace ATTG3
             SCPMTFEVENT.gen = 0;
             GunGame.GunGameBool = false;
             ATTG3Plugin.TPRooms.Clear();
+			HideandSeek.HideandSeekevent = false;
             //Events.GetRoundStartRoom();
             /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);

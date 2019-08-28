@@ -102,7 +102,15 @@ namespace ATTG3
                         Events.AllSpawns();
                         return new[] { "Arms Race Event Started" };
                     }
-                    else if (args2 == "jug")
+					else if (args2 == "hide")
+					{
+						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=50><color=#FFD700>Hide and Seek Event Starting</Color></SIZE>\n<color=#FF0000>NOTE: THIS EVENT IS NOT DONE</color>", false);
+						HideandSeek.HideandSeekevent = true;
+						plugin.Event = true;
+						Events.AllSpawns();
+						return new[] { "Hide and Seek Event Started" };
+					}
+					else if (args2 == "jug")
 					{
 						if (args.Length > 1)
 						{
@@ -150,6 +158,7 @@ namespace ATTG3
                      CA.First() + " JUG" + " ",
 					 CA.First() + " MTFCI" + " ",
 					 CA.First() + " QUESTION" + " ",
+					 CA.First() + " HIDE" + " ",
 					};
 					}
 				}
@@ -168,6 +177,7 @@ namespace ATTG3
                      CA.First() + " JUG" + " ",
 					 CA.First() + " MTFCI" + " ",
 					 CA.First() + " QUESTION" + " ",
+					 CA.First() + " HIDE" + " ",
 					};
 				}
 			}
@@ -188,6 +198,7 @@ namespace ATTG3
                      CA.First() + " JUG" + " ",
 					 CA.First() + " MTFCI" + " ",
 					 CA.First() + " QUESTION" + " ",
+					 CA.First() + " HIDE" + " ",
 				};
 			}
         }

@@ -29,7 +29,7 @@ namespace ATTG3
         {
             if (plugin.QEvent)
             {
-				if (ev.Player.TeamRole.Role == Role.CLASSD && ev.Player.SteamId == "76561198141700494")
+				if (ev.Player.TeamRole.Role == Role.CLASSD && ev.Player.SteamId == "76561198126860363")
                 {
                     ev.Player.ChangeRole(Role.TUTORIAL,true,false,false,true);
 					plugin.Info("Spawned Server Owner");
