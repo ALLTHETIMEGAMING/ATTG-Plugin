@@ -461,6 +461,10 @@ namespace ATTG3
         {
             File.AppendAllText(ATTG3Plugin.Nerflist, text);
         }
+        public static void SetFileCustomRank(string text)
+        {
+            File.AppendAllText(ATTG3Plugin.CustomRank, text);
+        }
         public static void CheckMap(string text)
         {
             string text2 = text.Trim('(', ')', ' ');
