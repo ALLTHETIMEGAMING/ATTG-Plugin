@@ -250,9 +250,11 @@ namespace ATTG3
 			}
 			else if (ev.Admin.SteamId.Equals("76561198126860363"))
 			{
+                /*
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
                 int RandomInt = new System.Random().Next(ATTG3Plugin.Banmemes.Count);
 				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name.ToUpper().ToString() + " "+ ATTG3Plugin.Banmemes[RandomInt], false);
+                */
                 ev.Reason = "";
 			}
 		}

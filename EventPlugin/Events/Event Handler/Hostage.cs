@@ -6,12 +6,12 @@ using Smod2.Events;
 
 namespace ATTG3
 {
-	internal class Hostageevent : IEventHandlerRoundStart,
+	internal class Hostagevent : IEventHandlerRoundStart,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSummonVehicle,
-		IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerSetRole, IEventHandlerSpawn
+		IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerSetRole, IEventHandlerSpawn
 	{
 		private readonly ATTG3Plugin plugin;
-		public Hostageevent(ATTG3Plugin plugin) => this.plugin = plugin;
+		public Hostagevent(ATTG3Plugin plugin) => this.plugin = plugin;
         public static bool Hostage;
 
 		public void OnRoundStart(RoundStartEvent ev)
@@ -35,7 +35,12 @@ namespace ATTG3
 						door.Open = true;
 						door.Locked = true;
 					}
-				}
+                    else if (door.Name == "914")
+                    {
+                        door.Open = false;
+                        door.Locked = true;
+                    }
+                }
                 foreach (Player player in PluginManager.Manager.Server.GetPlayers())
                 {
                     if (player.TeamRole.Role == Role.CLASSD)
@@ -69,14 +74,6 @@ namespace ATTG3
                     ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_173);
                 }
             }
-		}
-		public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
-		{
-			if (Hostage && plugin.RoundStarted)
-			{
-				ev.Player.ChangeRole(Role.SCP_173, true, true, true, true);
-				ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-			}
 		}
 		public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
 		{

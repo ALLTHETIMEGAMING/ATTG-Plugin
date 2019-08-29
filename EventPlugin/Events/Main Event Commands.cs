@@ -13,7 +13,7 @@ namespace ATTG3
         public EventMainCommand(ATTG3Plugin plugin) => this.plugin = plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
-        public static readonly string[] CA = new string[] { "AGEVENT", "EVENT" };
+        public static readonly string[] CA = new string[] { "EVENT", "AGEVENT" };
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
@@ -102,14 +102,14 @@ namespace ATTG3
                         Events.AllSpawns();
                         return new[] { "Arms Race Event Started" };
                     }
-					else if (args2 == "hide")
-					{
-						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=50><color=#FFD700>Hide and Seek Event Starting</Color></SIZE>\n<color=#FF0000>NOTE: THIS EVENT IS NOT DONE</color>", false);
-						HideandSeek.HideandSeekevent = true;
-						plugin.Event = true;
-						Events.AllSpawns();
-						return new[] { "Hide and Seek Event Started" };
-					}
+                    else if (args2 == "hide")
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=50><color=#FFD700>Hide and Seek Event Starting</Color></SIZE>\n<color=#FF0000>NOTE: THIS EVENT IS NOT DONE</color>", false);
+                        HideandSeek.HideandSeekevent = true;
+                        plugin.Event = true;
+                        Events.AllSpawns();
+                        return new[] { "Hide and Seek Event Started" };
+                    }
                     else if (args2 == "jug")
                     {
                         if (args.Length > 1)
@@ -150,10 +150,36 @@ namespace ATTG3
                         plugin.Event = true;
                         return new string[] { "173 Army Event started" };
                     }
+                    else if (args2 == "hostage")
+                    {
+                        PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100>Hostage Event Starting</SIZE>", false);
+                        Hostagevent.Hostage = true;
+                        plugin.Event = true;
+                        return new string[] { "173 Army Event started" };
+                    }
                     else
                     {
                         return new[]
-                             {
+                        {
+                            CA.First() + " INFECT" + "",
+                            CA.First() + " SCPMTF" + " ",
+                            CA.First() + " LURK" + " ",
+                            CA.First() + " SGOD" + " ",
+                            CA.First() + " INFECTCON" + " ",
+                            CA.First() + " VIP" + " ",
+                            CA.First() + " FFLIGHT" + " ",
+                            CA.First() + " HOLDOUT" + " ",
+                            CA.First() + " JUG" + " ",
+                            CA.First() + " MTFCI" + " ",
+                            CA.First() + " QUESTION" + " ",
+                            CA.First() + " HIDE" + " ",
+                        };
+                    }
+                }
+                else
+                {
+                    return new[]
+                         {
                      CA.First() + " INFECT" + "",
                      CA.First() + " SCPMTF" + " ",
                      CA.First() + " LURK" + " ",
@@ -163,33 +189,14 @@ namespace ATTG3
                      CA.First() + " FFLIGHT" + " ",
                      CA.First() + " HOLDOUT" + " ",
                      CA.First() + " JUG" + " ",
-					 CA.First() + " MTFCI" + " ",
-					 CA.First() + " QUESTION" + " ",
-					 CA.First() + " HIDE" + " ",
-					};
-					}
-				}
-				else
-				{
-					return new[]
-						 {
-					 CA.First() + " INFECT" + "",
-					 CA.First() + " SCPMTF" + " ",
-					 CA.First() + " LURK" + " ",
-					 CA.First() + " SGOD" + " ",
-					 CA.First() + " INFECTCON" + " ",
-					 CA.First() + " VIP" + " ",
-                     CA.First() + " FFLIGHT" + " ",
-                     CA.First() + " HOLDOUT" + " ",
-                     CA.First() + " JUG" + " ",
-					 CA.First() + " MTFCI" + " ",
-					 CA.First() + " QUESTION" + " ",
-					 CA.First() + " HIDE" + " ",
-					};
-				}
+                     CA.First() + " MTFCI" + " ",
+                     CA.First() + " QUESTION" + " ",
+                     CA.First() + " HIDE" + " ",
+                    };
+                }
+            }
             else
             {
-
                 return new[]
                 {
                     "Events must be started before the round starts.",
@@ -202,11 +209,11 @@ namespace ATTG3
                      CA.First() + " FFLIGHT" + " ",
                      CA.First() + " HOLDOUT" + " ",
                      CA.First() + " JUG" + " ",
-					 CA.First() + " MTFCI" + " ",
-					 CA.First() + " QUESTION" + " ",
-					 CA.First() + " HIDE" + " ",
-				};
-			}
+                     CA.First() + " MTFCI" + " ",
+                     CA.First() + " QUESTION" + " ",
+                     CA.First() + " HIDE" + " ",
+                };
+            }
         }
     }
 }

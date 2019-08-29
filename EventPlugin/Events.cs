@@ -1169,6 +1169,7 @@ namespace ATTG3
             ATTG3Plugin.TPRooms.Clear();
 			HideandSeek.HideandSeekevent = false;
             Army173.Army173event = false;
+            Hostagevent.Hostage = false;
             //Events.GetRoundStartRoom();
             /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);

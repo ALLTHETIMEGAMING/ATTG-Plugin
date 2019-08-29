@@ -178,7 +178,8 @@ namespace ATTG3
             this.AddEventHandlers(new GunGame(this), Priority.High);
             this.AddEventHandlers(new Breach(this), Priority.High);
 			this.AddEventHandlers(new HideandSeek(this), Priority.High);
-			this.AddEventHandlers(new PlayerConsole(this));
+            this.AddEventHandlers(new Hostagevent(this), Priority.High);
+            this.AddEventHandlers(new PlayerConsole(this));
         }
         public void ReloadConfig()
         {
