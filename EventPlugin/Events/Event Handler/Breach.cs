@@ -258,7 +258,7 @@ namespace ATTG3
                 {
                     ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCIENTIST);
                 }
-                else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
+                else if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
                 {
                     ev.SpawnPos = new Vector(170, 984, 36);
                 }

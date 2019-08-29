@@ -821,14 +821,14 @@ namespace ATTG3
                 {
                     if (player.TeamRole.Team != Smod2.API.Team.SCP)
                     {
-                        player.ChangeRole(Role.SCP_173);
-                        player.PersonalBroadcast(10, "Kill Everyone", false);
-                        player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-                    }
+                        player.ChangeRole(Role.NTF_COMMANDER);
+						player.PersonalBroadcast(10, "Kill SCP-173", false);
+					}
                     else if (player.TeamRole.Team == Smod2.API.Team.SCP)
                     {
-                        player.ChangeRole(Role.NTF_COMMANDER);
-                        player.PersonalBroadcast(10, "Kill SCP-173", false);
+                        player.ChangeRole(Role.SCP_173);
+						player.PersonalBroadcast(10, "Kill Everyone", false);
+						
                     }
                 }
             }
@@ -1343,5 +1343,12 @@ namespace ATTG3
             }
             return ZoneType.UNDEFINED;
         }
-    }
+		public static IEnumerator<float> Army173delay(Player player)
+		{
+			
+			yield return MEC.Timing.WaitForSeconds(2f);
+			player.ChangeRole(Role.SCP_173);
+			
+		}
+	}
 }

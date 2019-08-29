@@ -55,9 +55,8 @@ namespace ATTG3
         {
             if (Army173event && plugin.RoundStarted)
             {
-                ev.Player.ChangeRole(Role.SCP_173, true, true, true, true);
-                ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049), true);
-            }
+				Timing.RunCoroutine(Events.Army173delay(ev.Player));
+			}
         }
         public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
         {
@@ -73,7 +72,7 @@ namespace ATTG3
             {
                 if (ev.Killer.TeamRole.Role == Role.SCP_173)
                 {
-                    ev.Player.ChangeRole(Role.SCP_173);
+					Timing.RunCoroutine(Events.Army173delay(ev.Player));
                 }
             }
         }
