@@ -13,7 +13,7 @@ namespace ATTG3
         public EventMainCommand(ATTG3Plugin plugin) => this.plugin = plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
-        public static readonly string[] CA = new string[] { "AGEVENT", "EVENT" };
+        public static readonly string[] CA = new string[] { "EVENT", "AGEVENT" };
 
         public string[] OnCall(ICommandSender sender, string[] args)
         {
@@ -144,6 +144,13 @@ namespace ATTG3
 						return new string[] { "MTF VS CI Event started" };
 					}
 					else if (args2 == "173army")
+					{
+						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100>173 Army Event Starting</SIZE>", false);
+						Army173.Army173event = true;
+						plugin.Event = true;
+						return new string[] { "173 Army Event started" };
+					}
+					else if (args2 == "holdout")
 					{
 						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100>173 Army Event Starting</SIZE>", false);
 						Army173.Army173event = true;

@@ -180,6 +180,7 @@ namespace ATTG3
 			this.AddEventHandlers(new HideandSeek(this), Priority.High);
 			this.AddEventHandlers(new Army173(this), Priority.High);
 			this.AddEventHandlers(new PlayerConsole(this));
+            this.AddEventHandlers(new Hostagevent(this), Priority.High);
         }
         public void ReloadConfig()
         {
