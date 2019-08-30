@@ -1389,11 +1389,11 @@ namespace ATTG3
 			}
 			else if (text == "Army049")
 			{
-				player.ChangeRole(Role.SCP_173);
+				player.ChangeRole(Role.SCP_049);
 			}
 			else if (text == "Army939")
 			{
-				player.ChangeRole(Role.SCP_173);
+				player.ChangeRole(Role.SCP_939_53);
 			}
 		}
 	}

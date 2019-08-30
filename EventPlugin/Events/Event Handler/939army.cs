@@ -70,7 +70,7 @@ namespace ATTG3
         {
             if (Army939event)
             {
-                if (ev.Killer.TeamRole.Role == Role.SCP_173)
+                if (ev.Killer.TeamRole.Team == Smod2.API.Team.SCP)
                 {
 					Timing.RunCoroutine(Events.Armydelay(ev.Player, "Army939"));
                 }
