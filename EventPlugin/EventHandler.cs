@@ -47,6 +47,10 @@ namespace ATTG3
 				ev.Player.Ban(99999999, "If you have @ This is a Perm Ban");
 				plugin.Info("Banned: " + ev.Nickname);
 			}
+			else if (ev.Player.SteamId == "76561198069087428")
+			{
+				ev.Nickname = "Gren";
+			}
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{

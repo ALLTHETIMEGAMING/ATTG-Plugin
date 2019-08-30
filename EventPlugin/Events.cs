@@ -832,7 +832,41 @@ namespace ATTG3
                     }
                 }
             }
-        }
+			else if (Eventnum == "049Army")
+			{
+				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+				{
+					if (player.TeamRole.Team != Smod2.API.Team.SCP)
+					{
+						player.ChangeRole(Role.NTF_COMMANDER);
+						player.PersonalBroadcast(10, "Kill SCP-049", false);
+					}
+					else if (player.TeamRole.Team == Smod2.API.Team.SCP)
+					{
+						player.ChangeRole(Role.SCP_049);
+						player.PersonalBroadcast(10, "Kill Everyone", false);
+
+					}
+				}
+			}
+			else if (Eventnum == "939Army")
+			{
+				foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+				{
+					if (player.TeamRole.Team != Smod2.API.Team.SCP)
+					{
+						player.ChangeRole(Role.NTF_COMMANDER);
+						player.PersonalBroadcast(10, "Kill SCP-939", false);
+					}
+					else if (player.TeamRole.Team == Smod2.API.Team.SCP)
+					{
+						player.ChangeRole(Role.SCP_939_53);
+						player.PersonalBroadcast(10, "Kill Everyone", false);
+
+					}
+				}
+			}
+		}
         public static IEnumerator<float> SpeedPlayer(Player myPlayer, float converted)
         {
             while (ATTG3Plugin.Instance.Running939P)
@@ -1170,6 +1204,8 @@ namespace ATTG3
 			HideandSeek.HideandSeekevent = false;
             Army173.Army173event = false;
             Hostagevent.Hostage = false;
+			Army049.Army049event = false;
+			Army939.Army939event = false;
             //Events.GetRoundStartRoom();
             /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
@@ -1344,12 +1380,21 @@ namespace ATTG3
             }
             return ZoneType.UNDEFINED;
         }
-		public static IEnumerator<float> Army173delay(Player player)
+		public static IEnumerator<float> Armydelay(Player player, string text)
 		{
-			
 			yield return MEC.Timing.WaitForSeconds(2f);
-			player.ChangeRole(Role.SCP_173);
-			
+			if (text == "173army")
+			{
+				player.ChangeRole(Role.SCP_173);
+			}
+			else if (text == "Army049")
+			{
+				player.ChangeRole(Role.SCP_173);
+			}
+			else if (text == "Army939")
+			{
+				player.ChangeRole(Role.SCP_173);
+			}
 		}
 	}
 }

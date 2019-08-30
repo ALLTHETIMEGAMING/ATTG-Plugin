@@ -222,7 +222,8 @@ namespace ATTG3
         {
             if (Breachevent)
             {
-                if (ev.Player.TeamRole.Role != Role.CHAOS_INSURGENCY)
+				plugin.Info(ev.Generator.TimeLeft.ToString() + "for room" + ev.Generator.Room.ToString());
+				if (ev.Player.TeamRole.Role != Role.CHAOS_INSURGENCY)
                 {
                     if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out float Indicheck))
                     {
@@ -260,8 +261,8 @@ namespace ATTG3
                 }
                 else if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
                 {
-                    ev.SpawnPos = new Vector(170, 984, 36);
-                }
+					ev.SpawnPos = new Vector(0, 1001, 0);
+				}
             }
         }
         public void OnLure(PlayerLureEvent ev)
@@ -275,7 +276,7 @@ namespace ATTG3
         {
             if (Breachevent)
             {
-                
+				plugin.Info(ev.Generator.TimeLeft.ToString() + "for room" + ev.Generator.Room.ToString());
                 if ((ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY || ev.Player.TeamRole.Role == Role.TUTORIAL) && ev.Player.HasItem(ItemType.WEAPON_MANAGER_TABLET))
                 {
                     ev.Allow = true;

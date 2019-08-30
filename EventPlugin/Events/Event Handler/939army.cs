@@ -6,18 +6,18 @@ using Smod2.Events;
 
 namespace ATTG3
 {
-    internal class Army173 : IEventHandlerRoundStart,
+    internal class Army939 : IEventHandlerRoundStart,
         IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerSummonVehicle,
         IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerDie, IEventHandlerPlayerJoin,
         IEventHandlerDoorAccess, IEventHandlerSetRole, IEventHandlerSpawn
     {
         private readonly ATTG3Plugin plugin;
-        public Army173(ATTG3Plugin plugin) => this.plugin = plugin;
-        public static bool Army173event;
+        public Army939(ATTG3Plugin plugin) => this.plugin = plugin;
+        public static bool Army939event;
 
         public void OnRoundStart(RoundStartEvent ev)
         {
-            if (Army173event)
+            if (Army939event)
             {
                 foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
                 {
@@ -37,7 +37,7 @@ namespace ATTG3
                         door.Locked = true;
                     }
                 }
-                Timing.RunCoroutine(Events.SpawnDelayEvcent("173Army"));
+                Timing.RunCoroutine(Events.SpawnDelayEvcent("939Army"));
                 foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.WEAPON_MANAGER_TABLET, true))
                 {
                     Vector itemspawn = item.GetPosition();
@@ -47,20 +47,20 @@ namespace ATTG3
         }
         public void OnSpawn(PlayerSpawnEvent ev)
         {
-            if (Army173event)
+            if (Army939event)
             {
             }
         }
         public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
         {
-            if (Army173event && plugin.RoundStarted)
+            if (Army939event && plugin.RoundStarted)
             {
-				Timing.RunCoroutine(Events.Armydelay(ev.Player, "173army"));
+				Timing.RunCoroutine(Events.Armydelay(ev.Player, "Army939"));
 			}
         }
         public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
         {
-            if (Army173event)
+            if (Army939event)
             {
                 ev.Allow = false;
                 ev.Player.PersonalBroadcast(10, "Nuke cannot be activated", false);
@@ -68,45 +68,45 @@ namespace ATTG3
         }
         public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
         {
-            if (Army173event)
+            if (Army939event)
             {
                 if (ev.Killer.TeamRole.Role == Role.SCP_173)
                 {
-					Timing.RunCoroutine(Events.Armydelay(ev.Player, "173army"));
+					Timing.RunCoroutine(Events.Armydelay(ev.Player, "Army939"));
                 }
             }
         }
         public void OnRoundEnd(RoundEndEvent ev)
         {
-            if (Army173event)
+            if (Army939event)
             {
-                Army173event = false;
+				Army939event = false;
             }
         }
         public void OnSummonVehicle(SummonVehicleEvent ev)
         {
-            if (Army173event)
+            if (Army939event)
             {
                 ev.AllowSummon = false;
             }
         }
         public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
         {
-            if (Army173event)
+            if (Army939event)
             {
                 ev.Triggerable = false;
             }
         }
         public void OnSetRole(PlayerSetRoleEvent ev)
         {
-            if (Army173event)
+            if (Army939event)
             {
 
             }
         }
         public void OnDoorAccess(PlayerDoorAccessEvent ev)
         {
-            if (Army173event)
+            if (Army939event)
             {
                 if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId))
                 {

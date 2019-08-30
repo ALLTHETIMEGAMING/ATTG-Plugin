@@ -150,10 +150,17 @@ namespace ATTG3
 						plugin.Event = true;
 						return new string[] { "173 Army Event started" };
 					}
-					else if (args2 == "holdout")
+					else if (args2 == "049army")
+					{
+						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100>049 Army Event Starting</SIZE>", false);
+						Army049.Army049event = true;
+						plugin.Event = true;
+						return new string[] { "049 Army Event started" };
+					}
+					else if (args2 == "hostage")
 					{
 						PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100>173 Army Event Starting</SIZE>", false);
-						Army173.Army173event = true;
+						Hostagevent.Hostage = true;
 						plugin.Event = true;
 						return new string[] { "173 Army Event started" };
 					}
