@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\BanR.cs" />
+    <Compile Include="Commands\AddUnit.cs" />
     <Compile Include="Events\Event Handler\939army.cs" />
     <Compile Include="Events\Event Handler\049ARMY.cs" />
     <Compile Include="Events\Event Handler\Hide.cs" />

@@ -37,8 +37,6 @@ namespace ATTG3
 				"(AGTH) Prints All Teams in SCP:SL",
 				"-------------OTHER COMMANDS-------------",
                 "(AGAMMO) (Players name) Gives player 100,000 Ammo",
-                "(AGLOCK) (Players name) Lets Player Lock Doors",
-                "(AGULOCK) (Players name) Lets Player Unlock Doors",
                 "(EVENT) Shows Event Menu",
                 "(AGFAKE) (Player Name) Fakes a players death",
                 "(CONFIG) Changes map seed",

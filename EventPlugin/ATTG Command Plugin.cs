@@ -87,9 +87,9 @@ namespace ATTG3
         {
             Instance = this;
             // Configs
-            AddConfig(new ConfigSetting("attg_ranks", new[] { "owner", "coowner", "o51" }, false, true, ""));
+            AddConfig(new ConfigSetting("attg_ranks", new[] { "owner", "coowner", "o51", "eventm" }, false, true, ""));
             AddConfig(new ConfigSetting("attg_event_ranks", new[] { "owner", "coowner", "o51", "eventm", "ethic" }, false, true, "Ranks for all Event Commands"));
-            AddConfig(new ConfigSetting("attg_vote_ranks", new[] { "owner", "coowner", "admin", "o51" }, false, true, "Valid ranks for all voteing Commands"));
+            AddConfig(new ConfigSetting("attg_vote_ranks", new[] { "owner", "coowner", "admin", "o51", "eventm" }, false, true, "Valid ranks for all voteing Commands"));
             AddConfig(new ConfigSetting("attg_all_ranks", new[] { "owner" }, false, true, "Valid ranks for all Commands"));
             AddConfig(new ConfigSetting("attg_049_infect", false, false, true, "Allows SCP-049 revive instantly"));
             AddConfig(new ConfigSetting("attg_096_door", false, false, true, "Allows SCP-096 able to open all doors when enraged"));
