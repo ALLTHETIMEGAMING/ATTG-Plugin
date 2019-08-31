@@ -100,6 +100,7 @@ namespace ATTG3
                     }
                 }
             }
+			
 			if (plugin.NoCHand == true)
 			{
 				if (ev.Door.Permission == "CONT_LVL_3" && ev.Door.Locked == false)
@@ -193,6 +194,14 @@ namespace ATTG3
 					{
 						ev.Allow = true;
 					}
+				}
+			}
+			if (ev.Door.Name == "NUKE_SURFACE")
+			{
+				if (ev.Allow == true)
+				{
+					ev.Door.Locked = true;
+					ev.Door.Open = true;
 				}
 			}
 		}

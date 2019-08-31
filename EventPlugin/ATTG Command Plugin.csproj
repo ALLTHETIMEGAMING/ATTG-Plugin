@@ -37,8 +37,9 @@
     <Reference Include="0Harmony">
       <HintPath>..\References\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\References\Assembly-CSharp.dll</HintPath>
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Desktop\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,7 +80,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\BanR.cs" />
-    <Compile Include="Commands\AddUnit.cs" />
     <Compile Include="Events\Event Handler\939army.cs" />
     <Compile Include="Events\Event Handler\049ARMY.cs" />
     <Compile Include="Events\Event Handler\Hide.cs" />

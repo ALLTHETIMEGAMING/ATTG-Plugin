@@ -22,11 +22,11 @@ namespace ATTG3
         public Car(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "Forces player up";
-        public string[] OnCall(ICommandSender sender, string[] args)
+		public string[] OnCall(ICommandSender sender, string[] args)
         {
-			if (!(sender is Server)&&
-				sender is Player player&&
-				!plugin.AdminRanks.Contains(player.GetRankName()))
+			if (!(sender is Server) &&
+				sender is Player player &&
+				!plugin.Allrank.Contains(player.GetRankName()))
 			{
 				return new[]
 				{
@@ -34,7 +34,6 @@ namespace ATTG3
 				};
 			}
 			else
-				Smod2.Events.SummonVehicleEvent.SummonVehicleEvent(true, true);
 
                 return new string[] { "Car Called" };
                 
