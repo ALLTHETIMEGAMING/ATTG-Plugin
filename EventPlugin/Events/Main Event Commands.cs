@@ -28,8 +28,11 @@ namespace ATTG3
 			}
 			else if (plugin.RoundStarted == false && plugin.Event == false)
 			{
-
-				string args2 = args[0].ToLower();
+                string args2 = null;
+                if (args.Count() > 1)
+                {
+                    args2 = args[0].ToLower();
+                }
 				if (args2 == "infect")
 				{
 
