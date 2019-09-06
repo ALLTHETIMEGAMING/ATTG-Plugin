@@ -1206,6 +1206,11 @@ namespace ATTG3
             Hostagevent.Hostage = false;
 			Army049.Army049event = false;
 			Army939.Army939event = false;
+			Hold.S1200 = false;
+			Hold.S300 = false;
+			Hold.S600 = false;
+			Hold.S900 = false;
+			Hold.Holdevent = false;
             //Events.GetRoundStartRoom();
             /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
@@ -1232,12 +1237,12 @@ namespace ATTG3
             if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
             {
 
-                yield return MEC.Timing.WaitForSeconds(10);
+                yield return MEC.Timing.WaitForSeconds(3);
                 player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
             }
             else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
             {
-                yield return MEC.Timing.WaitForSeconds(10);
+                yield return MEC.Timing.WaitForSeconds(15);
                 player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
             }
         }

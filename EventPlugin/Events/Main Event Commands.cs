@@ -142,6 +142,13 @@ namespace ATTG3
 					plugin.Event = true;
 					return new string[] { "MTF VS CI Event started" };
 				}
+				else if (args2 == "hold")
+				{
+					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100>Capture the Flag Event Starting</SIZE>", false);
+					Hold.Holdevent = true;
+					plugin.Event = true;
+					return new string[] { "Capture the Flag Event started" };
+				}
 				else if (args2 == "173army")
 				{
 					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100>173 Army Event Starting</SIZE>", false);

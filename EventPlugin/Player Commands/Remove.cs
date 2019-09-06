@@ -37,7 +37,7 @@ namespace ATTG3
                     if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
                     if (myPlayer.SteamId != "76561198126860363")
                     {
-                        myPlayer.Disconnect("Connection lost (timed out)");
+                        myPlayer.Disconnect(Events.StringArrayToString(args, 1));
                     }
                     return new string[] { myPlayer.Name + " was removed" };
                 }

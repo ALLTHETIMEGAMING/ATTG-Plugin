@@ -8,23 +8,27 @@ using UnityEngine;
 
 namespace ATTG3
 {
-    internal class Breach : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt, IEventHandlerCheckEscape, IEventHandler106Teleport, IEventHandlerGeneratorUnlock,
+    internal class Hold : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt, IEventHandlerCheckEscape, IEventHandler106Teleport, IEventHandlerGeneratorUnlock,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure, IEventHandlerSetRoleMaxHP, IEventHandlerPlayerDropItem,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerDoorAccess, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerJoin
+		IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerJoin
     {
         public static bool Nuke;
         public static int gen;
-        public static bool Breachevent;
+        public static bool Holdevent;
         public static List<string> FreeSCPS = new List<string>();
         public static int MTF;
         public static int CI;
-        public static Dictionary<string, float> GenTime = new Dictionary<string, float>();
+		public static bool S300;
+		public static bool S600;
+		public static bool S900;
+		public static bool S1200;
+		public static Dictionary<string, float> GenTime = new Dictionary<string, float>();
         //bool spawn;
         private readonly ATTG3Plugin plugin;
-        public Breach(ATTG3Plugin plugin) => this.plugin = plugin;
+        public Hold(ATTG3Plugin plugin) => this.plugin = plugin;
         public void OnRoundStart(RoundStartEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 Nuke = false;
                 gen = 0;
@@ -89,7 +93,7 @@ namespace ATTG3
                     {
                         player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
                         player.PersonalClearBroadcasts();
-                        player.PersonalBroadcast(10, "Turn on the generators to free the SCPs", false);
+                        player.PersonalBroadcast(10, "Turn on the generators to win", false);
                         CI++;
                     }
                     else if (player.TeamRole.Team == Smod2.API.Team.CLASSD || player.TeamRole.Team == Smod2.API.Team.SCIENTIST)
@@ -100,26 +104,26 @@ namespace ATTG3
                         MTF++;
                     }
                 }
-            }
+			}
         }
         public void OnCheckRoundEnd(CheckRoundEndEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
-                if (ev.Server.Round.Duration >= 1500)
+                if (ev.Server.Round.Duration >= 1200)
                 {
                     ev.Status = ROUND_END_STATUS.MTF_VICTORY;
                     ev.Round.Stats.ScientistsEscaped = 5;
                 }
-                else if (FreeSCPS.Count == 5)
-                {
-                    ev.Status = ROUND_END_STATUS.CI_VICTORY;
-                    ev.Round.Stats.ClassDEscaped = 6;
-				}
                 else if (ev.Server.NumPlayers == 0)
                 {
                     ev.Status = ROUND_END_STATUS.FORCE_END;
                 }
+				else if (gen == 5)
+				{
+					ev.Status = ROUND_END_STATUS.CI_VICTORY;
+					ev.Round.Stats.ClassDEscaped = 5;
+				}
                 else
                 {
                     ev.Status = ROUND_END_STATUS.ON_GOING;
@@ -128,7 +132,7 @@ namespace ATTG3
         }
         public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
                 {
@@ -143,76 +147,21 @@ namespace ATTG3
                 {
                     ev.Items.Remove(ItemType.DISARMER);
                     ev.Items.Remove(ItemType.WEAPON_MANAGER_TABLET);
+					ev.Items.Remove(ItemType.FRAG_GRENADE);
 
-                }
-                else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
-                {
-                    ev.Player.PersonalBroadcast(10, "ESCAPE. YOU CAN NOT ATTACK MTF OR CI", false);
                 }
             }
         }
         public void OnGeneratorFinish(GeneratorFinishEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 gen++;
-                if (gen == 5)
-                {
-                    foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
-                    {
-                        if (door.Name == "106_SECONDARY")
-                        {
-                            door.Locked = false;
-                        }
-                        else if (door.Name == "106_PRIMARY")
-                        {
-                            door.Locked = false;
-                        }
-                        else if (door.Position.y <= -730 && door.Position.y >= 740)
-                        {
-                            door.Locked = false;
-                        }
-                        else if (door.Name == "173")
-                        {
-                            door.Locked = false;
-                        }
-                        else if (door.Name == "GATE_B")
-                        {
-                            door.Locked = false;
-                        }
-                        else if (door.Name == "096")
-                        {
-                            door.Locked = false;
-                        }
-                        else if (door.Position.y < -1010)
-                        {
-                            door.Locked = false;
-                        }
-                        else if (door.Name == "SURFACE_GATE")
-                        {
-                            door.Locked = false;
-                            door.Open = true;
-                        }
-                    }
-                    foreach (Player player in PluginManager.Manager.Server.GetPlayers())
-                    {
-                        if (player.TeamRole.Role == Role.CHAOS_INSURGENCY)
-                        {
-                            player.PersonalClearBroadcasts();
-                            player.PersonalBroadcast(10, "CI:FREE THE SCPS. GO TO THE SCPS CONTAINMENT AND OPEN THE DOOR.", false);
-                        }
-                        else if (player.TeamRole.Role == Role.NTF_COMMANDER)
-                        {
-                            player.PersonalClearBroadcasts();
-                            player.PersonalBroadcast(10, "MTF:STOP CI FROM FREEING THE SCPS. GUARD THE SCPs CONTAINMENT CELLS", false);
-                        }
-                    }
-                }
             }
         }
         public void OnChangeLever(Smod2.Events.WarheadChangeLeverEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 ev.Allow = false;
                 ev.Player.PersonalBroadcast(10, "Nuke cannot be activated at the moment", false);
@@ -220,12 +169,12 @@ namespace ATTG3
         }
         public void OnGeneratorEjectTablet(Smod2.Events.PlayerGeneratorEjectTabletEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
-				plugin.Info(ev.Generator.TimeLeft.ToString() + "for room" + ev.Generator.Room.ToString());
+				plugin.Info(ev.Generator.TimeLeft.ToString() + "for room" + ev.Generator.Room.RoomType.ToString());
 				if (ev.Player.TeamRole.Role != Role.CHAOS_INSURGENCY)
                 {
-                    if (GenTime.TryGetValue(ev.Generator.Room.RoomType.ToString(), out float Indicheck))
+                    if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out float Indicheck))
                     {
                         GenTime[ev.Generator.Room.RoomType.ToString()] = ev.Generator.TimeLeft;
                     }
@@ -244,16 +193,15 @@ namespace ATTG3
         }
         public void OnRoundEnd(RoundEndEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 gen = 0;
-                Breachevent = false;
-                FreeSCPS.Clear();
+				Holdevent = false;
             }
         }
         public void OnSpawn(PlayerSpawnEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 if (ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
                 {
@@ -267,16 +215,16 @@ namespace ATTG3
         }
         public void OnLure(PlayerLureEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
 
             }
         }
         public void OnGeneratorInsertTablet(PlayerGeneratorInsertTabletEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
-				plugin.Info(ev.Generator.TimeLeft.ToString() + "for room" + ev.Generator.Room.ToString());
+				plugin.Info(ev.Generator.TimeLeft.ToString() + " for room " + ev.Generator.Room.RoomType.ToString());
                 if ((ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY || ev.Player.TeamRole.Role == Role.TUTORIAL) && ev.Player.HasItem(ItemType.WEAPON_MANAGER_TABLET))
                 {
                     ev.Allow = true;
@@ -295,142 +243,70 @@ namespace ATTG3
         }
         public void OnElevatorUse(PlayerElevatorUseEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
-
+				if (ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
+				{
+					ev.Elevator.MovingSpeed = 10;
+				}
+				else
+				{
+					ev.Elevator.MovingSpeed = 1;
+				}
+				if (ev.Elevator.ElevatorType == ElevatorType.GateA && ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
+				{
+					ev.AllowUse = false;
+					ev.Player.Kill();
+				}
             }
         }
         public void OnStartCountdown(WarheadStartEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 Nuke = true;
             }
         }
         public void OnStopCountdown(WarheadStopEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 Nuke = false;
             }
         }
         public void OnUpdate(Smod2.Events.UpdateEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 if (GameObject.Find("Host").GetComponent<DecontaminationLCZ>().time != 0)
                 {
                     GameObject.Find("Host").GetComponent<DecontaminationLCZ>().time = 0;
                 }
-                /*if(PluginManager.Manager.Server.Round.Duration == 300)
-                {
-                    PluginManager.Manager.Server.Map.Broadcast(10, "15 MIN REMAIN", false);
-                }
-                else if (PluginManager.Manager.Server.Round.Duration == 600)
+				if(PluginManager.Manager.Server.Round.Duration == 600 && !S600)
                 {
                     PluginManager.Manager.Server.Map.Broadcast(10, "10 MIN REMAIN", false);
+					S600 = true;
                 }
-                else if (PluginManager.Manager.Server.Round.Duration == 900)
+                else if (PluginManager.Manager.Server.Round.Duration == 300 && !S300)
                 {
+					S300 = true;
+                    PluginManager.Manager.Server.Map.Broadcast(10, "15 MIN REMAIN", false);
+                }
+                else if (PluginManager.Manager.Server.Round.Duration == 900 && !S900)
+                {
+					S900 = true;
                     PluginManager.Manager.Server.Map.Broadcast(10, "5 MIN REMAIN", false);
-                }*/
-            }
-        }
-        public void OnDoorAccess(PlayerDoorAccessEvent ev)
-        {
-            if (Breachevent && gen == 5)
-            {
-                if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
-                {
-                    if (ev.Door.Name == "106_SECONDARY" && Events.TUTCOUNT(Role.SCP_106) == 0 && !FreeSCPS.Contains("SCP_106"))
-                    {
-                        ev.Door.Locked = true;
-                        ev.Door.Open = true;
-                        PluginManager.Manager.Server.Map.ClearBroadcasts();
-                        PluginManager.Manager.Server.Map.Broadcast(10, "SCP-106 Extraction Started", false);
-                        Events.BreachSCP(ev.Player, "106");
-                    }
-                    else if (ev.Door.Name == "106_PRIMARY" && Events.TUTCOUNT(Role.SCP_106) == 0 && !FreeSCPS.Contains("SCP_106"))
-                    {
-                        ev.Door.Locked = true;
-                        ev.Door.Open = true;
-                        PluginManager.Manager.Server.Map.ClearBroadcasts();
-                        PluginManager.Manager.Server.Map.Broadcast(10, "SCP-106 Extraction Started", false);
-                        Events.BreachSCP(ev.Player, "106");
-                    }
-                    else if (ev.Door.Position.y <= -730 && Events.TUTCOUNT(Role.SCP_049) == 0 && ev.Door.Name != "049_ARMORY" && ev.Door.Position.y >= -740 && !FreeSCPS.Contains("SCP_049"))
-                    {
-                        ev.Door.Locked = true;
-                        ev.Door.Open = true;
-                        PluginManager.Manager.Server.Map.ClearBroadcasts();
-                        PluginManager.Manager.Server.Map.Broadcast(10, "SCP-049 Extraction Started", false);
-                        Events.BreachSCP(ev.Player, "049");
-                    }
-                    else if (ev.Door.Name == "096" && Events.TUTCOUNT(Role.SCP_096) == 0 && !FreeSCPS.Contains("SCP_096"))
-                    {
-                        ev.Door.Locked = true;
-                        ev.Door.Open = true;
-                        PluginManager.Manager.Server.Map.ClearBroadcasts();
-                        PluginManager.Manager.Server.Map.Broadcast(10, "SCP-096 Extraction Started", false);
-                        Events.BreachSCP(ev.Player, "096");
-                    }
-                    else if (ev.Door.Name == "173" && Events.TUTCOUNT(Role.SCP_173) == 0 && !FreeSCPS.Contains("SCP_173"))
-                    {
-                        ev.Door.Locked = true;
-                        ev.Door.Open = true;
-                        PluginManager.Manager.Server.Map.ClearBroadcasts();
-                        PluginManager.Manager.Server.Map.Broadcast(10, "SCP-173 Extraction Started", false);
-                        Events.BreachSCP(ev.Player, "173");
-
-                    }
-                    else if (ev.Door.Position.y < -1010 && Events.TUTCOUNT(Role.SCP_939_53) == 0 && !FreeSCPS.Contains("SCP_939_59"))
-                    {
-                        ev.Door.Locked = true;
-                        ev.Door.Open = true;
-                        PluginManager.Manager.Server.Map.ClearBroadcasts();
-                        PluginManager.Manager.Server.Map.Broadcast(10, "SCP-939 Extraction Started", false);
-                        Events.BreachSCP(ev.Player, "939");
-                    }
                 }
-                else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP && ev.Door.Name == "ESCAPE")
-                {
-                    PluginManager.Manager.Server.Map.ClearBroadcasts();
-                    PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.TeamRole.Role.ToString() + " Has Escaped", false);
-                    FreeSCPS.Add(ev.Player.TeamRole.Role.ToString());
-                    ev.Player.ChangeRole(Role.CHAOS_INSURGENCY);
-                }
-                else
-                {
-                    if (ev.Door.Name == "106_SECONDARY")
-                    {
-                        ev.Allow = false;
-                    }
-                    else if (ev.Door.Name == "106_PRIMARY")
-                    {
-                        ev.Allow = false;
-                    }
-                    else if (ev.Door.Position.y <= -730 && ev.Door.Name != "049_ARMORY" && ev.Door.Position.y >= -740)
-                    {
-                        ev.Allow = false;
-                    }
-                    else if (ev.Door.Name == "096")
-                    {
-                        ev.Allow = false;
-                    }
-                    else if (ev.Door.Name == "173")
-                    {
-                        ev.Allow = false;
-                    }
-                    else if (ev.Door.Position.y < -1010)
-                    {
-                        ev.Allow = false;
-                    }
-                }
-            }
+				else if (PluginManager.Manager.Server.Round.Duration == 1200 && !S1200)
+				{
+					S1200 = true;
+					//PluginManager.Manager.Server.Map.Broadcast(10, "5 MIN REMAIN", false);
+				}
+			}
         }
         public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 Timing.RunCoroutine(Events.BREACHRESPAWN(ev.Player, ev.Killer));
                 //Events.IsEvan("Breach", MTF, CI, Role.NTF_COMMANDER, Role.CHAOS_INSURGENCY);
@@ -438,7 +314,7 @@ namespace ATTG3
         }
         public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP)
                 {
@@ -453,21 +329,21 @@ namespace ATTG3
         }
         public void OnSummonVehicle(SummonVehicleEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 ev.AllowSummon = false;
             }
         }
         public void OnPocketDimensionEnter(Smod2.Events.PlayerPocketDimensionEnterEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 ev.TargetPosition = ev.LastPosition;
             }
         }
         public void OnCheckEscape(Smod2.Events.PlayerCheckEscapeEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP)
                 {
@@ -481,7 +357,7 @@ namespace ATTG3
         }
         public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 if (plugin.RoundStarted)
                 {
@@ -507,7 +383,7 @@ namespace ATTG3
         }
         public void OnSetRoleMaxHP(Smod2.EventSystem.Events.SetRoleMaxHPEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 if (ev.Role == Role.CHAOS_INSURGENCY)
                 {
@@ -517,7 +393,7 @@ namespace ATTG3
         }
         public void OnGeneratorUnlock(Smod2.Events.PlayerGeneratorUnlockEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
                 {
@@ -531,14 +407,14 @@ namespace ATTG3
         }
         public void On106Teleport(Smod2.Events.Player106TeleportEvent ev)
         {
-            if (Breachevent)
+            if (Holdevent)
             {
                 ev.Position = ev.Player.GetPosition();
             }
         }
 		public void OnPlayerDropItem(Smod2.Events.PlayerDropItemEvent ev)
 		{
-			if (Breachevent)
+			if (Holdevent)
 			{
 				if (ev.Item.ItemType == ItemType.RADIO || ev.Item.ItemType == ItemType.LOGICER)
 				{
