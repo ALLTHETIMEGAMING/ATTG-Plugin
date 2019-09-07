@@ -29,7 +29,7 @@ namespace ATTG3
 			else if (plugin.RoundStarted == false && plugin.Event == false)
 			{
                 string args2 = null;
-                if (args.Count() > 1)
+                if (args.Count() > 0)
                 {
                     args2 = args[0].ToLower();
                 }
@@ -147,7 +147,7 @@ namespace ATTG3
 				}
 				else if (args2 == "hold")
 				{
-					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100>Capture the Flag Event Starting</SIZE>", false);
+					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75>Capture the Flag Event Starting</SIZE>", false);
 					Hold.Holdevent = true;
 					plugin.Event = true;
 					return new string[] { "Capture the Flag Event started" };

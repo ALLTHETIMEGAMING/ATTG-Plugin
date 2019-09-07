@@ -1237,12 +1237,12 @@ namespace ATTG3
             if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
             {
 
-                yield return MEC.Timing.WaitForSeconds(3);
+                yield return MEC.Timing.WaitForSeconds(5);
                 player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
             }
             else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
             {
-                yield return MEC.Timing.WaitForSeconds(15);
+                yield return MEC.Timing.WaitForSeconds(5);
                 player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
             }
         }

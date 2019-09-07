@@ -10,7 +10,7 @@ namespace ATTG3
 {
     internal class Hold : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt, IEventHandlerCheckEscape, IEventHandler106Teleport, IEventHandlerGeneratorUnlock,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure, IEventHandlerSetRoleMaxHP, IEventHandlerPlayerDropItem,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerJoin
+		IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerJoin, IEventHandlerElevatorUse
     {
         public static bool Nuke;
         public static int gen;
@@ -50,11 +50,7 @@ namespace ATTG3
                     {
                         door.Locked = true;
                     }
-                    else if (door.Position.y <= -730 && door.Position.y >= -740 && door.Name != "049_ARMORY")
-                    {
-                        door.Locked = true;
-                    }
-                    else if (door.Name == "INTERCOM")
+					else if (door.Name == "INTERCOM")
                     {
                         door.Locked = true;
                     }
@@ -74,10 +70,6 @@ namespace ATTG3
 					{
 						door.Locked = true;
 					}
-					else if (door.Position.y < -1010)
-                    {
-                        door.Locked = true;
-                    }
                     else if (door.Name == "ESCAPE")
                     {
                         door.Locked = true;
@@ -136,20 +128,18 @@ namespace ATTG3
             {
                 if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
                 {
-                    if (gen != 5)
-                    {
-                        ev.Items.Add(ItemType.WEAPON_MANAGER_TABLET);
-                    }
-                    ev.Items.Add(ItemType.FRAG_GRENADE);
-                    ev.Items.Add(ItemType.E11_STANDARD_RIFLE);
+					ev.Items.Add(ItemType.WEAPON_MANAGER_TABLET);
+					ev.Items.Add(ItemType.P90);
+					ev.Items.Remove(ItemType.LOGICER);
+					ev.Items.Add(ItemType.E11_STANDARD_RIFLE);
                 }
                 else if (ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
                 {
-                    ev.Items.Remove(ItemType.DISARMER);
+					ev.Items.Add(ItemType.P90);
+					ev.Items.Remove(ItemType.DISARMER);
                     ev.Items.Remove(ItemType.WEAPON_MANAGER_TABLET);
 					ev.Items.Remove(ItemType.FRAG_GRENADE);
-
-                }
+				}
             }
         }
         public void OnGeneratorFinish(GeneratorFinishEvent ev)
@@ -171,10 +161,10 @@ namespace ATTG3
         {
             if (Holdevent)
             {
-				plugin.Info(ev.Generator.TimeLeft.ToString() + "for room" + ev.Generator.Room.RoomType.ToString());
+				plugin.Info(ev.Generator.TimeLeft.ToString() + " for room " + ev.Generator.Room.RoomType.ToString());
 				if (ev.Player.TeamRole.Role != Role.CHAOS_INSURGENCY)
                 {
-                    if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out float Indicheck))
+                    if (GenTime.TryGetValue(ev.Generator.Room.RoomType.ToString(), out float Indicheck))
                     {
                         GenTime[ev.Generator.Room.RoomType.ToString()] = ev.Generator.TimeLeft;
                     }
@@ -245,18 +235,10 @@ namespace ATTG3
         {
             if (Holdevent)
             {
-				if (ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
-				{
-					ev.Elevator.MovingSpeed = 10;
-				}
-				else
-				{
-					ev.Elevator.MovingSpeed = 1;
-				}
-				if (ev.Elevator.ElevatorType == ElevatorType.GateA && ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
+				if ((ev.Elevator.ElevatorType != ElevatorType.GateA && ev.Elevator.ElevatorType != ElevatorType.WarheadRoom) && ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
 				{
 					ev.AllowUse = false;
-					ev.Player.Kill();
+					ev.Player.PersonalBroadcast(10, "This Elevator is disabled for your team", false);
 				}
             }
         }

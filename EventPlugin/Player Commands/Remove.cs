@@ -33,13 +33,24 @@ namespace ATTG3
                 Player caller = (sender is Player send) ? send : null;
                 if (args.Length > 0)
                 {
-                    Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
-                    if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
-                    if (myPlayer.SteamId != "76561198126860363")
-                    {
-                        myPlayer.Disconnect(Events.StringArrayToString(args, 1));
-                    }
-                    return new string[] { myPlayer.Name + " was removed" };
+					if (args[0] != "*")
+					{
+						Player myPlayer = GetPlayerFromString.GetPlayer(args[0]);
+						if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
+						if (myPlayer.SteamId != "76561198126860363")
+						{
+							myPlayer.Disconnect(Events.StringArrayToString(args, 1));
+						}
+						return new string[] { myPlayer.Name + " was removed" };
+					}
+					else
+					{
+						foreach (Player player3 in PluginManager.Manager.Server.GetPlayers())
+						{
+							player3.Disconnect("SERVER RESTARTING PLEASE REJOIN ALL THE TIME GAMING");
+						}
+						return new string[] { "Restarting" };
+					}
                 }
                 else
                 {
