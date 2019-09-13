@@ -182,6 +182,7 @@ namespace ATTG3
 			this.AddEventHandlers(new Army939(this), Priority.High);
 			this.AddEventHandlers(new PlayerConsole(this));
             this.AddEventHandlers(new Hostagevent(this), Priority.High);
+			this.AddEventHandlers(new Cap(this), Priority.High);
 			this.AddEventHandlers(new Hold(this), Priority.High);
 		}
         public void ReloadConfig()

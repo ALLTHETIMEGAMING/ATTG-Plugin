@@ -1210,22 +1210,27 @@ namespace ATTG3
 			Hold.S300 = false;
 			Hold.S600 = false;
 			Hold.S900 = false;
+			Hold.MTF = 0;
+			Hold.CI= 0;
 			Hold.Holdevent = false;
-            //Events.GetRoundStartRoom();
-            /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
+			Cap.S1200 = false;
+			Cap.S300 = false;
+			Cap.S600 = false;
+			Cap.S900 = false;
+			Cap.MTF = 0;
+			Cap.CI = 0;
+			Cap.Holdevent = false;
+			//Events.GetRoundStartRoom();
+			/*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
             Events.MapSpawnVec();
 			*/
-        }
+		}
         public static IEnumerator<float> BREACHRESPAWN(Player player, Player Attacker)
         {
             foreach (Smod2.API.Item item in player.GetInventory())
             {
-                if (item.ItemType == ItemType.WEAPON_MANAGER_TABLET)
-                {
-                    item.Remove();
-                }
-                else if (item.ItemType == ItemType.RADIO)
+                if (item.ItemType == ItemType.RADIO)
                 {
                     item.Remove();
                 }
@@ -1242,11 +1247,36 @@ namespace ATTG3
             }
             else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
             {
-                yield return MEC.Timing.WaitForSeconds(5);
+                yield return MEC.Timing.WaitForSeconds(7);
                 player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
             }
         }
-        public static void BreachSCP(Player player, string SCP)
+		public static IEnumerator<float> HOLDRESPAWN(Player player, Player Attacker)
+		{
+			foreach (Smod2.API.Item item in player.GetInventory())
+			{
+				if (item.ItemType == ItemType.RADIO)
+				{
+					item.Remove();
+				}
+				else if (item.ItemType == ItemType.LOGICER)
+				{
+					item.Remove();
+				}
+			}
+			if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+			{
+
+				yield return MEC.Timing.WaitForSeconds(5);
+				player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+			}
+			else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
+			{
+				yield return MEC.Timing.WaitForSeconds(15);
+				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
+			}
+		}
+		public static void BreachSCP(Player player, string SCP)
         {
             if (SCP == "049")
             {

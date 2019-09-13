@@ -31,7 +31,7 @@ namespace ATTG3
                     $"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
                 };
             }
-            if (Breach.Breachevent || Hold.Holdevent)
+            if (Breach.Breachevent || Hold.Holdevent || Cap.Holdevent)
             {
                 Events.MTFEnter();
                 return new[] { "Warning all Campers" };

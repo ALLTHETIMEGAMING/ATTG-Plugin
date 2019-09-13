@@ -134,8 +134,6 @@ namespace ATTG3
 					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75><color=#FFD700>Question Event Starting</Color></SIZE>", false);
 					plugin.QEvent = true;
 					plugin.Event = true;
-					plugin.Info("Question EVENT ACTAVATED");
-					plugin.Info("Question" + plugin.QEvent.ToString());
 					return new[] { "Question Event Started" };
 				}
 				else if (args2 == "mtfci")
@@ -145,12 +143,19 @@ namespace ATTG3
 					plugin.Event = true;
 					return new string[] { "MTF VS CI Event started" };
 				}
+				else if (args2 == "cap")
+				{
+					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75>Control Point Event Starting</SIZE>", false);
+					Cap.Holdevent = true;
+					plugin.Event = true;
+					return new string[] { "Control Point Event started" };
+				}
 				else if (args2 == "hold")
 				{
-					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75>Capture the Flag Event Starting</SIZE>", false);
+					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=75>Capure The Flag Event Starting</SIZE>", false);
 					Hold.Holdevent = true;
 					plugin.Event = true;
-					return new string[] { "Capture the Flag Event started" };
+					return new string[] { "Control Point Event started" };
 				}
 				else if (args2 == "173army")
 				{
