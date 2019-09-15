@@ -204,6 +204,7 @@ namespace ATTG3
                 else if (ev.Player.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
                 {
 					ev.SpawnPos = new Vector(0, 1001, 0);
+					ev.Player.SetHealth(250);
 				}
             }
         }
