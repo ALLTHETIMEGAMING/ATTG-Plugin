@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\BanR.cs" />
+    <Compile Include="Commands\HideSteam.cs" />
     <Compile Include="Events\Event Handler\939army.cs" />
     <Compile Include="Events\Event Handler\049ARMY.cs" />
     <Compile Include="Events\Event Handler\Cap.cs" />
