@@ -158,9 +158,10 @@ namespace ATTG3
 			this.AddCommand("aghide", new HideSteam(this));
 			this.AddCommand("Gun", new GrenadeGun(this));
 			this.AddCommand("rain", new Rain(this));
+            this.AddCommand("Weapon", new Weppon(this));
 
-			// Commands added after 8/23/2019
-			this.AddCommands(Gate.CA, new Gate(this));
+            // Commands added after 8/23/2019
+            this.AddCommands(Gate.CA, new Gate(this));
             this.AddCommands(Con106.CA, new Con106(this));
             this.AddCommands(Heli.CA, new Heli(this));
             this.AddCommands(BreachCamp.CA, new BreachCamp(this));

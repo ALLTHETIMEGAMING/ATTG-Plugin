@@ -69,7 +69,6 @@ namespace ATTG3
                 {
                     NetworkServer.Destroy(pickup.gameObject);
                 }
-                Events.AllSpawns();
                 foreach (Player player in PluginManager.Manager.Server.GetPlayers())
                 {
                     ((UnityEngine.GameObject)player.GetGameObject()).GetComponent<WeaponManager>().NetworkfriendlyFire = true;
@@ -114,7 +113,6 @@ namespace ATTG3
                 else if (ev.Player.TeamRole.Role == Role.CLASSD)
                 {
                     Timing.RunCoroutine(Events.GunGamItems(ev.Player));
-                    ev.Items.Add(ItemType.MTF_COMMANDER_KEYCARD);
                 }
             }
         }
@@ -170,8 +168,7 @@ namespace ATTG3
             {
                 if (ev.Player.TeamRole.Role == Role.CLASSD)
                 {
-                    Vector spawnpos = EventLStorageList.GunGameSpawns[UnityEngine.Random.Range(0, EventLStorageList.GunGameSpawns.Count)];
-                    ev.SpawnPos = spawnpos;
+                    ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.FACILITY_GUARD);
                     ev.Player.SetHealth(250);
                 }
             }

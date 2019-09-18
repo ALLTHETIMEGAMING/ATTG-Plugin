@@ -395,7 +395,6 @@ namespace ATTG3
 							kill++;
 						}
 					}
-
 				}
 				else if (Physics.Raycast(ray, out RaycastHit raycastHit, 150f))
 				{
