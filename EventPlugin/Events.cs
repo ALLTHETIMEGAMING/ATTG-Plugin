@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 namespace ATTG3
 {
     internal class Events
@@ -1432,6 +1433,42 @@ namespace ATTG3
 			else if (text == "Army939")
 			{
 				player.ChangeRole(Role.SCP_939_53);
+			}
+		}
+		public static IEnumerator<float> Rain(Player player, string text)
+		{
+			yield return MEC.Timing.WaitForSeconds(2f);
+			if (text == "body")
+			{
+				int kill = 0;
+				while (kill != 10)
+				{
+					GameObject player1 = (GameObject)player.GetGameObject();
+					Vector pos = player.GetPosition();
+					int role = (int)player.TeamRole.Role;
+					Vector3 target = new Vector3(pos.x + UnityEngine.Random.Range(-5f, 5f), pos.y + UnityEngine.Random.Range(0f, 5f), pos.z + UnityEngine.Random.Range(-5f, 5f));
+					Class @class = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().klasy[role];
+					GameObject ragdoll = UnityEngine.Object.Instantiate(@class.model_ragdoll, target + @class.ragdoll_offset.position, Quaternion.Euler(player1.transform.rotation.eulerAngles + @class.ragdoll_offset.rotation));
+					NetworkServer.Spawn(ragdoll);
+					ragdoll.GetComponent<Ragdoll>().SetOwner(new Ragdoll.Info(player.PlayerId.ToString(), player.Name, new PlayerStats.HitInfo(), role, player.PlayerId));
+					Fakedea.wipe.Add(ragdoll);
+					kill++;
+				}
+			}
+			else if (text == "grenade")
+			{
+				Vector pos = player.GetPosition();
+				int kill = 0;
+				player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, pos, true, 0f, false);
+				player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, pos, true, 0f, false);
+				while (kill != 10)
+				{
+					Vector target = new Vector(pos.x + UnityEngine.Random.Range(-5f, 5f), pos.y + UnityEngine.Random.Range(0f, 5f), pos.z + UnityEngine.Random.Range(-5f, 5f));
+					player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
+					target = new Vector(pos.x + UnityEngine.Random.Range(-5f, 5f), pos.y + UnityEngine.Random.Range(0f, 5f), pos.z + UnityEngine.Random.Range(-5f, 5f));
+					player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
+					kill++;
+				}
 			}
 		}
 	}

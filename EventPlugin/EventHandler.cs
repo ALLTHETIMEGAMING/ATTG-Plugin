@@ -372,9 +372,9 @@ namespace ATTG3
 						ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
 						while (kill != 10)
 						{
-							Vector target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(0f, 5f));
+							Vector target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
 							ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
-							target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(0f, 5f));
+							target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
 							ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
 							kill++;
 						}
@@ -386,7 +386,7 @@ namespace ATTG3
 						{
 							GameObject player1 = (GameObject)ev.Target.GetGameObject();
 							int role = (int)ev.Target.TeamRole.Role;
-							Vector3 target = new Vector3(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(0f, 5f));
+							Vector3 target = new Vector3(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
 							Class @class = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().klasy[role];
 							GameObject ragdoll = UnityEngine.Object.Instantiate(@class.model_ragdoll, target + @class.ragdoll_offset.position, Quaternion.Euler(player1.transform.rotation.eulerAngles + @class.ragdoll_offset.rotation));
 							NetworkServer.Spawn(ragdoll);
