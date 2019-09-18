@@ -17,7 +17,7 @@ namespace ATTG3
         public string GetCommandDescription() => "";
         public string GetUsage() => "";
         //Variables Below
-        List<GameObject> wipe = new List<GameObject>();
+        public static List<GameObject> wipe = new List<GameObject>();
         int Count;
         public static readonly string[] CA = new string[] { "AGFAKE", "FAKE" };
         public string[] OnCall(ICommandSender sender, string[] args)

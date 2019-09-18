@@ -156,6 +156,7 @@ namespace ATTG3
             this.AddCommand("AGBAN", new BanR(this));
             this.AddCommand("PRILIST", new PriList(this));
 			this.AddCommand("aghide", new HideSteam(this));
+			this.AddCommand("AGGrenade", new GrenadeGun(this));
 
 			// Commands added after 8/23/2019
 			this.AddCommands(Gate.CA, new Gate(this));

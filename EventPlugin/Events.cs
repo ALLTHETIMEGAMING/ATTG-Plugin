@@ -1220,6 +1220,9 @@ namespace ATTG3
 			Cap.MTF = 0;
 			Cap.CI = 0;
 			Cap.Holdevent = false;
+			GrenadeGun.GrenadeList.Clear();
+			GrenadeGun.Toggle = false;
+			Fakedea.wipe.Clear();
 			//Events.GetRoundStartRoom();
 			/*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Threading;
 using System;
 using Smod2.Commands;
+using UnityEngine.Networking;
 
 namespace ATTG3
 {
@@ -357,6 +358,55 @@ namespace ATTG3
                 ev.WeaponSound = WeaponType.USP;
                 ev.ShouldSpawnHitmarker = true;
             }
+			else if (GrenadeGun.Toggle&& GrenadeGun.GrenadeList.ContainsKey(ev.Player.SteamId.ToString()))
+			{
+				GameObject player = (GameObject)ev.Player.GetGameObject();
+				WeaponManager playerWM = player.GetComponent<WeaponManager>();
+				Ray ray = new Ray(playerWM.camera.transform.position + playerWM.camera.transform.forward, playerWM.camera.transform.forward);
+				if (ev.Target != null)
+				{
+					if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "grenade")
+					{
+						int kill = 0;
+						ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
+						ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
+						while (kill != 10)
+						{
+							Vector target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(0f, 5f));
+							ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
+							target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(0f, 5f));
+							ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
+							kill++;
+						}
+					}
+					else if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "body")
+					{
+						int kill = 0;
+						while (kill != 10)
+						{
+							GameObject player1 = (GameObject)ev.Target.GetGameObject();
+							int role = (int)ev.Target.TeamRole.Role;
+							Vector3 target = new Vector3(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(0f, 5f));
+							Class @class = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().klasy[role];
+							GameObject ragdoll = UnityEngine.Object.Instantiate(@class.model_ragdoll, target + @class.ragdoll_offset.position, Quaternion.Euler(player1.transform.rotation.eulerAngles + @class.ragdoll_offset.rotation));
+							NetworkServer.Spawn(ragdoll);
+							ragdoll.GetComponent<Ragdoll>().SetOwner(new Ragdoll.Info(ev.Player.PlayerId.ToString(), ev.Target.Name, new PlayerStats.HitInfo(), role, ev.Target.PlayerId));
+							Fakedea.wipe.Add(ragdoll);
+							kill++;
+						}
+					}
+
+				}
+				else if (Physics.Raycast(ray, out RaycastHit raycastHit, 150f))
+				{
+					if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "grenade")
+					{
+						Vector3 destination = raycastHit.point + raycastHit.normal * 1f;
+						Vector vector3pos = new Vector(destination.x, destination.y, destination.z);
+						ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, vector3pos, true, 0f, false);
+					}
+				}
+			}
         }
         public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
         {
