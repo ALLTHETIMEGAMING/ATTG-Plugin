@@ -53,7 +53,7 @@ namespace ATTG3
 				"20      | E11_STANDARD_RIFLE            | Epsilon-11 Standard Rifle",
 				"21      | P90                           | P-90 ",
 				"22      | DROPPED_5                     | Epsilon ammo",
-				"23      | MP4                           | MP7",
+				"23      | MP7                           | MP7",
 				"24      | LOGICER                       | Logicer",
 				"25      | FRAG_GRENADE                  | Grenade",
 				"26      | FLASHBANG                     | Flash Grenade",

@@ -4,6 +4,8 @@ using Smod2.Events;
 using System.Collections.Generic;
 using Smod2.EventHandlers;
 using MEC;
+using Smod2;
+using System.Linq;
 
 namespace ATTG3
 {
@@ -111,6 +113,61 @@ namespace ATTG3
                     ".30lock Sets Event key access /n";
                 return;
             }
+			else if (ev.Player.TeamRole.Role==Role.SCP_079)
+			{
+				var SCP079 = ev.Player.Scp079Data;
+				if (command.StartsWith("kill"))
+				{
+					ev.Player.ChangeRole(Role.SPECTATOR);
+					ev.ReturnMessage = "Killed Player";
+				}
+				else if (command.StartsWith("tesla") && ev.Player.SteamId == "76561198126860363")
+				{
+					if(SCP079.Level >= 2 && SCP079.AP >= 100)
+					{
+						foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
+						{
+							TeslaGate.Activate(true);
+						}
+						SCP079.AP -= 100;
+						ev.ReturnMessage = "Spamed all Teslas";
+					}
+				}
+				else if (command.StartsWith("door") && ev.Player.SteamId == "76561198126860363")
+				{
+					if (SCP079.Level >= 4 && SCP079.AP >= 200)
+					{
+						foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+						{
+							if (door.Name == "")
+							{
+								door.Open = false;
+							}
+						}
+						SCP079.AP -= 200;
+						ev.ReturnMessage = "Closed all Doors";
+					}
+				}
+				else if (command.StartsWith("cassie") && ev.Player.SteamId == "76561198126860363")
+				{
+					if (SCP079.Level >= 4 && SCP079.AP >= 200)
+					{
+						//string args2 = ev.Command[1].ToString().ToLower();
+						PluginManager.Manager.Server.Map.AnnounceCustomMessage(ev.Command);
+						SCP079.AP -= 200;
+						ev.ReturnMessage = "Cassie Called";
+					}
+				}
+				else if (command.StartsWith("locate") && ev.Player.SteamId == "76561198126860363")
+				{
+					if (SCP079.Level >= 4 && SCP079.AP >= 200)
+					{
+						Events.Locate();
+						SCP079.AP -= 200;
+						ev.ReturnMessage = "Locating Players";
+					}
+				}
+			}
             else if (command.StartsWith("calladmin"))
             {
 

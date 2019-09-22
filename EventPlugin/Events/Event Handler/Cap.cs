@@ -130,14 +130,15 @@ namespace ATTG3
         {
             if (Holdevent)
             {
-                if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
-                {
+				if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY)
+				{
 					ev.Items.Add(ItemType.WEAPON_MANAGER_TABLET);
 					ev.Items.Add(ItemType.P90);
 					ev.Items.Remove(ItemType.LOGICER);
+					ev.Items.Add(ItemType.FLASHBANG);
 					ev.Items.Add(ItemType.E11_STANDARD_RIFLE);
-                }
-                else if (ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
+				}
+				else if (ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
                 {
 					ev.Items.Add(ItemType.P90);
 					ev.Items.Remove(ItemType.DISARMER);
