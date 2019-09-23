@@ -5,6 +5,7 @@ using Smod2.Events;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using ATTG_Web;
 
 namespace ATTG3
 {
@@ -82,6 +83,7 @@ namespace ATTG3
         public static string Prilist = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "PRILIST.txt";
         public static string Nerflist = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "NerfList.txt";
         public static string CustomRank = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "CustomRank.txt";
+        public Call_Discord Discord = new Call_Discord(ATTG_Webhook.Instance);
         //End of Events
         public override void Register()
         {
@@ -189,6 +191,7 @@ namespace ATTG3
             this.AddEventHandlers(new Hostagevent(this), Priority.High);
 			this.AddEventHandlers(new Cap(this), Priority.High);
 			this.AddEventHandlers(new Hold(this), Priority.High);
+            
 		}
         public void ReloadConfig()
         {

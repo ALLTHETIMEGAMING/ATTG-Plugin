@@ -45,6 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
+    <Reference Include="ATTGWeb">
+      <HintPath>..\References\ATTGWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Smod2, Version=3.5.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Smod2.dll</HintPath>
