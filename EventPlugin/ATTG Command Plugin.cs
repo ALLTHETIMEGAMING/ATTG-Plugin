@@ -83,6 +83,7 @@ namespace ATTG3
         public static string Prilist = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "PRILIST.txt";
         public static string Nerflist = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "NerfList.txt";
         public static string CustomRank = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "CustomRank.txt";
+        public static string WatchList = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "WatchList.txt";
         public Call_Discord Discord = new Call_Discord(ATTG_Webhook.Instance);
         //End of Events
         public override void Register()
@@ -162,9 +163,10 @@ namespace ATTG3
 			this.AddCommand("rain", new Rain(this));
             this.AddCommand("Weapon", new Weppon(this));
 			this.AddCommand("Locate", new Locate(this));
+            this.AddCommand("Watch", new Watch(this));
 
-			// Commands added after 8/23/2019
-			this.AddCommands(Gate.CA, new Gate(this));
+            // Commands added after 8/23/2019
+            this.AddCommands(Gate.CA, new Gate(this));
             this.AddCommands(Con106.CA, new Con106(this));
             this.AddCommands(Heli.CA, new Heli(this));
             this.AddCommands(BreachCamp.CA, new BreachCamp(this));
@@ -237,6 +239,10 @@ namespace ATTG3
             if (!File.Exists(CustomRank))
             {
                 using (new StreamWriter(File.Create(CustomRank))) { }
+            }
+            if (!File.Exists(WatchList))
+            {
+                using (new StreamWriter(File.Create(WatchList))) { }
             }
             ATTG3Plugin.Banmemes.Add("Was banned from the server by BattlEye");
             ATTG3Plugin.Banmemes.Add("Was banned from the server by Ubisoft for Hacks");

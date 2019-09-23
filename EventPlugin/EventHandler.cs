@@ -48,10 +48,10 @@ namespace ATTG3
 				ev.Player.Ban(99999999, "If you have @ This is a Perm Ban");
 				plugin.Info("Banned: " + ev.Nickname);
 			}
-			else if (ev.Player.SteamId == "76561198069087428")
-			{
-				ev.Nickname = "Gren";
-			}
+            if (Events.watchplayers.Contains(ev.Player.IpAddress) || Events.watchplayers.Contains(ev.Player.SteamId))
+            {
+                plugin.Discord.CalldiscordString("WATCHLIST PLAYER JOINED","NAME: " + ev.Nickname, "Player");
+            }            
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{
