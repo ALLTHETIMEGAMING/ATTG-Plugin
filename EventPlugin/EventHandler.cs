@@ -21,7 +21,7 @@ namespace ATTG3
         IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
 		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerDie
-    {
+	{
 		private readonly ATTG3Plugin plugin;
 		public EventHandler(ATTG3Plugin plugin) => this.plugin = plugin;
 		public Scp096PlayerScript PlayerScript { get; private set; }
@@ -445,5 +445,6 @@ namespace ATTG3
                 }
             }
         }
-    }
+
+	}
 }
