@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace ATTG3
 {
-    internal class Cap : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerSummonVehicle, IEventHandlerPlayerHurt, IEventHandlerCheckEscape, IEventHandler106Teleport, IEventHandlerGeneratorUnlock,
-		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure, IEventHandlerSetRoleMaxHP, IEventHandlerPlayerDropItem,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerJoin, IEventHandlerElevatorUse
+    internal class Cap : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerSummonVehicle, IEventHandlerCheckEscape, IEventHandlerGeneratorUnlock,
+		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure, IEventHandlerPlayerDropItem,
+		IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerElevatorUse
     {
         public static bool Nuke;
         public static int gen;
@@ -78,6 +78,16 @@ namespace ATTG3
 					{
 						door.Locked = true;
 					}
+					else if (door.Name == "CHECKPOINT_LCZ_A")
+					{
+						door.Locked = true;
+						door.Open = true;
+					}
+					else if (door.Name == "CHECKPOINT_LCZ_B")
+					{
+						door.Locked = true;
+						door.Open = true;
+					}
 				}
                 foreach (Generator079 gen in Generator079.generators)
                 {
@@ -142,7 +152,8 @@ namespace ATTG3
                 {
 					ev.Items.Add(ItemType.P90);
 					ev.Items.Remove(ItemType.DISARMER);
-                    ev.Items.Remove(ItemType.WEAPON_MANAGER_TABLET);
+					ev.Items.Remove(ItemType.MTF_COMMANDER_KEYCARD);
+					ev.Items.Remove(ItemType.WEAPON_MANAGER_TABLET);
 					ev.Items.Remove(ItemType.FRAG_GRENADE);
 				}
             }
@@ -300,33 +311,11 @@ namespace ATTG3
                 //Events.IsEvan("Breach", MTF, CI, Role.NTF_COMMANDER, Role.CHAOS_INSURGENCY);
             }
         }
-        public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
-        {
-            if (Holdevent)
-            {
-                if (ev.Attacker.TeamRole.Team == Smod2.API.Team.SCP)
-                {
-                    ev.Damage = 0;
-                }
-                else if (ev.Player.TeamRole.Team == Smod2.API.Team.SCP && ev.Attacker.TeamRole.Team == Smod2.API.Team.CHAOS_INSURGENCY)
-                {
-                    ev.Damage = 0;
-                }
-
-            }
-        }
         public void OnSummonVehicle(SummonVehicleEvent ev)
         {
             if (Holdevent)
             {
                 ev.AllowSummon = false;
-            }
-        }
-        public void OnPocketDimensionEnter(Smod2.Events.PlayerPocketDimensionEnterEvent ev)
-        {
-            if (Holdevent)
-            {
-                ev.TargetPosition = ev.LastPosition;
             }
         }
         public void OnCheckEscape(Smod2.Events.PlayerCheckEscapeEvent ev)
@@ -369,16 +358,6 @@ namespace ATTG3
                 }
             }
         }
-        public void OnSetRoleMaxHP(Smod2.EventSystem.Events.SetRoleMaxHPEvent ev)
-        {
-            if (Holdevent)
-            {
-                if (ev.Role == Role.CHAOS_INSURGENCY)
-                {
-                    ev.MaxHP = 250;
-                }
-            }
-        }
         public void OnGeneratorUnlock(Smod2.Events.PlayerGeneratorUnlockEvent ev)
         {
             if (Holdevent)
@@ -393,18 +372,11 @@ namespace ATTG3
                 }
             }
         }
-        public void On106Teleport(Smod2.Events.Player106TeleportEvent ev)
-        {
-            if (Holdevent)
-            {
-                ev.Position = ev.Player.GetPosition();
-            }
-        }
 		public void OnPlayerDropItem(Smod2.Events.PlayerDropItemEvent ev)
 		{
 			if (Holdevent)
 			{
-				if (ev.Item.ItemType == ItemType.RADIO || ev.Item.ItemType == ItemType.LOGICER)
+				if (ev.Item.ItemType == ItemType.RADIO || ev.Item.ItemType == ItemType.LOGICER || ev.Item.ItemType == ItemType.FLASHBANG)
 				{
 					ev.Allow = false;
 				}

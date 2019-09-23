@@ -187,7 +187,7 @@ namespace ATTG3
 			{
 				ATTG3Plugin.itemid = 22;
 			}
-			else if (inv1 == ItemType.MP7)
+			else if (inv1 == ItemType.MP4)
 			{
 				ATTG3Plugin.itemid = 23;
 			}
@@ -1057,7 +1057,7 @@ namespace ATTG3
 			{
 				if (item.ItemType == ItemType.LOGICER || item.ItemType == ItemType.E11_STANDARD_RIFLE
 				|| item.ItemType == ItemType.USP || item.ItemType == ItemType.COM15 || item.ItemType == ItemType.P90
-				|| item.ItemType == ItemType.MP7 || item.ItemType == ItemType.MICROHID)
+				|| item.ItemType == ItemType.MP4 || item.ItemType == ItemType.MICROHID)
 				{
 					item.Remove();
 				}

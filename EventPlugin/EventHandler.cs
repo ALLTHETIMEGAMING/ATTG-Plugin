@@ -355,10 +355,9 @@ namespace ATTG3
             if (SSAM.SSAMBOT&&ev.Player.SteamId == "76561198126860363")
             {
                 Events.SSAIMBOT(ev.Player);
-                ev.WeaponSound = WeaponType.USP;
                 ev.ShouldSpawnHitmarker = true;
             }
-			else if (GrenadeGun.Toggle&& GrenadeGun.GrenadeList.ContainsKey(ev.Player.SteamId.ToString()))
+			else if (GrenadeGun.GrenadeList.ContainsKey(ev.Player.SteamId.ToString()))
 			{
 				GameObject player = (GameObject)ev.Player.GetGameObject();
 				WeaponManager playerWM = player.GetComponent<WeaponManager>();
