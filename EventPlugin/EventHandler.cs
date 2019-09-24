@@ -47,11 +47,7 @@ namespace ATTG3
 			{
 				ev.Player.Ban(99999999, "If you have @ This is a Perm Ban");
 				plugin.Info("Banned: " + ev.Nickname);
-			}
-            if (Events.watchplayers.Contains(ev.Player.IpAddress) || Events.watchplayers.Contains(ev.Player.SteamId))
-            {
-                plugin.Discord.CalldiscordString("WATCHLIST PLAYER JOINED","NAME: " + ev.Nickname, "Player");
-            }            
+			} 
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{
@@ -408,8 +404,11 @@ namespace ATTG3
         }
         public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
         {
-
-        }
+			if (Events.watchplayers.Contains(ev.Player.IpAddress) || Events.watchplayers.Contains(ev.Player.SteamId) || Events.watchplayers.Contains(ev.Player.Name))
+			{
+				plugin.Discord.CalldiscordString("WATCHLIST PLAYER JOINED", "NAME: " + ev.Player.Name, "Player");
+			}
+		}
 		public void OnPocketDimensionEnter(Smod2.Events.PlayerPocketDimensionEnterEvent ev)
 		{
 			if (ev.Player.TeamRole.Role == Role.TUTORIAL)

@@ -10,8 +10,8 @@ namespace ATTG3
 {
     internal class Cap : IEventHandlerRoundStart, IEventHandlerGeneratorFinish, IEventHandlerSummonVehicle, IEventHandlerCheckEscape, IEventHandlerGeneratorUnlock,
 		IEventHandlerRoundEnd, IEventHandlerWarheadChangeLever, IEventHandlerGeneratorEjectTablet, IEventHandlerSetRole, IEventHandlerSpawn, IEventHandlerLure, IEventHandlerPlayerDropItem,
-		IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerElevatorUse
-    {
+		IEventHandlerGeneratorInsertTablet, IEventHandlerUpdate, IEventHandlerCheckRoundEnd, IEventHandlerPlayerDie, IEventHandlerPlayerJoin, IEventHandlerElevatorUse, IEventHandlerDoorAccess
+	{
         public static bool Nuke;
         public static int gen;
         public static bool Holdevent;
@@ -59,10 +59,6 @@ namespace ATTG3
                         door.Locked = true;
                     }
                     else if (door.Name == "173")
-                    {
-                        door.Locked = true;
-                    }
-                    else if (door.Name == "096")
                     {
                         door.Locked = true;
                     }
@@ -116,7 +112,7 @@ namespace ATTG3
         {
             if (Holdevent)
             {
-                if (ev.Server.Round.Duration >= 1200)
+                if (ev.Server.Round.Duration >= 1500)
                 {
                     ev.Status = ROUND_END_STATUS.MTF_VICTORY;
                     ev.Round.Stats.ScientistsEscaped = 5;
@@ -147,6 +143,7 @@ namespace ATTG3
 					ev.Items.Remove(ItemType.LOGICER);
 					ev.Items.Add(ItemType.FLASHBANG);
 					ev.Items.Add(ItemType.E11_STANDARD_RIFLE);
+					ev.Items.Remove(ItemType.CHAOS_INSURGENCY_DEVICE);
 				}
 				else if (ev.Player.TeamRole.Role == Role.NTF_COMMANDER)
                 {
@@ -188,7 +185,8 @@ namespace ATTG3
                     {
                         GenTime.Add(ev.Generator.Room.RoomType.ToString(), ev.Generator.TimeLeft);
                     }
-                    ev.Allow = true;
+					PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " Actavation Stoped", false);
+					ev.Allow = true;
                     ev.SpawnTablet = false;
                 }
                 else
@@ -231,10 +229,11 @@ namespace ATTG3
         {
             if (Holdevent)
             {
-				plugin.Info(ev.Generator.TimeLeft.ToString() + " for room " + ev.Generator.Room.RoomType.ToString());
+				
                 if ((ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY || ev.Player.TeamRole.Role == Role.TUTORIAL) && ev.Player.HasItem(ItemType.WEAPON_MANAGER_TABLET))
                 {
-                    ev.Allow = true;
+					plugin.Info(ev.Generator.TimeLeft.ToString() + " for room " + ev.Generator.Room.RoomType.ToString());
+					ev.Allow = true;
                     if (GenTime.TryGetValue(ev.Generator.Room.RoomType.ToString(), out float Indicheck))
                     {
                         ev.Generator.TimeLeft = GenTime[ev.Generator.Room.RoomType.ToString()];
@@ -256,6 +255,10 @@ namespace ATTG3
 				{
 					ev.AllowUse = false;
 					ev.Player.PersonalBroadcast(10, "This Elevator is disabled for your team", false);
+				}
+				else if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX && ev.Elevator.ElevatorType == ElevatorType.SCP049Chamber)
+				{
+					ev.AllowUse = false;
 				}
             }
         }
@@ -281,22 +284,22 @@ namespace ATTG3
                 {
                     GameObject.Find("Host").GetComponent<DecontaminationLCZ>().time = 0;
                 }
-				if(PluginManager.Manager.Server.Round.Duration == 600 && !S600)
+				if(PluginManager.Manager.Server.Round.Duration == 900 && !S600)
                 {
                     PluginManager.Manager.Server.Map.Broadcast(10, "10 MIN REMAIN", false);
 					S600 = true;
                 }
-                else if (PluginManager.Manager.Server.Round.Duration == 300 && !S300)
+                else if (PluginManager.Manager.Server.Round.Duration == 600 && !S300)
                 {
 					S300 = true;
                     PluginManager.Manager.Server.Map.Broadcast(10, "15 MIN REMAIN", false);
                 }
-                else if (PluginManager.Manager.Server.Round.Duration == 900 && !S900)
+                else if (PluginManager.Manager.Server.Round.Duration == 1200 && !S900)
                 {
 					S900 = true;
                     PluginManager.Manager.Server.Map.Broadcast(10, "5 MIN REMAIN", false);
                 }
-				else if (PluginManager.Manager.Server.Round.Duration == 1200 && !S1200)
+				else if (PluginManager.Manager.Server.Round.Duration == 1500 && !S1200)
 				{
 					S1200 = true;
 					//PluginManager.Manager.Server.Map.Broadcast(10, "5 MIN REMAIN", false);
@@ -332,7 +335,8 @@ namespace ATTG3
                 }
             }
         }
-        public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
+
+		public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
         {
             if (Holdevent)
             {
@@ -379,6 +383,23 @@ namespace ATTG3
 				if (ev.Item.ItemType == ItemType.RADIO || ev.Item.ItemType == ItemType.LOGICER || ev.Item.ItemType == ItemType.FLASHBANG)
 				{
 					ev.Allow = false;
+				}
+			}
+		}
+		public void OnDoorAccess(PlayerDoorAccessEvent ev)
+		{
+			if (Holdevent)
+			{
+				if (ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
+				{
+					if (ev.Door.Locked == false && ev.Door.Name != "CHECKPOINT_ENT")
+					{
+						ev.Allow = true;
+					}
+				}
+				else if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY && ev.Door.Locked == false)
+				{
+					ev.Allow = true;
 				}
 			}
 		}

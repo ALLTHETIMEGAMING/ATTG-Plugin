@@ -1245,13 +1245,19 @@ namespace ATTG3
                 {
                     item.Remove();
                 }
-            }
+				else if (item.ItemType == ItemType.FLASHBANG)
+				{
+					item.Remove();
+				}
+			}
             if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
             {
 
                 yield return MEC.Timing.WaitForSeconds(5);
                 player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
-            }
+				yield return MEC.Timing.WaitForSeconds(3);
+				player.SetHealth(250);
+			}
             else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
             {
                 yield return MEC.Timing.WaitForSeconds(7);
