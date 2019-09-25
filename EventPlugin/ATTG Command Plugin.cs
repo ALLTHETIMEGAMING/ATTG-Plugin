@@ -189,6 +189,7 @@ namespace ATTG3
 			this.AddEventHandlers(new Army173(this), Priority.High);
 			this.AddEventHandlers(new Army049(this), Priority.High);
 			this.AddEventHandlers(new Army939(this), Priority.High);
+			this.AddEventHandlers(new TDM(this), Priority.High);
 			this.AddEventHandlers(new PlayerConsole(this));
             this.AddEventHandlers(new Hostagevent(this), Priority.High);
 			this.AddEventHandlers(new Cap(this), Priority.High);

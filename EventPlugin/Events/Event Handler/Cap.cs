@@ -185,9 +185,12 @@ namespace ATTG3
                     {
                         GenTime.Add(ev.Generator.Room.RoomType.ToString(), ev.Generator.TimeLeft);
                     }
-					PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " Actavation Stoped", false);
-					ev.Allow = true;
-                    ev.SpawnTablet = false;
+					if (ev.Allow == true)
+					{
+						PluginManager.Manager.Server.Map.ClearBroadcasts();
+						PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " Actavation Stoped", false);
+						ev.SpawnTablet = false;
+					}
                 }
                 else
                 {
@@ -347,12 +350,10 @@ namespace ATTG3
                         if (Events.TUTCOUNT(Role.NTF_COMMANDER) > Events.TUTCOUNT(Role.CHAOS_INSURGENCY))
                         {
                             ev.Player.ChangeRole(Role.CHAOS_INSURGENCY);
-                            CI++;
                         }
                         else if (Events.TUTCOUNT(Role.CHAOS_INSURGENCY) > Events.TUTCOUNT(Role.NTF_COMMANDER))
                         {
                             ev.Player.ChangeRole(Role.NTF_COMMANDER);
-                            MTF++;
                         }
                     }
                     else

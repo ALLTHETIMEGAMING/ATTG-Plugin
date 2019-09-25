@@ -1226,6 +1226,9 @@ namespace ATTG3
             GrenadeGun.GrenadeList.Clear();
             GrenadeGun.Toggle = false;
             Fakedea.wipe.Clear();
+			TDM.Event = false;
+			TDM.MTFKill = 0;
+			TDM.CIKills = 0;
             Watchlist(null);
             //Events.GetRoundStartRoom();
             /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
@@ -1614,5 +1617,34 @@ namespace ATTG3
                 }
             }
         }
-    }
+		public static IEnumerator<float> TDMRespawn(Player player, Player Attacker)
+		{
+
+			foreach (Smod2.API.Item item in player.GetInventory())
+			{
+				if (item.ItemType != ItemType.MEDKIT)
+				{
+					item.Remove();
+				}
+			}
+			if (player.TeamRole.Role == Smod2.API.Role.CHAOS_INSURGENCY)
+			{
+				TDM.MTFKill++;
+				PluginManager.Manager.Server.Map.ClearBroadcasts();
+				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + TDM.MTFKill + "</Color> <color=#0B7A00>CI Has " + TDM.CIKills + "</Color>", false);
+				yield return MEC.Timing.WaitForSeconds(5);
+				player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
+				yield return MEC.Timing.WaitForSeconds(2);
+				player.SetHealth(250);
+			}
+			else if (player.TeamRole.Role == Smod2.API.Role.NTF_COMMANDER)
+			{
+				TDM.CIKills++;
+				PluginManager.Manager.Server.Map.ClearBroadcasts();
+				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + TDM.MTFKill + "</Color> <color=#0B7A00>CI Has " + TDM.CIKills + "</Color>", false);
+				yield return MEC.Timing.WaitForSeconds(5);
+				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
+			}
+		}
+	}
 }

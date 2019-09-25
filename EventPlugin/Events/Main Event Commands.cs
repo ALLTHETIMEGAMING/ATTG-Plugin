@@ -110,7 +110,6 @@ namespace ATTG3
 					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=50><color=#FFD700>Arms Race Event Starting</Color></SIZE>\n<color=#FF0000>NOTE: THIS EVENT IS NOT DONE</color>", false);
 					GunGame.GunGameBool = true;
 					plugin.Event = true;
-					Events.AllSpawns();
                     plugin.Discord.CalldiscordString("Event Started", "Arms Race", "Event Name");
                     return new[] { "Arms Race Event Started" };
 				}
@@ -205,7 +204,15 @@ namespace ATTG3
                     plugin.Discord.CalldiscordString("Event Started", "Hostage", "Event Name");
                     return new string[] { "Hostage Event started" };
 				}
-                
+				else if (args2 == "tdm")
+				{
+					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=100> TEAM DEATH MATCH Event Starting</SIZE>", false);
+					TDM.Event = true;
+					plugin.Event = true;
+					plugin.Discord.CalldiscordString("Event Started", "TDM", "Event Name");
+					return new string[] { "TDM Event started" };
+				}
+
 				else
 				{
 					return new[]

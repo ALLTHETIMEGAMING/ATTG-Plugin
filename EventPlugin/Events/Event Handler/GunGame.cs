@@ -52,12 +52,17 @@ namespace ATTG3
                         door.Locked = true;
                         door.Open = true;
                     }
-                    else if (door.Name == "GATE_B")
-                    {
-                        door.Locked = true;
-                        door.Open = true;
-                    }
-                    foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
+					else if (door.Name == "GATE_B")
+					{
+						door.Locked = true;
+						door.Open = true;
+					}
+					else if (door.Name == "CHECKPOINT_ENT")
+					{
+						door.Locked = true;
+						door.Open = false;
+					}
+					foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
                     {
                         if (Elevator.ElevatorType == ElevatorType.GateA || Elevator.ElevatorType == ElevatorType.GateB)
                         {
@@ -137,6 +142,7 @@ namespace ATTG3
         {
             if (GunGameBool)
             {
+
                 // Checking if player is in list
                 if (ev.Killer != null && ev.Killer.SteamId != ev.Player.SteamId && ev.Killer.TeamRole.Role != Role.TUTORIAL)
                 {
@@ -169,7 +175,6 @@ namespace ATTG3
                 if (ev.Player.TeamRole.Role == Role.CLASSD)
                 {
                     ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.FACILITY_GUARD);
-                    ev.Player.SetHealth(250);
                 }
             }
         }
