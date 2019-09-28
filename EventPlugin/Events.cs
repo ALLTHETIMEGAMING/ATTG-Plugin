@@ -1632,7 +1632,7 @@ namespace ATTG3
 				TDM.MTFKill++;
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + TDM.MTFKill + "</Color> <color=#0B7A00>CI Has " + TDM.CIKills + "</Color>", false);
-				yield return MEC.Timing.WaitForSeconds(5);
+				yield return MEC.Timing.WaitForSeconds(3);
 				player.ChangeRole(Role.CHAOS_INSURGENCY, true, true, false, true);
 				yield return MEC.Timing.WaitForSeconds(2);
 				player.SetHealth(250);
@@ -1642,7 +1642,7 @@ namespace ATTG3
 				TDM.CIKills++;
 				PluginManager.Manager.Server.Map.ClearBroadcasts();
 				PluginManager.Manager.Server.Map.Broadcast(5, "<color=#0080FF>MTF Has " + TDM.MTFKill + "</Color> <color=#0B7A00>CI Has " + TDM.CIKills + "</Color>", false);
-				yield return MEC.Timing.WaitForSeconds(5);
+				yield return MEC.Timing.WaitForSeconds(3);
 				player.ChangeRole(Role.NTF_COMMANDER, true, true, false, true);
 			}
 		}
