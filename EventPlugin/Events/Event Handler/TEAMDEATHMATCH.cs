@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ATTG3
 {
-	internal class TDM : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle,
+	internal class TDM : IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerSetRole, IEventHandlerCheckRoundEnd, IEventHandlerSummonVehicle, IEventHandlerShoot,
 		IEventHandlerPlayerDie, IEventHandlerSpawn, IEventHandlerPlayerDropItem, IEventHandlerDoorAccess, IEventHandlerPlayerJoin, IEventHandlerElevatorUse, IEventHandlerUpdate, IEventHandlerPlayerTriggerTesla
 	{
 
@@ -119,7 +119,7 @@ namespace ATTG3
 		{
 			if (Event)
 			{
-				if (ev.Server.Round.Duration >= 1200)
+				if (ev.Server.Round.Duration >= 900)
 				{
 					if (MTFKill > CIKills)
 					{
@@ -130,6 +130,13 @@ namespace ATTG3
 					{
 						ev.Status = ROUND_END_STATUS.CI_VICTORY;
 						ev.Server.Round.Stats.ClassDEscaped = 30;
+						foreach (Player player in PluginManager.Manager.Server.GetPlayers())
+						{
+							if (player.TeamRole.Role != Role.CHAOS_INSURGENCY)
+							{
+								player.ChangeRole(Role.SPECTATOR);
+							}
+						}
 					}
 					else
 					{
@@ -175,6 +182,11 @@ namespace ATTG3
 					if (ev.Door.Locked == false && ev.Door.Name != "CHECKPOINT_ENT")
 					{
 						ev.Allow = true;
+					}
+					if (ev.Door.Name == "CHECKPOINT_ENT")
+					{
+						ev.Player.Kill();
+						ev.Player.PersonalBroadcast(10, "YOU TRIED TO ENTER A RESTRICTED ZONE", false);
 					}
 				}
 				else if (ev.Player.TeamRole.Role == Role.CHAOS_INSURGENCY && ev.Door.Locked == false)
@@ -234,6 +246,17 @@ namespace ATTG3
 			if (Event)
 			{
 				ev.Triggerable = false;
+			}
+		}
+		public void OnShoot(Smod2.Events.PlayerShootEvent ev)
+		{
+			if (Event)
+			{
+				if(ev.Player.TeamRole.Team == Smod2.API.Team.NINETAILFOX)
+				{
+					Events.MTFEnterTDM(ev.Player);
+					Events.MTFEnterPlayer(ev.Player);
+				}
 			}
 		}
 	}

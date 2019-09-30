@@ -38,7 +38,7 @@ namespace ATTG3
                     if (myPlayer.TeamRole.Role!=Role.SPECTATOR)
                     {
                         Smod2.API.Item Playerinv = myPlayer.GetCurrentItem();
-                        if (Playerinv.IsWeapon())
+                        if (Playerinv.IsWeapon)
                         {
                             Playerinv.ToWeapon().AmmoInClip = 500;
                         }

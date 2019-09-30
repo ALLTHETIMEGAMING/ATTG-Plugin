@@ -22,9 +22,9 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-                ATTG3Plugin.Jan10Lock = true;
-                ATTG3Plugin.Jan10Lock = true;
-                ATTG3Plugin.JanDestroy = true;
+				ATTG3Plugin.Jan10Lock = true;
+				ATTG3Plugin.Jan10Lock = true;
+				ATTG3Plugin.JanDestroy = true;
 				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
 					if (door.Name == "NUKE_SURFACE")
@@ -75,7 +75,7 @@ namespace ATTG3
 				}
 				foreach (Generator079 gen in Generator079.generators)
 				{
-					gen.NetworkremainingPowerup = (gen.startDuration = 300f);
+					gen.NetworkremainingPowerup = (gen.startDuration = 120f);
 				}
 				foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.MTF_COMMANDER_KEYCARD, true))
 				{
@@ -87,17 +87,17 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-                if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId))
-                {
+				if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId))
+				{
 					// Testing Custom Door events
-                    plugin.Info("Running SCPMTF Door key test");
-                    Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, ev.Player.GetCurrentItem().ItemType, ev.Player));
-                }
-                if (ev.Door.Name == "914"&&gen == 0)
-                {
-                    ev.Player.PersonalBroadcast(10, "A generator must be turned on", false);
-                }
-            }
+					plugin.Info("Running SCPMTF Door key test");
+					Timing.RunCoroutine(Events.CustomitemDoor(ev.Door, ev.Player.GetCurrentItem().ItemType, ev.Player));
+				}
+				if (ev.Door.Name == "914" && gen == 0)
+				{
+					ev.Player.PersonalBroadcast(10, "A generator must be turned on", false);
+				}
+			}
 		}
 		public void OnSetRole(Smod2.Events.PlayerSetRoleEvent ev)
 		{
@@ -132,8 +132,8 @@ namespace ATTG3
 					{
 						ev.Player.SetRank("silver", "SCP-106", null);
 						ev.Player.AddHealth(15000);
-                        ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
-                    }
+						ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCP_049));
+					}
 					else if (ev.Player.TeamRole.Role == Role.SCP_173)
 					{
 						ev.Player.SetRank("silver", "SCP-173", null);
@@ -151,9 +151,9 @@ namespace ATTG3
 						ev.Player.ChangeRole(Role.NTF_LIEUTENANT, true, true, true, true);
 					}
 				}
-                ev.Items.Remove(ItemType.DISARMER);
-                //Events.SCPMTF();
-            }
+				ev.Items.Remove(ItemType.DISARMER);
+				//Events.SCPMTF();
+			}
 		}
 		public void OnGeneratorFinish(GeneratorFinishEvent ev)
 		{
@@ -242,13 +242,13 @@ namespace ATTG3
 				if (ev.Player.TeamRole.Team != Smod2.API.Team.NINETAILFOX)
 				{
 					float Indicheck;
-					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
+					if (GenTime.TryGetValue(ev.Generator.Room.RoomType.ToString(), out Indicheck))
 					{
-						GenTime[ev.Generator.Room.ToString()] = ev.Generator.TimeLeft;
+						GenTime[ev.Generator.Room.RoomType.ToString()] = ev.Generator.TimeLeft;
 					}
 					else
 					{
-						GenTime.Add(ev.Generator.Room.ToString(), ev.Generator.TimeLeft);
+						GenTime.Add(ev.Generator.Room.RoomType.ToString(), ev.Generator.TimeLeft);
 					}
 					ev.Allow = true;
 				}
@@ -262,7 +262,7 @@ namespace ATTG3
 		{
 			if (plugin.MTFSCP)
 			{
-                
+
 			}
 		}
 		public void OnRoundEnd(RoundEndEvent ev)
@@ -305,40 +305,31 @@ namespace ATTG3
 				{
 					Timing.RunCoroutine(Events.GenDelay());
 					float Indicheck;
-					if (GenTime.TryGetValue(ev.Generator.Room.ToString(), out Indicheck))
+					if (GenTime.TryGetValue(ev.Generator.Room.RoomType.ToString(), out Indicheck))
 					{
-						ev.Generator.TimeLeft = GenTime[ev.Generator.Room.ToString()];
+						ev.Generator.TimeLeft = GenTime[ev.Generator.Room.RoomType.ToString()];
 					}
-                    if (gen > 2)
-                    {
-                        PluginManager.Manager.Server.Map.ClearBroadcasts();
-                        PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
-                    }
-                    if (gen < 2)
-                    {
-                        PluginManager.Manager.Server.Map.ClearBroadcasts();
-                        PluginManager.Manager.Server.Map.Broadcast(10, "A Generator is being Activated", false);
-                    }
-                }
+					PluginManager.Manager.Server.Map.ClearBroadcasts();
+					PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " is being Activated", false);
+				}
 			}
 		}
 		public void OnStartCountdown(WarheadStartEvent ev)
 		{
 			if (plugin.MTFSCP)
 			{
-                foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
-                {
-                    Elevator.MovingSpeed = 5;
-                }
-            }
+				foreach (Smod2.API.Elevator Elevator in Smod2.PluginManager.Manager.Server.Map.GetElevators())
+				{
+					Elevator.MovingSpeed = 5;
+				}
+			}
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{
 			if (plugin.MTFSCP)
 			{
-                ev.Cancel = false;
-				
-            }
+				ev.Cancel = false;
+			}
 		}
 		public void OnSummonVehicle(SummonVehicleEvent ev)
 		{
