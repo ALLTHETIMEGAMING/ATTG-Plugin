@@ -358,7 +358,7 @@ namespace ATTG3
 				GameObject player = (GameObject)ev.Player.GetGameObject();
 				WeaponManager playerWM = player.GetComponent<WeaponManager>();
 				Ray ray = new Ray(playerWM.camera.transform.position + playerWM.camera.transform.forward, playerWM.camera.transform.forward);
-				ev.WeaponSound = WeaponSound.USP;
+				
 				if (ev.Target != null)
 				{
 					if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "grenade")
