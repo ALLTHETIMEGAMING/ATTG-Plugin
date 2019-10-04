@@ -6,19 +6,9 @@ namespace ATTG3
     class CommandTemp : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        private bool running;
-        public CommandTemp(ATTG3Plugin plugin)
-        {
-            this.plugin = plugin;
-        }
-        public string GetCommandDescription()
-        {
-            return "";
-        }
-        public string GetUsage()
-        {
-            return "";
-        }
+        public CommandTemp(ATTG3Plugin plugin){this.plugin = plugin;}
+        public string GetCommandDescription() {return "";}
+        public string GetUsage() {return "";}
         public static readonly string[] CA = new string[] { "TEMP", "" };
 
         public string[] OnCall(ICommandSender sender, string[] args)

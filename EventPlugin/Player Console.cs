@@ -1,20 +1,17 @@
-﻿using Smod2.API;
-using Smod2.Commands;
+﻿using Smod2;
+using Smod2.API;
+using Smod2.EventHandlers;
 using Smod2.Events;
 using System.Collections.Generic;
-using Smod2.EventHandlers;
-using MEC;
-using Smod2;
-using System.Linq;
 
 namespace ATTG3
 {
     class PlayerConsole : IEventHandlerCallCommand
     {
         private readonly ATTG3Plugin plugin;
-        public PlayerConsole(ATTG3Plugin plugin) => this.plugin=plugin;
-
-        public static Dictionary<string,string> Voted = new Dictionary<string, string>();
+        public PlayerConsole(ATTG3Plugin plugin) => this.plugin = plugin;
+        public static Dictionary<Player, bool> StaffCall = new Dictionary<Player, bool>();
+        public static Dictionary<string, string> Voted = new Dictionary<string, string>();
         public void OnCallCommand(PlayerCallCommandEvent ev)
         {
             string command = ev.Command.ToLower();
@@ -22,7 +19,7 @@ namespace ATTG3
             {
                 if (plugin.Voteopen && Voted.ContainsKey(ev.Player.SteamId) == false)
                 {
-                    Voted.Add(ev.Player.SteamId,"yes");
+                    Voted.Add(ev.Player.SteamId, "yes");
                     plugin.Yes++;
                     ev.ReturnMessage = "Vote Submitted";
                 }
@@ -113,172 +110,197 @@ namespace ATTG3
                     ".30lock Sets Event key access /n";
                 return;
             }
-			else if (ev.Player.TeamRole.Role==Role.SCP_079)
-			{
-				var SCP079 = ev.Player.Scp079Data;
-				if (command.StartsWith("kill"))
-				{
-					ev.Player.ChangeRole(Role.SPECTATOR);
-					ev.ReturnMessage = "Killed Player";
-				}
-				else if (command.StartsWith("tesla") && ev.Player.SteamId == "76561198126860363")
-				{
-					if(SCP079.Level >= 2 && SCP079.AP >= 100)
-					{
-						foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
-						{
-							TeslaGate.Activate(true);
-						}
-						SCP079.AP -= 100;
-						ev.ReturnMessage = "Spamed all Teslas";
-					}
-				}
-				else if (command.StartsWith("door") && ev.Player.SteamId == "76561198126860363")
-				{
-					if (SCP079.Level >= 4 && SCP079.AP >= 200)
-					{
-						foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
-						{
-							if (door.Name == "")
-							{
-								door.Open = false;
-							}
-						}
-						SCP079.AP -= 200;
-						ev.ReturnMessage = "Closed all Doors";
-					}
-				}
-				else if (command.StartsWith("cassie") && ev.Player.SteamId == "76561198126860363")
-				{
-					if (SCP079.Level >= 4 && SCP079.AP >= 200)
-					{
-						//string args2 = ev.Command[1].ToString().ToLower();
-						PluginManager.Manager.Server.Map.AnnounceCustomMessage(ev.Command);
-						SCP079.AP -= 200;
-						ev.ReturnMessage = "Cassie Called";
-					}
-				}
-				else if (command.StartsWith("locate") && ev.Player.SteamId == "76561198126860363")
-				{
-					if (SCP079.Level >= 4 && SCP079.AP >= 200)
-					{
-						Events.Locate();
-						SCP079.AP -= 200;
-						ev.ReturnMessage = "Locating Players";
-					}
-				}
-			}
+            else if (ev.Player.TeamRole.Role == Role.SCP_079)
+            {
+                var SCP079 = ev.Player.Scp079Data;
+                if (command.StartsWith("kill"))
+                {
+                    ev.Player.ChangeRole(Role.SPECTATOR);
+                    ev.ReturnMessage = "Killed Player";
+                }
+                else if (command.StartsWith("tesla"))
+                {
+                    if (SCP079.Level >= 2 && SCP079.AP >= 100)
+                    {
+                        foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
+                        {
+                            TeslaGate.Activate(true);
+                        }
+                        SCP079.AP -= 100;
+                        ev.ReturnMessage = "Spamed all Teslas";
+                    }
+                    else
+                    {
+                        ev.ReturnMessage = "You are not level 3 or you do not have 100 power ";
+                    }
+                }
+                else if (command.StartsWith("door") && ev.Player.SteamId == "76561198126860363")
+                {
+                    if (SCP079.Level >= 4 && SCP079.AP >= 200)
+                    {
+                        foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
+                        {
+                            if (door.Name == "")
+                            {
+                                door.Open = false;
+                            }
+                        }
+                        SCP079.AP -= 200;
+                        ev.ReturnMessage = "Closed all Doors";
+                    }
+                    else
+                    {
+                        ev.ReturnMessage = "You are not level 5 or you do not have 200 power ";
+                    }
+                }
+                else if (command.StartsWith("cassie") && ev.Player.SteamId == "76561198126860363")
+                {
+                    if (SCP079.Level >= 4 && SCP079.AP >= 200)
+                    {
+                        //string args2 = ev.Command[1].ToString().ToLower();
+                        PluginManager.Manager.Server.Map.AnnounceCustomMessage(ev.Command);
+                        SCP079.AP -= 200;
+                        ev.ReturnMessage = "Cassie Called";
+                    }
+                    else
+                    {
+                        ev.ReturnMessage = "You are not level 5 or you do not have 200 power ";
+                    }
+                }
+                else if (command.StartsWith("locate") && ev.Player.SteamId == "76561198126860363")
+                {
+                    if (SCP079.Level >= 4 && SCP079.AP >= 200)
+                    {
+                        Events.Locate();
+                        SCP079.AP -= 200;
+                        ev.ReturnMessage = "Locating Players";
+                    }
+                    else
+                    {
+                        ev.ReturnMessage = "You are not level 5 or you do not have 200 power ";
+                    }
+                }
+            }
             else if (command.StartsWith("calladmin"))
             {
+                if (StaffCall.ContainsKey(ev.Player) == false)
+                {
+                    StaffCall.Add(ev.Player, false);
 
+                    ev.ReturnMessage = "Calling Staff";
+                }
+                else
+                {
+                    ev.ReturnMessage = "You have aleady called Staff";
+                }
             }
-                #region Invcode
+            #region Invcode
 
-                /* else if (command.StartsWith("inv1"))
+            /* else if (command.StartsWith("inv1"))
+             {
+                 // This is a Test This will be unlocked to all players if it works.
+                 if (ev.Player.SteamId == "76561198126860363")
                  {
-                     // This is a Test This will be unlocked to all players if it works.
-                     if (ev.Player.SteamId == "76561198126860363")
-                     {
-                         Events.Inventoryset(ev.Player, 1);
-                         ev.ReturnMessage = "Changed Held item";
-                     }
-                     else
-                     {
-                         ev.ReturnMessage = "Command is in testing mode";
-                     }
+                     Events.Inventoryset(ev.Player, 1);
+                     ev.ReturnMessage = "Changed Held item";
                  }
-                 else if (command.StartsWith("inv2"))
+                 else
                  {
-                     // This is a Test This will be unlocked to all players if it works.
-                     if (ev.Player.SteamId == "76561198126860363")
-                     {
-                         Events.Inventoryset(ev.Player, 2);
-                         ev.ReturnMessage = "Changed Held item";
-                     }
-                     else
-                     {
-                         ev.ReturnMessage = "Command is in testing mode";
-                     }
+                     ev.ReturnMessage = "Command is in testing mode";
                  }
-                 else if (command.StartsWith("inv3"))
+             }
+             else if (command.StartsWith("inv2"))
+             {
+                 // This is a Test This will be unlocked to all players if it works.
+                 if (ev.Player.SteamId == "76561198126860363")
                  {
-                     // This is a Test This will be unlocked to all players if it works.
-                     if (ev.Player.SteamId == "76561198126860363")
-                     {
-                         Events.Inventoryset(ev.Player, 3);
-                         ev.ReturnMessage = "Changed Held item";
-                     }
-                     else
-                     {
-                         ev.ReturnMessage = "Command is in testing mode";
-                     }
+                     Events.Inventoryset(ev.Player, 2);
+                     ev.ReturnMessage = "Changed Held item";
                  }
-                 else if (command.StartsWith("inv4"))
+                 else
                  {
-                     // This is a Test This will be unlocked to all players if it works.
-                     if (ev.Player.SteamId == "76561198126860363")
-                     {
-                         Events.Inventoryset(ev.Player, 4);
-                         ev.ReturnMessage = "Changed Held item";
-                     }
-                     else
-                     {
-                         ev.ReturnMessage = "Command is in testing mode";
-                     }
+                     ev.ReturnMessage = "Command is in testing mode";
                  }
-                 else if (command.StartsWith("inv5"))
+             }
+             else if (command.StartsWith("inv3"))
+             {
+                 // This is a Test This will be unlocked to all players if it works.
+                 if (ev.Player.SteamId == "76561198126860363")
                  {
-                     // This is a Test This will be unlocked to all players if it works.
-                     if (ev.Player.SteamId == "76561198126860363")
-                     {
-                         Events.Inventoryset(ev.Player, 5);
-                         ev.ReturnMessage = "Changed Held item";
-                     }
-                     else
-                     {
-                         ev.ReturnMessage = "Command is in testing mode";
-                     }
+                     Events.Inventoryset(ev.Player, 3);
+                     ev.ReturnMessage = "Changed Held item";
                  }
-                 else if (command.StartsWith("inv6"))
+                 else
                  {
-                     // This is a Test This will be unlocked to all players if it works.
-                     if (ev.Player.SteamId == "76561198126860363")
-                     {
-                         Events.Inventoryset(ev.Player, 6);
-                         ev.ReturnMessage = "Changed Held item";
-                     }
-                     else
-                     {
-                         ev.ReturnMessage = "Command is in testing mode";
-                     }
+                     ev.ReturnMessage = "Command is in testing mode";
                  }
-                 else if (command.StartsWith("inv7"))
+             }
+             else if (command.StartsWith("inv4"))
+             {
+                 // This is a Test This will be unlocked to all players if it works.
+                 if (ev.Player.SteamId == "76561198126860363")
                  {
-                     // This is a Test This will be unlocked to all players if it works.
-                     if (ev.Player.SteamId == "76561198126860363")
-                     {
-                         Events.Inventoryset(ev.Player, 7);
-                         ev.ReturnMessage = "Changed Held item";
-                     }
-                     else
-                     {
-                         ev.ReturnMessage = "Command is in testing mode";
-                     }
+                     Events.Inventoryset(ev.Player, 4);
+                     ev.ReturnMessage = "Changed Held item";
                  }
-                 else if (command.StartsWith("inv8"))
+                 else
                  {
-                     // This is a Test This will be unlocked to all players if it works.
-                     if (ev.Player.SteamId == "76561198126860363")
-                     {
-                         Events.Inventoryset(ev.Player, 8);
-                         ev.ReturnMessage = "Changed Held item";
-                     }
-                     else
-                     {
-                         ev.ReturnMessage = "Command is in testing mode";
-                     }
-                 }*/
-                #endregion
-            }
+                     ev.ReturnMessage = "Command is in testing mode";
+                 }
+             }
+             else if (command.StartsWith("inv5"))
+             {
+                 // This is a Test This will be unlocked to all players if it works.
+                 if (ev.Player.SteamId == "76561198126860363")
+                 {
+                     Events.Inventoryset(ev.Player, 5);
+                     ev.ReturnMessage = "Changed Held item";
+                 }
+                 else
+                 {
+                     ev.ReturnMessage = "Command is in testing mode";
+                 }
+             }
+             else if (command.StartsWith("inv6"))
+             {
+                 // This is a Test This will be unlocked to all players if it works.
+                 if (ev.Player.SteamId == "76561198126860363")
+                 {
+                     Events.Inventoryset(ev.Player, 6);
+                     ev.ReturnMessage = "Changed Held item";
+                 }
+                 else
+                 {
+                     ev.ReturnMessage = "Command is in testing mode";
+                 }
+             }
+             else if (command.StartsWith("inv7"))
+             {
+                 // This is a Test This will be unlocked to all players if it works.
+                 if (ev.Player.SteamId == "76561198126860363")
+                 {
+                     Events.Inventoryset(ev.Player, 7);
+                     ev.ReturnMessage = "Changed Held item";
+                 }
+                 else
+                 {
+                     ev.ReturnMessage = "Command is in testing mode";
+                 }
+             }
+             else if (command.StartsWith("inv8"))
+             {
+                 // This is a Test This will be unlocked to all players if it works.
+                 if (ev.Player.SteamId == "76561198126860363")
+                 {
+                     Events.Inventoryset(ev.Player, 8);
+                     ev.ReturnMessage = "Changed Held item";
+                 }
+                 else
+                 {
+                     ev.ReturnMessage = "Command is in testing mode";
+                 }
+             }*/
+            #endregion
+        }
     }
 }
