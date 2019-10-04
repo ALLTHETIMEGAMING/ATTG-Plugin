@@ -10,7 +10,7 @@ namespace ATTG3
     {
         private readonly ATTG3Plugin plugin;
         public PlayerConsole(ATTG3Plugin plugin) => this.plugin = plugin;
-        public static Dictionary<string, bool> StaffCall = new Dictionary<string, bool>();
+        public static Dictionary<Player, bool> StaffCall = new Dictionary<Player, bool>();
         public static Dictionary<string, string> Voted = new Dictionary<string, string>();
         public void OnCallCommand(PlayerCallCommandEvent ev)
         {
@@ -183,9 +183,9 @@ namespace ATTG3
             }
             else if (command.StartsWith("calladmin"))
             {
-                if (StaffCall.ContainsKey(ev.Player.SteamId) == false)
+                if (StaffCall.ContainsKey(ev.Player) == false)
                 {
-                    StaffCall.Add(ev.Player.SteamId, false);
+                    StaffCall.Add(ev.Player, false);
 
                     ev.ReturnMessage = "Calling Staff";
                 }
