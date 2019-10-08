@@ -164,6 +164,7 @@ namespace ATTG3
             this.AddCommand("Weapon", new Weppon(this));
 			this.AddCommand("Locate", new Locate(this));
             this.AddCommand("Watch", new Watch(this));
+            this.AddCommand("intercom", new Incomname(this));
 
             // Commands added after 8/23/2019
             this.AddCommands(Gate.CA, new Gate(this));
