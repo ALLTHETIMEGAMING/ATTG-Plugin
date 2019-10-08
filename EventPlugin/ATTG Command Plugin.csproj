@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands V2\BanR.cs" />
+    <Compile Include="Commands\scpcon.cs" />
     <Compile Include="Commands\IntercomName.cs" />
     <Compile Include="Commands\Helprequest.cs" />
     <Compile Include="Commands\Watchlist.cs" />
