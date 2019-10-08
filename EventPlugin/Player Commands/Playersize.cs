@@ -47,9 +47,8 @@ namespace ATTG3
                         */
                         GameObject playerobj = (GameObject)myPlayer.GetGameObject();
                         NetworkServer.UnSpawn(playerobj);
-                        var playerobj1 = playerobj;
-                        playerobj1.transform.localScale = new Vector3(50, 50, 50);
-                        NetworkServer.UnSpawn(playerobj1);
+                        playerobj.transform.localScale = new Vector3(50, 50, 50);
+                        NetworkServer.Spawn(playerobj);
 
                         return new string[] { myPlayer.Name+" size changed" };
                     }

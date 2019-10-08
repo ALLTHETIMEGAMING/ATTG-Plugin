@@ -3,6 +3,7 @@ using Smod2.Commands;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Collections.Generic;
 namespace ATTG3
 {
     class Gate : ICommandHandler
@@ -34,21 +35,15 @@ namespace ATTG3
                 };
             }
             Player player1 = sender as Player;
-            Vector pos = player1.GetPosition();
-            GameObject[] objects = UnityEngine.Object.FindObjectsOfType<GameObject>();
-            foreach (GameObject go in objects)
-            {
-                if (go.activeInHierarchy && go.GetComponent<NetworkIdentity>() != null)
-                {
-                    if (go.name.Contains("Gate"))
-                    {
-                        NetworkServer.UnSpawn(go);
-                        go.gameObject.transform.localPosition = new Vector3(pos.x, pos.y, pos.z +2);
-                        NetworkServer.Spawn(go);
-                    }
-                }
-            }
-            return new[] { "Gate Teleported" };
+			List<TeslaGate> door = Object.FindObjectsOfType<TeslaGate>().ToList();
+			var i = Random.Range(0, door.Count);
+			GameObject door1 = door[i].gameObject;
+			Vector pos = player1.GetPosition();
+			NetworkServer.UnSpawn(door1);
+			GameObject door2 = door1;
+			door1.transform.position = new Vector3(pos.x, pos.y - 1, pos.z);
+			NetworkServer.Spawn(door2);
+			return new[] { "Gate Teleported" };
         }
     }
 }

@@ -358,7 +358,7 @@ namespace ATTG3
 				GameObject player = (GameObject)ev.Player.GetGameObject();
 				WeaponManager playerWM = player.GetComponent<WeaponManager>();
 				Ray ray = new Ray(playerWM.camera.transform.position + playerWM.camera.transform.forward, playerWM.camera.transform.forward);
-				
+
 				if (ev.Target != null)
 				{
 					if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "grenade")
@@ -366,12 +366,10 @@ namespace ATTG3
 						int kill = 0;
 						ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
 						ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
-						while (kill != 10)
+						while (kill != 20)
 						{
-							Vector target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
+							Vector target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-10f, 10f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-10f, 10f));
 							ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
-							target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
-							ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
 							kill++;
 						}
 					}

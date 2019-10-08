@@ -118,9 +118,16 @@ namespace ATTG3
 					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=50><color=#FFD700>Hide and Seek Event Starting</Color></SIZE>\n<color=#FF0000>NOTE: THIS EVENT IS NOT DONE</color>", false);
 					HideandSeek.HideandSeekevent = true;
 					plugin.Event = true;
-					Events.AllSpawns();
                     plugin.Discord.CalldiscordString("Event Started", "Hide and Seek", "Event Name");
                     return new[] { "Hide and Seek Event Started" };
+				}
+				else if (args2 == "team")
+				{
+					PluginManager.Manager.Server.Map.Broadcast(10, "<SIZE=50><color=#FFD700>TEAM Event Starting</Color></SIZE>\n<color=#FF0000>NOTE: THIS EVENT IS NOT DONE</color>", false);
+					Team.Teamevent = true;
+					plugin.Event = true;
+					plugin.Discord.CalldiscordString("Event Started", "Team", "Event Name");
+					return new[] { "Team Event Started" };
 				}
 				else if (args2 == "jug")
 				{

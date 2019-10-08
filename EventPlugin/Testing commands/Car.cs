@@ -13,8 +13,8 @@ using Smod2.Attributes;
 using ATTG_Command;
 namespace ATTG3
 {
-    class Car : ICommandHandler
-    {
+    class Car : NetworkBehaviour, ICommandHandler
+	{
         private readonly ATTG3Plugin plugin;
 
         Server Server => PluginManager.Manager.Server;
@@ -22,6 +22,7 @@ namespace ATTG3
         public Car(ATTG3Plugin plugin) => this.plugin=plugin;
         public string GetCommandDescription() => "";
         public string GetUsage() => "Forces player up";
+		private static int kRpcRpcVan;
 		public string[] OnCall(ICommandSender sender, string[] args)
         {
 			if (!(sender is Server) &&
@@ -34,7 +35,15 @@ namespace ATTG3
 				};
 			}
 			else
-
+			{
+				kRpcRpcVan = -871850524;
+				NetworkWriter val = new NetworkWriter();
+				val.Write((short)0);
+				val.Write((short)2);
+				val.WritePackedUInt32((uint)kRpcRpcVan);
+				val.Write(plugin.MTFre.GetComponent<NetworkIdentity>().netId);
+				this.SendRPCInternal(val, 2, "RpcVan");
+			}
                 return new string[] { "Car Called" };
                 
             }

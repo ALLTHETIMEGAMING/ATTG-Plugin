@@ -186,8 +186,9 @@ namespace ATTG3
                 if (StaffCall.ContainsKey(ev.Player) == false)
                 {
                     StaffCall.Add(ev.Player, false);
-
-                    ev.ReturnMessage = "Calling Staff";
+					Events.CallStaff(ev.Player);
+					plugin.Discord.CalldiscordString("Call Staff", "Player Name: " + ev.Player.Name, "Player Requested Help");
+					ev.ReturnMessage = "Calling Staff";
                 }
                 else
                 {

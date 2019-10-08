@@ -45,7 +45,8 @@ namespace ATTG3
                         NetworkServer.UnSpawn(go);
                         GameObject ngo = go;
                         ngo.gameObject.transform.localPosition = new Vector3(pos.x + 2, pos.y, pos.z);
-                        NetworkServer.Spawn(ngo);
+						ngo.gameObject.transform.position = new Vector3(pos.x + 2, pos.y, pos.z);
+						NetworkServer.Spawn(ngo);
                     }
                 }
             }

@@ -18,7 +18,6 @@ namespace ATTG3
 		public string GetCommandDescription() => "";
 		public string GetUsage() => "Makes a player that is SCP-939 fast";
 		public static Dictionary<string,string> GrenadeList = new Dictionary<string,string>();
-		public static bool Toggle = false;
 		public static readonly string[] CA = new string[] { "AGGRENADE" };
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
@@ -48,6 +47,10 @@ namespace ATTG3
 				}
 				else if (args2 == "set")
 				{
+					if (GrenadeList.ContainsKey(myPlayer.SteamId))
+					{
+						GrenadeList.Remove(myPlayer.SteamId);
+					}
 					string args3 = args[2].ToLower();
 					if (args3 == "body")
 					{
@@ -58,11 +61,6 @@ namespace ATTG3
 						GrenadeList.Add(myPlayer.SteamId.ToString(), "grenade");
 					}
 					return new string[] { myPlayer.Name + "Added to List" };
-				}
-				else if (args2 == "toggle")
-				{
-					Toggle = !Toggle;
-					return new string[] { "Toggled" };
 				}
 				else
 				{

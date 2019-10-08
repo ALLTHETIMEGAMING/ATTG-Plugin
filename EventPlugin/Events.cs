@@ -1224,11 +1224,14 @@ namespace ATTG3
             Cap.CI = 0;
             Cap.Holdevent = false;
             GrenadeGun.GrenadeList.Clear();
-            GrenadeGun.Toggle = false;
             Fakedea.wipe.Clear();
             TDM.Event = false;
             TDM.MTFKill = 0;
-            TDM.CIKills = 0;
+			TDM.CIKills = 0;
+			Team.TEAM2.Clear();
+			Team.TEAM1.Clear();
+			Team.Teamevent = false;
+			Mute.Muted = false;
             PlayerConsole.StaffCall.Clear();
             Watchlist(null);
             //Events.GetRoundStartRoom();
@@ -1723,7 +1726,7 @@ namespace ATTG3
                     || players.GetUserGroup().BadgeText.Contains("Staff")||players.GetUserGroup().BadgeText.Contains("Operator") ||
                     players.GetUserGroup().BadgeText.Contains("Advisor")|| players.GetUserGroup().BadgeText.Contains("O5"))
                 {
-                    players.PersonalBroadcast(10, "Player" + player.Name + "Is Calling a Staff Meber", false);
+                    players.PersonalBroadcast(10, "Player " + player.Name + " Is Calling a Staff Meber", false);
                 }
             }
         }

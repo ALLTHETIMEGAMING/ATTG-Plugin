@@ -188,7 +188,7 @@ namespace ATTG3
 					if (ev.Allow == true)
 					{
 						PluginManager.Manager.Server.Map.ClearBroadcasts();
-						PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " Actavation Stoped", false);
+						PluginManager.Manager.Server.Map.Broadcast(10, "The Generator in " + ev.Generator.Room.RoomType.ToString() + " Activation Stopped", false);
 						ev.SpawnTablet = false;
 					}
                 }

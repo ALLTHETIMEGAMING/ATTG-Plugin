@@ -85,8 +85,9 @@ namespace ATTG3
         public static string CustomRank = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "CustomRank.txt";
         public static string WatchList = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "WatchList.txt";
         public Call_Discord Discord = new Call_Discord(ATTG_Webhook.Instance);
-        //End of Events
-        public override void Register()
+		public MTFRespawn MTFre = new MTFRespawn();
+		//End of Events
+		public override void Register()
         {
             Instance = this;
             // Configs
@@ -164,9 +165,12 @@ namespace ATTG3
             this.AddCommand("Weapon", new Weppon(this));
 			this.AddCommand("Locate", new Locate(this));
             this.AddCommand("Watch", new Watch(this));
+			this.AddCommands(HelpRequest.CA, new HelpRequest(this));
+			this.AddCommands(Mute.CA, new Mute(this));
+			this.AddCommand("Car", new Car(this));
 
-            // Commands added after 8/23/2019
-            this.AddCommands(Gate.CA, new Gate(this));
+			// Commands added after 8/23/2019
+			this.AddCommands(Gate.CA, new Gate(this));
             this.AddCommands(Con106.CA, new Con106(this));
             this.AddCommands(Heli.CA, new Heli(this));
             this.AddCommands(BreachCamp.CA, new BreachCamp(this));
@@ -193,6 +197,7 @@ namespace ATTG3
 			this.AddEventHandlers(new PlayerConsole(this));
             this.AddEventHandlers(new Hostagevent(this), Priority.High);
 			this.AddEventHandlers(new Cap(this), Priority.High);
+			this.AddEventHandlers(new Team(this), Priority.High);
 			this.AddEventHandlers(new Hold(this), Priority.High);
             
 		}
