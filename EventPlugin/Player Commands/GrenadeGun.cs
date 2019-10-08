@@ -1,10 +1,8 @@
-﻿using MEC;
-using Smod2;
+﻿using Smod2;
 using Smod2.API;
 using Smod2.Commands;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 namespace ATTG3
 {
 	class GrenadeGun : ICommandHandler
@@ -39,7 +37,7 @@ namespace ATTG3
 				if (myPlayer == null) { return new string[] { "Couldn't get player: " + args[0] }; }
 
 				string args2 = args[1].ToLower();
-				
+
 				if (args2 == "reset")
 				{
 					GrenadeList.Remove(myPlayer.SteamId.ToString());
@@ -54,13 +52,34 @@ namespace ATTG3
 					string args3 = args[2].ToLower();
 					if (args3 == "body")
 					{
-						GrenadeList.Add(myPlayer.SteamId.ToString(),"body");
+						GrenadeList.Add(myPlayer.SteamId.ToString(), "body");
+						return new string[] { myPlayer.Name + "Added to List" };
 					}
 					else if (args3 == "grenade")
 					{
 						GrenadeList.Add(myPlayer.SteamId.ToString(), "grenade");
+						return new string[] { myPlayer.Name + "Added to List" };
 					}
-					return new string[] { myPlayer.Name + "Added to List" };
+					else if (args3 == "usp")
+					{
+						GrenadeList.Add(myPlayer.SteamId.ToString(), "usp");
+						return new string[] { myPlayer.Name + "Added to List" };
+					}
+					else if (args3 == "null")
+					{
+						GrenadeList.Add(myPlayer.SteamId.ToString(), "null");
+						return new string[] { myPlayer.Name + "Added to List" };
+					}
+					else
+					{
+						return new[]
+						{
+							"",
+						CA.First() + " Help" + " Shows this",
+						CA.First() + " Reset" + ".",
+						CA.First() + " Set" + " Sets.",
+						};
+					}
 				}
 				else
 				{
@@ -83,6 +102,6 @@ namespace ATTG3
 				CA.First() + "Set",
 				};
 			}
-		}
-	}
+        }
+    }
 }

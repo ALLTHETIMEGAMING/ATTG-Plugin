@@ -10,7 +10,6 @@ namespace ATTG3
     class DebugATTG : ICommandHandler
     {
         private readonly ATTG3Plugin plugin;
-        public static bool Config1;
         public DebugATTG(ATTG3Plugin plugin)
         {
             this.plugin = plugin;

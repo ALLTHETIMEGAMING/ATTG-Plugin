@@ -168,6 +168,8 @@ namespace ATTG3
 			this.AddCommands(HelpRequest.CA, new HelpRequest(this));
 			this.AddCommands(Mute.CA, new Mute(this));
 			this.AddCommand("Car", new Car(this));
+            this.AddCommand("intercom", new Incomname(this));
+            this.AddCommand("scpcon", new SCPCON(this));
 
 			// Commands added after 8/23/2019
 			this.AddCommands(Gate.CA, new Gate(this));
