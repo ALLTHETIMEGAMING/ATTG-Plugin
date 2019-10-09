@@ -41,7 +41,7 @@ namespace ATTG3
 				if (args2 == "reset")
 				{
 					GrenadeList.Remove(myPlayer.SteamId.ToString());
-					return new string[] { myPlayer.Name + " Removed from Grenade List" };
+					return new string[] { myPlayer.Name + " Removed from List" };
 				}
 				else if (args2 == "set")
 				{

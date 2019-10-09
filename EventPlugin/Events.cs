@@ -1730,5 +1730,18 @@ namespace ATTG3
                 }
             }
         }
+        public static IEnumerator<float> Setplayerattach(Player player,ItemType item, WeaponBarrel weaponBarrel, WeaponOther weaponOther, WeaponSight weaponSight)
+        {
+            yield return MEC.Timing.WaitForSeconds(3);
+            foreach (Smod2.API.Item items in player.GetInventory())
+            {
+                if (items.ItemType == item)
+                {
+                    items.ToWeapon().Barrel = weaponBarrel;
+                    items.ToWeapon().Sight = weaponSight;
+                    items.ToWeapon().Other = weaponOther;
+                }
+            }
+        }
     }
 }

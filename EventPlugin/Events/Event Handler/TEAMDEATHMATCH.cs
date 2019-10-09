@@ -112,6 +112,12 @@ namespace ATTG3
                     ev.SpawnPos = ev.SpawnPos = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCIENTIST);
                 }
                 Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
+                Timing.RunCoroutine(Events.Setplayerattach(ev.Player,ItemType.E11_STANDARD_RIFLE,WeaponBarrel.MUZZLE_BREAK,
+                WeaponOther.AMMO_COUNTER,WeaponSight.SNIPER_SCOPE));
+                Timing.RunCoroutine(Events.Setplayerattach(ev.Player, ItemType.P90, WeaponBarrel.MUZZLE_BREAK,
+                WeaponOther.AMMO_COUNTER, WeaponSight.HOLO_SIGHT));
+                Timing.RunCoroutine(Events.Setplayerattach(ev.Player, ItemType.COM15, WeaponBarrel.NONE,
+                WeaponOther.FLASHLIGHT, WeaponSight.NONE));
             }
         }
         public void OnRoundEnd(RoundEndEvent ev)
@@ -178,7 +184,10 @@ namespace ATTG3
         {
             if (Event)
             {
-                ev.Allow = false;
+                if (ev.Item.ItemType != ItemType.MEDKIT)
+                {
+                    ev.Allow = false;
+                }
             }
         }
         public void OnDoorAccess(PlayerDoorAccessEvent ev)
