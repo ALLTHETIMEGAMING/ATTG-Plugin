@@ -74,13 +74,13 @@ namespace ATTG3
 				}
                 else if (args2 == "sound")
                 {
-                    if (Gunsoundlist.ContainsKey(myPlayer.SteamId))
+                    if (Gunsoundslist.ContainsKey(myPlayer.SteamId))
 					{
-                        Gunsoundlist.Remove(myPlayer.SteamId);
+                        Gunsoundslist.Remove(myPlayer.SteamId);
 					}
                     string args3 = args[2].ToLower();
                     int soundnum = Int32.Parse(args3);
-                    Gunsoundlist.Add(myPlayer.SteamId.ToString(), "null");
+                    Gunsoundslist.Add(myPlayer.SteamId.ToString(), soundnum);
                     return new string[] { myPlayer.Name + "Added to List" };
                 }
 				else

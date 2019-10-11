@@ -403,20 +403,21 @@ namespace ATTG3
                 }
                 
             }
-            if (GunSound.Gunsoundlist.ContainsKey(ev.Player.SteamId.ToString())|| GunSound.Gunsoundslist.ContainsKey(ev.Player.SteamId.ToString()))
+            else if (GunSound.Gunsoundlist.ContainsKey(ev.Player.SteamId.ToString())|| GunSound.Gunsoundslist.ContainsKey(ev.Player.SteamId.ToString()))
             {
-                if (GunSound.Gunsoundlist[ev.Player.SteamId.ToString()] == "usp")
+				if (GunSound.Gunsoundslist.ContainsKey(ev.Player.SteamId.ToString()))
+				{
+					Events.Onshootevent(ev.Player);
+				}
+				if (GunSound.Gunsoundlist[ev.Player.SteamId.ToString()] == "usp")
                 {
                     ev.WeaponSound = WeaponSound.USP;
-                }
+				}
                 else if (GunSound.Gunsoundlist[ev.Player.SteamId.ToString()] == "null")
                 {
                     ev.WeaponSound = null;
                 }
-                if (GunSound.Gunsoundslist.ContainsKey(ev.Player.SteamId.ToString()))
-                {
-                    Events.Onshootevent(ev.Player);
-                }
+                
             }
         }
         public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
