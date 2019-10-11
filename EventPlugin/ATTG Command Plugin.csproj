@@ -136,6 +136,7 @@
     <Compile Include="Events\Event Handler\lurk.cs" />
     <Compile Include="Events\Event Handler\Clasd.cs" />
     <Compile Include="Events\Event Commands\GunGameNerf.cs" />
+    <Compile Include="Player Commands\GunSound.cs" />
     <Compile Include="Player Commands\Rain.cs" />
     <Compile Include="Player Commands\GrenadeGun.cs" />
     <Compile Include="Player Commands\Nerfplayer.cs" />

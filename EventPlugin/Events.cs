@@ -1233,6 +1233,8 @@ namespace ATTG3
 			Team.Teamevent = false;
 			Mute.Muted = false;
             PlayerConsole.StaffCall.Clear();
+            GunSound.Gunsoundlist.Clear();
+            GunSound.Gunsoundslist.Clear();
             Watchlist(null);
             //Events.GetRoundStartRoom();
             /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
@@ -1741,6 +1743,15 @@ namespace ATTG3
                     items.ToWeapon().Sight = weaponSight;
                     items.ToWeapon().Other = weaponOther;
                 }
+            }
+        }
+        public static void Onshootevent(Player player)
+        {
+            GameObject PlayerObject = (GameObject)player.GetGameObject();
+            WeaponManager weps = PlayerObject.GetComponent<WeaponManager>();
+            for (int i = 0; i < GunSound.Gunsoundslist[player.SteamId.ToString()]; i++)
+            {
+                weps.CallRpcConfirmShot(false, weps.curWeapon);
             }
         }
     }

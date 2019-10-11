@@ -165,7 +165,9 @@ namespace ATTG3
             this.AddCommand("Weapon", new Weppon(this));
 			this.AddCommand("Locate", new Locate(this));
             this.AddCommand("Watch", new Watch(this));
-			this.AddCommands(HelpRequest.CA, new HelpRequest(this));
+            this.AddCommand("Guns", new GunSound(this));
+            this.AddCommands(HelpRequest.CA, new HelpRequest(this));
+            this.AddCommands(BlastR.CA, new BlastR(this));
 			this.AddCommands(Mute.CA, new Mute(this));
 			this.AddCommand("Car", new Car(this));
             this.AddCommand("intercom", new Incomname(this));

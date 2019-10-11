@@ -401,13 +401,21 @@ namespace ATTG3
                         ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, vector3pos, true, 0f, false);
                     }
                 }
-                if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "usp")
+                
+            }
+            if (GunSound.Gunsoundlist.ContainsKey(ev.Player.SteamId.ToString())|| GunSound.Gunsoundslist.ContainsKey(ev.Player.SteamId.ToString()))
+            {
+                if (GunSound.Gunsoundlist[ev.Player.SteamId.ToString()] == "usp")
                 {
                     ev.WeaponSound = WeaponSound.USP;
                 }
-                if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "null")
+                else if (GunSound.Gunsoundlist[ev.Player.SteamId.ToString()] == "null")
                 {
                     ev.WeaponSound = null;
+                }
+                if (GunSound.Gunsoundslist.ContainsKey(ev.Player.SteamId.ToString()))
+                {
+                    Events.Onshootevent(ev.Player);
                 }
             }
         }
