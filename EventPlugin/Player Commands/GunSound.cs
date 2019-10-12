@@ -80,8 +80,19 @@ namespace ATTG3
 					}
                     string args3 = args[2].ToLower();
                     int soundnum = Int32.Parse(args3);
-                    Gunsoundslist.Add(myPlayer.SteamId.ToString(), soundnum);
-                    return new string[] { myPlayer.Name + "Added to List" };
+					if (soundnum > 0)
+					{
+						Gunsoundslist.Add(myPlayer.SteamId.ToString(), soundnum);
+						return new string[] { myPlayer.Name + "Added to List" };
+					}
+					else
+					{
+						if (Gunsoundslist.ContainsKey(myPlayer.SteamId))
+						{
+							Gunsoundslist.Remove(myPlayer.SteamId);
+						}
+						return new string[] { myPlayer.Name + "Removed from List" };
+					}
                 }
 				else
 				{

@@ -1,24 +1,19 @@
-﻿using Smod2;
+﻿using MEC;
+using RemoteAdmin;
+using Smod2;
 using Smod2.API;
 using Smod2.EventHandlers;
 using Smod2.Events;
-using UnityEngine;
-using MEC;
-using System.IO;
 using System.Collections.Generic;
-using Smod2.Attributes;
-using Smod2.Config;
 using System.Linq;
-using System.Threading;
-using System;
-using Smod2.Commands;
+using UnityEngine;
 using UnityEngine.Networking;
 
 namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerWarheadStopCountdown,
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock, IEventHandlerPlayerHurt,
-        IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
+		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
 		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerDie
 	{
@@ -35,8 +30,8 @@ namespace ATTG3
 			{
 				Elevator.MovingSpeed = plugin.Elevatord;
 			}
-            Events.RestartRound();
-        }
+			Events.RestartRound();
+		}
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			plugin.RoundStarted = true;
@@ -47,7 +42,7 @@ namespace ATTG3
 			{
 				ev.Player.Ban(99999999, "If you have @ This is a Perm Ban");
 				plugin.Info("Banned: " + ev.Nickname);
-			} 
+			}
 		}
 		public void OnStopCountdown(WarheadStopEvent ev)
 		{
@@ -75,29 +70,29 @@ namespace ATTG3
 					}
 				}
 			}
-            if (ev.Player.TeamRole.Role == Role.TUTORIAL)
-            {
-                ev.Allow = true;
-            }
-            if (plugin.SCPPRO && !plugin.Event && ev.Player.TeamRole.Role != Role.TUTORIAL)
-            {
-                if (PluginManager.Manager.Server.Round.Duration < 180)
-                {
-                    if (ev.Door.Name == "106_PRIMARY")
-                    {
-                        ev.Allow = false;
-                        ev.Door.Open = false;
-                        ev.Player.PersonalBroadcast(10, "You can not open this door yet", false);
-                    }
-                    else if (ev.Door.Name == "106_SECONDARY")
-                    {
-                        ev.Allow = false;
-                        ev.Door.Open = false;
-                        ev.Player.PersonalBroadcast(10, "You can not open this door yet", false);
-                    }
-                }
-            }
-			
+			if (ev.Player.TeamRole.Role == Role.TUTORIAL)
+			{
+				ev.Allow = true;
+			}
+			if (plugin.SCPPRO && !plugin.Event && ev.Player.TeamRole.Role != Role.TUTORIAL)
+			{
+				if (PluginManager.Manager.Server.Round.Duration < 180)
+				{
+					if (ev.Door.Name == "106_PRIMARY")
+					{
+						ev.Allow = false;
+						ev.Door.Open = false;
+						ev.Player.PersonalBroadcast(10, "You can not open this door yet", false);
+					}
+					else if (ev.Door.Name == "106_SECONDARY")
+					{
+						ev.Allow = false;
+						ev.Door.Open = false;
+						ev.Player.PersonalBroadcast(10, "You can not open this door yet", false);
+					}
+				}
+			}
+
 			if (plugin.NoCHand == true)
 			{
 				if (ev.Door.Permission == "CONT_LVL_3" && ev.Door.Locked == false)
@@ -221,25 +216,25 @@ namespace ATTG3
 		}
 		public void OnSetRole(PlayerSetRoleEvent ev)
 		{
-            GameObject val = GameObject.Find("Host");
-            int num = -1;
-            if (val != null)
-            {
-                num = val.GetComponent<RandomSeedSync>().seed;
-            }
-            if (plugin.Lights)
+			GameObject val = GameObject.Find("Host");
+			int num = -1;
+			if (val != null)
+			{
+				num = val.GetComponent<RandomSeedSync>().seed;
+			}
+			if (plugin.Lights)
 			{
 				ev.Player.GiveItem(ItemType.FLASHLIGHT);
 			}
-            if (plugin.TestingSpawn)
-            {
-                int RandomInt = new System.Random().Next(ATTG3Plugin.Maplist.Count);
-            }
-            if (plugin.AdminRanks.Contains(ev.Player.GetRankName()) && Setup.Setupbool && ev.Player.TeamRole.Role == Role.TUTORIAL)
-            {
-                ev.Player.PersonalBroadcast(10, "Map Seed is:" + num, false);
-            }
-            /*if (PluginManager.Manager.Server.Round.Stats.ClassDAlive == 0)
+			if (plugin.TestingSpawn)
+			{
+				int RandomInt = new System.Random().Next(ATTG3Plugin.Maplist.Count);
+			}
+			if (plugin.AdminRanks.Contains(ev.Player.GetRankName()) && Setup.Setupbool && ev.Player.TeamRole.Role == Role.TUTORIAL)
+			{
+				ev.Player.PersonalBroadcast(10, "Map Seed is:" + num, false);
+			}
+			/*if (PluginManager.Manager.Server.Round.Stats.ClassDAlive == 0)
             {
                 ev.Items.Remove(ItemType.DISARMER);
             }*/
@@ -260,12 +255,12 @@ namespace ATTG3
 			}
 			else if (ev.Admin.SteamId.Equals("76561198126860363"))
 			{
-                /*
+				/*
                 PluginManager.Manager.Server.Map.ClearBroadcasts();
                 int RandomInt = new System.Random().Next(ATTG3Plugin.Banmemes.Count);
 				PluginManager.Manager.Server.Map.Broadcast(10, ev.Player.Name.ToUpper().ToString() + " "+ ATTG3Plugin.Banmemes[RandomInt], false);
                 */
-                ev.Reason = "";
+				ev.Reason = "";
 			}
 		}
 		public void OnWarheadKeycardAccess(Smod2.Events.WarheadKeycardAccessEvent ev)
@@ -294,14 +289,14 @@ namespace ATTG3
 		{
 			if (ev.Player.SteamId == "76561198126860363")
 			{
-                Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
-                if (Config.Config1 && ATTG3Plugin.MapCusSpawn.Count > 0)
-                {
-                    System.Random rand = new System.Random();
-                    List<Vector> values = Enumerable.ToList(ATTG3Plugin.MapCusSpawn.Keys);
-                    int size = ATTG3Plugin.MapCusSpawn.Count;
-                    ev.SpawnPos = values[rand.Next(size)];
-                }
+				Timing.RunCoroutine(Events.GiveAmmo(ev.Player));
+				if (Config.Config1 && ATTG3Plugin.MapCusSpawn.Count > 0)
+				{
+					System.Random rand = new System.Random();
+					List<Vector> values = Enumerable.ToList(ATTG3Plugin.MapCusSpawn.Keys);
+					int size = ATTG3Plugin.MapCusSpawn.Count;
+					ev.SpawnPos = values[rand.Next(size)];
+				}
 			}
 		}
 		public void OnElevatorUse(Smod2.Events.PlayerElevatorUseEvent ev)
@@ -319,18 +314,18 @@ namespace ATTG3
 		public void OnRoundEnd(Smod2.Events.RoundEndEvent ev)
 		{
 			plugin.RoundStarted = false;
-            ConfigFile.ReloadGameConfig();
-            ATTG3Plugin.MapCusSpawn.Clear();
-        }
+			ConfigFile.ReloadGameConfig();
+			ATTG3Plugin.MapCusSpawn.Clear();
+		}
 		public void OnTeamRespawn(Smod2.EventSystem.Events.TeamRespawnEvent ev)
 		{
-			if (ev.SpawnChaos == true && plugin.Event == false && ev.PlayerList.Count> 0)
+			if (ev.SpawnChaos == true && plugin.Event == false && ev.PlayerList.Count > 0)
 			{
 				PluginManager.Manager.Server.Map.AnnounceCustomMessage("UNAUTHORIZED PERSONNEL SPOTTED AT GATE A");
 			}
 		}
-        public void OnSetConfig(Smod2.Events.SetConfigEvent ev)
-        {
+		public void OnSetConfig(Smod2.Events.SetConfigEvent ev)
+		{
 			/*
             if (ATTG3Plugin.Maplist.Count > 0)
             {
@@ -345,83 +340,136 @@ namespace ATTG3
                 }
             }
 			*/
-        }
-        public void OnShoot(Smod2.Events.PlayerShootEvent ev)
-        {
-            if (SSAM.SSAMBOT && ev.Player.SteamId == "76561198126860363")
-            {
-                Events.SSAIMBOT(ev.Player);
-                ev.ShouldSpawnHitmarker = true;
-            }
-            else if (GrenadeGun.GrenadeList.ContainsKey(ev.Player.SteamId.ToString()))
-            {
-                GameObject player = (GameObject)ev.Player.GetGameObject();
-                WeaponManager playerWM = player.GetComponent<WeaponManager>();
-                Ray ray = new Ray(playerWM.camera.transform.position + playerWM.camera.transform.forward, playerWM.camera.transform.forward);
+		}
+		public void OnShoot(Smod2.Events.PlayerShootEvent ev)
+		{
+			if (SSAM.SSAMBOT && ev.Player.SteamId == "76561198126860363")
+			{
+				Events.SSAIMBOT(ev.Player);
+				ev.ShouldSpawnHitmarker = true;
+			}
+			else if (GrenadeGun.GrenadeList.ContainsKey(ev.Player.SteamId.ToString()))
+			{
+				GameObject player = (GameObject)ev.Player.GetGameObject();
+				WeaponManager playerWM = player.GetComponent<WeaponManager>();
+				Ray ray = new Ray(playerWM.camera.transform.position + playerWM.camera.transform.forward, playerWM.camera.transform.forward);
 
-                if (ev.Target != null)
-                {
-                    if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "grenade")
-                    {
-                        int kill = 0;
-                        ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
-                        ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
-                        while (kill != 10)
-                        {
-                            Vector target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
-                            ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
-                            target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
-                            ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
-                            kill++;
-                        }
-                    }
-                    else if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "body")
-                    {
-                        int kill = 0;
-                        while (kill != 10)
-                        {
-                            GameObject player1 = (GameObject)ev.Target.GetGameObject();
-                            int role = (int)ev.Target.TeamRole.Role;
-                            Vector3 target = new Vector3(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
-                            Class @class = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().klasy[role];
-                            GameObject ragdoll = UnityEngine.Object.Instantiate(@class.model_ragdoll, target + @class.ragdoll_offset.position, Quaternion.Euler(player1.transform.rotation.eulerAngles + @class.ragdoll_offset.rotation));
-                            NetworkServer.Spawn(ragdoll);
-                            ragdoll.GetComponent<Ragdoll>().SetOwner(new Ragdoll.Info(ev.Player.PlayerId.ToString(), ev.Target.Name, new PlayerStats.HitInfo(), role, ev.Target.PlayerId));
-                            Fakedea.wipe.Add(ragdoll);
-                            kill++;
-                        }
-                    }
-                }
-                else if (Physics.Raycast(ray, out RaycastHit raycastHit, 150f))
-                {
-                    if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "grenade")
-                    {
-                        Vector3 destination = raycastHit.point + raycastHit.normal * 1f;
-                        Vector vector3pos = new Vector(destination.x, destination.y, destination.z);
-                        ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, vector3pos, true, 0f, false);
-                    }
-                }
-                
-            }
-            else if (GunSound.Gunsoundlist.ContainsKey(ev.Player.SteamId.ToString())|| GunSound.Gunsoundslist.ContainsKey(ev.Player.SteamId.ToString()))
-            {
-				if (GunSound.Gunsoundslist.ContainsKey(ev.Player.SteamId.ToString()))
+				if (ev.Target != null)
 				{
-					Events.Onshootevent(ev.Player);
+					if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "grenade")
+					{
+						int kill = 0;
+						ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
+						ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
+						while (kill != 10)
+						{
+							Vector target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
+							ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
+							target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
+							ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
+							kill++;
+						}
+					}
+					else if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "body")
+					{
+						int kill = 0;
+						while (kill != 10)
+						{
+							GameObject player1 = (GameObject)ev.Target.GetGameObject();
+							int role = (int)ev.Target.TeamRole.Role;
+							Vector3 target = new Vector3(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
+							Class @class = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().klasy[role];
+							GameObject ragdoll = UnityEngine.Object.Instantiate(@class.model_ragdoll, target + @class.ragdoll_offset.position, Quaternion.Euler(player1.transform.rotation.eulerAngles + @class.ragdoll_offset.rotation));
+							NetworkServer.Spawn(ragdoll);
+							ragdoll.GetComponent<Ragdoll>().SetOwner(new Ragdoll.Info(ev.Player.PlayerId.ToString(), ev.Target.Name, new PlayerStats.HitInfo(), role, ev.Target.PlayerId));
+							Fakedea.wipe.Add(ragdoll);
+							kill++;
+						}
+					}
 				}
+				else if (Physics.Raycast(ray, out RaycastHit raycastHit, 150f))
+				{
+					if (GrenadeGun.GrenadeList[ev.Player.SteamId.ToString()] == "grenade")
+					{
+						Vector3 destination = raycastHit.point + raycastHit.normal * 1f;
+						Vector vector3pos = new Vector(destination.x, destination.y, destination.z);
+						ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, vector3pos, true, 0f, false);
+					}
+				}
+
+			}
+			else if (GunSound.Gunsoundlist.ContainsKey(ev.Player.SteamId.ToString()))
+			{
 				if (GunSound.Gunsoundlist[ev.Player.SteamId.ToString()] == "usp")
-                {
-                    ev.WeaponSound = WeaponSound.USP;
+				{
+					ev.WeaponSound = WeaponSound.USP;
 				}
-                else if (GunSound.Gunsoundlist[ev.Player.SteamId.ToString()] == "null")
-                {
-                    ev.WeaponSound = null;
-                }
-                
-            }
-        }
-        public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
-        {
+				else if (GunSound.Gunsoundlist[ev.Player.SteamId.ToString()] == "null")
+				{
+					ev.WeaponSound = null;
+				}
+			}
+			if (GunSound.Gunsoundslist.ContainsKey(ev.Player.SteamId.ToString()))
+			{
+				Events.Onshootevent(ev.Player);
+			}
+			if (GrenadeGun.shotgun.Contains(ev.Player.SteamId.ToString()))
+			{
+				GameObject player = (GameObject)ev.Player.GetGameObject();
+				Transform cam = player.GetComponent<Scp049PlayerScript>().plyCam.transform;
+				Ray[] rays = new Ray[6];
+				for (int i = 0; i < rays.Length; i++)
+				{
+					rays[i] = new Ray(cam.position + cam.forward, Events.RandomAimcone() * cam.forward);
+				}
+
+				RaycastHit[] hits = new RaycastHit[6];
+				bool[] didHit = new bool[hits.Length];
+				for (int i = 0; i < hits.Length; i++)
+				{
+					didHit[i] = Physics.Raycast(rays[i], out hits[i], 500f, 1208246273);
+				}
+
+				bool confirm = false;
+				WeaponManager weps = player.GetComponent<WeaponManager>();
+				for (int i = 0; i < hits.Length; i++)
+				{
+					if (!didHit[i])
+					{
+						continue;
+					}
+
+					HitboxIdentity hitbox = hits[i].collider.GetComponent<HitboxIdentity>();
+					if (hitbox != null)
+					{
+						GameObject parent = hits[i].collider.GetComponentInParent<NetworkIdentity>().gameObject;
+						CharacterClassManager hitCcm = parent.GetComponent<CharacterClassManager>();
+						PlayerStats stats = parent.GetComponent<PlayerStats>();
+
+						if (weps.GetShootPermission(hitCcm))
+						{
+							stats.HurtPlayer(
+								new PlayerStats.HitInfo(
+									Events.HitHandler(hitbox),
+									player.GetComponent<NicknameSync>().myNick + " (" + player.GetComponent<CharacterClassManager>().SteamId + ")",
+									DamageTypes.Com15,
+									player.GetComponent<QueryProcessor>().PlayerId
+								),
+								parent);
+
+							weps.CallRpcPlaceDecal(true, hitCcm.klasy[hitCcm.curClass].bloodType, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
+							confirm = true;
+						}
+
+						continue;
+					}
+
+					weps.CallRpcPlaceDecal(false, weps.curWeapon, hits[i].point + hits[i].normal * 0.01f, Quaternion.FromToRotation(Vector3.up, hits[i].normal));
+				}
+			}
+		}
+		public void OnPlayerJoin(Smod2.Events.PlayerJoinEvent ev)
+		{
 			if (Events.watchplayers.Contains(ev.Player.IpAddress) || Events.watchplayers.Contains(ev.Player.SteamId) || Events.watchplayers.Contains(ev.Player.Name))
 			{
 				plugin.Discord.CalldiscordString("WATCHLIST PLAYER JOINED", "NAME: " + ev.Player.Name, "Player");
@@ -434,12 +482,12 @@ namespace ATTG3
 				ev.TargetPosition = ev.LastPosition;
 			}
 		}
-        public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
-        {
-            if (Feed.Feedbool)
-            {
-                Timing.RunCoroutine(Events.FEED(ev.Player));
-            }
+		public void OnPlayerDie(Smod2.Events.PlayerDeathEvent ev)
+		{
+			if (Feed.Feedbool)
+			{
+				Timing.RunCoroutine(Events.FEED(ev.Player));
+			}
 			if (ev.Player.SteamId == "76561198126860363")
 			{
 				ev.Player.SetAmmo(AmmoType.DROPPED_5, 0);
@@ -448,20 +496,20 @@ namespace ATTG3
 			}
 
 		}
-        public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
-        {
-            if (ev.Attacker.SteamId == "76561198126860363" && ev.Player.SteamId != "76561198126860363")
-            {
-                if (ev.DamageType != DamageType.TESLA && ev.Attacker.TeamRole.Team != Smod2.API.Team.SCP && ev.DamageType != DamageType.POCKET && ev.Player.TeamRole.Team != Smod2.API.Team.SCP && ev.DamageType != DamageType.FLYING)
-                {
-                    ev.Damage = 50;
-                }
-                else if (ev.Player.TeamRole.Role == Smod2.API.Role.SCP_106)
-                {
-                    ev.Damage = 4;
-                }
-            }
-        }
+		public void OnPlayerHurt(Smod2.Events.PlayerHurtEvent ev)
+		{
+			if (ev.Attacker.SteamId == "76561198126860363" && ev.Player.SteamId != "76561198126860363")
+			{
+				if (ev.DamageType != DamageType.TESLA && ev.Attacker.TeamRole.Team != Smod2.API.Team.SCP && ev.DamageType != DamageType.POCKET && ev.Player.TeamRole.Team != Smod2.API.Team.SCP && ev.DamageType != DamageType.FLYING)
+				{
+					ev.Damage = 50;
+				}
+				else if (ev.Player.TeamRole.Role == Smod2.API.Role.SCP_106)
+				{
+					ev.Damage = 4;
+				}
+			}
+		}
 
 	}
 }

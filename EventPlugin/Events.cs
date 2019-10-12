@@ -1232,6 +1232,7 @@ namespace ATTG3
 			Team.TEAM1.Clear();
 			Team.Teamevent = false;
 			Mute.Muted = false;
+			GrenadeGun.shotgun.Clear();
             PlayerConsole.StaffCall.Clear();
             GunSound.Gunsoundlist.Clear();
             GunSound.Gunsoundslist.Clear();
@@ -1754,5 +1755,30 @@ namespace ATTG3
                 weps.CallRpcConfirmShot(false, weps.curWeapon);
             }
         }
-    }
+		public static Quaternion RandomAimcone()
+		{
+			return Quaternion.Euler(
+				UnityEngine.Random.Range(-5f, 5f),
+				UnityEngine.Random.Range(-5f, 5f),
+				UnityEngine.Random.Range(-5f, 5f)
+				);
+		}
+		public static float HitHandler(HitboxIdentity hitbox)
+		{
+			switch (hitbox.id.ToUpper())
+			{
+				case "HEAD":
+					return 15;
+
+				case "LEG":
+					return 5;
+
+				case "SCP106":
+					return 10;
+
+				default:
+					return 10;
+			}
+		}
+	}
 }
