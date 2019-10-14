@@ -77,7 +77,8 @@ namespace ATTG3
         public static List<Vector3> NoRoomTP = new List<Vector3>();
         public static List<string> Maplist = new List<string>();
         public static List<string> Banmemes = new List<string>();
-        public static Dictionary<Vector, string> MapCusSpawn = new Dictionary<Vector, string>();
+		public static List<string> KickNames = new List<string>();
+		public static Dictionary<Vector, string> MapCusSpawn = new Dictionary<Vector, string>();
         public static string EventSpawn = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "EventSpawn.txt";
         public static string Mapseeds = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "Mapseeds.txt";
         public static string Prilist = FileManager.GetAppFolder(shared: true) + "ATTG" + Path.DirectorySeparatorChar + "PRILIST.txt";
