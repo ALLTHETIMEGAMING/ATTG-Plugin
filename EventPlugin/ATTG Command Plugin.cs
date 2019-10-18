@@ -205,7 +205,7 @@ namespace ATTG3
 			this.AddEventHandlers(new Cap(this), Priority.High);
 			this.AddEventHandlers(new Team(this), Priority.High);
 			this.AddEventHandlers(new Hold(this), Priority.High);
-			this.AddEventHandlers(new Mystery(this), Priority.High);
+			this.AddEventHandlers(new Mystery(this));
 
 		}
         public void ReloadConfig()

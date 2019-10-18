@@ -1875,7 +1875,7 @@ namespace ATTG3
 			player.SetHealth(100);
 
 			player.PersonalClearBroadcasts();
-			player.PersonalBroadcast(15, "You are a <color=#5AD3D9>Civilian</color>. You must help the Detectives find the murderers, before they kill all of your friends!", false);
+			player.PersonalBroadcast(15, "You are a <color=#5AD3D9>Civilian</color>. You must help the Detectives find the murderers", false);
 		}
 
 		#endregion

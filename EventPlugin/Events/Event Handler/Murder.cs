@@ -8,7 +8,7 @@ using System.Linq;
 using UnityEngine;
 namespace ATTG3
 {
-	public class Mystery : IEventHandlerSummonVehicle, IEventHandlerCheckRoundEnd, IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerPlayerDie
+	public class Mystery : IEventHandlerSummonVehicle, IEventHandlerCheckRoundEnd, IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerPlayerDie, IEventHandlerPlayerTriggerTesla
 	{
 		private readonly ATTG3Plugin plugin;
 		public Mystery(ATTG3Plugin plugin) => this.plugin = plugin;
@@ -69,16 +69,16 @@ namespace ATTG3
 
 				foreach (GameObject player in PlayerManager.singleton.players) player.GetComponent<WeaponManager>().NetworkfriendlyFire = true;
 
-				for (int i = 0; i < 1; i++)
+				for (int i = 0; i < 2; i++)
 				{
 					if (players.Count == 0) break;
 					int random = Gen.Next(players.Count);
 					Player player = players[random];
 					players.Remove(player);
-					plugin.Info("Spawning Murder ");
+					plugin.Info("Spawning Murder " + player.Name.ToString());
 					Timing.RunCoroutine(Events.SpawnMurd(player));
 				}
-				for (int i = 0; i < 2; i++)
+				for (int i = 0; i < 3; i++)
 				{
 					if (players.Count == 0) break;
 					int random = Gen.Next(players.Count);
@@ -177,6 +177,13 @@ namespace ATTG3
 			if (Event)
 			{
 				ev.AllowSummon = false;
+			}
+		}
+		public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
+		{
+			if (Event)
+			{
+				ev.Triggerable = false;
 			}
 		}
 	}
