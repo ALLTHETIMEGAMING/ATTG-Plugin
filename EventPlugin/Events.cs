@@ -1239,6 +1239,8 @@ namespace ATTG3
 			VIPESCAPE.Vipescape = false;
 			VIPESCAPE.VIPplayer = null;
 			Trails.Playersspawn.Clear();
+			Mystery.Event = false;
+			Mystery.Murd.Clear();
 			Watchlist(null);
             //Events.GetRoundStartRoom();
             /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
@@ -1801,5 +1803,81 @@ namespace ATTG3
 				Fakedea.wipe.Add(ragdoll);
 			}
 		}
+		#region Murder Event
+		public static IEnumerator<float> SpawnMurd(Player player)
+		{
+			Vector spawn = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
+
+			player.ChangeRole(Role.CLASSD, false, false, false);
+
+			yield return Timing.WaitForSeconds(1);
+
+			player.Teleport(spawn);
+
+			foreach (Smod2.API.Item item in player.GetInventory()) item.Remove();
+
+			player.GiveItem(ItemType.USP);
+			player.GiveItem(ItemType.MEDKIT);
+			player.GiveItem(ItemType.ZONE_MANAGER_KEYCARD);
+			player.GiveItem(ItemType.RADIO);
+
+			player.SetAmmo(AmmoType.DROPPED_5, 500);
+			player.SetAmmo(AmmoType.DROPPED_7, 500);
+			player.SetAmmo(AmmoType.DROPPED_9, 500);
+
+			player.SetHealth(150);
+
+			Mystery.Murd.Add(player.SteamId, true);
+
+			player.PersonalClearBroadcasts();
+			player.PersonalBroadcast(15, "You are a <color=#c50000> Murderer</color>. You must murder all of the Civilians before the detectives find and kill you.", false);
+		}
+
+		public static IEnumerator<float> SpawnDet(Player player)
+		{
+			Vector spawn = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.SCIENTIST);
+
+			player.ChangeRole(Role.SCIENTIST, false, false, false);
+
+			yield return Timing.WaitForSeconds(1);
+
+			player.Teleport(spawn);
+
+			foreach (Smod2.API.Item item in player.GetInventory()) item.Remove();
+
+			player.GiveItem(ItemType.COM15);
+			player.GiveItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD);
+			player.GiveItem(ItemType.MEDKIT);
+			player.GiveItem(ItemType.DISARMER);
+
+			player.SetHealth(150);
+
+			player.SetAmmo(AmmoType.DROPPED_9, 500);
+
+			player.PersonalClearBroadcasts();
+			player.PersonalBroadcast(15, "You are a <color=#DAD530> Detective</color>. You must find all of the Murderers before they kill all of the Civilians!", false);
+		}
+
+		public static IEnumerator<float> SpawnCiv(Player player)
+		{
+			Vector spawn = PluginManager.Manager.Server.Map.GetRandomSpawnPoint(Role.CLASSD);
+
+			player.ChangeRole(Role.CLASSD, false, false, false);
+
+			yield return Timing.WaitForSeconds(1);
+
+			player.Teleport(spawn);
+
+			foreach (Smod2.API.Item item in player.GetInventory()) item.Remove();
+
+			player.GiveItem(ItemType.JANITOR_KEYCARD);
+
+			player.SetHealth(100);
+
+			player.PersonalClearBroadcasts();
+			player.PersonalBroadcast(15, "You are a <color=#5AD3D9>Civilian</color>. You must help the Detectives find the murderers, before they kill all of your friends!", false);
+		}
+
+		#endregion
 	}
 }
