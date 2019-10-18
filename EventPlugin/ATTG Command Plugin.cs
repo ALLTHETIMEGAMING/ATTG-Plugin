@@ -173,6 +173,7 @@ namespace ATTG3
 			this.AddCommand("Car", new Car(this));
             this.AddCommand("intercom", new Incomname(this));
             this.AddCommand("scpcon", new SCPCON(this));
+			this.AddCommand("trail", new Trails(this));
 
 			// Commands added after 8/23/2019
 			this.AddCommands(Gate.CA, new Gate(this));

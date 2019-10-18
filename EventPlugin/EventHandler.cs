@@ -108,7 +108,7 @@ namespace ATTG3
 					if (player.HasItem(ItemType.O5_LEVEL_KEYCARD) || player.HasItem(ItemType.FACILITY_MANAGER_KEYCARD) ||
 						player.HasItem(ItemType.CONTAINMENT_ENGINEER_KEYCARD) || player.HasItem(ItemType.CHAOS_INSURGENCY_DEVICE) ||
 						player.HasItem(ItemType.MTF_COMMANDER_KEYCARD) || player.HasItem(ItemType.MTF_LIEUTENANT_KEYCARD) ||
-						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD) || player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD))
+						player.HasItem(ItemType.SENIOR_GUARD_KEYCARD) || player.HasItem(ItemType.MAJOR_SCIENTIST_KEYCARD) || player.HasItem(ItemType.SCIENTIST_KEYCARD))
 					{
 						ev.Allow = true;
 					}
@@ -361,12 +361,10 @@ namespace ATTG3
 						int kill = 0;
 						ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
 						ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, ev.TargetPosition, true, 0f, false);
-						while (kill != 10)
+						while (kill != 20)
 						{
-							Vector target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
+							Vector target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-10f, 10f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 10f), ev.TargetPosition.z + UnityEngine.Random.Range(-10f, 10f));
 							ev.Player.ThrowGrenade(GrenadeType.FRAG_GRENADE, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
-							target = new Vector(ev.TargetPosition.x + UnityEngine.Random.Range(-5f, 5f), ev.TargetPosition.y + UnityEngine.Random.Range(0f, 5f), ev.TargetPosition.z + UnityEngine.Random.Range(-5f, 5f));
-							ev.Player.ThrowGrenade(GrenadeType.FLASHBANG, false, new Vector(0f, 0f, 0f), true, target, true, 0f, false);
 							kill++;
 						}
 					}
@@ -413,17 +411,17 @@ namespace ATTG3
 			{
 				Events.Onshootevent(ev.Player);
 			}
-			if (GrenadeGun.shotgun.Contains(ev.Player.SteamId.ToString()))
+			if (GrenadeGun.shotgun.ContainsKey(ev.Player.SteamId.ToString()))
 			{
 				GameObject player = (GameObject)ev.Player.GetGameObject();
 				Transform cam = player.GetComponent<Scp049PlayerScript>().plyCam.transform;
-				Ray[] rays = new Ray[6];
+				Ray[] rays = new Ray[GrenadeGun.shotgun[ev.Player.SteamId.ToString()]];
 				for (int i = 0; i < rays.Length; i++)
 				{
 					rays[i] = new Ray(cam.position + cam.forward, Events.RandomAimcone() * cam.forward);
 				}
 
-				RaycastHit[] hits = new RaycastHit[6];
+				RaycastHit[] hits = new RaycastHit[GrenadeGun.shotgun[ev.Player.SteamId.ToString()]];
 				bool[] didHit = new bool[hits.Length];
 				for (int i = 0; i < hits.Length; i++)
 				{

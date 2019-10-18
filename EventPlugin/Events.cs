@@ -1236,7 +1236,10 @@ namespace ATTG3
             PlayerConsole.StaffCall.Clear();
             GunSound.Gunsoundlist.Clear();
             GunSound.Gunsoundslist.Clear();
-            Watchlist(null);
+			VIPESCAPE.Vipescape = false;
+			VIPESCAPE.VIPplayer = null;
+			Trails.Playersspawn.Clear();
+			Watchlist(null);
             //Events.GetRoundStartRoom();
             /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
@@ -1778,6 +1781,24 @@ namespace ATTG3
 
 				default:
 					return 10;
+			}
+		}
+		public static IEnumerator<float> SetHP(Player player, int HP)
+		{
+				yield return MEC.Timing.WaitForSeconds(5);
+				player.SetHealth(HP);
+		}
+
+		public static IEnumerator<float> Trail(Player player)
+		{
+			while (Trails.Playersspawn.Contains(player.SteamId.ToString()) && player.TeamRole.Role != Role.SPECTATOR) {
+				GameObject player1 = (GameObject)player.GetGameObject();
+				yield return MEC.Timing.WaitForSeconds(3);
+				Class @class = PlayerManager.localPlayer.GetComponent<CharacterClassManager>().klasy[1];
+				GameObject ragdoll = UnityEngine.Object.Instantiate(@class.model_ragdoll, player1.transform.position + @class.ragdoll_offset.position, Quaternion.Euler(player1.transform.rotation.eulerAngles + @class.ragdoll_offset.rotation));
+				NetworkServer.Spawn(ragdoll);
+				ragdoll.GetComponent<Ragdoll>().SetOwner(new Ragdoll.Info(player.PlayerId.ToString(), player.Name, new PlayerStats.HitInfo(), 1, player.PlayerId));
+				Fakedea.wipe.Add(ragdoll);
 			}
 		}
 	}

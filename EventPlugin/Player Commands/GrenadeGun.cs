@@ -3,6 +3,7 @@ using Smod2.API;
 using Smod2.Commands;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 namespace ATTG3
 {
 	class GrenadeGun : ICommandHandler
@@ -16,7 +17,7 @@ namespace ATTG3
 		public string GetCommandDescription() => "";
 		public string GetUsage() => "Makes a player that is SCP-939 fast";
 		public static Dictionary<string,string> GrenadeList = new Dictionary<string,string>();
-		public static List<string> shotgun = new List<string>();
+		public static Dictionary<string, int> shotgun = new Dictionary<string, int>();
 		public static readonly string[] CA = new string[] { "AGGRENADE" };
 		public string[] OnCall(ICommandSender sender, string[] args)
 		{
@@ -45,7 +46,7 @@ namespace ATTG3
 					{
 						GrenadeList.Remove(myPlayer.SteamId);
 					}
-					if (shotgun.Contains(myPlayer.SteamId))
+					if (shotgun.ContainsKey(myPlayer.SteamId))
 					{
 						shotgun.Remove(myPlayer.SteamId);
 					}
@@ -56,6 +57,10 @@ namespace ATTG3
 					if (GrenadeList.ContainsKey(myPlayer.SteamId))
 					{
 						GrenadeList.Remove(myPlayer.SteamId);
+					}
+					if (shotgun.ContainsKey(myPlayer.SteamId))
+					{
+						shotgun.Remove(myPlayer.SteamId);
 					}
 					string args3 = args[2].ToLower();
 					if (args3 == "body")
@@ -80,7 +85,15 @@ namespace ATTG3
 					}
 					else if (args3 == "shot")
 					{
-						shotgun.Add(myPlayer.SteamId.ToString());
+						if (args.Length > 2)
+						{
+							int result = Int32.Parse(args[3]);
+							shotgun.Add(myPlayer.SteamId.ToString(), result);
+						}
+						else
+						{
+							shotgun.Add(myPlayer.SteamId.ToString(), 6);
+						}
 						return new string[] { myPlayer.Name + "Added to List" };
 					}
 					else
