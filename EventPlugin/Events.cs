@@ -824,7 +824,7 @@ namespace ATTG3
                     if (player.TeamRole.Team != Smod2.API.Team.SCP)
                     {
                         player.ChangeRole(Role.NTF_COMMANDER);
-                        player.PersonalBroadcast(10, "Kill SCP-173", false);
+                        player.PersonalBroadcast(10, "Kill SCP-173 / Turn on the Generators", false);
                     }
                     else if (player.TeamRole.Team == Smod2.API.Team.SCP)
                     {
@@ -1242,12 +1242,15 @@ namespace ATTG3
 			Mystery.Event = false;
 			Mystery.Murd.Clear();
 			Watchlist(null);
-            //Events.GetRoundStartRoom();
-            /*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
+			PlayerConsole.Stuck.Clear();
+			MAP.TleslaTrap = false;
+			MAP.TleslaTrap2 = false;
+			//Events.GetRoundStartRoom();
+			/*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);
             Events.MapSpawnVec();
 			*/
-        }
+		}
         public static IEnumerator<float> BREACHRESPAWN(Player player, Player Attacker)
         {
             foreach (Smod2.API.Item item in player.GetInventory())

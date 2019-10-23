@@ -11,7 +11,8 @@ namespace ATTG3
         private readonly ATTG3Plugin plugin;
         public PlayerConsole(ATTG3Plugin plugin) => this.plugin = plugin;
         public static Dictionary<Player, bool> StaffCall = new Dictionary<Player, bool>();
-        public static Dictionary<string, string> Voted = new Dictionary<string, string>();
+		public static List<string> Stuck = new List<string>();
+		public static Dictionary<string, string> Voted = new Dictionary<string, string>();
         public void OnCallCommand(PlayerCallCommandEvent ev)
         {
             string command = ev.Command.ToLower();
@@ -43,7 +44,21 @@ namespace ATTG3
                 }
                 return;
             }
-            else if (command.StartsWith("10lock"))
+			else if (command.StartsWith("stuck"))
+			{
+				if (!plugin.Event)
+				{
+					if (!Stuck.Contains(ev.Player.SteamId))
+					{
+						Stuck.Add(ev.Player.SteamId);
+						ev.Player.Teleport(PluginManager.Manager.Server.Map.GetRandomSpawnPoint(ev.Player.TeamRole.Role));
+						ev.ReturnMessage = "unstuck";
+					}
+					
+				}
+				return;
+			}
+			else if (command.StartsWith("10lock"))
             {
                 plugin.Info("10lock Command Called");
                 if (EventLStorageList.Itemset.ContainsKey(ev.Player.SteamId) == true)

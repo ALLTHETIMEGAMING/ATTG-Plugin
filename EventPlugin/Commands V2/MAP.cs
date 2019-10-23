@@ -22,6 +22,8 @@ namespace ATTG3
 		public static bool Shake;
 		public static bool Tleslad;
 		public static bool Tleslas;
+		public static bool TleslaTrap;
+		public static bool TleslaTrap2;
 		public static float Desplay2;
         public string[] OnCall(ICommandSender sender, string[] args)
         {
@@ -99,13 +101,39 @@ namespace ATTG3
 					}
 					return new[]
 					{
-					 $"Tlesla spam {(Tleslad ? "DEACTAVATED" : "ACTAVATED")}."
+					 $"Tlesla spam {(Tleslas ? "DEACTAVATED" : "ACTAVATED")}."
 					};
 				}
-				else if (args2=="in")
+				else if (args2=="trap")
 				{
-					
-					return new[] { " " };
+					TleslaTrap = !TleslaTrap;
+
+					return new[]
+					{
+					 $"Tlesla Trap {(TleslaTrap ? "DEACTAVATED" : "ACTAVATED")}."
+					};
+				}
+				else if (args2 == "trap2")
+				{
+					TleslaTrap2 = !TleslaTrap2;
+					if (TleslaTrap2)
+					{
+						foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
+						{
+							TeslaGate.TriggerDistance = 3f;
+						}
+					}
+					if (!TleslaTrap2)
+					{
+						foreach (Smod2.API.TeslaGate TeslaGate in Smod2.PluginManager.Manager.Server.Map.GetTeslaGates())
+						{
+							TeslaGate.TriggerDistance = 5.5f;
+						}
+					}
+					return new[]
+					{
+					 $"all Tleslas are now {(TleslaTrap2 ? "DEACTAVATED" : "ACTAVATED")}."
+					};
 				}
 				else if (args2=="es")
                 {

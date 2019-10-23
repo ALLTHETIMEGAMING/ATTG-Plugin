@@ -13,7 +13,7 @@ namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerWarheadStopCountdown,
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock, IEventHandlerPlayerHurt,
-		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet,
+		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet, IEventHandlerPlayerTriggerTesla,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
 		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerDie
 	{
@@ -506,6 +506,18 @@ namespace ATTG3
 				{
 					ev.Damage = 4;
 				}
+			}
+		}
+		public void OnPlayerTriggerTesla(PlayerTriggerTeslaEvent ev)
+		{
+			if (MAP.TleslaTrap2)
+			{
+				if (ev.Player.TeamRole.Role != Role.TUTORIAL)
+				{
+					ev.TeslaGate.Activate(true);
+					ev.Player.Kill(DamageType.TESLA);
+				}
+				
 			}
 		}
 

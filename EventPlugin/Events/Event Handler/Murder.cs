@@ -42,10 +42,25 @@ namespace ATTG3
 						door.Locked = true;
 						door.Open = false;
 					}
+					else if (door.Name == "914")
+					{
+						door.Locked = true;
+						door.Open = false;
+					}
 					else if (door.Name == "CHECKPOINT_ENT")
 					{
 						door.Locked = true;
 						door.Open = false;
+					}
+					else if (door.Name == "CHECKPOINT_LCZ_A")
+					{
+						door.Locked = true;
+						door.Open = true;
+					}
+					else if (door.Name == "CHECKPOINT_LCZ_B")
+					{
+						door.Locked = true;
+						door.Open = true;
 					}
 					else if (door.Name == "106_PRIMARY")
 					{
