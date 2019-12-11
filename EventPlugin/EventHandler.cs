@@ -13,7 +13,7 @@ namespace ATTG3
 {
 	internal class EventHandler : IEventHandlerWarheadStopCountdown,
 		IEventHandlerDoorAccess, IEventHandlerGeneratorUnlock, IEventHandlerPlayerHurt,
-		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet, IEventHandlerPlayerTriggerTesla,
+		IEventHandlerSetRole, IEventHandlerBan, IEventHandlerGeneratorInsertTablet, IEventHandlerPlayerTriggerTesla, IEventHandlerWarheadStartCountdown,
 		IEventHandlerWarheadKeycardAccess, IEventHandlerElevatorUse, IEventHandlerRoundEnd, IEventHandlerWaitingForPlayers, IEventHandlerNicknameSet, IEventHandlerRoundStart,
 		IEventHandlerTeamRespawn, IEventHandlerSpawn, IEventHandlerSetConfig, IEventHandlerShoot, IEventHandlerPlayerJoin, IEventHandlerPocketDimensionEnter, IEventHandlerPlayerDie
 	{
@@ -517,9 +517,16 @@ namespace ATTG3
 					ev.TeslaGate.Activate(true);
 					ev.Player.Kill(DamageType.TESLA);
 				}
-				
+
 			}
 		}
-
+		public void OnStartCountdown(WarheadStartEvent ev)
+		{
+			if (Nuketime.Customnuketime = true)
+			{
+				ev.IsResumed = true;
+				ev.TimeLeft = Nuketime.Customtime;
+			}
+		}
 	}
 }

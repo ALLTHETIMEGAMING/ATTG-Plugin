@@ -1245,6 +1245,8 @@ namespace ATTG3
 			PlayerConsole.Stuck.Clear();
 			MAP.TleslaTrap = false;
 			MAP.TleslaTrap2 = false;
+			Nuketime.Customtime = 120;
+			Nuketime.Customnuketime = false;
 			//Events.GetRoundStartRoom();
 			/*var Mapfile = File.ReadAllLines(ATTG3Plugin.Mapseeds);
             ATTG3Plugin.Maplist = new List<string>(Mapfile);

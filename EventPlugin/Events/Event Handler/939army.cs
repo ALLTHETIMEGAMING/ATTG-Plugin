@@ -40,6 +40,10 @@ namespace ATTG3
 						door.Locked = true;
 					}
 				}
+				foreach (Generator079 gen in Generator079.generators)
+				{
+					gen.NetworkremainingPowerup = (gen.startDuration = 95f);
+				}
 				Timing.RunCoroutine(Events.SpawnDelayEvcent("939Army"));
 				foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.WEAPON_MANAGER_TABLET, true))
 				{

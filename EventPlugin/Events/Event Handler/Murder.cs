@@ -8,18 +8,21 @@ using System.Linq;
 using UnityEngine;
 namespace ATTG3
 {
-	public class Mystery : IEventHandlerSummonVehicle, IEventHandlerCheckRoundEnd, IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerPlayerDie, IEventHandlerPlayerTriggerTesla
+	public class Mystery : IEventHandlerSummonVehicle, IEventHandlerCheckRoundEnd, IEventHandlerRoundStart, IEventHandlerRoundEnd, IEventHandlerPlayerDie, IEventHandlerPlayerTriggerTesla, IEventHandlerPlayerPickupItem
 	{
 		private readonly ATTG3Plugin plugin;
 		public Mystery(ATTG3Plugin plugin) => this.plugin = plugin;
 		public static bool Event = false;
 		public System.Random Gen = new System.Random();
 		public static Dictionary<string, bool> Murd = new Dictionary<string, bool>();
+
 		public void OnRoundStart(RoundStartEvent ev)
 		{
 			if (Event)
 			{
 				plugin.Info("Murder Event started");
+				int murderers = 0;
+				int decti = 0;
 				foreach (Smod2.API.Door door in Smod2.PluginManager.Manager.Server.Map.GetDoors())
 				{
 					if (door.Name == "NUKE_SURFACE")
@@ -72,6 +75,11 @@ namespace ATTG3
 						door.Locked = true;
 						door.Open = false;
 					}
+					else if (door.Name == "INTERCOM")
+					{
+						door.Locked = true;
+						door.Open = false;
+					}
 					else if (door.Name == "106_SECONDARY")
 					{
 						door.Locked = true;
@@ -83,8 +91,38 @@ namespace ATTG3
 				List<Player> players = ev.Server.GetPlayers();
 
 				foreach (GameObject player in PlayerManager.singleton.players) player.GetComponent<WeaponManager>().NetworkfriendlyFire = true;
-
-				for (int i = 0; i < 2; i++)
+				foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.USP, true))
+				{
+					item.Remove();
+				}
+				foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.P90, true))
+				{
+					Vector itemspawn = item.GetPosition();
+					PluginManager.Manager.Server.Map.SpawnItem(Smod2.API.ItemType.COM15, itemspawn, null);
+					item.Remove();
+				}
+				foreach (Smod2.API.Item item in PluginManager.Manager.Server.Map.GetItems(Smod2.API.ItemType.E11_STANDARD_RIFLE, true))
+				{
+					Vector itemspawn = item.GetPosition();
+					PluginManager.Manager.Server.Map.SpawnItem(Smod2.API.ItemType.COM15, itemspawn, null);
+					item.Remove();
+				}
+				if (ev.Server.NumPlayers >= 10)
+				{
+					murderers = 2;
+					decti = 3;
+				}
+				else if (ev.Server.NumPlayers >= 20)
+				{
+					murderers = 3;
+					decti = 4;
+				}
+				else
+				{
+					murderers = 1;
+					decti = 2;
+				}
+				for (int i = 0; i < murderers; i++)
 				{
 					if (players.Count == 0) break;
 					int random = Gen.Next(players.Count);
@@ -93,7 +131,7 @@ namespace ATTG3
 					plugin.Info("Spawning Murder " + player.Name.ToString());
 					Timing.RunCoroutine(Events.SpawnMurd(player));
 				}
-				for (int i = 0; i < 3; i++)
+				for (int i = 0; i < decti; i++)
 				{
 					if (players.Count == 0) break;
 					int random = Gen.Next(players.Count);
@@ -127,6 +165,10 @@ namespace ATTG3
 					plugin.Server.Map.ClearBroadcasts();
 					plugin.Server.Map.Broadcast(15, "A murderer, " + ev.Player.Name + " has been eliminated by " + ev.Killer.Name + "!", false);
 					Murd.Remove(ev.Player.SteamId);
+					foreach (Smod2.API.Item item in ev.Player.GetInventory())
+					{
+						item.Remove();
+					}
 					break;
 				case Role.CLASSD:
 					{
@@ -199,6 +241,17 @@ namespace ATTG3
 			if (Event)
 			{
 				ev.Triggerable = false;
+			}
+		}
+		public void OnPlayerPickupItem(Smod2.Events.PlayerPickupItemEvent ev)
+		{
+			if (Event)
+			{
+				if ((ev.Item.ItemType == ItemType.ZONE_MANAGER_KEYCARD || ev.Item.ItemType == ItemType.USP || ev.Item.ItemType == ItemType.RADIO) && !Murd.ContainsKey(ev.Player.SteamId))
+				{
+					ev.Allow = false;
+					ev.Player.PersonalBroadcast(10, "Only Murders can have this item", false);
+				}
 			}
 		}
 	}

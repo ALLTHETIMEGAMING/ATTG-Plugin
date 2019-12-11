@@ -1,12 +1,7 @@
 ﻿using Smod2.API;
 using Smod2.Commands;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using Smod2;
-using MEC;
-using Smod2.EventHandlers;
-using Smod2.Events;
-using UnityEngine;
 namespace ATTG3
 {
 	class Nuketime : ICommandHandler
@@ -15,7 +10,7 @@ namespace ATTG3
 		private readonly ATTG3Plugin plugin;
 		public Nuketime(ATTG3Plugin plugin)
 		{
-			this.plugin=plugin;
+			this.plugin = plugin;
 		}
 		public string GetCommandDescription()
 		{
@@ -25,11 +20,13 @@ namespace ATTG3
 		{
 			return "";
 		}
-        public static readonly string[] CA = new string[] { "AGLIGHTS", "LIGHTS" };
-        public string[] OnCall(ICommandSender sender, string[] args)
+		public static readonly string[] CA = new string[] { "AGLIGHTS", "LIGHTS" };
+		public static bool Customnuketime = false;
+		public static int Customtime = 120;
+		public string[] OnCall(ICommandSender sender, string[] args)
 		{
-			if (!(sender is Server)&&
-				sender is Player player&&
+			if (!(sender is Server) &&
+				sender is Player player &&
 				!plugin.Allrank.Contains(player.GetRankName()))
 			{
 				return new[]
@@ -37,12 +34,27 @@ namespace ATTG3
 					$"You (rank {player.GetRankName() ?? "Server"}) do not have permissions to that command."
 				};
 			}
-            AlphaWarheadController host = AlphaWarheadController.host;
-            host.NetworktimeToDetonation = 600;
-            return new[]
+			if (args.Length > 0)
 			{
-				"Nuke set to 600"
+				string args1 = args[0].ToLower();
+				int Time = Int32.Parse(args1);
+				AlphaWarheadController.host.NetworktimeToDetonation = Time;
+				Customtime = Time;
+				Customnuketime = true;
+				return new[]
+			{
+				$"Nuke set to " + Time
 			};
+			}
+			else
+			{
+				Customnuketime = false;
+				return new[]
+			{
+				$"Nuke reset"
+			};
+			}
+
 		}
 	}
 }

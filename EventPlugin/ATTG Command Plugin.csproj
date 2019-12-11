@@ -140,6 +140,7 @@
     <Compile Include="Events\Event Commands\GunGameNerf.cs" />
     <Compile Include="Player Commands\GunSound.cs" />
     <Compile Include="Player Commands\murder.cs" />
+    <Compile Include="Player Commands\PlayerClone.cs" />
     <Compile Include="Player Commands\Rain.cs" />
     <Compile Include="Player Commands\GrenadeGun.cs" />
     <Compile Include="Player Commands\Nerfplayer.cs" />
